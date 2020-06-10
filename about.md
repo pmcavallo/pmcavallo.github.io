@@ -4,12 +4,16 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Skilled in Data Analysis, FDI, Market Research, and Languages. Strong education professional with a Doctor of Philosophy (PhD) focused in Public Policy and Political Economy from The University of Texas at Dallas. 
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+Further training:
+
+1. Graduate Certificate in Geographic Information System - GIS (2019), The University of Texas at Dallas.
+
+2. Graduate Ceretificate in Social and Demographic Data Analysis (2018), The University of Texas at Dallas. 
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[pmcavallo@yahoo.com](mailto:pmcavallo@yahoo.com)
