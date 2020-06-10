@@ -19,6 +19,7 @@ library(ggraph)
 ```
 
 2. Second, I create the token:
+
 ```R
 token <- rtweet::create_token(
   app = "APPNAME",
@@ -26,6 +27,6 @@ token <- rtweet::create_token(
   consumer_secret <- "YOURSECRETKEY",
   access_token <- "...",
   access_secret <- "...")
-
+```
 
  
