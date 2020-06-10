@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Skilled in Data Analysis, Foreign Direct Investment (FDI), Market Research, and Languages. Strong education professional with a Doctor of Philosophy (PhD) focused in Public Policy and Political Economy from The University of Texas at Dallas. 
+Skilled in Data Analysis, Foreign Direct Investment (FDI), Market Research, and Languages, with a Doctor of Philosophy (PhD) focused in Public Policy and Political Economy from The University of Texas at Dallas. 
 
 ### More Information
 
