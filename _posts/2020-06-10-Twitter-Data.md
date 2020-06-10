@@ -53,5 +53,5 @@ with(coordB, points(lng, lat, pch = 20, cex = .75, col = "blue"))
 with(coordT, points(lng, lat, pch = 20, cex = .75, col = "red"))
 ```
 
-https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/trump_biden.png "Resulting Map"
+![Resulting Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/trump_biden.png "Resulting Map")
  
