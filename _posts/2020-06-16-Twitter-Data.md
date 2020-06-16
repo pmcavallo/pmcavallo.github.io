@@ -78,7 +78,7 @@ head(sort(table(jb), decreasing = TRUE))
 And the results for are:
 
 | Trump                | Biden                |
-| ---------------------|:--------------------:|
+| ---------------------|----------------------|
 | #AIDS    (24)        | #Trump (124)         |
 | #ExecutiveOrder (24) | #ExecutiveOrder (121)|  
 | #HIV (24)            | #ObamaBiden (120)    |  
