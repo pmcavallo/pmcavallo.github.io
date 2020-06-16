@@ -86,7 +86,7 @@ And the results are:
 | #Trump (24)          | #Trump2020 (20)      |
 
 
-7. And now we can check wtheir names are mentioned when *tweeting* about the other. As a bonus, we are also going to check how many time Obama's name is mentioned when *tweeting* about them:
+7. And now we can check  how many times their names are mentioned when *tweeting* about the other. As a bonus, we are also going to check how many times Obama's name is mentioned when *tweeting* about them:
 
 ```R
 length(grep("obama", rdt$text, ignore.case=TRUE))  
