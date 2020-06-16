@@ -30,7 +30,7 @@ token <- rtweet::create_token(
 ```
 *Obs: You need a Twitter developer account for this.*
 
-3. We collect *tweets* for a specific subject or user, in this case we will collect *tweets* that mention Biden and Trump:
+3. We collect *tweets* for a specific subject or user, in this case we will collect *tweets* that mention just the names Biden and Trump:
 
 ```R
 biden <- rtweet::search_tweets("Biden", n = 5000, include_rts = FALSE)
@@ -54,4 +54,34 @@ with(coordT, points(lng, lat, pch = 20, cex = .75, col = "red"))
 ```
 
 ![Resulting Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/trump_biden.png?raw=true)
+
+5. Now we will collect *tweets* that mentions the *users* **realDonaldTrump** and **JoeBIden**:
+
+```R
+rdt <- rtweet::search_tweets(q = "realDonaldTrump", n = 1000, lang = "en")
+
+bid <- rtweet::search_tweets(q = "JoeBiden", n = 1000, lang = "en")
+```
+
+6. And then we check the most popular hashtags used when *tweeting* about Trump and Biden:
+
+```R
+library(stringr)
+dt <- str_extract_all(rdt$text, "#(\\d|\\w)+")
+dt <- unlist(dt)
+head(sort(table(ht), decreasing = TRUE))
+
+jb <- str_extract_all(bid$text, "#(\\d|\\w)+")
+jb <- unlist(jb)
+head(sort(table(jb), decreasing = TRUE))
+```
+And the results for are:
+
+| Trump                | Biden                |
+| ---------------------|:--------------------:|
+| #AIDS    (24)        | #Trump (124)         |
+| #ExecutiveOrder (24) | #ExecutiveOrder (121)|  
+| #HIV (24)            | #ObamaBiden (120)    |  
+
+
  
