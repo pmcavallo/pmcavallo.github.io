@@ -75,13 +75,33 @@ jb <- str_extract_all(bid$text, "#(\\d|\\w)+")
 jb <- unlist(jb)
 head(sort(table(jb), decreasing = TRUE))
 ```
-And the results for are:
+And the results are:
 
 | Trump                | Biden                |
 | ---------------------|----------------------|
 | #AIDS    (24)        | #Trump (124)         |
 | #ExecutiveOrder (24) | #ExecutiveOrder (121)|  
 | #HIV (24)            | #ObamaBiden (120)    |  
+| #IdiotInChief (24)   | #JoeBiden (22)       |
+| #Trump (24)          | #Trump2020 (20)      |
+
+
+7. And now we can check wtheir names are mentioned when *tweeting* about the other. As a bonus, we are also going to check how many time Obama's name is mentioned when *tweeting* about them:
+
+```R
+length(grep("obama", rdt$text, ignore.case=TRUE))  
+[1] 78
+
+length(grep("obama", bid$text, ignore.case=TRUE))  
+[1] 302
+
+length(grep("trump", bid$text, ignore.case=TRUE))  
+[1] 491
+
+length(grep("biden", rdt$text, ignore.case=TRUE))
+[1] 112
+```
+
 
 
  
