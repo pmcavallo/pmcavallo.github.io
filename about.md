@@ -26,4 +26,4 @@ Further training:
 
 [pmcavallo@yahoo.com](mailto:pmcavallo@yahoo.com)
 
-[I'm an inline-style link with title](https://www.paulocavallo.wordpress.com "Personal Homepage")
+[Personal Website](https://www.paulocavallo.wordpress.com "Personal Website")
