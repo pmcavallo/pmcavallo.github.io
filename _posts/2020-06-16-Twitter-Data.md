@@ -102,6 +102,27 @@ length(grep("biden", rdt$text, ignore.case=TRUE))
 [1] 112
 ```
 
+8. We can then create a network plot to see based, for instance, on *retweets* to check user's *influence*:
 
+```R
+filter(rdt, retweet_count > 0 ) %>% 
+  select(screen_name, mentions_screen_name) %>%
+  unnest(mentions_screen_name) %>% 
+  filter(!is.na(mentions_screen_name)) %>% 
+  graph_from_data_frame() -> rdt_g
+V(rdt_g)$node_label <- unname(ifelse(degree(rdt_g)[V(rdt_g)] > 20, names(V(rdt_g)), "")) 
+V(rdt_g)$node_size <- unname(ifelse(degree(rdt_g)[V(rdt_g)] > 20, degree(rdt_g), 0)) 
+ggraph(rdt_g, layout = 'kk') + 
+  geom_edge_arc(edge_width=0.1, aes(alpha=..index..)) +
+  geom_node_label(aes(label=node_label, size=node_size),
+                  label.size=0, fill="#ffffff66", segment.colour="light blue",
+                  color="red", repel=TRUE, family="Apple Garamond") +
+  coord_fixed() +
+  scale_size_area(trans="sqrt") +
+  labs(title="Title", subtitle="Edges=volume of retweets. Screenname size=influence") +
+  theme_graph(base_family="Apple Garamond") +
+  theme(legend.position="none") 
+  ```
+  
 
  
