@@ -124,6 +124,6 @@ ggraph(rdt_g, layout = 'kk') +
   theme(legend.position="none") 
   ```
   
-  ![Network Plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/net_T.png)
+  ![Network Plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/net_T.png?raw=true)
 
  
