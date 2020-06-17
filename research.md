@@ -4,7 +4,7 @@ title: Research
 permalink: /research/
 ---
 
-Research Interests: Foreign Direct Investment (FDI), Multinational Enterprises (MNEs), investment location, spatial analyses, Bilateral Investment Treaties (BITs).
+**Research Interests:** Foreign Direct Investment (FDI), Multinational Enterprises (MNEs), investment location, spatial analyses, Bilateral Investment Treaties (BITs).
 
 ### Peer-Reviewed Publications
 
