@@ -11,6 +11,21 @@ permalink: /research/
 
 2. Cavallo, Paulo. 2020. "Learning from Brazil's Bilateral Investment Treaties." *FDI Perspectives*, No. 270, January 27, 2020.
 
-3.
+### Under Review
+
+1. "Foreign Investment and Right-to-Work Laws.' (with Clint Peinhardt)
+
+2. "Market Proximity, Congestion Costs and the New Geography of FDI in the US."
+
+### Working Papers
+
+1. "FDI Announcement Timing and Congressional
+Elections: Pandering Cycles or Cautious Delay?" (with Sarah Bauerle Danzman and Jonas Bunte)
+
+2. "Investing in the Shadows: The Impact of the Informal Economy on FDI." (with Leslie Stanaland)
+
+3. "The Greenfield Investment Location Decision in Texas: A Spatial Econometrics Approach." (with David Saucedo de la Fuente)
+
+
 
 
