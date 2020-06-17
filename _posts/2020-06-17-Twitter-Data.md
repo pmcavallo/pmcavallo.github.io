@@ -7,36 +7,35 @@ This example scrapes Twitter data, visualizes it, and looks at some descriptive 
 
 1. First, we install the *rtweet* package:
 
-```R
-install.packages("rtweet")
+    ```R
+    install.packages("rtweet")
+    library(ggplot2)
+    library(rtweet)
+    library(igraph)
+    library(tidyverse)
+    library(ggraph)
 
-library(ggplot2)
-library(rtweet)
-library(igraph)
-library(tidyverse)
-library(ggraph)
-
-```
+    ```
 
 2. Second, we create the **Twitter** token:
 
-```R
-token <- rtweet::create_token(
-  app = "APPNAME",
-  consumer_key <- "YOURKEY",
-  consumer_secret <- "YOURSECRETKEY",
-  access_token <- "...",
-  access_secret <- "...")
-```
+     ```R
+    token <- rtweet::create_token(
+    app = "APPNAME",
+    consumer_key <- "YOURKEY",
+    consumer_secret <- "YOURSECRETKEY",
+    access_token <- "...",
+    access_secret <- "...")
+    ```
 *Obs: You need a Twitter developer account for this.*
 
 3. We collect *tweets* for a specific subject or user, in this case we will collect *tweets* that mention just the names Biden and Trump:
 
-```R
-biden <- rtweet::search_tweets("Biden", n = 5000, include_rts = FALSE)
+    ```R
+    biden <- rtweet::search_tweets("Biden", n = 5000, include_rts = FALSE)
 
-trump <- rtweet::search_tweets("Trump", n = 5000, include_rts = FALSE)
-```
+    trump <- rtweet::search_tweets("Trump", n = 5000, include_rts = FALSE)
+    ```
 
 4. We then geocode them, or extract latitude and longitude, and map them:
 
