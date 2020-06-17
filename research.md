@@ -26,6 +26,8 @@ Elections: Pandering Cycles or Cautious Delay?" (with Sarah Bauerle Danzman and 
 
 3. "The Greenfield Investment Location Decision in Texas: A Spatial Econometrics Approach." (with David Saucedo de la Fuente)
 
+4. "The Impacts of Foreign Direct Investment on Congressional Voting on Trade Policy." (with Jonas Bunte and Thomas Gray)
+
 
 
 
