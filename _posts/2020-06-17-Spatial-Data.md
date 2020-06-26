@@ -3,7 +3,7 @@ layout: post
 title: Spatial Data
 ---
 
-This example uses geocoded foreign direct investment (FDI) data to analyze and control for spatial correlation:
+This example uses geocoded foreign direct investment (FDI) data to analyze and control for spatial autocorrelation:
 
 The data for this project comes from the *Finantial Times, BEA, and EMSI*, and the unit of analysis is Metropolitan Statistical Areas (MSAs) in the US. The dependent variable is greenfield foreign direct investment (FDI) (thousands of U$ Dollars). This greenfield data eliminates not only the liquid capital component but also Mergers & Acqusitions (M&A), leaving only the job-creating component city officials are eager to attract. The FDI data is at the project-level, allowing me to geocode the data at the county-level and then build the metro areas.
 
