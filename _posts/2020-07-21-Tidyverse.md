@@ -53,6 +53,7 @@ using the following code:
     fores$newdate = str_split_fixed(fores$Date, "\\[", n = 2)[, 1]
     fores$newdebt = str_split_fixed(fores$`External debtUS dollars`, "\\×", n = 5)[, 1]
     ```
+    
 5. We can then, for instance, convert the "newdebt" variable to numeric and return it to its original measure:
 
     ```R
