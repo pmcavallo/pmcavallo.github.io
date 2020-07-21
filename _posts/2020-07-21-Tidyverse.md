@@ -44,7 +44,7 @@ right click the table and Copy the XPath, paste at html_nodes(xpath =):
 
 to this:
 
-![Old Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/debt2.png)
+![New Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/debt2.png)
 
 using the following code:
 
