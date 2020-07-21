@@ -57,7 +57,7 @@ using the following code:
 
     ```R
     debt <- as.numeric(fores$newdebt)
-    newdebt2 <- debt * (10^12)
+    fores$newdebt2 <- debt * (10^12)
     head(fores$newdebt2)
     [1] 2.541271e+12 8.475956e+12 4.974278e+12 4.510400e+12 3.586817e+12 2.785709e+12
     ```
