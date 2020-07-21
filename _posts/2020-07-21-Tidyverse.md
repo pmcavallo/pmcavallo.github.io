@@ -40,11 +40,11 @@ right click the table and Copy the XPath, paste at html_nodes(xpath =):
 
 4. Next we clean up the variables. The date variable, for instance, will go from this:
 
-![Old Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/debt1.png)
+![Old Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/debt1.PNG)
 
 to this:
 
-![New Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/debt2.png)
+![New Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/debt2.PNG)
 
 using the following code:
 
