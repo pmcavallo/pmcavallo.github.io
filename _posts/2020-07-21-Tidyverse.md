@@ -42,17 +42,18 @@ right click the table and Copy the XPath, paste at html_nodes(xpath =):
 
 ![Old Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/debt1.PNG?raw=true)
 
-to this:
+   to this:
 
 ![New Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/debt3.PNG?raw=true)
 
-using the following code:
+   using the following code:
 
     ```R
     library(stringr)
     fores$newdate = str_split_fixed(fores$Date, "\\[", n = 2)[, 1]
     fores$newdebt = str_split_fixed(fores$`External debtUS dollars`, "\\×", n = 5)[, 1]
     ```
+    
     
 5. We can then, for instance, convert the "newdebt" variable to numeric and return it to its original measure:
 
