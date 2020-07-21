@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Webscraping with Tidyverse
+title: Webscraping with R
 ---
 
 This example scrapes web data and cleans it using R's rvest and Tidyverse.
@@ -37,3 +37,5 @@ right click the table and Copy the XPath, paste at html_nodes(xpath =):
     class(externaldebt)
     fores = externaldebt[[1]]
     ```
+
+4. Next we clean up the variables. The date variable, for instance, will go from this:
