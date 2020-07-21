@@ -39,3 +39,4 @@ right click the table and Copy the XPath, paste at html_nodes(xpath =):
     ```
 
 4. Next we clean up the variables. The date variable, for instance, will go from this:
+![Old Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/trump_biden.png?raw=true)
