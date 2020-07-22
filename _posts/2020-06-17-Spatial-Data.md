@@ -49,7 +49,7 @@ map.centroid<-coordinates(statemap)
 
 The next step is to check if there is spatial autocorrelation in the FDI data. To that end, I first build a spatial weights matrix, the heart of any spatial analyses, where the elements are defined to reflect the suspected nature of the hypothesized spatial relationship between the units. The matrix is composed of elements connecting one metro area to every other metro area in the sample, and reflect the strength of the dependence between them. There are two ways to calculate the spatial weights matrix: contiguity (queen and rook), and inverse distance. In the inverse distance case, distance is measured as the geographic distance between the states' centroids defined by the great-circle distance in miles between one state to the other.
 
-The contiguity weigth matrix (rook and queen ), is calculated as follows:
+The contiguity weight matrix (rook and queen ), is calculated as follows:
 
 ```R
 map.link <- poly2nb(statemap,queen=T)
@@ -92,7 +92,7 @@ And the output is something like this:
 
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran.PNG?raw=true)
 
-Showing spatial autocorrelation for FDI in 2003. Below is a table with the results for all the coverage of the data set (2003 to 2016):
+Showing spatial autocorrelation for FDI in 2003. Below is a table with the results for some of the years of the data:
 
 | Year                 | Statistic            |              
 | ---------------------|----------------------|
