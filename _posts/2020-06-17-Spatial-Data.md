@@ -90,7 +90,7 @@ moran.mc(statemap$FDI2003,mydm.lw,nsim=9999)
 ```
 And the output is something like this:
 
-![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran.png?raw=true)
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran.PNG?raw=true)
 
 Showing spatial autocorrelation for FDI in 2003. Below is a table with the results for all the coverage of the data set (2003 to 2016):
 
