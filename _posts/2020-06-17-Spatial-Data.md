@@ -81,4 +81,4 @@ plot(mydm.lw,coords=mycoords, pch=19, cex=0.1,col="red",add=T)
 title("Inverse Distance Spatial Links Among States")  
 ```
 
-![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/queen.png?raw=true)
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/inverse.png?raw=true)
