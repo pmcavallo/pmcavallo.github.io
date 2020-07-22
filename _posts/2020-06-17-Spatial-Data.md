@@ -67,7 +67,7 @@ title("Contiguity Spatial Links Among States")
 
 The inverse distance weigth matris is calculated as follows:
 ```R
-mydm<-rdist.earth(mycoords)              # computes distance in miles. If true distances are in statute miles if false distances in kilometers. 
+mydm<-rdist.earth(mycoords)              # computes distance in miles. 
 for(i in 1:dim(mydm)[1]) {mydm[i,i] = 0} # renders exactly zero all diagonal elements
 mydm[mydm > 500] <- 0                    # all distances > 500 miles are set to zero
 mydm<-ifelse(mydm!=0, 1/mydm, mydm)      # inverting distances
@@ -82,5 +82,14 @@ title("Inverse Distance Spatial Links Among States")
 ```
 
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/inverse.png?raw=true)
+
+We then calculate the Moran's I, which is a correlation coefficient that measures the overall spatial autocorrelation of the data. In this case, we are going to check the spatial autocorrelation in FDI at the state-level using the inverse distance spatial matrix.
+
+```R
+moran.mc(statemap$FDI2003,mydm.lw,nsim=9999)
+```
+And the output is something like this:
+
+Showing spatial autocorrelation for FDI in 2003. Below is a table with the results for all the coverage of the data set (2003 to 2016):
 
 
