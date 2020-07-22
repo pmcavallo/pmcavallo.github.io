@@ -138,4 +138,6 @@ As a robustness check, and because the rho coefficient of the model shows very w
 m.lag <-spml(model,data=datapd,index=NULL,listw=mydm.lw,model="random",lag=TRUE, spatial.error="none")
 summary(m.lag)
 ```
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg2.PNG?raw=true)
 
+And the results hold for all variables as well as the lambda coefficient.
