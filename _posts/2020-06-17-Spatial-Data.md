@@ -64,3 +64,21 @@ plot(map.link,coords=map.centroid, pch=19,cex=0.1,col="red",add=T)
 title("Contiguity Spatial Links Among States")                 
 ```
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/queen.png?raw=true)
+
+The inverse distance weigth matris is calculated as follows:
+```R
+mydm<-rdist.earth(mycoords)              # computes distance in miles. If true distances are in statute miles if false distances in kilometers. 
+for(i in 1:dim(mydm)[1]) {mydm[i,i] = 0} # renders exactly zero all diagonal elements
+mydm[mydm > 500] <- 0                    # all distances > 500 miles are set to zero
+mydm<-ifelse(mydm!=0, 1/mydm, mydm)      # inverting distances
+mydm.lw<-mat2listw(mydm, style="W")      # create a (normalized) listw object
+```
+And the connectivity between the states looks like this;
+
+```R
+plot(statemap,border="blue",axes=TRUE,las=1)
+plot(mydm.lw,coords=mycoords, pch=19, cex=0.1,col="red",add=T)
+title("Inverse Distance Spatial Links Among States")  
+```
+
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/queen.png?raw=true)
