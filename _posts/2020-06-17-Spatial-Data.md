@@ -16,7 +16,7 @@ Then, you open the shpefile in R and obtain the states' coordinates (centroids) 
 ```R
 # LIBRARIES
 library(maps)
-library(maptools)
+library(maptools)    #to read the shapefile created in ArcMap
 library(sp)          #this is the package for spatial weight matrix
 library(spdep)       #this is the package for spatial weight matrix
 library(RColorBrewer)
