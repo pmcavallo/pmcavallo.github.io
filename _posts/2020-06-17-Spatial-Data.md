@@ -94,15 +94,7 @@ And the output is something like this:
 
 Showing spatial autocorrelation for FDI in 2003. Below is a table with the results for some of the years of the data:
 
-| Year                 | Statistic            |              
-| ---------------------|----------------------|
-| 2004                 | 0.07066*             |
-| 2005                 | -0.048944            |  
-| 2006                 | 0.028145             |  
-| 2012                 | 0.041395*            |
-| 2013                 | 0.011182             |
-| 2014                 | 0.026393             |
-| 2015                 | 0.050803*            |
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran2.PNG?raw=true)
 
 The results show some significant correlation coefficients. 
 
