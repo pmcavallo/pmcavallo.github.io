@@ -82,3 +82,5 @@ title("Inverse Distance Spatial Links Among States")
 ```
 
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/inverse.png?raw=true)
+
+
