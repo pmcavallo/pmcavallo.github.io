@@ -5,7 +5,7 @@ title: Spatial Data With ArcMap and R
 
 This example uses geocoded (ArcMap) foreign direct investment (FDI) data to analyze and control for spatial autocorrelation in R:
 
-The data for this project comes from the *Finantial Times, BEA, and EMSI*, and the unit of analysis is US states. The dependent variable is greenfield foreign direct investment (FDI) (millions of U$ Dollars). This greenfield data eliminates not only the liquid capital component but also Mergers & Acqusitions (M&A), leaving only the job-creating component state officials are eager to attract. 
+The data for this project comes from the *Finantial Times, US Department of Transportation, BEA, and EMSI*, and the unit of analysis is US states. The dependent variable is greenfield foreign direct investment (FDI) (millions of U$ Dollars). This greenfield data eliminates not only the liquid capital component but also Mergers & Acqusitions (M&A), leaving only the job-creating component state officials are eager to attract. 
 
 The main idea of this project, first, is to investigate if FDI clusters geographically, meaning, do some states’ outcomes depend on the outcomes in other states? In other words, is FDI contagious from states to neighboring or otherwise proximate states? For instance, are Connecticut and New Hampshire receiving more investment than Texas and Colorado due to their proximity to major FDI destinations such as the states of New York and Massachusetts?
 
@@ -98,7 +98,7 @@ Showing spatial autocorrelation for FDI in 2003. Below is a table with the resul
 
 The results show some significant correlation coefficients. 
 
-We then bring in some variables to control for the quality of a state's market (GDP per capita), the size of the state (population), the level of human capital/skill (education), and the quality of a state's infrastructure (road mileage). Next, we format the data set as panel data:
+We then bring in some variables to control for the quality of a state's market (GDP per capita from BEA), the size of the state (population size from BEA), the level of human capital/skill (education level from EMSI), and the quality of a state's infrastructure (road mileage from the US Departmet of Transportation). Next, we format the data set as panel data:
 
 ```R
 data <- read.dta(file.choose())
