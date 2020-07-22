@@ -17,27 +17,21 @@ Then, you open the shpefile in R and obtain the states' coordinates (centroids) 
 # LIBRARIES
 library(maps)
 library(maptools)
-library(sp)
-library(spdep) #this is the package for spatial econometrics modeling
+library(sp)          #this is the package for spatial weight matrix
+library(spdep)       #this is the package for spatial weight matrix
 library(RColorBrewer)
 library(classInt)
 library(rgdal)
 library(ggplot2)
 library(dplyr)
-library(spacetime)
 library(foreign)
 library(Hmisc)
 library(plm)
-library(gplots)
-library(psych)
-library(pastecs)
-library(car)
-library(splm)
-library(fields)
-library(stargazer)
+library(splm)        #this is the package for spatial econometrics modeling
+library(fields)      #to calculate distance between the units
 library(lmtest)
 library(stats)
-library(DataCombine)
+
 
 
 ### US-STATES SHAPEFILE ###
