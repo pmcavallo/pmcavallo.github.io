@@ -128,5 +128,5 @@ The test statistics for the Hausman Test is 6.2418 with a p-value of 0.1818, pro
 sarar <- spml(model,data=datapd,index=NULL,listw=mydm.lw,model="random",lag=TRUE, spatial.error="kkp",LeeYu=T)
 summary(sarar)
 ```
-
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg.PNG?raw=true)
 
