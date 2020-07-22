@@ -96,6 +96,6 @@ Showing spatial autocorrelation for FDI in 2003. Below is a table with the resul
 
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran2.PNG?raw=true)
 
-The results show some significant correlation coefficients. 
+The results show some significant correlation coefficients.  
 
 
