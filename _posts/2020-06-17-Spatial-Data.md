@@ -122,11 +122,15 @@ slmtest(model, data=datapd, listw=mydm.lw, test="lme")
 
 ```
 
-The test statistics for the Hausman Test is 6.2418 with a p-value of 0.1818, providing evidence for the random effects model. Both Lagrange Multiplier tests also show spatial error and spatial lag dependence in the data. We therefore run a SARAR random-effects model to control for both dependences:
+The test statistics for the Hausman Test is 6.2418 with a p-value of 0.1818, providing evidence for the random effects model. Both Lagrange Multiplier tests also show spatial error and spatial lag dependence in the data. We therefore run a SARAR random-effects model to control for both dependence:
 
 ```R
 sarar <- spml(model,data=datapd,index=NULL,listw=mydm.lw,model="random",lag=TRUE, spatial.error="kkp",LeeYu=T)
 summary(sarar)
 ```
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg.PNG?raw=true)
+
+The control variables show the expected direction with the exception of GDP per capita, which is not significant, suggesting FDI is not necessarily attracted to rich states. Population, road mileage, and education are all positive and significant, suggesting FDI is attracted to larger states with high-skilled labor and a good infrastucture. The most important finding is the lambda coefficient, which captures the spatial lag of the dependent variable. The lambda coefficient is positive and highly signficant, suggesting there is spatial autocorrelation in FDI, meaning states that are closer to states receiving a large inflow of FDI will receive more FDI. 
+
+
 
