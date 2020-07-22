@@ -5,9 +5,9 @@ title: Spatial Data
 
 This example uses geocoded (ArcMap) foreign direct investment (FDI) data to analyze and control for spatial autocorrelation in R:
 
-The data for this project comes from the *Finantial Times, BEA, and EMSI*, and the unit of analysis is Metropolitan Statistical Areas (MSAs) in the US. The dependent variable is greenfield foreign direct investment (FDI) (thousands of U$ Dollars). This greenfield data eliminates not only the liquid capital component but also Mergers & Acqusitions (M&A), leaving only the job-creating component city officials are eager to attract. The FDI data is at the project-level, allowing me to geocode the data at the county-level and then build the metro areas.
+The data for this project comes from the *Finantial Times, BEA, and EMSI*, and the unit of analysis is US states. The dependent variable is greenfield foreign direct investment (FDI) (millions of U$ Dollars). This greenfield data eliminates not only the liquid capital component but also Mergers & Acqusitions (M&A), leaving only the job-creating component state officials are eager to attract. 
 
-The main idea of this project, first, is to investigate if FDI clusters geographcally, meaning, do some MSAs’ outcomes depend on the outcomes in other MSAs? In other words, is FDI contagious from MSAs to neighboring or otherwise proximate MSAs? For instance, are Baltimore and Philadelphia receiving more investment than Dallas and Denver due to their proximity to major FDI destinations such as NYC, Boston, and DC?
+The main idea of this project, first, is to investigate if FDI clusters geographically, meaning, do some states’ outcomes depend on the outcomes in other states? In other words, is FDI contagious from states to neighboring or otherwise proximate states? For instance, are Connecticut and New Hampshire receiving more investment than Texas and Colorado due to their proximity to major FDI destinations such as the states of New York and Massachusetts?
 
 The first step is to obtain a shapefile of the US states. Then have the FDI excel file in wide format, meaning each year for the FDI inflow becomes a column (variable). Open the US state shapefile and the FDI CSV file in ArcMap and joing them by a common variable (i.e. state Fips code, geocode, USPS). Finally, you export it back as a shapefile to open in R.
 
