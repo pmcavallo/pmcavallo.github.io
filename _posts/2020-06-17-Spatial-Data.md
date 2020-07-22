@@ -96,6 +96,37 @@ Showing spatial autocorrelation for FDI in 2003. Below is a table with the resul
 
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran2.PNG?raw=true)
 
-The results show some significant correlation coefficients.  
+The results show some significant correlation coefficients. 
+
+We then bring in some variables to control for the quality of a state's market (GDP per capita), the size of the state (population), the level of human capital/skill (education), and the quality of a state's infrastructure (road mileage). Next, we format the data set as panel data:
+
+```R
+data <- read.dta(file.choose())
+datapd<-pdata.frame(data,index=c("StateID","Year"))
+```
+
+Next we test for fixed or random effects in panel data (Hausman test) and employ a couple of Lagrange Multiplier tests for spatial error and/or spatial lag dependence.
+
+```R
+model <- LogFDI ~ log(Pop) + log(GDPpc) + log(College) + log(Mileage)
+
+fe <- plm(model, data=datapd, model = "within")      #fixed-effects model
+re <- plm(model, data=datapd, model = "random")      #random-effects model
+phtest(re, fe)                                       #Hausman Test
+
+# LM tests for spatial lag correlation in panel models
+slmtest(model, data=datapd, listw=mydm.lw, test="lml") 
+
+# LM test for spatial error correlation in panel models
+slmtest(model, data=datapd, listw=mydm.lw, test="lme")
+
+```
+
+The test statistics for the Hausman Test is 6.2418 with a p-value of 0.1818, providing evidence for the random effects model. WBoth Lagrange Multiplier tests also show spatial error and spatial lag dependence in the data. We therefore run a SARAR random-effects model to control for both:
+
+```R
+sarar <- spml(model,data=datapd,index=NULL,listw=mydm.lw,model="random",lag=TRUE, spatial.error="kkp",LeeYu=T)
+summary(sarar)
+```
 
 
