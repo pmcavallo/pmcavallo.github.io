@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Spatial Data
+title: Spatial Data With ArcMap and R
 ---
 
 This example uses geocoded (ArcMap) foreign direct investment (FDI) data to analyze and control for spatial autocorrelation in R:
