@@ -63,4 +63,4 @@ plot(statemap,border="blue",axes=TRUE,las=1)
 plot(map.link,coords=map.centroid, pch=19,cex=0.1,col="red",add=T)
 title("Contiguity Spatial Links Among States")                 
 ```
-![Old Variable](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/queen.png?raw=true)
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/queen.png?raw=true)
