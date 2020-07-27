@@ -128,9 +128,12 @@ summary(sarar)
 ```
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg.PNG?raw=true)
 
-The control variables show the expected direction with the exception of GDP per capita, which is not significant, suggesting FDI is not necessarily attracted to rich states. Population, road mileage, and education are all positive and significant, suggesting FDI is attracted to larger states with high-skilled labor and a good infrastucture. The most important finding is the lambda coefficient, which captures the spatial lag of the dependent variable. The lambda coefficient is positive and highly signficant, suggesting there is spatial autocorrelation in FDI, meaning states that are closer to states receiving a large inflow of FDI will receive more FDI. 
+The control variables show the expected direction with the exception of GDP per capita, which is not significant, suggesting FDI is not necessarily attracted to rich states. Population, road mileage, and education are all positive and significant, suggesting FDI is attracted to larger states with high-skilled labor and a good infrastucture. The most important finding is the lambda coefficient, which captures the spatial lag of the dependent variable. 
 
-As a robustness check, and because the rho coefficient of the model shows very weak evidence of a panel regression with spatially correlated errors, we can also run a Spatial Autoregressive model (SAR):
+The lambda coefficient is positive and highly signficant, suggesting there is spatial autocorrelation in FDI, meaning states that are closer to states receiving a large inflow of FDI will receive more FDI.  This provides support for the conjecture that a state’s level of FDI inflows covaries with
+the level of FDI inflows among its geographical neighbors.
+
+As a robustness check, and because the rho coefficient of the model shows very weak evidence of a panel regression with spatially correlated errors, we can also run a Spatial Autoregressive model (SAR). Additionally, in a parsimonious modelling approach, the original test statistics (LM for spatial lag or error) with the higher significance could guide the choice of the spatial regression model.
 
 ```R
 m.lag <-spml(model,data=datapd,index=NULL,listw=mydm.lw,model="random",lag=TRUE, spatial.error="none")
