@@ -102,7 +102,7 @@ datapd<-pdata.frame(data,index=c("StateID","Year"))
 Next we test for fixed or random effects in panel data (Hausman test) and employ a couple of Lagrange Multiplier tests for spatial error and/or spatial lag dependence. Depending on what these LM tests find, we run a Spatial Autoregressive model (SAR), a Spatial Error model (SEM), or a combined model (SARAR).
 
 ```R
-model <- LogFDI ~ log(Pop) + log(GDPpc) + log(College) + log(Mileage)
+model <- log(FDI) ~ log(Pop) + log(GDPpc) + log(College) + log(Mileage)
 
 fe <- plm(model, data=datapd, model = "within")      #fixed-effects model
 re <- plm(model, data=datapd, model = "random")      #random-effects model
@@ -110,11 +110,15 @@ phtest(re, fe)                                       #Hausman Test
 
 # LM tests for spatial lag correlation in panel models
 slmtest(model, data=datapd, listw=mydm.lw, test="lml") 
+```
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran2.PNG?raw=true)
 
+```R
 # LM test for spatial error correlation in panel models
 slmtest(model, data=datapd, listw=mydm.lw, test="lme")
 
 ```
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran2.PNG?raw=true)
 
 The test statistics for the Hausman Test is 6.2418 with a p-value of 0.1818, providing evidence for the random effects model. Both Lagrange Multiplier tests also show spatial error and spatial lag dependence in the data. We therefore run a SARAR random-effects model to control for both dependence:
 
