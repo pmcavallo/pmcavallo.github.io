@@ -111,14 +111,14 @@ phtest(re, fe)                                       #Hausman Test
 # LM tests for spatial lag correlation in panel models
 slmtest(model, data=datapd, listw=mydm.lw, test="lml") 
 ```
-![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran2.PNG?raw=true)
+![spatial lag](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/lm1.PNG?raw=true)
 
 ```R
 # LM test for spatial error correlation in panel models
 slmtest(model, data=datapd, listw=mydm.lw, test="lme")
 
 ```
-![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/moran2.PNG?raw=true)
+![spatial error](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/lm2.PNG?raw=true)
 
 The test statistics for the Hausman Test is 6.2418 with a p-value of 0.1818, providing evidence for the random effects model. Both Lagrange Multiplier tests also show spatial error and spatial lag dependence in the data. We therefore run a SARAR random-effects model to control for both dependence:
 
