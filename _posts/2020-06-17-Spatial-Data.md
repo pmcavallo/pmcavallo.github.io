@@ -153,7 +153,7 @@ Another robustness check could be the same regression model (SARAR) using a cont
 m.queen <- spml(model,data=datapd,index=NULL,listw=nbweights.lw,model="random",lag=TRUE, spatial.error="kkp",LeeYu=T)
 summary(m.queen)
 ```
-![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg2.PNG?raw=true)
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg3.PNG?raw=true)
 
 And again, the results hold for all variables as well as the lambda coefficient.
 
