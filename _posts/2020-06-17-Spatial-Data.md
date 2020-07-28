@@ -41,9 +41,9 @@ map.centroid<-coordinates(statemap)
 
 ```
 
-The next step is to check if there is spatial autocorrelation in the FDI data. To that end, I first build a spatial weights matrix, the heart of any spatial analyses, where the elements are defined to reflect the suspected nature of the hypothesized spatial relationship between the units. The matrix is composed of elements connecting one state to every other state in the sample, and reflect the strength of the dependence between them. There are two ways to calculate the spatial weights matrix: contiguity (queen and rook), and inverse distance. In the inverse distance case, distance is measured as the geographic distance between the states' centroids defined by the great-circle distance in miles between one state to the other.
+The next step is to check if there is spatial autocorrelation in the FDI data. To that end, I first build a spatial weights matrix, the heart of any spatial analyses, where the elements are defined to reflect the suspected nature of the hypothesized spatial relationship between the units. The matrix is composed of elements connecting one state to every other state in the sample, and reflect the strength of the dependence between them. There are three ways to calculate the spatial weights matrix: contiguity (queen and rook), k nearest neighbors, and inverse distance. Distance is measured as the geographic distance between the states' centroids defined by the great-circle distance in miles between one state to the other.
 
-The contiguity weight matrix (rook and queen ), is calculated as follows:
+The contiguity weight matrix (rook and queen), is calculated as follows:
 
 ```R
 map.link <- poly2nb(statemap,queen=T)
@@ -59,6 +59,18 @@ plot(map.link,coords=map.centroid, pch=19,cex=0.1,col="red",add=T)
 title("Contiguity Spatial Links Among States")                 
 ```
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/queen2.png?raw=true)
+
+The k nearest neighbor spatial weight matrix is generated as follows:
+
+```R
+col.knn <- knearneigh(mycoords,k=5,longlat=T,RANN=TRUE)
+plot(statemap,border="blue",axes=TRUE,las=1)
+plot(knn2nb(col.knn), mycoords, pch=19, cex=0.1,col="red",add=T)
+
+```
+Where the number of neighbors (k) was set to five, and the connectivity looks like this:
+
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/neighbors.PNG?raw=true)
 
 The inverse distance weigth matrix is calculated as follows:
 
@@ -157,7 +169,7 @@ summary(m.queen)
 
 And again, the results hold for all variables as well as the lambda coefficient.
 
- Neighbors can be based on contiguity, distance, or the k nearest neighbors may be defined. So as a final robustness check I will run the same regression model with a *k nearest neighbors* spatial weight matrix. 
+So as a final robustness check I will run the same regression model with a *k nearest neighbors* spatial weight matrix. 
  
  ```R
 W <- spdep::nb2mat(spdep::knn2nb(spdep::knearneigh(mycoords, k=5,longlat=TRUE))) 
@@ -168,6 +180,6 @@ summary(m.neigh)
  ```
  ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg4.PNG?raw=true)
  
- I have set the number of neighbors (k) to 5, in this case, and the results again hold for all variables as well as the lambda coefficient.
+The results again hold for all variables as well as the lambda coefficient.
  
 
