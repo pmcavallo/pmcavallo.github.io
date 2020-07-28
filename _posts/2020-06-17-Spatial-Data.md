@@ -70,7 +70,7 @@ plot(knn2nb(col.knn), mycoords, pch=19, cex=0.1,col="red",add=T)
 ```
 Where the number of neighbors (k) was set to five, and the connectivity looks like this:
 
-![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/neighbors.PNG?raw=true)
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/Neighbors.png?raw=true)
 
 The inverse distance weigth matrix is calculated as follows:
 
