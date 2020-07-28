@@ -157,3 +157,17 @@ summary(m.queen)
 
 And again, the results hold for all variables as well as the lambda coefficient.
 
+ Neighbors can be based on contiguity, distance, or the k nearest neighbors may be defined. So as a final robustness check I will run the same regression model with a *k nearest neighbors* spatial weight matrix. 
+ 
+ ```R
+W <- spdep::nb2mat(spdep::knn2nb(spdep::knearneigh(mycoords, k=5,longlat=TRUE))) 
+knn.lw<-mat2listw(W, style="W")
+
+m.neigh <- spml(model,data=datapd,index=NULL,listw=knn.lw,model="random",lag=TRUE, spatial.error="kkp",LeeYu=T)
+summary(m.neigh)
+ ```
+ ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg4PNG?raw=true)
+ 
+ I have set the number of neighbors (k) to 5, in this case, and the results again hold for all variables as well as the lambda coefficient.
+ 
+
