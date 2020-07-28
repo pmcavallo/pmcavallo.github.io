@@ -7,7 +7,7 @@ This example uses geocoded (ArcMap) foreign direct investment (FDI) data to anal
 
 The data for this project comes from the *Finantial Times, US Department of Transportation, BEA, and EMSI*, and the unit of analysis is US states. The dependent variable is greenfield foreign direct investment (FDI) (millions of U$ Dollars). This greenfield data eliminates not only the liquid capital component but also Mergers & Acqusitions (M&A), leaving only the job-creating component state officials are eager to attract. 
 
-The main idea of this project, first, is to investigate if FDI clusters geographically, meaning, do some states’ outcomes depend on the outcomes in other states? In other words, is FDI contagious from states to neighboring or otherwise proximate states? For instance, are Connecticut and New Hampshire receiving more investment than Texas and Colorado due to their proximity to major FDI destinations such as the states of New York and Massachusetts?
+The main idea of this project is to investigate if FDI clusters geographically, meaning, do some states’ outcomes depend on the outcomes in other states? In other words, is FDI contagious from states to neighboring or otherwise proximate states? For instance, are Connecticut and New Hampshire receiving more investment than Texas and Colorado due to their proximity to major FDI destinations such as the states of New York and Massachusetts?
 
 The first step is to obtain a shapefile of the US states. Then have the FDI excel file in wide format, meaning each year for the FDI inflow becomes a column (variable). Open the US state shapefile and the FDI CSV file in ArcMap and join them by a common variable (i.e. state Fips code, geocode, USPS). Finally, you export it back as a shapefile to open in R.
 
@@ -48,10 +48,11 @@ The contiguity weight matrix (rook and queen ), is calculated as follows:
 ```R
 map.link <- poly2nb(statemap,queen=T)
 map.linkr <- poly2nb(statemap,queen=F)
-
+nbweights.lw <- nb2listw(map.link, style="W", zero.policy=T)   #creating a matrix with the neighborhood object
 ```
 
-The "rook" defines neighbors by the existence of a common edge between two spatial units. The "queen" is somewhat more encompassing and defines neighbors as spatial units sharing a common edge or a common vertex. The map with the connectivity (queen) between the states looks like this:
+In the code above, *style="W"* to is used to generate a row-normalized (or standardized) matrix, and *zero.policy=T* allows matrices to be computed even if there are "islands", meaning, no-neighbor areas. The "rook" defines neighbors by the existence of a common edge between two spatial units. The "queen" is somewhat more encompassing and defines neighbors as spatial units sharing a common edge or a common vertex. The map with the connectivity (queen) between the states looks like this:
+
 ```R
 plot(statemap,border="blue",axes=TRUE,las=1)
 plot(map.link,coords=map.centroid, pch=19,cex=0.1,col="red",add=T)
@@ -60,6 +61,7 @@ title("Contiguity Spatial Links Among States")
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/queen2.png?raw=true)
 
 The inverse distance weigth matrix is calculated as follows:
+
 ```R
 mydm<-rdist.earth(mycoords)              # computes distance in miles. 
 for(i in 1:dim(mydm)[1]) {mydm[i,i] = 0} # renders exactly zero all diagonal elements
@@ -128,6 +130,8 @@ summary(sarar)
 ```
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg.PNG?raw=true)
 
+Where *model="random"* establihes our random-effects model, *lag=TRUE* ensures the spatial lag of the DV is included, *spatial.error="kkp"* for the KKP-style specification of the spatial error (Kapoor et al. 2007), and *LeeYu=T* allows to transform the data according to Lee and Yu (2010). 
+
 The control variables show the expected direction with the exception of GDP per capita, which is not significant, suggesting FDI is not necessarily attracted to rich states. Population, road mileage, and education are all positive and significant, suggesting FDI is attracted to larger states with high-skilled labor and a good infrastucture. The most important finding is the lambda coefficient, which captures the spatial lag of the dependent variable. 
 
 The lambda coefficient is positive and highly signficant, suggesting there is spatial autocorrelation in FDI, meaning states that are closer to states receiving a large inflow of FDI will receive more FDI.  This provides support for the conjecture that a state’s level of FDI inflows covaries with
@@ -142,3 +146,14 @@ summary(m.lag)
 ![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg2.PNG?raw=true)
 
 And the results hold for all variables as well as the lambda coefficient.
+
+Another robustness check could be the same regression model (SARAR) using a contiguity (queen) spatial weight matrix:
+
+```R
+m.queen <- spml(model,data=datapd,index=NULL,listw=nbweights.lw,model="random",lag=TRUE, spatial.error="kkp",LeeYu=T)
+summary(m.queen)
+```
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg2.PNG?raw=true)
+
+And again, the results hold for all variables as well as the lambda coefficient.
+
