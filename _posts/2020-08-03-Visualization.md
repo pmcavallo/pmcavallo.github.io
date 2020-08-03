@@ -98,3 +98,23 @@ And then we can obtain the diverging bars as follows:
   coord_flip()
 ```
 ![Scatterplot 3](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/diver_bar.PNG?raw=true)
+
+As expected, we see that the large states of California, Texas, and New York receive, by far, the largest amount of investment in the US. In order to better see the ranking of the states that receive the most FDI, we can also order the data and plot an *ordered bar chart*:
+
+```R
+  mean_state <- aggregate(datapd2$Projects, by=list(datapd2$State), FUN=mean)  # aggregate by year
+  mean_state <- mean_state[order(mean_state$x), ]  # sort
+  mean_state$Group.1 <- factor(mean_state$Group.1, levels = mean_state$Group.1)  # to retain the order in plot.
+  
+  ggplot(mean_state, aes(x=Group.1, y=x)) + 
+    geom_bar(stat='identity', width=.5, fill="tomato3")  +
+    labs(title="Ordered Bar Chart", 
+         subtitle="State's Avg. FDI Projects",
+         y="FDI Projects", 
+         x="States", 
+         caption="source: Financial Times") + 
+    theme(axis.text.x = element_text(angle=65, vjust=0.6))
+
+```
+![Scatterplot 3](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ord_bar.png?raw=true)
+
