@@ -179,7 +179,7 @@ ggplot(datapd2, mapping = mapping) +
 
 This animation clearly illustrates the increasing difference between these 3 states and the rest since 2003. 
 
-We can also remove the USPS code and add a color distinction between RTW and non-RTW state to see the differences evolving over time since 2003
+We can also remove the USPS code and add a size distinction based on population and a color distinction between RTW and non-RTW state to see the differences evolving over time since 2003
 ```R
 mapping <- aes(x =GDPpc, y = Projects, 
                color = RTW,
