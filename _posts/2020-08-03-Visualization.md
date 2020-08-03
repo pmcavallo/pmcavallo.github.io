@@ -159,7 +159,7 @@ ggplot(rtw, aes(x=Group.2, y=x)) +
        
 The area plot better illustrates the increasing difference between non-RTW and RTW states. Overall, the plots suggest non-RTW states attract more FDI, which goes against the expectation that the more *business friendly* RTW states would be more attractive to investment. 
 
-And lastly, as the *pièce de résistance*, we can run an animation with **gganimate** to see the "explosion" in FDI inflows into California, New York, and Texas ove time. In this case, we use the USPS code to identify (label) the states in the plot:
+And lastly, as the *pièce de résistance*, we can run an animation with **gganimate** to see the "explosion" in FDI inflows into California, New York, and Texas over time. In this case, we use the USPS code to identify (label) the states in the plot:
 
 ```R
 mapping <- aes(x =GDPpc, y = Projects, 
@@ -177,7 +177,9 @@ ggplot(datapd2, mapping = mapping) +
 
 ![animation](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fdi3.gif?raw=true)
 
-Or we can remove the USPS code and add a color distinction between RTW and non-RTW state to see the differences evolving over time since 2003
+This animation clearly illustrates the increasing difference between these 3 states and the rest since 2003. 
+
+We can also remove the USPS code and add a color distinction between RTW and non-RTW state to see the differences evolving over time since 2003
 ```R
 mapping <- aes(x =GDPpc, y = Projects, 
                color = RTW,
@@ -192,3 +194,5 @@ ggplot(datapd2, mapping = mapping) +
   ease_aes('linear')
 ```
 ![animation](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fdi.gif?raw=true)
+
+Here the animation is not quite as helpful as there does not seem to have a clear difference over time between the 2 groups.
