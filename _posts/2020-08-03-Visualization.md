@@ -156,3 +156,4 @@ ggplot(rtw, aes(x=Group.2, y=x)) +
 ```
 ![time-series plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/stack.png?raw=true)
        
+And lastly, as the *pièce de résistance*, we can run an animation with **gganimate** to see the differences in RTW and non-RTW states evolving over time since 2003:
