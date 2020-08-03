@@ -32,3 +32,4 @@ scplot <- ggplot(datapd, aes(x=GDPpc, y=Projects)) +
 
 plot(scplot)
 ```
+![Contiguity Map](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/scatter.png?raw=true)
