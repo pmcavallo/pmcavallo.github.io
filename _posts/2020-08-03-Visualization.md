@@ -119,7 +119,8 @@ As expected, we see that the large states of California, Texas, and New York rec
 ![Ordered bar chart](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ord_bar.png?raw=true)
 
 This plot clearly illustrates the gradual increase in FDI inflows between the states and the difference between them and the three most important FDI destinations in the country; California, Texas, and New York.
-Going back to our original ikvestigation, we can generate a time-series plot differentiating between RTW and non-RTW states to see their differences over time. Since this is actually panel data, we can aggregate FDI by RTW and year before generating the plot:
+
+Going back to our original investigation, we can generate a time-series plot differentiating between RTW and non-RTW states to see their differences over time. Since this is actually panel data, we can aggregate FDI by RTW and year before generating the plot:
 
 ```R
 rtw <- aggregate(datapd2$Projects, by=list(datapd2$RTW, datapd2$Year), FUN=mean)  # aggregate by RTW and year
@@ -139,7 +140,7 @@ ggplot(rtw, aes(x=Group.2, y=x)) +
 ```
 ![time-series plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/time.png?raw=true)
 
-Or we can also see the same information as an **area plot** instead:
+The plot suggests non-RTW states have increased their share of FDI since 2003. Ee can also see the same information as an **area plot** instead:
 
 ```R
 ggplot(rtw, aes(x=Group.2, y=x)) + 
@@ -156,4 +157,6 @@ ggplot(rtw, aes(x=Group.2, y=x)) +
 ```
 ![time-series plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/stack.png?raw=true)
        
+The area plot better illustrates the increasing difference between non-RTW and RTW states. Overall, the plots suggest non-RTW states attract more FDI, which goes against the expectation that the more *business friendly* RTW states would be more attractive to investment. 
+
 And lastly, as the *pièce de résistance*, we can run an animation with **gganimate** to see the differences in RTW and non-RTW states evolving over time since 2003:
