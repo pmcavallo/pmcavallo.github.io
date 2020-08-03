@@ -116,5 +116,43 @@ As expected, we see that the large states of California, Texas, and New York rec
     theme(axis.text.x = element_text(angle=65, vjust=0.6))
 
 ```
-![Scatterplot 3](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ord_bar.png?raw=true)
+![Ordered bar chart](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ord_bar.png?raw=true)
 
+This plot clearly illustrates the gradual increase in FDI inflows between the states and the difference between them and the three most important FDI destinations in the country; California, Texas, and New York.
+Going back to our original ikvestigation, we can generate a time-series plot differentiating between RTW and non-RTW states to see their differences over time. Since this is actually panel data, we can aggregate FDI by RTW and year before generating the plot:
+
+```R
+rtw <- aggregate(datapd2$Projects, by=list(datapd2$RTW, datapd2$Year), FUN=mean)  # aggregate by RTW and year
+
+
+ggplot(rtw, aes(x=Group.2, y=x)) + 
+  geom_line(aes(color = as.factor(Group.1)), size = 1) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(title="Time Series Plot", 
+       subtitle="FDI by RTW States",
+       y="FDI Projects", 
+       x="Year",
+       color = "RTW",
+       caption="source: Financial Times") + 
+  theme_minimal()
+
+```
+![time-series plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/time.png?raw=true)
+
+Or we can also see the same information as an **area plot** instead:
+
+```R
+ggplot(rtw, aes(x=Group.2, y=x)) + 
+  geom_area(aes(fill = as.factor(Group.1)), 
+            alpha = 0.5) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800")) +
+  labs(title="Stacked Area Chart", 
+       subtitle="FDI by RTW States",
+       y="FDI Projects", 
+       x="Year",
+       fill = "RTW",
+       caption="source: Financial Times") 
+```
+![time-series plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/stack.png?raw=true)
+       
