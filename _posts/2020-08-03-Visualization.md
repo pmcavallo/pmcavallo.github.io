@@ -209,3 +209,4 @@ ggplot(datapd2, mapping = mapping) +
   transition_time(Year, range = c(2003,2016)) +
   ease_aes('linear')
   ```
+![animation](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fdi4.gif?raw=true)
