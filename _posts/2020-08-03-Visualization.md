@@ -160,3 +160,17 @@ ggplot(rtw, aes(x=Group.2, y=x)) +
 The area plot better illustrates the increasing difference between non-RTW and RTW states. Overall, the plots suggest non-RTW states attract more FDI, which goes against the expectation that the more *business friendly* RTW states would be more attractive to investment. 
 
 And lastly, as the *pièce de résistance*, we can run an animation with **gganimate** to see the differences in RTW and non-RTW states evolving over time since 2003:
+
+```R
+mapping <- aes(x =GDPpc, y = Projects, 
+               color = RTW,
+               frame = Year)
+
+ggplot(datapd2, mapping = mapping) +
+  geom_point() +
+  theme_linedraw() + 
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'FDI Projects') +
+  geom_text(aes(label=USPS,vjust=0)) +
+  transition_time(Year) +
+  ease_aes('linear')
+```
