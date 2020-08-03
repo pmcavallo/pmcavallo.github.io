@@ -77,3 +77,24 @@ plot(scplot3)
 
 ```
 ![Scatterplot 3](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/scatter3.png?raw=true)
+
+Another interesting plot we can explore is the **Diverging Bars**, which can handle both negative and positive values. The idea is to see which states are above or below the average number of FDI projects in all states. This means we will have to prepare the data before we run the code for the plot:
+```R
+datapd2$Projects_z <- round((datapd2$Projects - mean(datapd2$Projects))/sd(datapd2$Projects), 2)  # compute normalized FDI Projects
+datapd2$ab_bel <- ifelse(datapd2$Projects_z< 0, "below", "above")  # above / below avg FDI
+datapd2 <- datapd2[order(datapd2$Projects_z), ]  # sort
+```
+
+And then we can obtain the diverging bars as follows:
+
+```R
+  ggplot(datapd2, aes(x=State, y=Projects_z, label=Projects_z)) + 
+  geom_bar(stat='identity', aes(fill=datapd2$ab_bel), width=.5)  +
+  scale_fill_manual(name="FDI Projects", 
+                    labels = c("Above Average", "Below Average"), 
+                    values = c("above"="#00ba38", "below"="#f8766d")) + 
+  labs(subtitle="Normalised FDI Projects", 
+       title= "Diverging Bars") + 
+  coord_flip()
+```
+![Scatterplot 3](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/diver_bar.PNG?raw=true)
