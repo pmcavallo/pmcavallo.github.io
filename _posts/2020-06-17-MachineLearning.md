@@ -13,7 +13,7 @@ The features (independent variables) to be considered are **GDP per capita**, me
 
 We'll start with Pyhton. First we bring in the data, identify the dependent and independent variables and split it into training and test set:
 
-```Python
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -31,7 +31,7 @@ IV_train, IV_test, DV_train, DV_test = train_test_split(IV, DV, test_size = 0.20
 
 We choose to split the dataset into 80 percent for training and 20 for test, and we add the *random state* to make the results reproducible. Next we proceed to train the *Random Forest Classification* model on the training set, as follows:
 
-```Python
+```python
 from sklearn.ensemble import RandomForestClassifier
 rf = RandomForestClassifier(n_estimators=1000, random_state = 1)
 rf.fit(IV_train, DV_train)
@@ -43,7 +43,7 @@ We first change the number of trees (*n_estimators*) to 1,000 from the default n
 
 We first change the number of trees (*n_estimators*) to 1,000 from the default number of 100 trees. We use *entropy* as the criterion for the information gain and *random state* again to make it reproducible. We then quickly check what would the model predict is some situations. We first check the descriptive statistics of the features. The second situation sees a metro area with the same GDP per capita and housing prices, but lower the education lervel to 0.11, closer to the minimun of 0.10:
 
-```Python
+```python
 print(rf.predict([[80, 60000, 0.25]]))
 [1]
 
@@ -55,7 +55,7 @@ The first situation predicts the metro area would receive the HQ investment whil
 
 The model seemed to have done well. Let's have a look at the confusion matrix and the accuracy of the model:
 
-```Python
+```python
 #Making the confusion matrix
 
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -67,4 +67,4 @@ array([[33, 17],
 accuracy_score(DV_test, y_pred)
 Out[156]: 0.7272727272727273
 ```
-As expected, the model didn't do that well. We simplified the model too much for this example, but it shows how to build a random forest classification model in a short and clear manner. 
+As expected, the model didn't do that well. We simplified the model too much for this example, but it shows how to build a random forest classification model in a short and clear manner. Thanks!
