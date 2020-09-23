@@ -41,6 +41,8 @@ We first change the number of trees (*n_estimators*) to 1,000 from the default n
 The first situation would look at a metro area with U$ 80 dolars as the square foot price of homes, and we see that U$ 131 is the mean, so we'r
 We first change the number of trees (*n_estimators*) to 1,000 from the default number of 100 trees. We use *entropy* as the criterion for the information gain and *random state* again to make it reproducible. We then quickly check what would the model predict is some situations. We first check the descriptive statistics of the features:e trying to predict for a metro area with cheaper housing. We set the GDP per capita to U$ 60,000, which is slightly above the mean of U$ 53,962. Lastly, we set the education level to 0.25, above the mean of 0.21:
 
+![Network Plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/features.png?raw=true)
+
 We first change the number of trees (*n_estimators*) to 1,000 from the default number of 100 trees. We use *entropy* as the criterion for the information gain and *random state* again to make it reproducible. We then quickly check what would the model predict is some situations. We first check the descriptive statistics of the features. The second situation sees a metro area with the same GDP per capita and housing prices, but lower the education lervel to 0.11, closer to the minimun of 0.10:
 
 ```python
@@ -52,6 +54,8 @@ print(rf.predict([[80, 60000, 0.11]]))
 ```
 
 The first situation predicts the metro area would receive the HQ investment while the second situation predicts the metro area would not. So then we visually compare some of the predicted results to the actual results in the test set to quicly see how the model did:
+
+![Predicted Results](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/concatenate.png?raw=true)
 
 The model seemed to have done well. Let's have a look at the confusion matrix and the accuracy of the model:
 
