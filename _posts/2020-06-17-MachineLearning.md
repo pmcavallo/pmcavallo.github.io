@@ -73,4 +73,4 @@ array([[33, 17],
 accuracy_score(DV_test, y_pred)
 Out[156]: 0.7272727272727273
 ```
-As expected, the model didn't do that well. The confusion matrix show many prediction mistakes both in zeros and ones and the model accuracy is very low at 0.72.  We simplified the model too much for this example, but it shows how to build a random forest classification model in a short and clear manner. The next step is to try many more features and apply a feature selection. We will also try different classification models, such as K-nearest neighbors and kernel SVM. Thnaks!
+As expected, the model didn't do that well. The confusion matrix show many prediction mistakes both in zeros and ones and the model accuracy is very low at 0.72.  We simplified the model too much for this example, but it shows how to build a random forest classification model in a short and clear manner. The next step is to try many more features and apply a feature selection. We will also try different classification models, such as K-nearest neighbors and kernel SVM. Thanks!
