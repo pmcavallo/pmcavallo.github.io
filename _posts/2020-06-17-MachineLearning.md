@@ -36,14 +36,12 @@ from sklearn.ensemble import RandomForestClassifier
 rf = RandomForestClassifier(n_estimators=1000, random_state = 1)
 rf.fit(IV_train, DV_train)
 ```
-We first change the number of trees (*n_estimators*) to 1,000 from the default number of 100 trees. We use *entropy* as the criterion for the information gain and *random state* again to make it reproducible. We then quickly check what would the model predict is some situations. We first check the descriptive statistics of the features:
-
-The first situation would look at a metro area with U$ 80 dolars as the square foot price of homes, and we see that U$ 131 is the mean, so we'r
-We first change the number of trees (*n_estimators*) to 1,000 from the default number of 100 trees. We use *entropy* as the criterion for the information gain and *random state* again to make it reproducible. We then quickly check what would the model predict is some situations. We first check the descriptive statistics of the features:e trying to predict for a metro area with cheaper housing. We set the GDP per capita to U$ 60,000, which is slightly above the mean of U$ 53,962. Lastly, we set the education level to 0.25, above the mean of 0.21:
+We first change the number of trees (*n_estimators*) to 1,000 from the default number of 100 trees. We use *entropy* as the criterion for the information gain and *random state* again to make it reproducible. We then quickly check what would the model predict in some situations. We first check the descriptive statistics of the features:
 
 ![Network Plot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/features.png?raw=true)
 
-We first change the number of trees (*n_estimators*) to 1,000 from the default number of 100 trees. We use *entropy* as the criterion for the information gain and *random state* again to make it reproducible. We then quickly check what would the model predict is some situations. We first check the descriptive statistics of the features. The second situation sees a metro area with the same GDP per capita and housing prices, but lower the education lervel to 0.11, closer to the minimun of 0.10:
+The first situation would look at a metro area with U$ 80 dolars as the square foot price of homes, and we see that U$ 131 is the mean, so we're way below the average implying a metro area with a cheap housing market. We set the GDP per capita to U$ 60,000, which is slightly above the mean of U$ 53,962. Lastly, we set the education level to 0.25, above the mean of 0.21. The second situation sees a metro area with the same GDP per capita and housing prices, but lower the education lervel to 0.11, closer to the minimun of 0.10:
+
 
 ```python
 print(rf.predict([[80, 60000, 0.25]]))
@@ -55,9 +53,13 @@ print(rf.predict([[80, 60000, 0.11]]))
 
 The first situation predicts the metro area would receive the HQ investment while the second situation predicts the metro area would not. So then we visually compare some of the predicted results to the actual results in the test set to quicly see how the model did:
 
+```python
+y_pred = rf.predict(IV_test)
+```
+
 ![Predicted Results](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/concatenate.png?raw=true)
 
-The model seemed to have done well. Let's have a look at the confusion matrix and the accuracy of the model:
+The model seemed to have done well, we see only two instances where the prediction didn't match the test set, it's worth reminding that these are only the top results, there are many more observations. Let's have a look at the confusion matrix and the accuracy of the model:
 
 ```python
 #Making the confusion matrix
@@ -71,4 +73,4 @@ array([[33, 17],
 accuracy_score(DV_test, y_pred)
 Out[156]: 0.7272727272727273
 ```
-As expected, the model didn't do that well. We simplified the model too much for this example, but it shows how to build a random forest classification model in a short and clear manner. Thanks!
+As expected, the model didn't do that well. The confusion matrix show many prediction mistakes both in zeros and ones and the model accuracy is very low at 0.72.  We simplified the model too much for this example, but it shows how to build a random forest classification model in a short and clear manner. The next step is to try many more features and apply a feature selection. We will also try different classification models, such as K-nearest neighbors and kernel SVM. Thnaks!
