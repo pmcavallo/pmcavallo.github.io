@@ -24,6 +24,6 @@ Further training:
 
 ### Contact me
 
-[pmcavallo@yahoo.com](mailto:pmcavallo@yahoo.com)
+[pmcavallo[at]yahoo.com](mailto:pmcavallo@yahoo.com)
 
 [Personal Website](https://www.paulocavallo.wordpress.com "Personal Website")
