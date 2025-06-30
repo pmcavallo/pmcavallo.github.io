@@ -64,7 +64,9 @@ sns.histplot(df['tenure_months'], bins=30, kde=True)
 plt.title('Tenure Distribution')
 plt.show()
 ```
-
+![Churn Count](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/churn_count.png?raw=true)
+![Churn Visual](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/charges_churn.png?raw=true)
+![Tenure](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tenure_months.png?raw=true)
 ---
 
 ## 4. Data Preprocessing
@@ -107,7 +109,7 @@ plt.title('Top 10 Feature Importances')
 plt.gca().invert_yaxis()
 plt.show()
 ```
-
+![Results](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/telecom_churn.png?raw=true)
 ---
 
 ## 7. Key Findings and Next Steps
