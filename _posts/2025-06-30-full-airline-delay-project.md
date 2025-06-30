@@ -62,9 +62,18 @@ sns.lineplot(x='scheduled_departure', y='departure_delay', data=df)
 plt.title('Average Delay by Hour of Day')
 plt.show()
 ```
-![Flight Delay Distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline.png?raw=true)
-![Delays by Airline](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline2.png?raw=true)
-![Average Delay bu Hour of Day](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline3.png?raw=true)
+![Flight Delay Distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline.png?raw=true) 
+
+This bar chart shows the overall balance between on-time and significantly delayed flights in the dataset. We typically see a much higher count of on-time flights, which confirms a class imbalance problem.
+
+![Delays by Airline](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline2.png?raw=true) 
+
+This plot helps visualize how different airlines vary in their delay patterns. Airlines with taller boxplots or more extreme outliers tend to have greater variability and potentially higher average delays. If certain airlines consistently show higher median delays, this might indicate operational inefficiencies or scheduling issues that could be modeled more explicitly.
+
+![Average Delay bu Hour of Day](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline3.png?raw=true) 
+
+This time-based trend reveals how delays fluctuate throughout the day. It's common to observe a build-up of delays in the afternoon and evening, due to cumulative effects from earlier flights and congested air traffic. Flights scheduled later in the day may have higher delay risk, which suggests that scheduled_departure is a valuable predictive feature and could be binned or transformed for better modeling.
+
 ---
 
 ## 4. Data Preprocessing
