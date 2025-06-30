@@ -60,7 +60,9 @@ sns.lineplot(x='scheduled_departure', y='departure_delay', data=df)
 plt.title('Average Delay by Hour of Day')
 plt.show()
 ```
-
+![Flight Delay Distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline.png?raw=true)
+![Delays by Airline](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline2.png?raw=true)
+![Average Delay bu Hour of Day](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline3.png?raw=true)
 ---
 
 ## 4. Data Preprocessing
@@ -101,16 +103,13 @@ plt.title('Top 10 Feature Importances')
 plt.gca().invert_yaxis()
 plt.show()
 ```
-
+![Results](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/airline_results.png?raw=true)
 ---
 
-## 7. Interpretation and Recommendations
+## 7. Interpretation
 
-### Observations
 
-- Model performs well on predicting on-time flights.
-- Low recall for delays (~16%) indicates many missed delayed flights.
-- Most important features: `carrier_delay`, `weather_delay`, and `scheduled_departure`.
+- Most important features: `distance_miles`, `flight_duration`, and `scheduled_departure`.
 
 ---
 
@@ -135,6 +134,7 @@ plt.show()
 ---
 
 ## 9. First Adjustment: Class Weight Balancing
+Class weight balancing is a technique used in classification models to handle imbalanced datasets by assigning higher importance (or “weight”) to the minority class during training. When one class (e.g., “delayed flights”) has far fewer examples than the other (e.g., “on-time flights”), the model may become biased and predict the majority class more often simply to maximize accuracy. By setting class_weight='balanced', the algorithm automatically adjusts the penalty for misclassifying each class based on their frequency—penalizing errors on the minority class more heavily. This encourages the model to pay more attention to the underrepresented class, helping improve recall and reducing the risk of overlooking critical cases.
 
 ```python
 model_weighted = RandomForestClassifier(n_estimators=100, class_weight='balanced', random_state=42)
@@ -185,7 +185,7 @@ print(classification_report(y_test, y_pred_weighted))
 
 ## 11. SMOTE: Synthetic Minority Oversampling
 
-To address class imbalance and improve recall, we apply SMOTE (Synthetic Minority Oversampling Technique) to upsample the delayed flights during training.
+To address class imbalance and improve recall, I apply SMOTE (Synthetic Minority Oversampling Technique) to upsample the delayed flights during training. Instead of simply duplicating minority class samples, SMOTE generates synthetic examples by interpolating between existing minority instances and their nearest neighbors. This helps the model learn more generalizable decision boundaries without overfitting to repeated data. By balancing the number of examples in each class, SMOTE improves the model’s ability to recognize underrepresented outcomes—such as flight delays or fraud cases—leading to better recall and more reliable performance in real-world applications where imbalanced data is common.
 
 ### Code: Apply SMOTE
 
@@ -193,8 +193,6 @@ To address class imbalance and improve recall, we apply SMOTE (Synthetic Minorit
 !pip install imbalanced-learn
 
 from imblearn.over_sampling import SMOTE
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 
 # Encode and split data
@@ -246,7 +244,7 @@ print(classification_report(y_test, y_pred))
 ## 13. Final Recommendations
 
 - **If recall is the top priority**, SMOTE clearly outperforms the other strategies so far.
-- Consider using SMOTE together with **threshold tuning** for even better results.
+- We might consider using SMOTE together with **threshold tuning** for even better results.
 - For production deployment, explore:
   - 🚀 XGBoost or Logistic Regression with ROC analysis
   - ⏳ Time-based features (prior flight delays, rolling averages)
