@@ -1,6 +1,8 @@
-# Airline Flight Delay Prediction Project
+---
+layout: post
+title: Airline Flight Delay Prediction with Python
+---
 
-## 1. Project Overview
 This project aims to predict whether a flight will be significantly delayed (15+ minutes) using flight metadata,
 weather, and carrier information. Understanding delay drivers is essential for airlines and airports to improve
 operations and passenger experience.
