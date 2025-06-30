@@ -7,7 +7,7 @@ This project aims to predict whether a flight will be significantly delayed (15+
 weather, and carrier information. Understanding delay drivers is essential for airlines and airports to improve
 operations and passenger experience.
 
-We use a simulated dataset with 50,000 rows featuring fake airlines and real U.S. airport codes.
+I use a simulated dataset with 50,000 rows featuring fake airlines and real U.S. airport codes.
 
 ---
 
