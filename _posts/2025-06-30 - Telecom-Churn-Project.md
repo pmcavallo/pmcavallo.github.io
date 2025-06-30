@@ -59,7 +59,7 @@ sns.histplot(df['tenure_months'], bins=30, kde=True)
 plt.title('Tenure Distribution')
 plt.show()
 ```
-
+![Churn Visualization](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/telecom_churn.png?raw=true)
 ---
 
 ## 4. Data Preprocessing
