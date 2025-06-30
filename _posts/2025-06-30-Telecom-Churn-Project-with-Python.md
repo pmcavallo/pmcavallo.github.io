@@ -1,3 +1,8 @@
+---
+layout: post
+title: Telecom Customer Churn Prediction with Python
+---
+
 # Telecom Customer Churn Prediction Project
 
 ## 1. Project Introduction
