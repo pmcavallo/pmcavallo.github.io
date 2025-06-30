@@ -3,7 +3,7 @@ layout: page
 title: Research
 permalink: /research/
 ---
-**Research Interests:** Foreign Direct Investment (FDI), Multinational Enterprises (MNEs), investment location, spatial analyses, Bilateral Investment Treaties (BITs).
+**Research Interests:** Foreign Direct Investment (FDI), Multinational Enterprises (MNEs), investment location, spatial econometric analyses, Bilateral Investment Treaties (BITs), multi-level/multinomial/fractional logistic regression.
 
 ### Peer-Reviewed Publications
 
@@ -11,9 +11,9 @@ permalink: /research/
 
 2. Cavallo, Paulo. 2020. "Learning from Brazil's Bilateral Investment Treaties." *FDI Perspectives*, No. 270, January 27, 2020.
 
-### Under Review
+3. "Foreign Investment and Right-to-Work Laws.' (with Clint Peinhardt) 
 
-1. "Foreign Investment and Right-to-Work Laws.' (with Clint Peinhardt)
+### Under Review
 
 2. "Market Proximity, Congestion Costs and the New Geography of FDI in the US."
 
