@@ -11,7 +11,7 @@ permalink: /research/
 
 2. Cavallo, Paulo. 2020. "Learning from Brazil's Bilateral Investment Treaties." *FDI Perspectives*, No. 270, January 27, 2020.
 
-3. "Foreign Investment and Right-to-Work Laws.' (with Clint Peinhardt) 
+3. Cavallo, Paulo. 2021. "Foreign Investment and Right-to-Work Laws.' (with Clint Peinhardt) 
 
 ### Under Review
 
