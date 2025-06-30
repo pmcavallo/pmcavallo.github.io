@@ -1,11 +1,8 @@
 ---
 layout: page
-title: About
+title: 👋 About Me
 permalink: /about/
 ---
-
-# 👋 About Me
-
 I’m **Paulo Cavallo**, a data scientist with a Ph.D. in Political Economy and over five years of experience in predictive modeling and risk analytics within regulated financial environments.
 
 ## 💼 Professional Focus
