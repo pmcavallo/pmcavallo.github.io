@@ -4,23 +4,26 @@ title: About
 permalink: /about/
 ---
 
-I'm a data scientist with a Ph.D. in Political Economy and over five years of experience developing predictive models and risk analytics in highly regulated financial environments. My work bridges the rigor of academic research with the practical demands of business strategy—translating complex questions into scalable, data-driven solutions. My academic background spans institutions in the U.S. and U.K., and I’ve published peer-reviewed research on foreign investment and economic policy. I’m passionate about applying statistical modeling and machine learning to real-world challenges—whether in finance, policy, or business operations.
+# 👋 About Me
 
-### More Information
+I’m **Paulo Cavallo**, a data scientist with a Ph.D. in Political Economy and over five years of experience in predictive modeling and risk analytics within regulated financial environments.
 
-Further training:
+## 💼 Professional Focus
 
-1. Graduate Certificate in Geographic Information System - GIS, The University of Texas at Dallas, US.
+- **Model Development**: Forecasting, scenario analysis, and regulatory modeling using SAS, SQL, and Python.
+- **Data Science**: Expanding into scalable analytics with tools like PySpark and AWS.
+- **Cross-Functional Collaboration**: Bridging technical and business teams to deliver actionable insights.
 
-2. Graduate Ceretificate in Social and Demographic Data Analysis, The University of Texas at Dallas, US. 
+## 📚 Academic & Research Background
 
-3. Empirical Implications of Theoretical Models - EITM Europe, Collegio Carlo Alberto, Italy.
+Educated in the U.S. and U.K., I’ve published peer-reviewed research on foreign investment and economic policy. My academic rigor informs my approach to real-world data challenges.
 
-4. Essex Summer School in Social Science Data Analysis, Essex University, UK.
+## 🌍 Languages & Interests
 
-5. Executive Degree in Trade Policy, Harvard University, US.
+Fluent in English, Spanish, and Portuguese; advanced in French and Italian. I enjoy exploring languages, data visualization, and refining communication through storytelling.
 
+## 🔗 Connect
 
-
-
-[Personal Website](https://www.paulocavallo.wordpress.com "Personal Website")
+- [LinkedIn](https://www.linkedin.com/in/paulocavallo)
+- [GitHub](https://github.com/pmcavallo)
+- [Personal Website](https://www.paulocavallo.wordpress.com "Personal Website")
