@@ -381,3 +381,77 @@ This plot makes it clear **which features** drove the model’s decision and **h
 ### 📝 Summary
 
 XGBoost is a great choice for fraud detection due to its predictive power and flexibility. However, it's important to validate its complexity against business needs. In many regulated environments, simpler models with clear explanations (like logistic regression) may be preferred — or combined with XGBoost in a champion-challenger setup.
+
+## ⚖️ 13. Comparison: XGBoost vs Logistic Regression
+
+To determine whether the complexity of XGBoost is justified, I'm going to compare its performance to a simpler baseline: **Logistic Regression**.
+
+### 📦 Train Logistic Regression
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score, classification_report, confusion_matrix
+
+# Train logistic regression with class balancing
+logreg = LogisticRegression(class_weight='balanced', random_state=42)
+logreg.fit(X_train_scaled, y_train)
+
+# Predict probabilities and class labels
+y_proba_logreg = logreg.predict_proba(X_test_scaled)[:, 1]
+y_pred_logreg = (y_proba_logreg >= 0.5).astype(int)
+
+# Evaluate performance
+print("Logistic Regression Classification Report:")
+print(classification_report(y_test, y_pred_logreg))
+
+auc_logreg = roc_auc_score(y_test, y_proba_logreg)
+print(f"ROC-AUC (Logistic Regression): {auc_logreg:.4f}")
+```
+
+### 🧪 What Metrics to Compare?
+
+- If **XGBoost shows significantly better recall or F1**, it's leveraging non-linear interactions to detect fraud.
+- If **Logistic Regression performs similarly**, it may be a better choice for:
+  - Transparency (easy to explain to business users)
+  - Simplicity (less risk of overfitting)
+  - Speed and deployment (lightweight)
+
+Logistic Regression can be a strong **baseline**. If XGBoost meaningfully improves performance, the added complexity is worthwhile. Otherwise, logistic regression may be preferable for regulated environments or when interpretability is paramount.
+
+### 📊 Logistic Regression Results
+
+| Metric        | Class 0 (Non-Fraud) | Class 1 (Fraud) |
+|---------------|---------------------|------------------|
+| Precision     | 0.99                | 0.21             |
+| Recall        | 0.83                | 0.81             |
+| F1 Score      | 0.90                | 0.34             |
+| ROC-AUC       | -                   | **0.8832**        |
+
+### 📊 XGBoost Results (Optimized Threshold)
+
+| Metric        | Class 0 (Non-Fraud) | Class 1 (Fraud) |
+|---------------|---------------------|------------------|
+| Precision     | -                   | **0.86**         |
+| Recall        | -                   | **0.69**         |
+| F1 Score      | -                   | **0.76**         |
+| ROC-AUC       | -                   | ~**0.91–0.92**   |
+
+### ✅ Final Takeaways
+
+- **Logistic Regression**:
+  - Strength: **High recall** (81%) → fewer missed fraud cases
+  - Weakness: **Very low precision** (21%) → many false alarms
+  - Great for use cases prioritizing **detection over cost of review**
+
+- **XGBoost**:
+  - Strength: **Much higher precision and F1 score**
+  - Weakness: Slightly lower recall
+  - Best for **balanced detection and cost-effective fraud review**
+
+### 🧠 Recommendation
+
+Use:
+- **Logistic Regression** when you want to catch almost every fraud (recall is critical)
+- **XGBoost** when you want a **high-confidence** fraud detection system (better balance of precision, recall, and F1)
+
+This type of side-by-side evaluation is essential for selecting the best model aligned with business objectives.
