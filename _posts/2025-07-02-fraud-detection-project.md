@@ -151,6 +151,34 @@ best_thresh = threshold_results.loc[threshold_results.F1.idxmax(), "Threshold"]
 print(f"Best threshold based on F1 Score: {best_thresh:.2f}")
 ```
 ![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud2.png?raw=true) 
+
+The Threshold Optimization plot visualizes how the model’s **Precision**, **Recall**, and **F1 Score** vary as we adjust the classification threshold.
+
+### 🔍 What We See
+
+- **Recall (🟠 Orange Line)**:
+  - Starts high at low thresholds because most transactions are predicted as fraud.
+  - Decreases as the threshold increases, meaning fewer frauds are detected.
+  - High recall = fewer missed frauds, but more false positives.
+
+- **Precision (🟢 Green Line)**:
+  - Starts low, indicating many false positives.
+  - Increases as the threshold rises, meaning fewer incorrect fraud labels.
+  - High precision = fewer false alarms, but may miss actual frauds.
+
+- **F1 Score (🔵 Blue Line)**:
+  - A balance between Precision and Recall.
+  - Peaks at an intermediate threshold (often around 0.5–0.65).
+  - The optimal threshold for balanced performance is where this line is highest.
+
+Given these results, we can:
+
+- Choose a **lower threshold** (e.g., 0.3–0.4) if we want to **maximize recall** and detect more fraud (even with some false positives).
+- Choose a **higher threshold** (e.g., 0.7–0.8) if we prefer **higher precision** and want fewer false positives.
+- Choose the **threshold with highest F1 score** for **balanced performance** — this is what the code above did and often the best default choice.
+
+This analysis helps tailor the fraud detection model to real-world business goals: whether it's minimizing risk, cost, or false positives.
+
 ---
 
 ## ✅ 7. Final Evaluation
