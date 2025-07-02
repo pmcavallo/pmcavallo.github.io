@@ -45,7 +45,7 @@ sns.countplot(x="is_fraud", data=df)
 plt.title("Class Distribution: Fraud vs Non-Fraud")
 plt.show()
 ```
-![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud.png?raw=true) 
+![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud1.png?raw=true) 
 ---
 
 ## 🧹 3. Preprocessing
@@ -150,7 +150,7 @@ plt.show()
 best_thresh = threshold_results.loc[threshold_results.F1.idxmax(), "Threshold"]
 print(f"Best threshold based on F1 Score: {best_thresh:.2f}")
 ```
-
+![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud2.png?raw=true) 
 ---
 
 ## ✅ 7. Final Evaluation
@@ -170,7 +170,7 @@ plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.show()
 ```
-
+![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud3.png?raw=true) 
 ---
 
 ## 📝 Summary
@@ -209,13 +209,14 @@ shap_values = explainer(X_test_scaled)
 # Summary plot: global feature importance
 shap.summary_plot(shap_values, X_test, feature_names=X.columns.tolist())
 ```
-
+![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud4.png?raw=true) 
 ### 💧 Step 4: Visualize Individual Prediction
 
 ```python
 # Waterfall plot: explains a single prediction
 shap.plots.waterfall(shap_values[0], max_display=10)
 ```
+![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud5.png?raw=true) 
 
 SHAP helps you understand:
 - Which features increased the risk of fraud
