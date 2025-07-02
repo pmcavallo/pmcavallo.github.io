@@ -179,4 +179,46 @@ plt.show()
 - **Handled imbalance** with **SMOTE**
 - **Improved recall and F1** through **threshold optimization**
 
-This pipeline is ready to be expanded with SHAP for interpretability, or adapted for real datasets like credit card fraud or bank transactions.
+## 🧠 8. SHAP Interpretability
+
+SHAP (SHapley Additive exPlanations) helps explain individual predictions by assigning each feature an importance value for a given prediction.
+
+### 🔍 Step 1: Install and Import SHAP
+
+```python
+# Install SHAP if you haven't
+# !pip install shap
+
+import shap
+```
+
+### 📊 Step 2: Initialize SHAP Explainer
+
+```python
+# Create an explainer for the trained XGBoost model
+explainer = shap.Explainer(xgb_best, X_test_scaled)
+
+# Compute SHAP values
+shap_values = explainer(X_test_scaled)
+```
+
+### 🖼️ Step 3: Visualize Global Feature Importance
+
+```python
+# Summary plot: global feature importance
+shap.summary_plot(shap_values, X_test, feature_names=X.columns.tolist())
+```
+
+### 💧 Step 4: Visualize Individual Prediction
+
+```python
+# Waterfall plot: explains a single prediction
+shap.plots.waterfall(shap_values[0], max_display=10)
+```
+
+SHAP helps you understand:
+- Which features increased the risk of fraud
+- Which ones decreased it
+- By how much each feature contributed
+
+This is useful for model transparency and auditing.
