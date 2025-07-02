@@ -45,7 +45,7 @@ sns.countplot(x="is_fraud", data=df)
 plt.title("Class Distribution: Fraud vs Non-Fraud")
 plt.show()
 ```
-
+![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud.png?raw=true) 
 ---
 
 ## 🧹 3. Preprocessing
