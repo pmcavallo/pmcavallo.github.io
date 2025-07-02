@@ -31,7 +31,7 @@ np.random.seed(42)
 
 ## 🧪 2. Simulate a Fraud Dataset
 
-We generate a dataset with 10,000 records, 20 features, and 5% fraud cases to mimic the typical class imbalance in fraud detection.
+I'm going to generate a dataset with 10,000 records, 20 features, and 5% fraud cases to mimic the typical class imbalance in fraud detection.
 
 ```python
 X, y = make_classification(n_samples=10000, n_features=20, n_informative=10,
@@ -113,7 +113,7 @@ For each of the 20 combinations, a different model is trained using cross-valida
 
 ## ⚖️ 5. Handle Class Imbalance with SMOTE
 
-Apply SMOTE to generate synthetic minority (fraud) class samples.
+I'm going to apply SMOTE to generate synthetic minority (fraud) class samples. In the "Airline Delay" project I dicuss SMOTE in more detail.
 
 ```python
 smote = SMOTE(random_state=42)
@@ -128,7 +128,7 @@ y_proba = xgb_best.predict_proba(X_test_scaled)[:, 1]
 
 ## 🎯 6. Optimize the Classification Threshold
 
-Instead of using 0.5 by default, find the best threshold for F1 score.
+Instead of using 0.5 by default, we try to find the best threshold for F1 score.
 
 ```python
 def evaluate_thresholds(y_true, y_proba):
