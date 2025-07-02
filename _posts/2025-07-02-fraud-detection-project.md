@@ -1,6 +1,7 @@
-
-# 🛡️ Fraud Detection Using XGBoost and scikit-learn (with SMOTE and Threshold Optimization)
-
+---
+layout: post
+title: 🛡️ Fraud Detection Using XGBoost and scikit-learn (with SMOTE and Threshold Optimization)
+---
 This project demonstrates a full machine learning workflow for detecting fraudulent transactions using **simulated data**, with **XGBoost**, **SMOTE** for class imbalance, **RandomizedSearchCV** for hyperparameter tuning, and **threshold optimization** to improve performance.
 
 ---
