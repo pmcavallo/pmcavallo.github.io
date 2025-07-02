@@ -88,12 +88,22 @@ X_encoded = pd.get_dummies(X, drop_first=True)
 
 ## 5. Model Building
 
+Here, I'm going to use a random forest classifier. Random Forest is an ensemble machine learning algorithm that combines multiple decision trees to improve prediction accuracy and control overfitting. It can be used for both classification and regression tasks. 
+
+How it works:
+- Bootstrap Sampling: The algorithm creates many subsets of the training data using bootstrapping (sampling with replacement).
+- Grow Decision Trees: A decision tree is trained on each subset, but at each split, only a random subset of features is considered (not all).
+- Voting or Averaging:
+  - For classification, each tree votes for a class, and the majority vote is the final prediction.
+  - For regression, the average of all trees' predictions is the output.
+
+
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
 X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.2, random_state=42)
-model = RandomForestClassifier(n_estimators=100, random_state=42)
+model = RandomForestClassifier(n_estimators=100, random_state=42) #the model will build 100 decision trees
 model.fit(X_train, y_train)
 ```
 
