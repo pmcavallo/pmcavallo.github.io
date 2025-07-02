@@ -266,8 +266,8 @@ print(classification_report(y_test, y_pred))
 
 - **If recall is the top priority**, SMOTE clearly outperforms the other strategies so far.
 - We might consider using SMOTE together with **threshold tuning** for even better results.
-- For production deployment, explore:
-  - 🚀 XGBoost or Logistic Regression with ROC analysis
+- For production deployment, we could explore:
+  - 🚀 XGBoost or Logistic Regression with ROC analysis (which I do in the fraud project)
   - ⏳ Time-based features (prior flight delays, rolling averages)
-  - 📡 Live weather and congestion feeds
+
 
