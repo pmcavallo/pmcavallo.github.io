@@ -143,7 +143,8 @@ def train_and_save_model(X_train, y_train, preprocessor):
 
     return model
 ```
-
+- The target `Churn` is binary encoded.
+- Final model and preprocessor are saved as `.pkl` files for use in the web app.
 ---
 
 ### 3. Execute Training Script
@@ -287,7 +288,7 @@ services:
 ## 🤖 Tech Stack
 
 | Purpose         | Tool            |
-|----------------|-----------------|
+|-----------------|-----------------|
 | Language        | Python 3        |
 | ML Library      | scikit-learn    |
 | Web UI          | Streamlit       |
@@ -310,6 +311,5 @@ services:
 This project is available under the MIT License.
 ---
 
-- The target `Churn` is binary encoded.
-- Final model and preprocessor are saved as `.pkl` files for use in the web app.
+
 
