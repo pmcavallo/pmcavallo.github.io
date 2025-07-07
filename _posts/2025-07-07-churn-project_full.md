@@ -1,6 +1,7 @@
-
-# 🔍 Customer Churn Prediction App (Streamlit + Render)
-
+---
+layout: post
+title: 🔍 Customer Churn Prediction App (Streamlit + Render)
+---
 This project demonstrates an end-to-end machine learning pipeline to predict customer churn using simulated data. It includes data generation, preprocessing, model training, and deployment via **Streamlit** on **Render**.
 
 ---
