@@ -11,7 +11,7 @@ This project is an end-to-end machine learning web app for predicting customer c
 
 ## 📸 App Preview
 
-![Churn Prediction App Screenshot](streamlit_ui.png)
+![Churn Prediction App Screenshot]((https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/streamlit_ui.png?raw=true).png)
 
 ---
 
