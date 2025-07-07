@@ -9,7 +9,7 @@ This project demonstrates an end-to-end machine learning pipeline for customer c
 
 ## ✅ Step 1: Generate Simulated Data (`generate_data.py`)
 
-We begin by simulating a Telco-style churn dataset with realistic patterns based on contract type, charges, tenure, and demographics.
+I'll begin by simulating a Telecom churn dataset with realistic patterns based on contract type, charges, tenure, and demographics.
 
 ### 🎯 Objective
 To simulate a labeled dataset for a binary classification problem — predicting **churn** (`Yes` or `No`) — using a mix of numeric and categorical customer attributes.
@@ -17,13 +17,13 @@ To simulate a labeled dataset for a binary classification problem — predicting
 ### 🧠 Key Concepts
 
 #### ✅ Synthetic Data Generation
-We generate data using `numpy` and `pandas`, which gives us full control over:
+I generate data using `numpy` and `pandas`, which gives us full control over:
 - Feature distributions
 - Target relationships
 - Sample size and variability
 
 #### 🎯 Binary Target: `Churn`
-We model `Churn` as `Yes` or `No` by simulating a probability based on customer traits, then apply a threshold (0.5).
+I'll model `Churn` as `Yes` or `No` by simulating a probability based on customer traits, then apply a threshold (0.5).
 
 #### 🧩 Feature Engineering in Simulation
 - `tenure`: Number of months the customer has stayed
@@ -37,7 +37,7 @@ Churn is more likely if:
 - `MonthlyCharges` are high
 - `SeniorCitizen` is 1 (True)
 
-We simulate this behavior using conditional logic and add **Gaussian noise** to keep it realistic.
+I'll simulate this behavior using conditional logic and add **Gaussian noise** to keep it realistic.
 
 #### 📁 Output
 - File: `data/telco_churn.csv`
