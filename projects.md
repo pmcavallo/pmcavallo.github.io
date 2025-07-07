@@ -22,7 +22,7 @@ This interactive app allows users to input customer features (e.g., tenure, cont
 - 📎 Technologies: `Python`, `scikit-learn`, `Streamlit`, `joblib`, `Render`
 
 **Screenshot**:  
-![Customer Churn Predictor](../assets/images/streamlit_ui.png)
+![Churn Prediction App Screenshot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/streamlit_ui.png?raw=true)
 
 ---
 
