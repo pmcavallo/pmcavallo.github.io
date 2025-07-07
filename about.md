@@ -24,3 +24,9 @@ Fluent in English, Spanish, and Portuguese; advanced in French and Italian. I en
 - [LinkedIn](https://www.linkedin.com/in/paulocavallo)
 - [GitHub](https://github.com/pmcavallo)
 - [Personal Website](https://www.paulocavallo.wordpress.com "Personal Website")
+
+---
+
+### 🛠️ Core Tools & Skills  
+Python • scikit-learn • SQL • Streamlit • Render • Tableau • SAS • R • Stata • GIS (Certified)
+
