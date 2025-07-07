@@ -1,4 +1,7 @@
-# 📉 Customer Churn Prediction App (Deployed on Render)
+---
+layout: post
+title:  📉 Customer Churn Prediction App (Deployed on Render)
+---
 
 This project is an end-to-end machine learning web app for predicting customer churn using a trained classification model.
 
@@ -8,7 +11,7 @@ This project is an end-to-end machine learning web app for predicting customer c
 
 ## 📸 App Preview
 
-![Churn Prediction App Screenshot](screenshots/streamlit_ui.png)
+![Churn Prediction App Screenshot](streamlit_ui.png)
 
 ---
 
