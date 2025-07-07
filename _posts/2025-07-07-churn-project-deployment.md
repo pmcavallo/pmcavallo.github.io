@@ -1,7 +1,9 @@
+---
+layout: post
+title: 📊 Churn Prediction Model Deployment (Simulated Data)
+---
 
-# 📊 Churn Prediction Model Deployment (Simulated Data)
-
-This project demonstrates an end-to-end machine learning pipeline for customer churn prediction using **simulated data**, with full deployment via **Streamlit** and **Render**. It is modular, well-documented, and designed for production-style workflow.
+This project demonstrates an end-to-end machine learning pipeline for customer churn prediction using **simulated data**, with full deployment via **Streamlit** and **Render**. 
 
 ---
 
