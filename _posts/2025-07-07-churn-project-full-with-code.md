@@ -247,4 +247,4 @@ This project showcases the full ML lifecycle:
 - Modular codebase with explainable steps
 - Production-ready Streamlit interface
 
-Use it as a portfolio piece, a template for your next project, or a teaching tool!
+
