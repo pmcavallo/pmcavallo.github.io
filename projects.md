@@ -24,22 +24,17 @@ This interactive app allows users to input customer features (e.g., tenure, cont
 **Screenshot**:  
 ![Churn Prediction App Screenshot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/streamlit_ui.png?raw=true)
 
----
-
 ## 🧰 Tools Used Across Projects
 
-| Purpose          | Tool            |
-|------------------|------------------|
-| Language         | Python          |
-| ML Library       | scikit-learn     |
-| Model Deployment | Streamlit + Render |
-| Model Storage    | joblib           |
-| Data Access      | pandas, NumPy    |
+| Purpose          | Tool                           |
+|------------------|--------------------------------|
+| Language         | Python                         |
+| ML Library       | scikit-learn                   |
+| Model Deployment | Streamlit + Render             |
+| Model Storage    | joblib                         |
+| Data Access      | pandas, NumPy                  |
 | Data Viz         | seaborn, matplotlib, Streamlit |
-| Dataset          | Simulated Telco Churn |
-
----
-
+| Dataset          | Simulated Telco Churn          |
 
 ### 🕵️‍♂️ Fraud Detection with XGBoost & SHAP
 
@@ -56,16 +51,16 @@ Detect fraudulent transactions using synthetic data with engineered features suc
 - **Evaluation**: Evaluated using confusion matrix, ROC AUC, and F1-score.
 - **Explainability**: Used SHAP (SHapley Additive exPlanations) to explain model predictions and identify top drivers of fraud.
 
-#### ⚙️ Tech Stack
+### ⚙️ Tech Stack
 
-| Purpose           | Tool                 |
-|-------------------|----------------------|
-| Language          | Python 3             |
-| ML Library        | XGBoost, scikit-learn|
-| Explainability    | SHAP                 |
-| Data Simulation   | NumPy, pandas        |
-| Visualization     | matplotlib, seaborn  |
-| Deployment        | Local / GitHub       |
+| Purpose           | Tool                   |
+|-------------------|------------------------|
+| Language          | Python                 |
+| ML Library        | XGBoost, scikit-learn  |
+| Explainability    | SHAP                   |
+| Data Simulation   | NumPy, pandas          |
+| Visualization     | matplotlib, seaborn    |
+| Deployment        | Local / GitHub         |
 
 #### 📈 Sample Output
 
