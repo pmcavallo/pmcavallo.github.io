@@ -24,15 +24,14 @@ This interactive app allows users to input customer features (e.g., tenure, cont
 
 #### ⚙️ Tech Stack
 
-<table>
-  <tr><th>Purpose</th><th>Tool(s)</th></tr>
-  <tr><td>Language</td><td><strong>Python 3</strong></td></tr>
-  <tr><td>ML Library</td><td>XGBoost, scikit-learn</td></tr>
-  <tr><td>Explainability</td><td>SHAP</td></tr>
-  <tr><td>Data Simulation</td><td>NumPy, pandas</td></tr>
-  <tr><td>Visualization</td><td>matplotlib, seaborn</td></tr>
-  <tr><td>Deployment</td><td>Local / GitHub</td></tr>
-</table>
+| Purpose           | Tool                   |
+|-------------------|------------------------|
+| Language          | Python 3               |
+| ML Library        | scikit-learn           |
+| Visualization     | seaborn, matplotlib    |
+| Data Handling     | pandas, NumPy          |
+| Deployment        | GitHub Pages           |
+
 
 
 ### 🕵️‍♂️ Fraud Detection with XGBoost & SHAP
