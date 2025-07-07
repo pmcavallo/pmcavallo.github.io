@@ -1,5 +1,7 @@
-
-# 🔍 Customer Churn Prediction App (Streamlit + Render)
+---
+layout: post
+title: 🔍 Customer Churn Prediction App (Streamlit + Render)
+---
 
 This project demonstrates an end-to-end machine learning pipeline to predict customer churn using simulated data. It includes data generation, preprocessing, model training, and deployment via **Streamlit** on **Render**.
 
@@ -7,7 +9,7 @@ This project demonstrates an end-to-end machine learning pipeline to predict cus
 
 ## ✅ Step 1: Generate Simulated Churn Data (`data/generate_data.py`)
 
-We simulate a Telco-style dataset with realistic churn behavior.
+I'll simulate a Telco-style dataset with realistic churn behavior.
 
 ### 📌 Highlights:
 - 1000 samples with features like tenure, charges, contract type
