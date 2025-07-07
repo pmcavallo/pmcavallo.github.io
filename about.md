@@ -8,7 +8,7 @@ I’m **Paulo Cavallo**, a data scientist with a Ph.D. in Political Economy and 
 ## 💼 Professional Focus
 
 - **Model Development**: Forecasting, scenario analysis, and regulatory modeling using SAS, SQL, and Python.
-- **Data Science**: Expanding into scalable analytics with tools like PySpark and AWS.
+- **Data Science**: Expanding into scalable analytics with tools like AWS.
 - **Cross-Functional Collaboration**: Bridging technical and business teams to deliver actionable insights.
 
 ## 📚 Academic & Research Background
