@@ -1,10 +1,8 @@
 ---
 layout: page
-title: Projects
+title: 🚀 Projects
 permalink: /projects/
 ---
-
-# 🚀 Projects
 
 A selection of hands-on projects demonstrating real-world data science, modeling, and cloud deployment — designed and built using Python, scikit-learn, and modern tools like Streamlit and Render.
 
