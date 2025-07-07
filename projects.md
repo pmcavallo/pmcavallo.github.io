@@ -78,6 +78,36 @@ Detect fraudulent transactions using synthetic data with engineered features suc
 
 📎 [View on GitHub](https://github.com/pmcavallo/fraud-detection-project) 
 
+---
+
+### ✈️ Airline Flight Delay Prediction with Python
+
+A full machine learning pipeline that predicts flight delays using simulated airline data enriched with real U.S. airport codes and weather features. The project explores exploratory analysis, model training, and practical recommendations for airport operations.
+
+#### 🔍 Objective
+Predict whether a flight will be delayed based on features like carrier, origin, departure time, distance, and simulated weather patterns.
+
+#### 🧠 Key Steps
+
+- **Data Simulation**: Generated a large synthetic dataset including delay labels and airport metadata.
+- **EDA**: Visualized delay patterns by airport, hour of day, and weather impact.
+- **Modeling**: Trained a Random Forest classifier with class balancing and hyperparameter tuning.
+- **Evaluation**: Assessed performance using confusion matrix, precision-recall, and F1-score.
+- **Recommendations**: Delivered operational insights and visualized them with heatmaps and scatterplots.
+
+#### ⚙️ Tech Stack
+
+| Purpose           | Tool                    |
+|-------------------|-------------------------|
+| Language          | Python 3                |
+| ML Library        | scikit-learn            |
+| Visualization     | matplotlib, seaborn     |
+| Simulation        | NumPy, pandas            |
+| Mapping (EDA)     | Plotly, geopandas        |
+| Deployment        | GitHub Pages (Markdown) |
+
+#### 📂 Read the Full Report
+📎 [View Full Project](https://pmcavallo.github.io/full-airline-delay-project/)
 
 ## 🛠️ In Progress
 
