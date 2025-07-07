@@ -40,7 +40,6 @@ This interactive app allows users to input customer features (e.g., tenure, cont
 
 ---
 
----
 
 ### 🕵️‍♂️ Fraud Detection with XGBoost & SHAP
 
