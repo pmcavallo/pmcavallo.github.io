@@ -40,6 +40,45 @@ This interactive app allows users to input customer features (e.g., tenure, cont
 
 ---
 
+---
+
+### 🕵️‍♂️ Fraud Detection with XGBoost & SHAP
+
+A simulated end-to-end machine learning pipeline that predicts fraudulent transactions using XGBoost and interprets the model with SHAP values.
+
+#### 🔍 Objective
+Detect fraudulent transactions using synthetic data with engineered features such as transaction type, amount, time, and customer behavior patterns.
+
+#### 🧠 Key Steps
+
+- **Data Simulation**: Created a synthetic dataset mimicking real-world credit card transactions with class imbalance.
+- **Preprocessing**: Handled class imbalance with SMOTE and balanced class weights.
+- **Modeling**: Trained an XGBoost classifier and optimized it via grid search.
+- **Evaluation**: Evaluated using confusion matrix, ROC AUC, and F1-score.
+- **Explainability**: Used SHAP (SHapley Additive exPlanations) to explain model predictions and identify top drivers of fraud.
+
+#### ⚙️ Tech Stack
+
+| Purpose           | Tool                 |
+|-------------------|----------------------|
+| Language          | Python 3             |
+| ML Library        | XGBoost, scikit-learn|
+| Explainability    | SHAP                 |
+| Data Simulation   | NumPy, pandas        |
+| Visualization     | matplotlib, seaborn  |
+| Deployment        | Local / GitHub       |
+
+#### 📈 Sample Output
+
+- 🔺 Fraud detection accuracy: ~94%
+- 🔍 Top features identified by SHAP:
+  - `transaction_amount`
+  - `time_delta_last_tx`
+  - `customer_avg_tx`
+
+📎 [View on GitHub](https://github.com/pmcavallo/fraud-detection-project) 
+
+
 ## 🛠️ In Progress
 
 ### 🗺️ Geospatial Risk Dashboard (Tableau)
