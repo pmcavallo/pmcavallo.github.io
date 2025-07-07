@@ -22,17 +22,18 @@ This interactive app allows users to input customer features (e.g., tenure, cont
 **Screenshot**:  
 ![Churn Prediction App Screenshot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/streamlit_ui.png?raw=true)
 
-## 🧰 Tools Used Across Projects
+#### ⚙️ Tech Stack
 
-| Purpose          | Tool                           |
-|------------------|--------------------------------|
-| Language         | Python                         |
-| ML Library       | scikit-learn                   |
-| Model Deployment | Streamlit + Render             |
-| Model Storage    | joblib                         |
-| Data Access      | pandas, NumPy                  |
-| Data Viz         | seaborn, matplotlib, Streamlit |
-| Dataset          | Simulated Telco Churn          |
+<table>
+  <tr><th>Purpose</th><th>Tool(s)</th></tr>
+  <tr><td>Language</td><td><strong>Python 3</strong></td></tr>
+  <tr><td>ML Library</td><td>XGBoost, scikit-learn</td></tr>
+  <tr><td>Explainability</td><td>SHAP</td></tr>
+  <tr><td>Data Simulation</td><td>NumPy, pandas</td></tr>
+  <tr><td>Visualization</td><td>matplotlib, seaborn</td></tr>
+  <tr><td>Deployment</td><td>Local / GitHub</td></tr>
+</table>
+
 
 ### 🕵️‍♂️ Fraud Detection with XGBoost & SHAP
 
