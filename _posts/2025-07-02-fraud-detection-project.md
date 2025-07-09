@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 🛡️Fraud Detection with XGBoost and scikit-learn
+date: 2025-04-18
 ---
 This project demonstrates a full machine learning workflow for detecting fraudulent transactions using **simulated data**, with **XGBoost**, **SMOTE** for class imbalance, **RandomizedSearchCV** for hyperparameter tuning, and **threshold optimization** to improve performance.
 
