@@ -49,14 +49,14 @@ features = [col for col in dev.columns if col != target]
 
 We apply a **fractional logit transformation** to ensure predicted values remain in the (0, 1) interval:
 
-$$
-y^* = \frac{y \cdot (n - 1) + 0.5}{n}
-$$
+    y* = [ y × (n - 1) + 0.5 ] / n
 
 Where:
-- \( y \) is the original target value (between 0 and 1),
-- \( n \) is the number of observations,
-- \( y^* \) is the transformed target used in model fitting.
+
+- `y` is the original target value (between 0 and 1),
+- `n` is the number of observations,
+- `y*` is the transformed target used in model fitting.
+
 
 
 ```python
@@ -170,20 +170,21 @@ We evaluate **population stability** for key model inputs and outputs between th
 
 This helps detect **data drift** or **segment shift** that may impact model validity.
 
-#### PSI Table
+### 📊 PSI Table
 
-| **Variable**          | **PSI** | **Status**           |
-|-----------------------|--------:|----------------------|
-| `engagement_pred`     |  0.0807 | ✅ Stable            |
-| `engagement_ratio`    |  0.0544 | ✅ Stable            |
-| `age`                 |  0.0313 | ✅ Stable            |
-| `tenure_months`       |  0.1493 | ⚠️ Moderate Shift   |
-| `avg_monthly_usage`   |  0.1147 | ⚠️ Moderate Shift   |
-| `network_issues`      |  0.0154 | ✅ Stable            |
+| **Variable**         | **PSI**  | **Status**           |
+|----------------------|----------|-----------------------|
+| engagement_pred      | 0.0807   | ✅ Stable             |
+| engagement_ratio     | 0.0544   | ✅ Stable             |
+| age                  | 0.0313   | ✅ Stable             |
+| tenure_months        | 0.1493   | ⚠️ Moderate Shift     |
+| avg_monthly_usage    | 0.1147   | ⚠️ Moderate Shift     |
+| network_issues       | 0.0154   | ✅ Stable             |
 
-- **Stable (< 0.10)**: No significant shift in distribution  
-- **Moderate Shift (0.10–0.25)**: Monitor carefully  
-- **Major Shift (> 0.25)**: Model likely impacted — investigate further
+#### PSI Thresholds:
+- **Stable** (< 0.10): No significant shift in distribution  
+- **Moderate Shift** (0.10–0.25): Monitor carefully  
+- **Major Shift** (> 0.25): Model likely impacted — investigate further
 
 ---
 
