@@ -1,4 +1,4 @@
----
+no, today---
 layout: post
 title: 📶 Telecom Engagement Monitoring using Fractional Logistic Regression
 ---
@@ -190,9 +190,7 @@ This helps detect **data drift** or **segment shift** that may impact model vali
 - ✅ **Stable (< 0.10)**: No significant shift in distribution  
 - ⚠️ **Moderate Shift (0.10–0.25)**: Monitor carefully  
 - 🛑 **Major Shift (> 0.25)**: Model likely impacted — investigate further
-
-
-
+- 
 ---
 
 #### 🧪 Code Used to Generate PSI Table
@@ -278,10 +276,11 @@ vintage_table = vintages.groupby("vintage")[[target, "engagement_pred"]].mean()
 
 The table below compares average **actual** and **predicted** engagement across development and monitoring vintages:
 
-| **Vintage** | **Average Actual Engagement** (`engagement_ratio`) | **Average Predicted Engagement** (`engagement_pred`) |
-|-------------|-----------------------------------------------------|--------------------------------------------------------|
-| 2023Q4      | 0.7034                                              | 0.7034                                                 |
-| 2025Q2      | 0.7256                                              | 0.7267                                                 |
+| **Vintage** | **Average Actual Engagement**<br/>(`engagement_ratio`) | **Average Predicted Engagement**<br/>(`engagement_pred`) |
+|:-----------:|-------------------------------:|-------------------------------:|
+| 2023Q4      | 0.7034                        | 0.7034                        |
+| 2025Q2      | 0.7256                        | 0.7267                        |
+
 
 ---
 
@@ -309,12 +308,15 @@ summary["Monitoring"] = summary["Monitoring"].apply(lambda x: round(x, 4) if pd.
 print(summary)
 ```
 
+### 📊 Metric Deltas
 
-| Metric     | Development | Monitoring |
-|------------|-------------|------------|
-| **RMSE**   | 0.0504      | 0.0501     |
-| **MAE**    | 0.0401      | 0.0399     |
-| **PSI**    | 0.0874      |            |
+| **Metric**      | **Score** |
+|-----------------|-----------|
+| RMSE Delta      | ~0.00     |
+| MAE Delta       | ~0.00     |
+| PSI Drift       | 0.87      |
+
+
 
 #### ✅ Interpretation:
 
