@@ -1,6 +1,7 @@
 ---
 layout: post
 title: ✈️ Airline Flight Delay Prediction with Python
+date: 2025-03-12
 ---
 
 This project aims to predict whether a flight will be significantly delayed (15+ minutes) using flight metadata,
