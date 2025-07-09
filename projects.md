@@ -33,6 +33,46 @@ This interactive app allows users to input customer features (e.g., tenure, cont
 | Deployment        | GitHub Pages           |
 
 
+## 📶 Telecom Engagement Monitoring with Fractional Logistic Regression
+
+This project builds a full monitoring pipeline to track **postpaid customer engagement** over time using simulated telecom data. The model uses **fractional logistic regression** to predict monthly engagement as a proportion and evaluates its stability across development and monitoring datasets.
+
+👉 **[View Full Project Notebook](https://pmcavallo.github.io/engagement-monitoring/)**
+
+---
+
+### 🧰 Tech Stack
+
+| Component            | Library / Tool         |
+|---------------------|------------------------|
+| Modeling             | `statsmodels` (GLM - Binomial with Logit link) |
+| Data Handling        | `pandas`, `numpy`      |
+| Evaluation Metrics   | `sklearn.metrics`      |
+| Stability Analysis   | Custom PSI logic       |
+| Visualization        | `matplotlib`           |
+
+---
+
+### 📌 Highlights & Findings
+
+- **Model Performance Remains Strong**:
+  - RMSE and MAE remain consistent across development and monitoring samples.
+  - Calibration curves closely track the 45° reference line, confirming that predicted probabilities are well-aligned with observed engagement.
+
+- **Population Stability (PSI) Results**:
+  - Most variables, including `engagement_pred`, `age`, and `network_issues`, remained stable (PSI < 0.10).
+  - Moderate shifts were observed in `tenure_months` and `avg_monthly_usage`, suggesting slight distributional drift.
+
+- **Final Monitoring Score**:
+  - A weighted score combining RMSE delta, MAE delta, and PSI indicated the model is **stable**.
+  - ✅ **No immediate action needed**, but moderate PSI shifts warrant ongoing monitoring in future quarters.
+
+- **Vintage-Level Insights**:
+  - Predicted and actual engagement increased from **2023Q4 to 2025Q2**, which aligns with expected behavioral trends.
+
+---
+
+This project demonstrates how to proactively monitor engagement models using interpretable statistics and custom stability metrics, with outputs ready for integration into model governance workflows.
 
 ### 🕵️‍♂️ Fraud Detection with XGBoost & SHAP
 
