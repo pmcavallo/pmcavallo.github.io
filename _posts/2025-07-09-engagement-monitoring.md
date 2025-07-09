@@ -1,4 +1,4 @@
-no, today---
+---
 layout: post
 title: 📶 Telecom Engagement Monitoring using Fractional Logistic Regression
 ---
