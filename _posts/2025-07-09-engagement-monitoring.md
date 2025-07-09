@@ -1,7 +1,9 @@
+---
+layout: post
+title: 📶 Telecom Engagement Monitoring using Fractional Logistic Regression
+---
 
-# 📶 Telecom Engagement Monitoring using Fractional Logistic Regression
-
-This project implements a **fractional logistic regression** monitoring pipeline for tracking customer engagement in a postpaid telecom environment.
+This project implements a fractional logistic regression monitoring pipeline for tracking customer engagement in a telecom environment. It simulates realistic development and monitoring datasets to evaluate how well the model generalizes over time using key metrics such as RMSE, MAE, PSI, and calibration curves. The goal is to detect drift, miscalibration, or deterioration in model performance that may require retraining or recalibration, following a structured monitoring scorecard framework.
 
 ---
 
