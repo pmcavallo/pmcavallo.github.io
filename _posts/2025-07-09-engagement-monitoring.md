@@ -164,27 +164,33 @@ fig2.savefig("psi_distribution.png", bbox_inches='tight')
 - Minor deviations exist in some buckets, but the PSI value (e.g., ~0.087) remains below the typical threshold of 0.1.
 - ✅ No significant input drift detected. Model score distributions remain stable.
 
-### 📊 PSI by Variable
+### 🧪 PSI by Variable
 
 We evaluate **population stability** for key model inputs and outputs between the development (2023Q4) and monitoring (2025Q2) datasets.
 
 This helps detect **data drift** or **segment shift** that may impact model validity.
 
-### 📊 PSI Table
+---
+
+#### 📊 PSI Table
 
 | **Variable**         | **PSI**  | **Status**           |
 |----------------------|----------|-----------------------|
-| engagement_pred      | 0.0807   | ✅ Stable             |
-| engagement_ratio     | 0.0544   | ✅ Stable             |
-| age                  | 0.0313   | ✅ Stable             |
-| tenure_months        | 0.1493   | ⚠️ Moderate Shift     |
-| avg_monthly_usage    | 0.1147   | ⚠️ Moderate Shift     |
-| network_issues       | 0.0154   | ✅ Stable             |
+| `engagement_pred`    | 0.0807   | ✅ Stable             |
+| `engagement_ratio`   | 0.0544   | ✅ Stable             |
+| `age`                | 0.0313   | ✅ Stable             |
+| `tenure_months`      | 0.1493   | ⚠️ Moderate Shift     |
+| `avg_monthly_usage`  | 0.1147   | ⚠️ Moderate Shift     |
+| `network_issues`     | 0.0154   | ✅ Stable             |
 
-#### PSI Thresholds:
-- **Stable** (< 0.10): No significant shift in distribution  
-- **Moderate Shift** (0.10–0.25): Monitor carefully  
-- **Major Shift** (> 0.25): Model likely impacted — investigate further
+---
+
+#### 🔍 Interpretation
+
+- **✅ Stable (< 0.10)**: No significant shift in distribution  
+- **⚠️ Moderate Shift (0.10–0.25)**: Monitor carefully  
+- **🛑 Major Shift (> 0.25)**: Model likely impacted — investigate further
+
 
 ---
 
