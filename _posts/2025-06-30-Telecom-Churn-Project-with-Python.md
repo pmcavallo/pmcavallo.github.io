@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Telecom Customer Churn Prediction with Python
+date: 2024-02-23
 ---
 This project focuses on predicting customer churn in the telecommunications industry.
 Customer churn occurs when a user stops using a company’s services. It's a key metric in business intelligence,
