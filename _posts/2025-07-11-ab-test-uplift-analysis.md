@@ -33,6 +33,21 @@ data["converted"] = np.random.binomial(1, data["conversion_prob"])
 ```
 
 ## 2. Initial A/B Test Analysis
+
+### 🧪 A/B Test Summary
+
+- **Control Group Mean Conversion Rate**: 11.32%  
+- **Treatment Group Mean Conversion Rate**: 16.33%  
+- **Lift**: 44.23%  
+- **T-statistic**: 7.2673  
+- **P-value**: 3.942e-13  
+
+✅ This result is statistically significant at the 0.01 level.
+
+### Conversion Rate Distribution Plot
+
+![Conversion Rate Distribution](conversion_rate_distribution.png)
+
 We calculate the lift and statistical significance of the treatment effect.
 
 ```python
@@ -105,3 +120,4 @@ plt.show()
 
 ## Conclusion
 This project illustrates a practical application of A/B testing and uplift modeling in a marketplace scenario. It highlights the importance of evaluating causal effects at a granular level to support data-driven decision-making.
+
