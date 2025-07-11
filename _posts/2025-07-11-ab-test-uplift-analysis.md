@@ -1,7 +1,8 @@
+---
+layout: post
+title: Analyzing A/B Test Impact on Marketplace Conversions with Uplift Modeling
+---
 
-# Analyzing A/B Test Impact on Marketplace Conversions with Uplift Modeling
-
-## Project Overview
 This project simulates and analyzes an A/B pricing test in a marketplace context. Using Python, we simulate customer behavior, estimate the causal impact of a price change on conversion rates, and apply uplift modeling to identify heterogeneous treatment effects across cities. The project demonstrates key skills in experimental design, causal inference, uplift modeling, and data visualization.
 
 **Tech Stack**: `Python`, `pandas`, `scikit-learn`, `matplotlib`, `seaborn`, `scikit-uplift`
