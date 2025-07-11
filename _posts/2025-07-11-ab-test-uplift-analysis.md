@@ -31,6 +31,35 @@ data["treatment_lift"] = np.where(data["group"] == "treatment", 0.05, 0.00)
 data["conversion_prob"] = data["base_rate"] + data["treatment_lift"]
 data["converted"] = np.random.binomial(1, data["conversion_prob"])
 ```
+### 📊 Group-Level Summary Statistics
+
+To understand the effect of the price intervention, we computed the average **price**, **views**, and **conversion rate** for the control and treatment groups.
+
+```
+summary = df.groupby('group')[['price', 'views', 'conversion_rate']].mean().round(3)
+```
+
+| group     | price   | views  | conversion\_rate |
+| --------- | ------- | ------ | ---------------- |
+| control   | 149.666 | 20.003 | 0.100            |
+| treatment | 127.661 | 19.986 | 0.150            |
+
+- Price: The average price in the control group was $149.67, while the treatment group had a lower average price of $127.66, confirming the experimental manipulation.
+- Views: Both groups had similar average views (~20), suggesting comparable exposure and balanced randomization.
+- Conversion Rate: The treatment group achieved a conversion rate of 15%, compared to 10% in the control group — a 50% relative lift in conversions. This suggests the pricing intervention was effective in driving higher conversion rates without reducing visibility.
+
+# T-test
+
+```
+control = df[df['group'] == 'control']['conversion_rate']
+treatment = df[df['group'] == 'treatment']['conversion_rate']
+t_stat, p_val = ttest_ind(treatment, control)
+
+print(f"Control Mean: {conversion_means['control']:.4f}")
+print(f"Treatment Mean: {conversion_means['treatment']:.4f}")
+print(f"Lift: {(conversion_means['treatment'] - conversion_means['control']) / conversion_means['control']:.2%}")
+print(f"T-statistic: {t_stat:.4f}, P-value: {p_val:.4f}")
+```
 
 ## 2. Initial A/B Test Analysis
 
@@ -45,8 +74,29 @@ data["converted"] = np.random.binomial(1, data["conversion_prob"])
 ✅ This result is statistically significant at the 0.01 level.
 
 ### Conversion Rate Distribution Plot
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-![Conversion Rate Distribution](conversion_rate_distribution.png)
+plt.figure(figsize=(8, 5))
+sns.histplot(
+    data=df,
+    x="conversion_prob",
+    hue="group",
+    kde=True,
+    element="step",
+    stat="density",
+    common_norm=False
+)
+plt.title("Conversion Rate Distribution by Group")
+plt.xlabel("Conversion Probability")
+plt.ylabel("Density")
+plt.tight_layout()
+plt.savefig("conversion_rate_distribution.png")
+plt.show()
+```
+
+![conversion rate distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ab.png?raw=true) 
 
 We calculate the lift and statistical significance of the treatment effect.
 
@@ -102,6 +152,7 @@ plt.xticks(rotation=30)
 plt.tight_layout()
 plt.show()
 ```
+![lift by city](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ab1.png?raw=true) 
 
 ### Uplift Summary Table
 | City     | Mean    | Std     | Count | SEM     |
