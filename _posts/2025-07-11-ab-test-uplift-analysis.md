@@ -57,7 +57,6 @@ t_stat, p_val = ttest_ind(treatment, control)
 
 print(f"Control Mean: {conversion_means['control']:.4f}")
 print(f"Treatment Mean: {conversion_means['treatment']:.4f}")
-print(f"Lift: {(conversion_means['treatment'] - conversion_means['control']) / conversion_means['control']:.2%}")
 print(f"T-statistic: {t_stat:.4f}, P-value: {p_val:.4f}")
 ```
 
@@ -65,11 +64,10 @@ print(f"T-statistic: {t_stat:.4f}, P-value: {p_val:.4f}")
 
 ### 🧪 A/B Test Summary
 
-- **Control Group Mean Conversion Rate**: 11.32%  
-- **Treatment Group Mean Conversion Rate**: 16.33%  
-- **Lift**: 44.23%  
-- **T-statistic**: 7.2673  
-- **P-value**: 3.942e-13  
+- **Control Group Mean Conversion Rate**: 10%  
+- **Treatment Group Mean Conversion Rate**: 15%  
+- **T-statistic**: 95.8623  
+- **P-value**: 0.0000  
 
 ✅ This result is statistically significant at the 0.01 level.
 
@@ -98,6 +96,33 @@ plt.show()
 
 ![conversion rate distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ab.png?raw=true) 
 
+### Conversion Rate Distribution by Group
+
+This plot compares the distribution of **conversion rates** between the **treatment group** (blue) and the **control group** (orange). The distributions are visualized using overlapping histograms and kernel density estimates (KDE).
+
+#### 🔹 Key Observations:
+
+- **Treatment Group**:
+  - The distribution is **right-skewed**, indicating a wider range of conversion rates.
+  - The density peaks around **0.13 to 0.15**, with a long tail extending beyond **0.3**, and even reaching **0.5+**.
+  - This suggests that some individuals in the treatment group experienced **very high conversion rates**.
+
+- **Control Group**:
+  - The distribution is more **narrow** and concentrated at the lower end.
+  - The peak density is below **0.1**, and the tail drops off much earlier than the treatment group.
+  - This implies **lower overall conversion performance** without the treatment.
+
+#### 🔎 Interpretation:
+
+- The **treatment group consistently achieves higher conversion rates** than the control group.
+- The rightward shift in the treatment group distribution is a strong visual signal of **positive uplift** due to the intervention.
+- The broader spread in the treatment group indicates that **some users benefitted much more than others**, highlighting possible heterogeneity in treatment effect.
+
+---
+
+**Conclusion**: This visualization supports the hypothesis that the treatment has a **beneficial impact** on conversion rates, justifying further analysis (e.g., uplift modeling or statistical testing).
+
+
 I calculate the lift and statistical significance of the treatment effect.
 
 ```python
@@ -116,7 +141,7 @@ print(f"T-statistic: {stat:.4f}, P-value: {pval:.4f}")
 > **Lift:** ~49.81% 
 > **P-value:** 0.0000 → statistically significant effect of the treatment.
 
-## 3. Uplift Modeling with scikit-uplift
+## 3. Uplift Modeling with sklift
 I use the `ClassTransformation` approach from the `sklift` packagee (a library for uplift modeling) to estimate uplift based on city and treatment group.
 
 ```python
