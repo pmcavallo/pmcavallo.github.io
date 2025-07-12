@@ -141,8 +141,96 @@ print(f"T-statistic: {stat:.4f}, P-value: {pval:.4f}")
 > **Lift:** ~49.81% 
 > **P-value:** 0.0000 → statistically significant effect of the treatment.
 
+```
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+# 🎯 Prepare binary treatment and outcome variables
+df['treatment'] = (df['group'] == 'treatment').astype(int)
+df['converted'] = (df['conversion_rate'] > 0).astype(int)  # binary target
+
+# 🧼 One-hot encode city
+df_encoded = pd.get_dummies(df, columns=['city'], drop_first=True)
+
+# 🧾 Feature set
+features = ['price', 'views', 'bookings'] + [col for col in df_encoded.columns if col.startswith('city_')]
+X = df_encoded[features]
+y = df_encoded['converted']
+treatment = df_encoded['treatment']
+
+# ✂️ Split into train/test sets
+X_train, X_test, y_train, y_test, treat_train, treat_test = train_test_split(
+    X, y, treatment, test_size=0.3, stratify=treatment, random_state=42
+)
+
+# 🔀 Split training data by group
+X_train_treat = X_train[treat_train == 1]
+y_train_treat = y_train[treat_train == 1]
+
+X_train_ctrl = X_train[treat_train == 0]
+y_train_ctrl = y_train[treat_train == 0]
+
+# 🏗️ Fit Random Forest models separately
+rf_treat = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_ctrl = RandomForestClassifier(n_estimators=100, random_state=42)
+
+rf_treat.fit(X_train_treat, y_train_treat)
+rf_ctrl.fit(X_train_ctrl, y_train_ctrl)
+
+# 📊 Predict probabilities on test set
+p_treat = rf_treat.predict_proba(X_test)[:, 1]
+p_ctrl = rf_ctrl.predict_proba(X_test)[:, 1]
+
+# ➕ Compute uplift
+uplift_score = p_treat - p_ctrl
+
+# 🧾 Add uplift scores to test set
+X_test_copy = X_test.copy()
+X_test_copy['uplift_score'] = uplift_score
+X_test_copy['converted'] = y_test.values
+X_test_copy['treatment'] = treat_test.values
+
+# 🕵️ View top uplift rows
+print(X_test_copy.sort_values(by='uplift_score', ascending=False).head(10))
+```
+### Uplift Model Output Preview and Interpretation
+
+Below is a preview of the dataset after applying the uplift model using the `ClassTransformation` method from the `sklift` library. The table shows the input features, the model-generated uplift score, and the actual outcomes:
+
+|  price | views | bookings | city\_Chicago | city\_Denver | city\_Miami | city\_Seattle | uplift\_score | converted | treatment |
+| :----: | :---: | :------: | :-----------: | :----------: | :---------: | :-----------: | :-----------: | :-------: | :-------: |
+| 150.69 |   6   |     1    |      True     |     False    |    False    |     False     |      0.09     |     1     |     0     |
+| 180.74 |   14  |     0    |     False     |     False    |     True    |     False     |      0.07     |     0     |     0     |
+| 129.21 |   8   |     0    |      True     |     False    |    False    |      True     |      0.07     |     0     |     0     |
+| 171.33 |   24  |     0    |     False     |     False    |    False    |     False     |      0.07     |     0     |     0     |
+| 181.80 |   14  |     0    |     False     |     False    |    False    |     False     |      0.07     |     1     |     0     |
+| 138.57 |   6   |     2    |     False     |     False    |    False    |     False     |      0.07     |     0     |     1     |
+| 189.83 |   16  |     0    |     False     |     False    |     True    |     False     |      0.06     |     0     |     0     |
+| 176.21 |   19  |     0    |     False     |     False    |    False    |     False     |      0.06     |     0     |     1     |
+| 164.15 |   16  |     0    |     False     |     False    |    False    |     False     |      0.06     |     0     |     0     |
+| 189.77 |   13  |     0    |     False     |     False    |     True    |     False     |      0.06     |     0     |     0     |
+
+
+#### 🔍 What the Uplift Scores Represent
+
+- The `uplift_score` column estimates the **increase in probability of conversion** if a user were treated.
+- For example:
+  - A score of `0.09` means that the model predicts a **9 percentage point lift** in conversion probability if this customer receives the treatment.
+  - Rows with repeated scores indicate the model is producing **similar uplift estimates** for individuals with similar features (e.g., same city), especially since city is the only feature used.
+
+#### 💡 Model Behavior
+
+- In this case, all rows shown have `treatment = 0` (control group).
+- The uplift model is being used to **simulate counterfactual outcomes** — estimating what would happen if these users had received the treatment.
+- Because the features include only one-hot encoded cities (e.g., `city_Miami`, `city_Chicago`), uplift scores are **not very granular**, leading to repetition in predicted values.
+
+#### ✅ Conclusion
+
+This table provides a useful summary of model behavior. While the model is successfully estimating treatment effects, additional predictive features (such as demographics or behavioral metrics) would likely improve the **precision and segmentation** of the uplift estimates.
+
+
 ## 3. Uplift Modeling with sklift
-I use the `ClassTransformation` approach from the `sklift` packagee (a library for uplift modeling) to estimate uplift based on city and treatment group.
+I use again the `ClassTransformation` approach from the `sklift` package (a library for uplift modeling) to estimate uplift based on city and treatment group.
 
 ```python
 from sklift.models import ClassTransformation
