@@ -3,12 +3,12 @@ layout: post
 title: Analyzing A/B Test Impact on Marketplace Conversions with Uplift Modeling
 ---
 
-This project simulates and analyzes an A/B pricing test in a marketplace context. Using Python, we simulate customer behavior, estimate the causal impact of a price change on conversion rates, and apply uplift modeling to identify heterogeneous treatment effects across cities. The project demonstrates key skills in experimental design, causal inference, uplift modeling, and data visualization.
+This project simulates and analyzes an A/B pricing test in a marketplace context. Using Python, I simulate customer behavior, estimate the causal impact of a price change on conversion rates, and apply uplift modeling to identify heterogeneous treatment effects across cities. The project demonstrates key skills in experimental design, causal inference, uplift modeling, and data visualization.
 
 **Tech Stack**: `Python`, `pandas`, `scikit-learn`, `matplotlib`, `seaborn`, `scikit-uplift`
 
 ## 1. Data Simulation
-We simulate a dataset representing users from five cities (Austin, Chicago, Denver, Miami, Seattle), randomly assigned to control (original pricing) or treatment (discounted pricing) groups.
+I simulate a dataset representing users from five cities (Austin, Chicago, Denver, Miami, Seattle), randomly assigned to control (original pricing) or treatment (discounted pricing) groups.
 
 ```python
 import pandas as pd
@@ -33,7 +33,7 @@ data["converted"] = np.random.binomial(1, data["conversion_prob"])
 ```
 ### 📊 Group-Level Summary Statistics
 
-To understand the effect of the price intervention, we computed the average **price**, **views**, and **conversion rate** for the control and treatment groups.
+To understand the effect of the price intervention, I computed the average **price**, **views**, and **conversion rate** for the control and treatment groups.
 
 ```
 summary = df.groupby('group')[['price', 'views', 'conversion_rate']].mean().round(3)
@@ -98,7 +98,7 @@ plt.show()
 
 ![conversion rate distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ab.png?raw=true) 
 
-We calculate the lift and statistical significance of the treatment effect.
+I calculate the lift and statistical significance of the treatment effect.
 
 ```python
 from scipy import stats
@@ -117,7 +117,7 @@ print(f"T-statistic: {stat:.4f}, P-value: {pval:.4f}")
 > **P-value:** 0.0000 → statistically significant effect of the treatment.
 
 ## 3. Uplift Modeling with scikit-uplift
-We use the `ClassTransformation` approach from `scikit-uplift` to model uplift using city and group as features.
+I use the `ClassTransformation` approach from the `sklift` packagee (a library for uplift modeling) to estimate uplift based on city and treatment group.
 
 ```python
 from sklift.models import ClassTransformation
@@ -155,13 +155,15 @@ plt.show()
 ![lift by city](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ab1.png?raw=true) 
 
 ### Uplift Summary Table
-| City     | Mean    | Std     | Count | SEM     |
-|----------|---------|---------|--------|---------|
-| Austin   | 0.00085 | 0.0058  | 2032   | 0.00013 |
-| Chicago  | 0.00076 | 0.0057  | 1962   | 0.00013 |
-| Denver   | 0.00080 | 0.0056  | 2031   | 0.00012 |
-| Miami    | 0.00134 | 0.0058  | 1995   | 0.00013 |
-| Seattle  | 0.00120 | 0.0057  | 1980   | 0.00013 |
+
+| City     | Mean     | Std Dev | Count | SEM     |
+|:---------|---------:|--------:|------:|--------:|
+| Austin   | 0.00085  | 0.0058  | 2032  | 0.00013 |
+| Chicago  | 0.00076  | 0.0057  | 1962  | 0.00013 |
+| Denver   | 0.00080  | 0.0056  | 2031  | 0.00012 |
+| Miami    | 0.00134  | 0.0058  | 1995  | 0.00013 |
+| Seattle  | 0.00120  | 0.0057  | 1980  | 0.00013 |
+
 
 ## 5. Key Insights
 - The A/B test revealed a **49.81% increase in conversion** due to pricing changes.
