@@ -358,12 +358,13 @@ plt.show()
 
 ### 🏷️ Segment Interpretation & Strategy
 
-| Cluster | Label                   | Characteristics                                | Strategy                                                                |
-|--------:|-------------------------|------------------------------------------------|-------------------------------------------------------------------------|
-| 0       | 💬 Voice-Dominant Users | High intl/voice, low data, short tenure        | Offer voice bundle or international call upgrades                      |
-| 1       | 📱 High-Usage Streamers | Highest data and streaming, moderate churn     | Promote unlimited plans or entertainment perks                         |
-| 2       | 💸 Low-Value Starters   | Low usage, low tenure, low spend               | Nurture via onboarding, budget-friendly data boosters                  |
-| 3       | 🧭 Loyal Minimalists    | Long tenure, low usage, lowest churn           | Reward loyalty, upsell on price-sensitive or family bundle offers      |
+| Cluster | Label                | Characteristics                          | Strategy                                                       |
+|--------:|----------------------|-------------------------------------------|----------------------------------------------------------------|
+| 0       | Voice-Dominant Users | High intl/voice, low data, short tenure   | Offer voice bundle or international call upgrades              |
+| 1       | High-Usage Streamers | Highest data and streaming, mod. churn    | Promote unlimited plans or entertainment perks                 |
+| 2       | Low-Value Starters   | Low usage, low tenure, low spend          | Nurture via onboarding, budget-friendly data boosters          |
+| 3       | Loyal Minimalists    | Long tenure, low usage, lowest churn      | Reward loyalty, upsell on price-sensitive/family bundle offers |
+
 
 
 ---
