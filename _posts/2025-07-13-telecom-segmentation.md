@@ -2,18 +2,12 @@
 # 📊 Customer Segmentation Using Statistical Clustering
 
 ## 🧠 Objective
-This project applies **statistical segmentation techniques** to a simulated postpaid telecom customer base in order to uncover distinct user personas. The goal is to demonstrate:
-- A strong grasp of **unsupervised learning**,
-- Effective **data preprocessing**,
-- Interpretability through **visualization**,
-- Business acumen via **strategic recommendations**.
-
-This segmentation model can be used to support personalized retention strategies, plan design, and marketing optimization.
+This project applies **statistical segmentation techniques** to a simulated postpaid telecom customer base in order to uncover distinct user personas. This segmentation model can be used to support personalized retention strategies, plan design, and marketing optimization.
 
 ---
 
 ## 📁 Dataset Overview (Simulated)
-We simulate 5,000 postpaid customers with realistic behavior patterns across multiple usage and demographic dimensions.
+I simulate 5,000 postpaid customers with realistic behavior patterns across multiple usage and demographic dimensions.
 
 **Features include:**
 - `monthly_charge`: Monthly billing amount
