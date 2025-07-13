@@ -398,17 +398,6 @@ plt.show()
 </table>
 
 
-
-| Cluster | Label                 | Characteristics                                 | Strategy                                                              |
-|--------:|-----------------------|--------------------------------------------------|-----------------------------------------------------------------------|
-| 0       | Voice-Dominant Users  | High intl/voice, low data,<br>short tenure       | Offer voice bundle or<br>international call upgrades                 |
-| 1       | High-Usage Streamers  | Highest data and streaming,<br>moderate churn    | Promote unlimited plans<br>or entertainment perks                    |
-| 2       | Low-Value Starters    | Low usage, low tenure,<br>low spend              | Nurture via onboarding,<br>budget-friendly data boosters             |
-| 3       | Loyal Minimalists     | Long tenure, low usage,<br>lowest churn          | Reward loyalty, upsell on<br>price-sensitive/family bundle offers    |
-
-
-
-
 ---
 
 ## ✅ Conclusion
