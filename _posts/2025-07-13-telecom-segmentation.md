@@ -109,6 +109,7 @@ plt.ylabel("Principal Component 2")
 plt.tight_layout()
 plt.show()
 ```
+![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg1.png?raw=true) 
 
 Explanation: The PCA scatterplot helps visualize how customers are distributed by the top two components. PC1 explains 24% and PC2 about 13% of the variance.
 
@@ -145,12 +146,8 @@ plt.ylabel('Silhouette Score')
 plt.tight_layout()
 plt.show()
 ```
-
+![elbow method](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg2.png?raw=true) 
 Explanation: The elbow method shows diminishing gains after k=4, while silhouette scores drop sharply after 2. We choose **k=4**.
-
----
-
-
 
 ---
 
@@ -172,6 +169,7 @@ plt.legend(title="Cluster")
 plt.tight_layout()
 plt.show()
 ```
+![cluster visualization](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg3.png?raw=true) 
 
 Explanation: This scatterplot shows how clusters are distributed in PCA space. Cluster 1 (orange) is distinctly separated, indicating high behavioral contrast.
 
@@ -198,6 +196,7 @@ cluster_profile = df.groupby('cluster').agg({
 # Visual display (in notebook this would be styled)
 print(cluster_profile)
 ```
+![cluster](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg4.png?raw=true) 
 
 Explanation: Cluster 1 has the highest data and streaming. Cluster 3 has the longest tenure and lowest churn.
 
@@ -215,6 +214,7 @@ plt.ylabel("Monthly Charge ($)")
 plt.tight_layout()
 plt.show()
 ```
+![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg5.png?raw=true) 
 
 ### 📶 Data Usage
 
@@ -226,6 +226,7 @@ plt.ylabel("Monthly Data Usage (GB)")
 plt.tight_layout()
 plt.show()
 ```
+![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg7.png?raw=true) 
 
 ### 📺 Streaming Usage
 
@@ -237,6 +238,7 @@ plt.ylabel("Monthly Streaming Hours")
 plt.tight_layout()
 plt.show()
 ```
+![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg8.png?raw=true) 
 
 ### ☎️ Support Calls
 
@@ -248,6 +250,7 @@ plt.ylabel("Number of Support Calls")
 plt.tight_layout()
 plt.show()
 ```
+![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg6.png?raw=true) 
 
 ### ⚠️ Churn Rate by Cluster
 
@@ -260,7 +263,7 @@ plt.ylim(0, 0.2)
 plt.tight_layout()
 plt.show()
 ```
-
+![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg9.png?raw=true) 
 ---
 
 ## 📊 Contract & Payment Breakdown
@@ -279,7 +282,7 @@ plt.legend(title="Contract Type")
 plt.tight_layout()
 plt.show()
 ```
-
+![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg10.png?raw=true) 
 ### Payment Method
 
 ```python
@@ -294,7 +297,7 @@ plt.legend(title="Payment Method")
 plt.tight_layout()
 plt.show()
 ```
-
+![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg11.png?raw=true) 
 ---
 
 ## 🏷️ Segment Interpretation & Strategy
