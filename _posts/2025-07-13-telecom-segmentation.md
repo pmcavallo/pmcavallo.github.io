@@ -63,6 +63,14 @@ df = pd.DataFrame({
 ---
 
 ## 🔧 Preprocessing
+
+I used the following steps:
+1. **One-hot encoding** for categorical features
+2. **StandardScaler** normalization for numeric features
+3. Final matrix contains all engineered and standardized variables
+
+This allows algorithms like **K-Means** to treat all features equally.
+
 ```python
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
@@ -113,9 +121,26 @@ plt.show()
 
 Explanation: The PCA scatterplot helps visualize how customers are distributed by the top two components. PC1 explains 24% and PC2 about 13% of the variance.
 
+### What is PCA?
+**Principal Component Analysis (PCA)** is a method for projecting high-dimensional data into fewer orthogonal dimensions, capturing the maximum variance.
+- **PC1**: Axis that captures the most variation in the data
+- **PC2**: The second-most informative axis, orthogonal to PC1
+
+We use PCA to:
+- Enable 2D **visual inspection** of clusters
+- Remove noise and multicollinearity
+- Improve clustering stability
+
+PCA retained ~37% of total variance in PC1 and PC2 combined.
+
 ---
 
 ## 🔍 K-Means Clustering & Elbow Method
+
+I evaluated `k` from 2 to 10 using:
+- **Elbow Method**: Plots inertia (how tight the clusters are). Diminishing returns suggest the optimal `k`
+- **Silhouette Score**: Measures how distinct clusters are (1 is ideal, -1 is poor). 
+  
 ```python
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
@@ -171,11 +196,13 @@ plt.show()
 ```
 ![cluster visualization](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg3.png?raw=true) 
 
-Explanation: This scatterplot shows how clusters are distributed in PCA space. Cluster 1 (orange) is distinctly separated, indicating high behavioral contrast.
+Explanation: This scatterplot shows how clusters are distributed in PCA space. Each customer is plotted by their PC1 and PC2 coordinates, with colors representing cluster assignments. Cluster 1 (orange) is distinctly separated, indicating high behavioral contrast. Clusters 0, 2, 3 show moderate overlap, but meaningful differences.
 
 ---
 
 ## 📊 Segment Profiling
+
+I compute average values and distributions for each segment:
 
 ```python
 # Attach cluster labels
@@ -193,13 +220,23 @@ cluster_profile = df.groupby('cluster').agg({
     'churn': 'mean'
 }).round(2)
 
-# Visual display (in notebook this would be styled)
+# Visual display 
 print(cluster_profile)
 ```
 ![cluster](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg4.png?raw=true) 
 
 Explanation: Cluster 1 has the highest data and streaming. Cluster 3 has the longest tenure and lowest churn.
 
+### Numeric Summary
+- Cluster 0: Moderate usage across the board
+- Cluster 1: **High data and streaming**, medium churn
+- Cluster 2: Low everything — likely new or budget-conscious
+- Cluster 3: **Long-tenured**, low usage, least churn
+
+### Categorical Patterns
+- All segments skew toward **auto-pay** and **month-to-month** contracts
+- Cluster 3 has the longest tenure and highest 2-year contract share
+  
 ---
 
 ## 📈 Visual Analysis
@@ -266,6 +303,20 @@ plt.show()
 ![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg9.png?raw=true) 
 ---
 
+## 📈 Visual Insights
+Boxplots and bar charts revealed:
+- **Data & Streaming Usage** are clear differentiators for Cluster 1
+- **Churn Rate** is lowest for Cluster 3 and highest for Cluster 1
+- **Contract Type** is fairly balanced, but long-term contracts correlate with tenure
+
+### 🔍 Overall Boxplot Analysis
+From the visual comparisons across segments:
+- Cluster 1 shows the **highest median data and streaming usage**, confirming it's the heavy-usage group.
+- Cluster 3 consistently shows **lowest churn and highest tenure**, despite lower usage, suggesting brand loyalty.
+- Monthly charges are similar across all clusters, which implies that **usage is not the only driver of revenue**—some users may be overpaying for underutilized services.
+- Support calls do **not differ meaningfully** by segment, suggesting support volume isn’t a key segmentation factor here.
+---
+
 ## 📊 Contract & Payment Breakdown
 
 ### Contract Type
@@ -298,6 +349,11 @@ plt.tight_layout()
 plt.show()
 ```
 ![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg11.png?raw=true) 
+
+### 🔍 Overall Interpretation of Plan & Payment Behavior
+- The dominance of **month-to-month contracts** across all clusters indicates that commitment is generally low in this customer base.
+- However, the correlation between **long tenure and 2-year contracts in Cluster 3** supports the idea of targeting loyalty rewards or retention plans there.
+- **Auto-pay adoption** is high in all clusters, offering billing consistency and possibly a lever for upselling (e.g., discounts for bundled services).
 ---
 
 ### 🏷️ Segment Interpretation & Strategy
@@ -318,5 +374,7 @@ This project demonstrates:
 - End-to-end unsupervised modeling using real-world techniques
 - Clear communication of data insights and business strategy
 - Scalable code and methodology for application in churn modeling, targeting, and marketing
+
+The approach is scalable to real datasets and adaptable to include revenue modeling, time-series behaviors, or supervised churn overlays.
 
 *Built with Python, pandas, scikit-learn, seaborn, and matplotlib.*
