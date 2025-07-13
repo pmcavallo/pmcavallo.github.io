@@ -351,10 +351,12 @@ plt.show()
 ![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg11.png?raw=true) 
 
 ---
+
 ### 🔍 Overall Interpretation of Plan & Payment Behavior
 - The dominance of **month-to-month contracts** across all clusters indicates that commitment is generally low in this customer base.
 - However, the correlation between **long tenure and 2-year contracts in Cluster 3** supports the idea of targeting loyalty rewards or retention plans there.
-- Lastly, **auto-pay adoption** is high in all clusters, offering billing consistency and possibly a lever for upselling (e.g., discounts for bundled services).
+- L**Auto-pay adoption** is high in all clusters, offering billing consistency and possibly a lever for upselling (e.g., discounts for bundled services).
+
 ---
 
 
