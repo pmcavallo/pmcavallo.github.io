@@ -1,7 +1,7 @@
-
-# 📊 Customer Segmentation Using Statistical Clustering
-
-## 🧠 Objective
+---
+layout: post
+title: 📊 Customer Segmentation Using Statistical Clustering
+---
 This project applies **statistical segmentation techniques** to a simulated postpaid telecom customer base in order to uncover distinct user personas. This segmentation model can be used to support personalized retention strategies, plan design, and marketing optimization.
 
 ---
@@ -150,7 +150,7 @@ Explanation: The elbow method shows diminishing gains after k=4, while silhouett
 
 ---
 
-(continued below — we'll generate the full markdown in chunks due to length)
+
 
 ---
 
