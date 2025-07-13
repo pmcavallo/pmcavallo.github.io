@@ -8,6 +8,33 @@ A selection of hands-on projects demonstrating real-world data science, modeling
 
 ---
 
+### 📊 Telecom Customer Segmentation with Python
+
+**Objective:**  
+Developed a customer segmentation model using unsupervised learning on simulated postpaid telecom data to identify actionable behavioral clusters for marketing, retention, and product strategy.
+
+**Highlights:**
+- Simulated 5,000 realistic customer profiles with usage, support, contract, and churn data
+- Applied full preprocessing pipeline: one-hot encoding, feature scaling, PCA for dimensionality reduction
+- Performed clustering with **K-Means** (k=4) selected via **elbow** and **silhouette analysis**
+- Visualized results with PCA scatter plots, boxplots, and stacked bar charts
+- Profiled each segment across spend, usage, tenure, and churn risk
+
+**Key Findings:**
+
+| Segment | Description | Strategy |
+|--------|-------------|----------|
+| 💬 Voice-Dominant Users | High voice & intl use, short tenure | Add voice bundles, retention plans |
+| 📱 High-Usage Streamers | Heavy data/streaming, higher churn | Promote unlimited/entertainment perks |
+| 💸 Low-Value Starters | Low usage, low tenure | Grow via onboarding & upselling |
+| 🧭 Loyal Minimalists | Long tenure, low usage, least churn | Reward loyalty, protect margin |
+
+**Tech Stack:** `Python`, `pandas`, `scikit-learn`, `matplotlib`, `seaborn`  
+**Core Skills Demonstrated:** Customer analytics, unsupervised learning, PCA, strategic interpretation, stakeholder communication
+
+👉 [View Full Project](https://github.com/pmcavallo/telecom-segmentation)  
+
+---
 ## 📊 Customer Churn Predictor
 
 **Goal**: Predict whether a telecom customer is likely to churn using an end-to-end machine learning pipeline.
