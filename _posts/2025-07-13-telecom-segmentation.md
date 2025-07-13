@@ -358,6 +358,46 @@ plt.show()
 
 ### 🏷️ Segment Interpretation & Strategy
 
+<h3>🏷️ Segment Interpretation & Strategy</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cluster</th>
+      <th>Label</th>
+      <th>Characteristics</th>
+      <th>Strategy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>💬 Voice-Dominant Users</td>
+      <td>High intl/voice, low data,<br>short tenure</td>
+      <td>Offer voice bundle or<br>international call upgrades</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>📱 High-Usage Streamers</td>
+      <td>Highest data and streaming,<br>moderate churn</td>
+      <td>Promote unlimited plans or<br>entertainment perks</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>💸 Low-Value Starters</td>
+      <td>Low usage, low tenure,<br>low spend</td>
+      <td>Nurture via onboarding,<br>budget-friendly data boosters</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>🧭 Loyal Minimalists</td>
+      <td>Long tenure, low usage,<br>lowest churn</td>
+      <td>Reward loyalty, upsell on<br>price-sensitive/family bundle offers</td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 | Cluster | Label                 | Characteristics                                 | Strategy                                                              |
 |--------:|-----------------------|--------------------------------------------------|-----------------------------------------------------------------------|
