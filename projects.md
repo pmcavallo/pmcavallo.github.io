@@ -22,12 +22,40 @@ Developed a customer segmentation model using unsupervised learning on simulated
 
 **Key Findings:**
 
-| Segment | Description | Strategy |
-|--------|-------------|----------|
-| 💬 Voice-Dominant Users | High voice & intl use, short tenure | Add voice bundles, retention plans |
-| 📱 High-Usage Streamers | Heavy data/streaming, higher churn | Promote unlimited/entertainment perks |
-| 💸 Low-Value Starters | Low usage, low tenure | Grow via onboarding & upselling |
-| 🧭 Loyal Minimalists | Long tenure, low usage, least churn | Reward loyalty, protect margin |
+<h4>📌 Key Findings</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Segment</th>
+      <th>Description</th>
+      <th>Strategy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>💬 Voice-Dominant Users</td>
+      <td>High voice & intl use,<br>short tenure</td>
+      <td>Add voice bundles,<br>retention plans</td>
+    </tr>
+    <tr>
+      <td>📱 High-Usage Streamers</td>
+      <td>Heavy data/streaming,<br>higher churn</td>
+      <td>Promote unlimited/<br>entertainment perks</td>
+    </tr>
+    <tr>
+      <td>💸 Low-Value Starters</td>
+      <td>Low usage,<br>low tenure</td>
+      <td>Grow via onboarding<br>& upselling</td>
+    </tr>
+    <tr>
+      <td>🧭 Loyal Minimalists</td>
+      <td>Long tenure, low usage,<br>least churn</td>
+      <td>Reward loyalty,<br>protect margin</td>
+    </tr>
+  </tbody>
+</table>
+
 
 **Tech Stack:** `Python`, `pandas`, `scikit-learn`, `matplotlib`, `seaborn`  
 **Core Skills Demonstrated:** Customer analytics, unsupervised learning, PCA, strategic interpretation, stakeholder communication
