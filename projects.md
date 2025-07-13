@@ -60,7 +60,7 @@ Developed a customer segmentation model using unsupervised learning on simulated
 **Tech Stack:** `Python`, `pandas`, `scikit-learn`, `matplotlib`, `seaborn`  
 **Core Skills Demonstrated:** Customer analytics, unsupervised learning, PCA, strategic interpretation, stakeholder communication
 
-👉 [View Full Project](https://github.com/pmcavallo/telecom-segmentation)  
+👉 [View Full Project](https://pmcavallo.github.io/telecom-segmentation/)  
 
 ---
 ## 📊 Customer Churn Predictor
