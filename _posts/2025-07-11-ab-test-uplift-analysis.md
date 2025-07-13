@@ -39,10 +39,11 @@ To understand the effect of the price intervention, I computed the average **pri
 summary = df.groupby('group')[['price', 'views', 'conversion_rate']].mean().round(3)
 ```
 
-| group     | price   | views  | conversion\_rate |
-| --------- | ------- | ------ | ---------------- |
-| control   | 149.666 | 20.003 | 0.100            |
-| treatment | 127.661 | 19.986 | 0.150            |
+|   Group    |  Price   |  Views  | Conversion Rate |
+|:----------:|:--------:|:-------:|:----------------:|
+|  Control   | 149.66   | 20.00   |      0.100       |
+| Treatment  | 127.66   | 19.98   |      0.150       |
+
 
 - Price: The average price in the control group was $149.67, while the treatment group had a lower average price of $127.66, confirming the experimental manipulation.
 - Views: Both groups had similar average views (~20), suggesting comparable exposure and balanced randomization.
