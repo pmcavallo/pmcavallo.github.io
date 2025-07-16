@@ -641,10 +641,26 @@ risk_summary
 
 ## 🧠 Business Impact
 
-This project demonstrates how churn risk modeling can support:
+This project demonstrates how data-driven churn risk modeling can directly support critical strategic initiatives in the telecom sector:
 
-- Targeted retention
-- Revenue risk assessment
-- Strategic prioritization
+📌 Targeted Retention
+- By quantifying churn probability and customer lifetime value (CLTV), the model allows organizations to:
+- Proactively flag high-risk customers before they leave
+- Prioritize "High Churn – High Value" customers for retention incentives
+- Design tiered retention strategies based on both risk and profitability
+
+📊 Revenue Risk Assessment
+Using the expected loss framework, the model enables:
+- Estimation of financial exposure tied to potential churn
+- Quantification of total CLTV at risk (e.g., $2,009,410)
+- Scenario planning to simulate the impact of shifts in behavior or policy
+
+🎯 Strategic Prioritization
+The credit-style scoring and segmentation support:
+- Clear communication of risk across business units
+- Customer scoring on a 300–900 scale for internal decisioning
+- Alignment of analytics with product, marketing, and finance priorities
+
+✅ This end-to-end workflow transforms raw customer data into actionable insight — empowering smarter, faster decisions at scale.
 
 ---
