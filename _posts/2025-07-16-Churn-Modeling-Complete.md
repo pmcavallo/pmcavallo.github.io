@@ -1,5 +1,8 @@
+---
+layout: post
+title: 📡 Telecom Churn Modeling & Retention Strategy
+---
 
-# 📊 Telecom Churn Modeling & Retention Strategy 
 
 This project simulates the use of machine learning and segmentation techniques to model customer churn, estimate revenue risk, and design retention strategies.
 
