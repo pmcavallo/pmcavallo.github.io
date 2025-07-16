@@ -40,9 +40,14 @@ df['RiskExposure'] = df['Monthly Charges'] / df['Tenure Months']
 ```python
 target = 'Churn Value'
 df[target].value_counts(normalize=True)
-```
 
+sns.barplot(data=df, x='Contract', y='Churn Value')
+plt.title('Churn Rate by Contract Type')
+plt.show()
+```
 > ✅ 26.5% churn rate
+
+
 
 ---
 
