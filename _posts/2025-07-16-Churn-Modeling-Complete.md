@@ -195,10 +195,11 @@ accuracy                           0.79      1407
 
 **Confusion Matrix (Actual vs Predicted):**
 
-|            | Predicted 0 | Predicted 1 |
-|------------|-------------|-------------|
-| Actual 0   |    933      |    100      |
-| Actual 1   |    198      |    176      |
+|               | Predicted 0 | Predicted 1 |
+|---------------|-------------|-------------|
+| **Actual 0**  |     933     |     100     |
+| **Actual 1**  |     198     |     176     |
+
 
 
 ### Output:
@@ -259,10 +260,11 @@ print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_xgb))
 
 **Confusion Matrix (Actual vs Predicted):**
 
-|            | Predicted 0 | Predicted 1 |
-|------------|-------------|-------------|
-| Actual 0   |    922      |    111      |
-| Actual 1   |    203      |    171      |
+|               | Predicted 0 | Predicted 1 |
+|---------------|-------------|-------------|
+| **Actual 0**  |     922     |     111     |
+| **Actual 1**  |     203     |     171     |
+
    
 - AUC: 0.83  
 - Feature importance dominated by `ContractRisk`
@@ -535,12 +537,13 @@ segment_summary
 
 ```
 
-| Segment                 | Count | Churn\_Prob | CLTV    |
-| ----------------------- | ----- | ----------- | ------- |
-| High Churn - High Value | 149   | 0.5746      | 5211.87 |
-| High Churn - Low Value  | 273   | 0.6051      | 3210.51 |
-| Low Churn - High Value  | 555   | 0.1191      | 5392.16 |
-| Low Churn - Low Value   | 430   | 0.1425      | 3507.00 |
+| Segment                | Count | Churn_Prob |   CLTV    |
+|------------------------|-------|------------|-----------|
+| High Churn - High Value|  149  |   0.5746   |  5211.87  |
+| High Churn - Low Value |  273  |   0.6051   |  3210.51  |
+| Low Churn - High Value |  555  |   0.1191   |  5392.16  |
+| Low Churn - Low Value  |  430  |   0.1425   |  3507.00  |
+
 
 📌 Interpretation:
 - High Churn - High Value (149 customers): These are the most strategically critical customers — high risk and high profitability. Retention campaigns should prioritize this group.
@@ -628,11 +631,12 @@ risk_summary
 
 ```
 
-| Risk Band     | Count | Churn\_Prob | CLTV    |
-| ------------- | ----- | ----------- | ------- |
-| High Risk     | 282   | 0.670394    | 3820.80 |
-| Low Risk      | 786   | 0.081522    | 4648.59 |
-| Moderate Risk | 339   | 0.368865    | 4195.99 |
+| Risk Band     | Count | Churn_Prob |   CLTV    |
+|---------------|-------|------------|-----------|
+| High Risk     |  282  |  0.670394  |  3820.80  |
+| Low Risk      |  786  |  0.081522  |  4648.59  |
+| Moderate Risk |  339  |  0.368865  |  4195.99  |
+
 
 📌 Interpretation:
 - High Risk customers have a churn probability over 67% and relatively low CLTV, indicating urgent but cost-sensitive intervention.
