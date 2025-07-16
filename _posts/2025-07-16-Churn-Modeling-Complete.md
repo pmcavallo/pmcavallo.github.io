@@ -7,22 +7,20 @@ This project simulates the use of machine learning and segmentation techniques t
 
 ## 📁 Project Structure
 
-1. **Week 1 – Modeling Pipeline**
+1. **Modeling Pipeline**
    - Data Preparation
    - EDA + Visualization
    - Logistic Regression + Evaluation
    - XGBoost + Feature Importance
    - Scorecard Scaling
 
-2. **Week 2 – Strategy & Interpretability**
+2. **Strategy & Interpretability**
    - SHAP Global + Local Explanations
    - Score Binning & CLTV Risk Simulation
    - PSI Drift Check
    - Segmentation & Profiling
 
 ---
-
-## 📌 Week 1 Highlights
 
 ### Step 1: Data Setup
 
@@ -89,8 +87,6 @@ model.fit(X_train, y_train)
 
 ---
 
-## 📌 Week 2 Highlights
-
 ### ✅ SHAP Analysis
 
 - Global SHAP: ContractRisk and RiskExposure increase churn
@@ -152,13 +148,5 @@ This project demonstrates how churn risk modeling can support:
 - Targeted retention
 - Revenue risk assessment
 - Strategic prioritization
-
----
-
-## 📎 Attachments
-
-- `Week2_Churn_Modeling_Notebook.ipynb`
-- Sample output visuals
-- SHAP, ROC, Segments, PSI graphs
 
 ---
