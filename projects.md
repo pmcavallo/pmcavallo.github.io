@@ -8,6 +8,26 @@ A selection of hands-on projects demonstrating real-world data science, modeling
 
 ---
 
+### 📡 Telecom Churn Modeling & Retention Strategy
+
+This project demonstrates how predictive modeling and customer segmentation can be used to drive retention strategy in a telecom context. Using a publicly available customer dataset, I developed a full churn risk pipeline.
+
+The final solution integrates:
+
+- **Churn prediction modeling** using Logistic Regression and XGBoost with performance comparisons (AUC ≈ 0.83)
+- **SHAP explainability** to identify key churn drivers (e.g., Contract Type, Risk Exposure)
+- **Scorecard simulation** converting churn risk into a 300–900 scale for business-friendly deployment
+- **Customer lifetime value (CLTV) integration** to quantify revenue risk across risk bands
+- **Segmentation framework** (High Churn–High Value, Low Churn–Low Value, etc.) for targeted retention campaigns
+- **Drift monitoring** using Population Stability Index (PSI) to track score performance over time
+
+💡 **Business Impact**: The project enables strategic prioritization by identifying high-risk, high-value customers at risk of churn, supporting proactive retention efforts, revenue protection, and long-term profitability.
+
+👉 [View Full Project](https://github.com/pmcavallo/Churn-Modeling-Complete)
+
+
+---
+
 ### 📊 Telecom Customer Segmentation with Python
 
 **Objective:**  
