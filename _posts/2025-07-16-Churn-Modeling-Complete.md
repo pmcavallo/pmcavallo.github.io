@@ -1,7 +1,7 @@
 
-# 📊 Telecom Churn Modeling & Retention Strategy (T-Mobile Simulation)
+# 📊 Telecom Churn Modeling & Retention Strategy 
 
-This project simulates how a Senior Analyst at T-Mobile might use machine learning and segmentation techniques to model customer churn, estimate revenue risk, and design retention strategies.
+This project simulates the use of machine learning and segmentation techniques to model customer churn, estimate revenue risk, and design retention strategies.
 
 ---
 
