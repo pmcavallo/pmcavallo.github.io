@@ -368,6 +368,8 @@ SHAP was used to interpret the XGBoost model, helping identify that ContractRisk
 
 🔍 SHAP Force Plot – Individual Customer
 
+A force plot shows how each feature “pushes” the model’s prediction away from the baseline (average model output) and toward a final prediction.
+
 ```python
 shap.initjs()
 shap.force_plot(explainer.expected_value, shap_values[i], X_test.iloc[i])
@@ -384,6 +386,8 @@ Interpretation:
 - Total Charges = 4,542 (red): pushed the model toward a higher churn probability.
 - ContractRisk = 0, RiskExposure = 1.266, ServiceCount = 5, and others (blue): pulled the prediction lower, toward retention.
 - The final output (f(x) = –4.33) is below the base value, indicating the model predicted low churn probability for this customer.
+
+This SHAP force plot shows a customer-level explanation of churn prediction. The model's average churn log-odds is –1.658, but this specific customer was predicted at –4.33, indicating a low churn risk. The main risk driver was a high Total Charges amount, but strong retention signals like high service count, AutoPay, and low ContractRisk shifted the prediction downward. SHAP helps interpret not just global trends but also individual-level decisions, critical for model trust and business actionability.
   
 ---
 
