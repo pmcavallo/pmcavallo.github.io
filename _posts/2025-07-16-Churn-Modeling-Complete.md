@@ -364,6 +364,8 @@ Interpretation:
 - Monthly Charges also contributes significantly to churn.
 - Tenure Months has a strong negative effect — longer-tenure customers are less likely to churn.
 
+SHAP was used to interpret the XGBoost model, helping identify that ContractRisk and RiskExposure were the top drivers of churn. High-risk contracts and larger exposures increased churn likelihood, while features like Tenure Months and AutoPay reduced churn. SHAP provided both global feature importance and customer-level interpretability, improving trust in the model and guiding actionable retention strategies.
+
 🔍 SHAP Force Plot – Individual Customer
 
 ```python
