@@ -26,7 +26,7 @@ Fluent in English, Spanish, and Portuguese; advanced in French and Italian. I en
 
 - [LinkedIn](https://www.linkedin.com/in/paulocavallo)
 - [GitHub](https://github.com/pmcavallo)
-- [Personal Website](https://www.paulocavallo.wordpress.com "Personal Website")
+- [Tableau Portfolio]((https://public.tableau.com/app/profile/paulo.cavallo/vizzes))
 
 ---
 
