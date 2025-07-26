@@ -295,13 +295,14 @@ aws s3 cp /mnt/data/credit_flagship.parquet s3://aws-flagship-project/credit-ris
 
 Even in an ML engineering–oriented project like this, we should never skip EDA or single-factor checks, because:
 
-| Reason                                    | Why It Matters                                                  |
-| ----------------------------------------- | --------------------------------------------------------------- |
-| 🧠 Understand feature distributions       | Know which variables are usable, sparse, or redundant           |
-| 🔍 Identify data leakage                  | Some features (e.g., flags) might encode the target             |
-| 💡 Get modeling insights                  | E.g., monotonicity, expected sign, binning candidates           |
-| ⚖️ Select features and transformations    | Before blindly throwing everything into a model                 |
-| 📊 Supports SHAP and explainability later | Helps confirm whether SHAP makes sense                          |
+| 🧠 Reason                               | 💡 Why It Matters                                                  |
+|----------------------------------------|--------------------------------------------------------------------|
+| Understand feature distributions       | Know which variables are usable, sparse, or redundant             |
+| 🔍 Identify data leakage               | Some features (e.g., flags) might encode the target               |
+| 💡 Get modeling insights               | E.g., monotonicity, expected sign, binning candidates             |
+| ⚖️ Select features and transformations | Before blindly throwing everything into a model                   |
+| 📚 Supports SHAP and explainability    | Helps confirm whether SHAP makes sense                            |
+
 
 ```python
 df['high_risk_flag'].value_counts(normalize=True)
@@ -329,12 +330,14 @@ Business plans show the highest risk with a 100% high-risk flag rate, while Indi
 ![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark5.png?raw=true) 
 
 ✅ Interpretation of Single-Factor Boxplots vs high_risk_flag
-| Feature                 | Visual Signal              | Interpretation                                    |
-| ----------------------- | -------------------------- | ------------------------------------------------- |
-| **fico\_score**         | Very slight dip for `1`    | Not a strong separator — useful, but not dominant |
-| **loan\_amount**        | Overlapping distributions  | Not useful alone, but may interact with others    |
-| **monthly\_income**     | Slightly lower for `1`     | Weak signal — no leakage                          |
-| **credit\_utilization** | Slight right shift for `1` | Some discriminatory power — useful                |
+
+| Feature            | Observation                          | Interpretation                              |
+|--------------------|--------------------------------------|----------------------------------------------|
+| **fico_score**     | Very slight dip for 1                | Not a strong separator — useful, but not dominant |
+| **loan_amount**    | Overlapping distributions            | Not useful alone, but may interact with others |
+| **monthly_income** | Slightly lower for 1                 | Weak signal — no leakage                      |
+| **credit_utilization** | Slight right shift for 1         | Some discriminatory power — useful           |
+
 
 ## Modeling with CatBoost
 
