@@ -298,10 +298,10 @@ Even in an ML engineering–oriented project like this, we should never skip EDA
 | 🧠 Reason                               | 💡 Why It Matters                                                  |
 |----------------------------------------|--------------------------------------------------------------------|
 | Understand feature distributions       | Know which variables are usable, sparse, or redundant             |
-| 🔍 Identify data leakage               | Some features (e.g., flags) might encode the target               |
-| 💡 Get modeling insights               | E.g., monotonicity, expected sign, binning candidates             |
-| ⚖️ Select features and transformations | Before blindly throwing everything into a model                   |
-| 📚 Supports SHAP and explainability    | Helps confirm whether SHAP makes sense                            |
+| 🔍 **Identify data leakage**               | Some features (e.g., flags) might encode the target               |
+| 💡 **Get modeling insights**               | E.g., monotonicity, expected sign, binning candidates             |
+| ⚖️ **Select features and transformations** | Before blindly throwing everything into a model                   |
+| 📚 **Supports SHAP and explainability**    | Helps confirm whether SHAP makes sense                            |
 
 
 ```python
@@ -392,7 +392,7 @@ ks = max(tpr - fpr)
 print(f"KS: {ks:.4f}")
 ```
 
-## 5. Feature Importance
+## 5. Feature Importance and SHAP Interpretability
 
 ```python
 # Convert cat feature names to indices (required if using column names throws errors)
@@ -416,8 +416,6 @@ plt.show()
 ![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark6.png?raw=true) 
 
 ---
-
-## 5. SHAP Interpretability
 
 ```python
 !pip install shap --quiet
