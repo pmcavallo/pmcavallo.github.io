@@ -432,7 +432,7 @@ shap_values = explainer.shap_values(X_test)
 # Summary plot (beeswarm)
 shap.summary_plot(shap_values, X_test)
 ```
-![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark7.png?raw=true) 
 
 Key insights:
 - **FICO score** is the strongest driver; higher scores sharply reduce risk.
@@ -475,7 +475,7 @@ plt.xlabel("Rate")
 plt.tight_layout()
 plt.show()
 ```
-![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark8.png?raw=true) 
 
 🔍 Interpretation of the Segment Plot
 
