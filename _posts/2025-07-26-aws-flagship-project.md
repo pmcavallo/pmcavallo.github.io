@@ -297,7 +297,7 @@ Even in an ML engineering–oriented project like this, we should never skip EDA
 
 | 🧠 Reason                               | 💡 Why It Matters                                                  |
 |----------------------------------------|--------------------------------------------------------------------|
-| Understand feature distributions       | Know which variables are usable, sparse, or redundant             |
+| **Understand feature distributions**       | Know which variables are usable, sparse, or redundant             |
 | 🔍 **Identify data leakage**               | Some features (e.g., flags) might encode the target               |
 | 💡 **Get modeling insights**               | E.g., monotonicity, expected sign, binning candidates             |
 | ⚖️ **Select features and transformations** | Before blindly throwing everything into a model                   |
