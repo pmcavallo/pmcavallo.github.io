@@ -115,7 +115,7 @@ df_cleaned.write.mode("overwrite").parquet("output/credit_data_cleaned2.parquet"
 spark.stop()
 
 ```
-![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark2.png?raw=true) 
 
 ✅ Highlights:
 - Derived variables: cltv, util_bin, delinq_flag, high_risk_flag
@@ -261,7 +261,7 @@ print(f"✅ KS Statistic: {ks_value:.4f}")
 spark.stop()
 print("✅ Spark session stopped.")
 ```
-![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark3.png?raw=true) 
 
 📊 Model Performance Summary
 The logistic regression model trained using Spark produced the following metrics:
@@ -325,8 +325,8 @@ for col in ['fico_score', 'loan_amount', 'monthly_income', 'credit_utilization']
 
 Business plans show the highest risk with a 100% high-risk flag rate, while Individual and Family plans have much lower rates (~11–12%). Among states, NY and WA exhibit the highest risk (~42%), while FL has the lowest (~33%). Higher credit utilization correlates with slightly higher risk, though the difference across buckets is modest. Customers with prior bankruptcies show a significantly higher risk (41.5%) compared to those without (30.2%), and delinquent borrowers are also more likely to be flagged high risk (41.5% vs. 36.7%).
 
-![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
-![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark4.png?raw=true) 
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark5.png?raw=true) 
 
 ✅ Interpretation of Single-Factor Boxplots vs high_risk_flag
 | Feature                 | Visual Signal              | Interpretation                                    |
@@ -410,7 +410,7 @@ plt.tight_layout()
 plt.show()
 
 ```
-![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark6.png?raw=true) 
 
 ---
 
