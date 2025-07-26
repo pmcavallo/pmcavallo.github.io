@@ -115,6 +115,7 @@ df_cleaned.write.mode("overwrite").parquet("output/credit_data_cleaned2.parquet"
 spark.stop()
 
 ```
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
 
 ✅ Highlights:
 - Derived variables: cltv, util_bin, delinq_flag, high_risk_flag
@@ -260,22 +261,25 @@ print(f"✅ KS Statistic: {ks_value:.4f}")
 spark.stop()
 print("✅ Spark session stopped.")
 ```
-📊 Model Performance Summary
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
 
-| Metric       | Value  |
-| ------------ | ------ |
-| AUC (ROC)    | \~0.49 |
-| KS Statistic | \~0.03 |
+📊 Model Performance Summary
+The logistic regression model trained using Spark produced the following metrics:
+✅ AUC (Area Under the ROC Curve): 0.4931.
+✅ KS (Kolmogorov-Smirnov) Statistic: 0.0342.
 
 ⚙️ Interpretation
-- Model performance is poor (intentionally left unoptimized) — validating Spark integration, not predictive accuracy.
-- This section of the project was not focused on achieving optimal model performance but rather on showcasing the integration of PySpark for scalable ETL and modeling workflows.
 - The AUC (~0.49) and KS (~0.03) reflect a model performing no better than random.
+- This weak performance is expected at this stage due to:
+  - Lack of advanced feature transformations
+  - Imbalanced class distribution
+  - Linear model limitations on complex patterns
 - The synthetic dataset was intentionally simplified and lacks:
   - Deep feature engineering
   - Domain-calibrated signals
   - Real-world complexity (e.g., bureau data, macroeconomic indicators, payment history)
-- Parquet outputs are production-friendly and portable (e.g., for AWS S3 ingestion).
+
+This section of the project was not focused on achieving optimal model performance but rather on showcasing the integration of PySpark for scalable ETL and modeling workflows. It produces a final Parquet file, wihch are production-friendly and portable (e.g., for AWS S3 ingestion). The next phase will transition to Python-based modeling, where feature engineering and model tuning can be more flexibly applied to improve performance.
 
 ---
 
@@ -288,6 +292,51 @@ aws s3 cp /mnt/data/credit_flagship.parquet s3://aws-flagship-project/credit-ris
 ---
 
 ## 4. Modeling with CatBoost
+
+Even in an ML engineering–oriented project like this, we should never skip EDA or single-factor checks, because:
+
+| Reason                                    | Why It Matters                                                  |
+| ----------------------------------------- | --------------------------------------------------------------- |
+| 🧠 Understand feature distributions       | Know which variables are usable, sparse, or redundant           |
+| 🔍 Identify data leakage                  | Some features (e.g., flags) might encode the target             |
+| 💡 Get modeling insights                  | E.g., monotonicity, expected sign, binning candidates           |
+| ⚖️ Select features and transformations    | Before blindly throwing everything into a model                 |
+| 📊 Supports SHAP and explainability later | Helps confirm whether SHAP makes sense                          |
+
+```python
+df['high_risk_flag'].value_counts(normalize=True)
+
+# Categorical univariate breakdown
+for col in ['plan_type', 'state', 'util_bin']:
+    print(f"\n=== {col.upper()} ===")
+    print(df.groupby(col)['high_risk_flag'].mean().sort_values(ascending=False))
+
+for col in ['has_bankruptcy', 'delinq_flag']:
+    print(f"{col}:")
+    print(df.groupby(col)['high_risk_flag'].mean(), "\n")
+
+for col in ['fico_score', 'loan_amount', 'monthly_income', 'credit_utilization']:
+    plt.figure(figsize=(5, 3))
+    sns.boxplot(x='high_risk_flag', y=col, data=df)
+    plt.title(f"{col} vs. high_risk_flag")
+    plt.tight_layout()
+    plt.show()
+```
+
+Business plans show the highest risk with a 100% high-risk flag rate, while Individual and Family plans have much lower rates (~11–12%). Among states, NY and WA exhibit the highest risk (~42%), while FL has the lowest (~33%). Higher credit utilization correlates with slightly higher risk, though the difference across buckets is modest. Customers with prior bankruptcies show a significantly higher risk (41.5%) compared to those without (30.2%), and delinquent borrowers are also more likely to be flagged high risk (41.5% vs. 36.7%).
+
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+
+✅ Interpretation of Single-Factor Boxplots vs high_risk_flag
+| Feature                 | Visual Signal              | Interpretation                                    |
+| ----------------------- | -------------------------- | ------------------------------------------------- |
+| **fico\_score**         | Very slight dip for `1`    | Not a strong separator — useful, but not dominant |
+| **loan\_amount**        | Overlapping distributions  | Not useful alone, but may interact with others    |
+| **monthly\_income**     | Slightly lower for `1`     | Weak signal — no leakage                          |
+| **credit\_utilization** | Slight right shift for `1` | Some discriminatory power — useful                |
+
+## Modeling with CatBoost
 
 I chose CatBoost for this credit risk project because it balances model performance with explainability, supports categorical features natively, and and is gaining traction in regulated industries.
 
@@ -310,31 +359,80 @@ df = pd.read_parquet(s3_path, engine='pyarrow')
 ```
 
 ```python
-X = df.drop(columns='loan_status_flag')
-y = df['loan_status_flag']
+# Target
+target = 'high_risk_flag'
 
-X = pd.get_dummies(X, columns=['state', 'util_bin'], drop_first=True)
+# Drop leaking features
+leak_features = ['has_bankruptcy', 'plan_type', 'customer_id', 'date_issued', 'loan_status']
 
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, random_state=42)
+# Filter final feature set
+df_model = df.drop(columns=leak_features)
 
-model = CatBoostClassifier(iterations=500, learning_rate=0.05, depth=6, cat_features=[], verbose=0)
-model.fit(X_train, y_train)
+# Split features and target
+X = df_model.drop(columns=[target])
+y = df_model[target]
 
-y_pred_proba = model.predict_proba(X_val)[:, 1]
-print(f"AUC: {roc_auc_score(y_val, y_pred_proba):.3f}")
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, stratify=y, random_state=42
+)
+
+# Predict probabilities
+y_pred_proba = model.predict_proba(X_test)[:, 1]
+
+# AUC
+auc = roc_auc_score(y_test, y_pred_proba)
+print(f"AUC: {auc:.4f}")
+
+# KS
+fpr, tpr, _ = roc_curve(y_test, y_pred_proba)
+ks = max(tpr - fpr)
+print(f"KS: {ks:.4f}")
 ```
+
+## 5. Feature Importance
+
+```python
+# Convert cat feature names to indices (required if using column names throws errors)
+cat_feature_indices = [X_train.columns.get_loc(col) for col in categorical_cols if col in X_train.columns]
+
+# Get importance values safely
+importances = model.get_feature_importance(Pool(X_train, label=y_train, cat_features=cat_feature_indices))
+
+# Build and plot
+feature_names = X_train.columns
+feat_imp = pd.Series(importances, index=feature_names).sort_values(ascending=False)
+
+plt.figure(figsize=(8, 5))
+feat_imp.head(15).plot(kind='barh')
+plt.title("CatBoost Feature Importance")
+plt.gca().invert_yaxis()
+plt.tight_layout()
+plt.show()
+
+```
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
 
 ---
 
 ## 5. SHAP Interpretability
 
 ```python
+!pip install shap --quiet
 import shap
-explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(X_val)
 
-shap.summary_plot(shap_values, X_val)
+# Initialize JS rendering for Jupyter (force plot compatibility)
+shap.initjs()
+
+# Use TreeExplainer for CatBoost
+explainer = shap.TreeExplainer(model)
+
+# Compute SHAP values for test set
+shap_values = explainer.shap_values(X_test)
+
+# Summary plot (beeswarm)
+shap.summary_plot(shap_values, X_test)
 ```
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
 
 Key insights:
 - **FICO score** is the strongest driver; higher scores sharply reduce risk.
@@ -346,19 +444,45 @@ Key insights:
 ## 6. Segment-Level Analysis by State
 
 ```python
-X_val_copy = X_val.copy()
-X_val_copy['prediction'] = y_pred_proba
-X_val_copy['actual'] = y_val.values
+# Add predictions to training set
+X_seg = X_train.copy()
+X_seg['prediction'] = model.predict_proba(X_train)[:, 1]
+X_seg['actual'] = y_train.values
 
-X_val_copy['state'] = df.loc[X_val_copy.index, 'state']
+# Group by state
+segment_df = X_seg.groupby('state').agg(
+    avg_predicted = ('prediction', 'mean'),
+    actual_rate = ('actual', 'mean'),
+    count = ('actual', 'count')
+)
 
-segment_df = X_val_copy.groupby('state').agg(
-    avg_predicted=('prediction', 'mean'),
-    actual_rate=('actual', 'mean')
-).sort_values('actual_rate', ascending=False)
+# Optional: AUC per state (only if both classes are present)
+def state_auc(group):
+    if group['actual'].nunique() == 2:
+        return roc_auc_score(group['actual'], group['prediction'])
+    return np.nan
 
-segment_df.plot(kind='barh', figsize=(8, 5), title="CatBoost – Predicted vs Actual Default Rate by State")
+segment_df['auc'] = X_seg.groupby('state').apply(state_auc)
+
+# Over/underprediction
+segment_df['overprediction'] = segment_df['avg_predicted'] - segment_df['actual_rate']
+
+# Bar chart
+segment_df[['avg_predicted', 'actual_rate']].sort_values('actual_rate').plot(
+    kind='barh', figsize=(8,6))
+plt.title("CatBoost – Predicted vs Actual Default Rate by State")
+plt.xlabel("Rate")
+plt.tight_layout()
+plt.show()
 ```
+![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/tmobile4.png?raw=true) 
+
+🔍 Interpretation of the Segment Plot
+
+This bar chart compares the average predicted default probability (blue) with the actual observed rate (orange) by state:
+- Overprediction: In states like FL, the model consistently overestimates risk.
+- Underprediction: In NY, the model underpredicts risk — predicted probabilities are lower than actual rates.
+- Tight alignment: For states like CA, IL, TX, the model tracks reality closely.
 
 ---
 
@@ -367,12 +491,9 @@ segment_df.plot(kind='barh', figsize=(8, 5), title="CatBoost – Predicted vs Ac
 - **Tailored Thresholds**: Adjust risk thresholds based on state-level accuracy gaps. NY and FL underperform slightly in predicted rates—consider model recalibration.
 - **Scorecard Enhancement**: FICO score dominates the model. Future iterations should regularize this influence or augment with behavior-based features.
 - **S3 Data Pipelines**: Spark → Parquet → S3 integration is clean. Automate using **Airflow** in production.
-- **Explainability-Ready**: SHAP makes the model audit-friendly. Aligns with regulatory needs (SR 11-7 or CCAR-style audits).
 - **Next Steps**:
-  - Extend to LGD modeling using fractional logistic regression.
   - Incorporate **Snowflake** as centralized data source.
   - Productionalize with **SageMaker Pipelines** or **Lambda triggers** from S3.
 
 ---
 
-_Last updated: 2025-07-26 20:38_
