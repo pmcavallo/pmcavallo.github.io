@@ -1,11 +1,8 @@
-# Forecasting Monthly Insurance Claim Payouts Using ARIMA  
-**Project Date**: July 27, 2025  
-**Author**: Simulated Insurance Analytics Project  
-**Modeling Objective**: Forecast monthly dollar-denominated insurance claim payouts for the year 2025 using ARIMA modeling, with full diagnostics and evaluation.
-
 ---
-
-## 📌 Project Overview
+layout: post
+title: Forecasting Monthly Insurance Claim Payouts Using ARIMA
+date: 2024-02-23
+---
 
 This project simulates realistic monthly insurance claim payouts over a 5-year period (2020–2024), applies ARIMA modeling for time series forecasting, and evaluates model performance on a simulated 2025 out-of-sample dataset.
 
