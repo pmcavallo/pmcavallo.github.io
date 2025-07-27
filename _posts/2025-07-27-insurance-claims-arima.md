@@ -412,18 +412,19 @@ Evaluation Results:
 - All steps are fully reproducible and modular for adaptation to real datasets
 
 
-### 🧰 Tech Stack
+### 💼 Tech Stack
 
-| Category            | Tools & Libraries Used                                                                 |
-|---------------------|----------------------------------------------------------------------------------------|
-| **Language**        | Python 3.10                                                                            |
-| **Time Series**     | `statsmodels` (SARIMA), `pmdarima`, `scipy`, `numpy`                                   |
-| **Visualization**   | `matplotlib`, `seaborn`, `plotly`                                                      |
-| **Data Handling**   | `pandas`, `datetime`                                                                   |
-| **Statistical Tests**| ADF (Augmented Dickey-Fuller), Ljung-Box, Jarque-Bera, ARCH Test                      |
-| **Model Diagnostics**| AIC, BIC, HQIC, RMSE, MAE                                                              |
-| **Version Control** | Git & GitHub                                                                           |
-| **IDE/Environment** | Jupyter Notebook (via SageMaker Studio)                                                |
-| **Documentation**   | Markdown (for GitHub Pages), embedded plots, inline code explanations                  |
+| **Category**         | **Tools & Libraries Used**                                                                 |
+|----------------------|---------------------------------------------------------------------------------------------|
+| **Language**         | Python 3.10                                                                                 |
+| **Time Series**      | `statsmodels` (SARIMA), `pmdarima`, `scipy`, `numpy`                                       |
+| **Visualization**    | `matplotlib`, `seaborn`, `plotly`                                                          |
+| **Data Handling**    | `pandas`, `datetime`                                                                       |
+| **Statistical Tests**| ADF (Augmented Dickey-Fuller), Ljung-Box, Jarque-Bera, ARCH Test                           |
+| **Model Diagnostics**| AIC, BIC, HQIC, RMSE, MAE                                                                   |
+| **Version Control**  | Git & GitHub                                                                                |
+| **IDE/Environment**  | Jupyter Notebook (via SageMaker Studio)                                                    |
+| **Documentation**    | Markdown (for GitHub Pages), embedded plots, inline code explanations                      |
+
 
 
