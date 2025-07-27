@@ -51,6 +51,12 @@ plt.show()
 ```
 ![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
 
+🔍 Interpretation of the Simulated Series
+
+- Upward Trend: There's a modest increase over time, capturing effects like inflation, population growth, or policy expansion.
+- Clear Seasonality: Peaks and troughs recur annually — possibly reflecting seasonal risks (e.g., winter storm damage in Q1, hurricane claims in Q3).
+- Irregular Noise: Random fluctuations ensure that the series isn't overly smooth, mimicking month-to-month volatility.
+
 ---
 
 ## 📉 Step 2: Decomposition, ADF Test, ACF/PACF
