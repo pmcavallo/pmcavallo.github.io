@@ -82,12 +82,30 @@ print(f"p-value: {adf_result[1]}")
 ```
 ![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima2.png?raw=true) 
 
-Interpretation:
-The ADF test returned a very high p-value (≈ 0.99), confirming strong evidence of non-stationarity. We proceed to differencing.
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima6.png?raw=true) 
+
+📉 Step 2: Decomposition, ADF Test, ACF/PACF
+
+The decomposition plot breaks the time series into three main components:
+
+- Trend: Shows a clear upward slope, indicating a gradual increase in claim payouts over the years—possibly due to inflation, rising costs of services, or increased policyholder count.
+- Seasonal: Displays a pronounced repeating pattern with a 12-month cycle, confirming the presence of annual seasonality—e.g., spikes in certain months might be linked to natural disaster seasons or end-of-year policy renewals.
+- Residual: Appears randomly distributed around zero, suggesting that after removing trend and seasonality, no major patterns remain.
+
+📌 Takeaway: The series exhibits non-stationary behavior with strong seasonality, making it a good candidate for seasonal differencing in SARIMA modeling.
+
+I then run the Dickey-Fuller (ADF) test to formally assess stationarity. With a p-value of 0.9917, we fail to reject the null hypothesis that a unit root is present. This means the series is non-stationary — consistent with the upward trend we saw earlier.
+
+The ACF and PACF plots guide the model order selection:
+
+- ACF (Autocorrelation Function): Shows strong positive autocorrelations at lags 1 through 12, gradually declining — a signature of a seasonal trend and non-stationarity.
+- PACF (Partial Autocorrelation Function): Displays a sharp cutoff after lag 1, suggesting a potential AR(1) process.
+
+🔧 Modeling Implication: These patterns suggest an ARIMA model with differencing and seasonal components. 
 
 ## 🔁 Step 3: Differencing and ACF/PACF
 
-We apply both regular and seasonal differencing, then check the ACF/PACF plots to inform model structure.
+I apply both regular and seasonal differencing, then check the ACF/PACF plots to inform model structure.
 
 ```python
 # First and seasonal differencing
@@ -109,7 +127,25 @@ plt.show()
 ```
 ![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima3.png?raw=true) 
 
-Interpretation:
+🔬 ADF Test (Differenced Series)
+
+ADF Statistic: -1.3429
+p-value: 0.6093
+Critical Values:
+   1%: -3.6267
+   5%: -2.9460
+  10%: -2.6117
+  
+Despite the differencing, the p-value remains high (0.6093) and the ADF statistic is above all critical values, indicating that the series is still non-stationary. This suggests that further differencing and/or seasonal differencing may be necessary.
+
+📉 ACF and PACF (After Differencing)
+
+- ACF: Rapid drop after lag 1, with most values inside the confidence interval — suggesting that the series is becoming less autocorrelated.
+- PACF: Mostly insignificant after lag 1, with only lag 0 and perhaps lag 6/7 showing moderate significance.
+
+🧠 Interpretation: First differencing reduced autocorrelation but wasn't sufficient to fully stationarize the series. I may need seasonal differencing (D=1, m=12) in our SARIMA model to fully capture the seasonality and achieve stationarity.
+
+Summary:
 After differencing, stationarity improves. ACF suggests MA(1), PACF suggests AR(1). Seasonal patterns persist. We proceed with SARIMA(1,1,1)(1,1,1,12).
 
 ---
