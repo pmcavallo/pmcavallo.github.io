@@ -175,7 +175,7 @@ print(results.summary())
 ```
 ![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima7.png?raw=true) 
 
-⚠️ Note: The seasonal coefficients have extremely large magnitudes. While they are statistically significant, such values could hint at issues with scaling, multicollinearity, or data artifacts. It may also reflect the simulated nature of the data.
+⚠️ Note: The seasonal coefficients have extremely large magnitudes. While they are statistically significant, such values could hint at issues with scaling, multicollinearity, or data artifacts. This may also suggest overparameterization or seasonal multicollinearity—common in SARIMA models with both AR and MA seasonal terms. It may also reflect the simulated nature of the data.
 
 📉 **Model Fit Statistics**  
 Log Likelihood: -773.56  
@@ -245,7 +245,7 @@ Interpretation:
 Next, we'll take a look a component breakdown plot showing how each element of the SARIMA model affects the time series.
 
 ```python
-df['Fitted'] = model_fit.fittedvalues
+df['Fitted'] = results.fittedvalues
 df['Residuals'] = df['Monthly_Claim_Payout'] - df['Fitted']
 
 # Create component lines
@@ -400,9 +400,9 @@ Evaluation Results:
 
 - Mean Absolute Error (MAE): $7,184.73
 - Root Mean Squared Error (RMSE): $8,414.35
-- ✅ These are strong performance metrics given the claim scale (~$120–145k/month), confirming the model generalizes well even on synthetic holdout data.
+- ✅ These are strong performance metrics given the claim scale (~$120–145k/month), confirming the model generalizes well even on synthetic holdout data. These errors represent ~6% of average monthly payouts, indicating strong forecast accuracy.
 
-*Note: Both MAE and RMSE are expressed in dollars, consistent with the unit of the dependent variable (Monthly Claim Payout)*
+*Note: Both MAE and RMSE are expressed in dollars, consistent with the unit of the dependent variable (Monthly Claim Payout). While not true observed data, this ‘controlled truth’ provides a fair basis for evaluating forecast skill, since it mirrors the structure the model was trained on.*
 
 ## ✅ Final Conclusions
 
