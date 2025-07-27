@@ -173,11 +173,12 @@ print(results.summary())
 
 ⚠️ Note: The seasonal coefficients have extremely large magnitudes. While they are statistically significant, such values could hint at issues with scaling, multicollinearity, or data artifacts. It may also reflect the simulated nature of the data.
 
-📈 Model Fit Statistics
-Log Likelihood: -773.56
-AIC: 1557.12
-BIC: 1564.60
-HQIC: 1559.64
+📉 **Model Fit Statistics**  
+Log Likelihood: -773.56  
+AIC: 1557.12  
+BIC: 1564.60  
+HQIC: 1559.64  
+
 
 These values indicate the overall fit of the model, with lower being better. While not directly interpretable, they are useful for model comparison.
 
@@ -248,22 +249,43 @@ fitted = df['Fitted']
 residuals = df['Residuals']
 forecast_error = observed - fitted
 
-# Plot
-plt.figure(figsize=(14, 6))
-plt.plot(observed, label='Observed (Actual)', color='blue', linewidth=2)
-plt.plot(fitted, label='Fitted (Model Prediction)', color='orange', linestyle='--')
-plt.plot(forecast_error, label='Observed - Fitted (Forecast Error)', color='green', linestyle='-.')
-plt.plot(residuals, label='Residuals (Error Component)', color='red', linestyle=':')
-plt.title('Model Components: Observed vs Fitted, Forecast Error, and Residuals')
-plt.ylabel('Monthly Claim Payout ($)')
-plt.xlabel('Date')
-plt.legend()
-plt.grid(True)
+# Set up the figure
+fig, axs = plt.subplots(4, 1, figsize=(14, 10), sharex=True)
+
+# 1. Observed Series (black)
+axs[0].plot(observed, color='black', linewidth=2, label='Observed')
+axs[0].set_title('Observed Series')
+axs[0].legend()
+
+# 2. Model Residuals (gray)
+axs[1].plot(residuals, color='gray', linewidth=1.5, label='Residuals')
+axs[1].set_title('Model Residuals')
+axs[1].legend()
+
+# 3. Fitted Values (orange)
+axs[2].plot(fitted, color='orange', linewidth=1.5, label='Fitted Values')
+axs[2].set_title('Fitted Values (AR+MA effects)')
+axs[2].legend()
+
+# 4. Forecast Error (Observed - Fitted, red)
+axs[3].plot(forecast_error, color='red', linewidth=1.5, label='Observed - Fitted')
+axs[3].set_title('Observed - Fitted (Residual Errors)')
+axs[3].legend()
+
+# Shared x-axis label
+axs[3].set_xlabel('Date')
+
+# Shared y-axis label
+for ax in axs:
+    ax.set_ylabel('Monthly Claim Payout ($)')
+    ax.grid(True)
+
 plt.tight_layout()
 plt.show()
+
 ```
 
-![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima4.png?raw=true) 
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima8.png?raw=true) 
 
 🔍 Interpretation of Each Panel:
 Observed Series (Top Panel):
@@ -335,10 +357,17 @@ plt.show()
 
 ![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima5.png?raw=true) 
 
-Interpretation:
+## 📈 Forecast Plot Interpretation
 
-- Forecast line smoothly continues from historical series
-- 95% confidence interval shows growing uncertainty, but remains realistic due to model stabilization
+The chart above presents a 12-month out-of-sample forecast of monthly insurance claim payouts using a SARIMA(1,1,1)(1,1,1,12) model. The solid blue line represents the historical data from 2020 to the end of 2024, while the dotted orange line reflects the model's forecast for 2025.
+
+The shaded orange region indicates the 95% confidence interval (CI), capturing the uncertainty around the point forecast. Notably:
+- The forecast extends the upward trend observed in late 2024, consistent with seasonal patterns captured in prior periods.
+- The widening CI reflects increasing uncertainty further into the forecast horizon — a typical characteristic of time series models.
+- The transition between historical and forecasted values is smooth and continuous, confirming no structural breaks or data leakage.
+
+This visualization provides stakeholders with a forward-looking estimate of potential claim payouts, with clearly communicated risk bounds.
+
 
 
 ## 🧪 Step 6: Simulate True 2025 Values and Evaluate Forecast Accuracy
@@ -368,9 +397,9 @@ Evaluation Results:
 - Root Mean Squared Error (RMSE): $8,414.35
 - ✅ These are strong performance metrics given the claim scale (~$120–145k/month), confirming the model generalizes well even on synthetic holdout data.
 
+*Note: Both MAE and RMSE are expressed in dollars, consistent with the unit of the dependent variable (Monthly Claim Payout)*
 
-
-##✅ Final Conclusions
+## ✅ Final Conclusions
 
 - SARIMA(1,1,1)(1,1,1,12) successfully modeled trend and seasonality in monthly insurance claim payouts.
 - Initial instability (exploding CIs) was addressed using measurement_error=True, a common best practice
