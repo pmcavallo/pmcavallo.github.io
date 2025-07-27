@@ -129,12 +129,14 @@ plt.show()
 
 🔬 ADF Test (Differenced Series)
 
-ADF Statistic: -1.3429
-p-value: 0.6093
+ADF Statistic:   -1.3429  
+p-value:          0.6093  
+
 Critical Values:
-   1%: -3.6267
-   5%: -2.9460
-  10%: -2.6117
+  1%    => -3.6267  
+  5%    => -2.9460  
+ 10%    => -2.6117  
+
   
 Despite the differencing, the p-value remains high (0.6093) and the ADF statistic is above all critical values, indicating that the series is still non-stationary. This suggests that further differencing and/or seasonal differencing may be necessary.
 
@@ -184,13 +186,14 @@ HQIC: 1559.64
 
 These values indicate the overall fit of the model, with lower being better. While not directly interpretable, they are useful for model comparison.
 
-🧪 Diagnostic Tests
+### 🧪 Diagnostic Tests on Residuals
 
-| Test                   | Value | p-value | Interpretation                            |
-| ---------------------- | ----- | ------- | ----------------------------------------- |
-| Ljung-Box (Q)          | 1.42  | 0.23    | No strong autocorrelation in residuals.   |
-| Jarque-Bera (JB)       | 0.63  | 0.73    | Residuals appear normally distributed.    |
-| Heteroskedasticity (H) | 0.38  | 0.12    | No strong evidence of heteroskedasticity. |
+| **Test**                        | **Value** | **p-value** | **Interpretation**                                     |
+|---------------------------------|:---------:|:-----------:|--------------------------------------------------------|
+| Ljung-Box (Q)                   |   1.42    |    0.23     | ✅ No strong autocorrelation in residuals              |
+| Jarque-Bera (JB)                |   0.63    |    0.73     | ✅ Residuals appear normally distributed               |
+| Heteroskedasticity (H-Test)     |   0.38    |    0.12     | ✅ No strong evidence of heteroskedasticity            |
+
 
 ✅ Conclusion: The model residuals show no significant autocorrelation, are likely homoskedastic, and pass the normality test. This suggests the SARIMA model provides a reasonably good fit to the simulated data.
 
