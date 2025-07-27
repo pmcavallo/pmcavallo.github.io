@@ -89,10 +89,10 @@ print(f"p-value: {adf_result[1]}")
 The decomposition plot breaks the time series into three main components:
 
 - Trend: Shows a clear upward slope, indicating a gradual increase in claim payouts over the years—possibly due to inflation, rising costs of services, or increased policyholder count.
-- Seasonal: Displays a pronounced repeating pattern with a 12-month cycle, confirming the presence of annual seasonality—e.g., spikes in certain months might be linked to natural disaster seasons or end-of-year policy renewals.
+- Seasonal: Displays a modest cyclical pattern, potentially tied to annual processes (e.g., weather-related events or policy renewals). While not sharply pronounced, some seasonal structure is visible, which may justify the inclusion of seasonal components in the model, pending further validation.
 - Residual: Appears randomly distributed around zero, suggesting that after removing trend and seasonality, no major patterns remain.
 
-📌 Takeaway: The series exhibits non-stationary behavior with strong seasonality, making it a good candidate for seasonal differencing in SARIMA modeling.
+📌 Takeaway: The series exhibits non-stationary behavior with some seasonality, making it a good candidate for seasonal differencing in SARIMA modeling.
 
 I then run the Dickey-Fuller (ADF) test to formally assess stationarity. With a p-value of 0.9917, we fail to reject the null hypothesis that a unit root is present. This means the series is non-stationary — consistent with the upward trend we saw earlier.
 
@@ -147,6 +147,8 @@ Despite the differencing, the p-value remains high (0.6093) and the ADF statisti
 
 Summary:
 After differencing, stationarity improves. ACF suggests MA(1), PACF suggests AR(1). Seasonal patterns persist. We proceed with SARIMA(1,1,1)(1,1,1,12).
+
+⚠️ Note: Although the ACF plot suggests seasonality may not be strongly significant beyond lag 4, I chose to retain a SARIMA(1,1,1)(1,1,1,12) structure to explore the full seasonal ARIMA framework. Future refinements could include dropping the seasonal MA term or comparing with simpler specifications to assess model stability and parsimony.
 
 ---
 
