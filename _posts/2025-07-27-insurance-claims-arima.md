@@ -49,6 +49,7 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 ```
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
 
 ---
 
@@ -73,6 +74,7 @@ adf_result = adfuller(df['Monthly_Claim_Payout'])
 print(f"ADF Statistic: {adf_result[0]}")
 print(f"p-value: {adf_result[1]}")
 ```
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima2.png?raw=true) 
 
 Interpretation:
 The ADF test returned a very high p-value (≈ 0.99), confirming strong evidence of non-stationarity. We proceed to differencing.
@@ -99,6 +101,7 @@ plot_pacf(df_diff_seasonal, lags=23, ax=ax[1], method="ywm")
 plt.tight_layout()
 plt.show()
 ```
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima3.png?raw=true) 
 
 Interpretation:
 After differencing, stationarity improves. ACF suggests MA(1), PACF suggests AR(1). Seasonal patterns persist. We proceed with SARIMA(1,1,1)(1,1,1,12).
@@ -161,6 +164,7 @@ plt.tight_layout()
 plt.show()
 
 ```
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima4.png?raw=true) 
 
 Interpretation:
 
@@ -208,6 +212,8 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 ```
+
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima5.png?raw=true) 
 
 Interpretation:
 
