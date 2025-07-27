@@ -46,6 +46,7 @@ df['loan_status_flag'] = (
     (df['cltv'] > 1)
 ).astype(int)
 ```
+*⚠️ Note: Synthetic logic only: Flags are generated from loose rules to simulate borrower risk — not fitted on real defaults.*
 
 ---
 
@@ -113,6 +114,7 @@ df_cleaned.write.mode("overwrite").parquet("output/credit_data_cleaned2.parquet"
 
 # Stop Spark session
 spark.stop()
+print("✅ ETL completed.")
 
 ```
 ![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark2.png?raw=true) 
@@ -281,6 +283,8 @@ The logistic regression model trained using Spark produced the following metrics
 
 This section of the project was not focused on achieving optimal model performance but rather on showcasing the integration of PySpark for scalable ETL and modeling workflows. It produces a final Parquet file, wihch are production-friendly and portable (e.g., for AWS S3 ingestion). The next phase will transition to Python-based modeling, where feature engineering and model tuning can be more flexibly applied to improve performance.
 
+* Note: ⚠️ This logistic regression is included to demonstrate ML integration in a Spark pipeline. Its performance is not expected to exceed random, given intentionally limited features.*
+* 
 ---
 
 ## 3. AWS S3 Upload (via CLI)
@@ -394,6 +398,8 @@ print(f"KS: {ks:.4f}")
 
 ## 5. Feature Importance and SHAP Interpretability
 
+Here I use SHAP to ensure the model's predictions are driven by meaningful risk factors — not proxy variables or data artifacts — and that feature importance aligns with domain expectations.
+
 ```python
 # Convert cat feature names to indices (required if using column names throws errors)
 cat_feature_indices = [X_train.columns.get_loc(col) for col in categorical_cols if col in X_train.columns]
@@ -489,12 +495,14 @@ This bar chart compares the average predicted default probability (blue) with th
 
 ## 7. Business Recommendation
 
-- **Tailored Thresholds**: Adjust risk thresholds based on state-level accuracy gaps. NY and FL underperform slightly in predicted rates—consider model recalibration.
+- **State-Level Threshold Calibration**: Adjust risk cutoffs where predicted risk diverges from observed default rates (e.g., FL and NY).
 - **Scorecard Enhancement**: FICO score dominates the model. Future iterations should regularize this influence or augment with behavior-based features.
 - **S3 Data Pipelines**: Spark → Parquet → S3 integration is clean. Automate using **Airflow** in production.
 - **Next Steps**:
   - Incorporate **Snowflake** as centralized data source.
   - Productionalize with **SageMaker Pipelines** or **Lambda triggers** from S3.
+
+This project simulates a production-ready credit risk pipeline — designed for scalability, interpretability, and strategic alignment.
 
 ---
 
