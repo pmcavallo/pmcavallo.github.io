@@ -43,7 +43,7 @@ The final solution integrates:
 
 💡 **Business Impact**: The project enables strategic prioritization by identifying high-risk, high-value customers at risk of churn, supporting proactive retention efforts, revenue protection, and long-term profitability.
 
-👉 [View Full Project](https://github.com/pmcavallo/Churn-Modeling-Complete)
+👉 [View Full Project](https://pmcavallo.github.io/Churn-Modeling-Complete)
 
 
 ---
