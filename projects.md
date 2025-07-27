@@ -8,6 +8,26 @@ A selection of hands-on projects demonstrating real-world data science, modeling
 
 ---
 
+💳 **Credit Risk Model Deployment & Monitoring (AWS + PySpark + CatBoost)**
+
+This flagship project showcases an end-to-end credit risk modeling pipeline — from scalable data processing to cloud deployment — aligned with best practices in financial services. Built using PySpark, CatBoost, SHAP, and AWS (S3, CLI), it simulates how modern risk pipelines are deployed and monitored at scale.
+
+The full solution includes:
+
+- **PySpark ETL pipeline** to preprocess large-scale synthetic telecom-style credit data, with engineered risk features (CLTV, utilization bins, delinquency flags)
+- **Distributed logistic regression** using PySpark MLlib to validate scalable modeling workflows and evaluate performance using AUC and KS
+- **AWS S3 integration** to export Parquet-formatted model-ready data for cloud-based storage and future MLOps orchestration
+- **CatBoost modeling** to improve predictive power with categorical support and built-in regularization
+- **SHAP explainability** to verify that key drivers (e.g., FICO, CLTV) align with domain logic and are not proxies or artifacts
+- **Segment-level analysis** comparing predicted vs actual default rates by state, identifying under- and over-prediction patterns
+- **Business recommendations** on scorecard calibration, behavioral feature expansion, and future automation (e.g., Airflow, SageMaker Pipelines)
+
+💼 **Business Impact**: This project simulates a realistic production-grade credit risk pipeline — bridging data engineering, ML modeling, and cloud deployment. It highlights how interpretability and geographic segmentation can inform policy, governance, and model recalibration.
+
+📁 [View Full Project](https://pmcavallo.github.io/aws-flagship-project/)
+
+---
+
 ### 📡 Telecom Churn Modeling & Retention Strategy
 
 This project demonstrates how predictive modeling and customer segmentation can be used to drive retention strategy in a telecom context. Using a publicly available customer dataset, I developed a full churn risk pipeline.
