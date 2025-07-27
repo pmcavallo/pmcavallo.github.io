@@ -54,7 +54,7 @@ plt.show()
 🔍 Interpretation of the Simulated Series
 
 - Upward Trend: There's a modest increase over time, capturing effects like inflation, population growth, or policy expansion.
-- Clear Seasonality: Peaks and troughs recur annually — possibly reflecting seasonal risks (e.g., winter storm damage in Q1, hurricane claims in Q3).
+- Clear Seasonality: Peaks and troughs possibly reflect seasonal risks (e.g., winter storm damage in Q1, hurricane claims in Q3).
 - Irregular Noise: Random fluctuations ensure that the series isn't overly smooth, mimicking month-to-month volatility.
 
 ---
@@ -98,7 +98,7 @@ I then run the Dickey-Fuller (ADF) test to formally assess stationarity. With a 
 
 The ACF and PACF plots guide the model order selection:
 
-- ACF (Autocorrelation Function): Shows strong positive autocorrelations at lags 1 through 12, gradually declining — a signature of a seasonal trend and non-stationarity.
+- ACF (Autocorrelation Function): Shows strong positive autocorrelations at lags 1 through 4, gradually declining — a signature of a seasonal trend and non-stationarity.
 - PACF (Partial Autocorrelation Function): Displays a sharp cutoff after lag 1, suggesting a potential AR(1) process.
 
 🔧 Modeling Implication: These patterns suggest an ARIMA model with differencing and seasonal components. 
@@ -138,7 +138,7 @@ Critical Values:
  10%    => -2.6117  
 
   
-Despite the differencing, the p-value remains high (0.6093) and the ADF statistic is above all critical values, indicating that the series is still non-stationary. This suggests that further differencing and/or seasonal differencing may be necessary.
+Despite the ADF result, SARIMA can sometimes perform well if the seasonal differencing captures enough structure, especially in synthetic series with high signal-to-noise ratios. We proceed cautiously with D=1 and revisit diagnostics post-estimation.
 
 📉 ACF and PACF (After Differencing)
 
