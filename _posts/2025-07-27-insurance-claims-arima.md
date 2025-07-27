@@ -169,6 +169,27 @@ results = model.fit()
 print(results.summary())
 
 ```
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima7.png?raw=true) 
+
+⚠️ Note: The seasonal coefficients have extremely large magnitudes. While they are statistically significant, such values could hint at issues with scaling, multicollinearity, or data artifacts. It may also reflect the simulated nature of the data.
+
+📈 Model Fit Statistics
+Log Likelihood: -773.56
+AIC: 1557.12
+BIC: 1564.60
+HQIC: 1559.64
+
+These values indicate the overall fit of the model, with lower being better. While not directly interpretable, they are useful for model comparison.
+
+🧪 Diagnostic Tests
+
+| Test                   | Value | p-value | Interpretation                            |
+| ---------------------- | ----- | ------- | ----------------------------------------- |
+| Ljung-Box (Q)          | 1.42  | 0.23    | No strong autocorrelation in residuals.   |
+| Jarque-Bera (JB)       | 0.63  | 0.73    | Residuals appear normally distributed.    |
+| Heteroskedasticity (H) | 0.38  | 0.12    | No strong evidence of heteroskedasticity. |
+
+✅ Conclusion: The model residuals show no significant autocorrelation, are likely homoskedastic, and pass the normality test. This suggests the SARIMA model provides a reasonably good fit to the simulated data.
 
 📉 Custom Residual Diagnostics
 I replace the default SARIMAX diagnostics with a custom 2x2 panel:
@@ -215,6 +236,63 @@ Interpretation:
 - No visible structure or trend in residuals
 - ✅ This model is ready for forecasting
 
+Next, we'll take a look a component breakdown plot showing how each element of the SARIMA model affects the time series.
+
+```python
+df['Fitted'] = model_fit.fittedvalues
+df['Residuals'] = df['Monthly_Claim_Payout'] - df['Fitted']
+
+# Create component lines
+observed = df['Monthly_Claim_Payout']
+fitted = df['Fitted']
+residuals = df['Residuals']
+forecast_error = observed - fitted
+
+# Plot
+plt.figure(figsize=(14, 6))
+plt.plot(observed, label='Observed (Actual)', color='blue', linewidth=2)
+plt.plot(fitted, label='Fitted (Model Prediction)', color='orange', linestyle='--')
+plt.plot(forecast_error, label='Observed - Fitted (Forecast Error)', color='green', linestyle='-.')
+plt.plot(residuals, label='Residuals (Error Component)', color='red', linestyle=':')
+plt.title('Model Components: Observed vs Fitted, Forecast Error, and Residuals')
+plt.ylabel('Monthly Claim Payout ($)')
+plt.xlabel('Date')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+```
+
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima4.png?raw=true) 
+
+🔍 Interpretation of Each Panel:
+Observed Series (Top Panel):
+- This is the original simulated monthly insurance payout series.
+- We can clearly see a seasonal pattern (with annual peaks and troughs) and an upward trend over time.
+
+Model Residuals:
+- These are the unexplained parts of the series after accounting for AR, MA, and seasonal components.
+- Ideally, residuals should resemble white noise. Here, we observe some large residual spikes, suggesting imperfect model fit—especially around 2021 and early 2023.
+
+Fitted Values (AR+MA Effects):
+- These are the values predicted by the SARIMA(1,1,1)(1,1,1,12) model.
+- They track the general structure of the observed series well but may overfit or underfit certain volatile months.
+
+Observed - Fitted (Residual Errors):
+- This plot highlights where the model is over- or under-predicting.
+- Large deviations from zero suggest room for improvement in the model specification—potentially better seasonal differencing or more flexible trend handling.
+
+🔍 What’s causing the 2021 spike?
+Simulated randomness:
+- Since the dataset is synthetic and includes a random noise component, it's highly likely that the 2021 spike reflects a random high-variance event (e.g., a simulated shock or outlier month).
+
+SARIMA model limitations:
+- The SARIMA model, while designed to capture seasonality and trend, may underfit localized spikes — particularly if they are not seasonal or autoregressive in nature. These one-off changes go into the residual.
+
+Look at the residuals:
+- The positive spike in the "Observed - Fitted" curve in 2021 tells us:
+  - The actual payout was much higher than the model’s prediction.
+  - The model underestimated the spike and treated it as noise.
 
 ---
 
