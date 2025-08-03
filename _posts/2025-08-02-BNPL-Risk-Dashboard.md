@@ -128,6 +128,8 @@ print(response[0]['generated_text'])
 predictor.delete_endpoint()
 ```
 
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
+
 
 ```python
 # ✅ Sanity Check: Ensure required columns are present
@@ -174,6 +176,7 @@ else:
     print("✅ LLM output validated: All numerical references match the input table.")
 ```
 
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
 
 ```python
 # ✅ Intelligent Check: Flag score bins where low-risk default rate exceeds high-risk
@@ -210,6 +213,7 @@ segment_score_summary = segment_score_summary.merge(
 )
 ```
 
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
 
 ```python
 # ✅ Intelligent trigger: if anomalies exceed threshold, take action
@@ -228,7 +232,7 @@ else:
 # Optionally add to master monitoring summary
 segment_score_summary["policy_trigger"] = policy_flag
 ```
-
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
 
 ```python
 # ✅ Identify score_bins where low-risk default rate > high-risk
@@ -244,7 +248,7 @@ override_df = pd.DataFrame({
 # ✅ Display the override simulation table
 override_df
 ```
-
+![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
 
 ```python
 # Merge override simulation with original default rates
