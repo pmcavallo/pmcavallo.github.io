@@ -1,11 +1,10 @@
-
-# 📘 AI-Augmented BNPL Risk Dashboard with Intelligent Override System
-
 ---
+layout: post
+title: 📘 AI-Augmented BNPL Risk Dashboard with Intelligent Override System
+--- 
 
-## 🎯 Objective
 
-Build a real-time BNPL risk monitoring dashboard with intelligent override logic, powered by anomaly detection, adaptive policy simulation, and auto-deployment via Render.
+This project builds a real-time BNPL risk monitoring dashboard with intelligent override logic, powered by anomaly detection, adaptive policy simulation, and auto-deployment via Render. The dashboard mimics intelligent, data-responsive policy decisions. It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.
 
 ---
 
@@ -53,84 +52,6 @@ override_df = pd.DataFrame({
 - VIF analysis used to assess multicollinearity — all retained for model richness.
 
 ---
-
-## 📊 Dashboard and Visuals (Streamlit)
-
-File: `streamlit_dashboard.py` (deployed via Render)
-
-- Upload interface for `segment_score_summary.csv` and `override_df.csv`
-- Key sections:
-  1. Default Rate by Score Bin
-  2. Policy Trigger
-  3. Anomaly Table
-  4. Override Table
-  5. Score Trends Over Time
-  6. Override Volumes
-  7. Approval Rates
-  8. Risk Alerts
-
-```python
-# Sample line plot code
-sns.lineplot(data=segment_df, x="score_bin", y="default_rate", hue="risk_segment")
-```
-
----
-
-## 🚀 Deployment
-
-- GitHub repo updated with new visuals and override logic.
-- Render deployment: [Live App](https://bnpl-risk-dashboard.onrender.com/)
-- Auto-redeploys on each push to `main`.
-
----
-
-## 🧪 Local Testing Instructions
-
-1. Clone the GitHub repo:
-```bash
-git clone https://github.com/your_username/BNPL-Risk-Dashboard.git
-cd BNPL-Risk-Dashboard
-```
-
-2. Create a virtual environment (optional but recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-4. Run the dashboard:
-```bash
-streamlit run streamlit_dashboard.py
-```
-
-5. Upload the sample files:
-   - `segment_score_summary.csv`
-   - `override_df.csv`
-
----
-
-## 🧾 Included Files
-
-- `streamlit_dashboard.py` – Full app logic with intelligent override visuals
-- `requirements.txt` – All required packages for deployment
-- `render.yaml` – Render app configuration
-- `segment_score_summary.csv` – Sample input for segment analysis
-- `override_df.csv` – Sample override simulation output
-
----
-
-## 📌 Final Thoughts
-
-This dashboard is more than a visualization tool.
-
-It mimics intelligent, data-responsive policy decisions. It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.
-
-
 
 ## 🧠 Expanded Intelligent Override Steps and Interpretations
 
@@ -388,11 +309,145 @@ This override supports proactive protection of the portfolio by adapting to beha
 - 🔄 Retrain score model if anomaly pattern persists
 - 🧪 Test alternate segmentation criteria if overrides repeat
 - 🗂️ Store override table as part of policy traceability
+```
+
+# 🧾 Strategy Policy Brief – Adaptive Risk Policy Trigger  
+**Date:** August 02, 2025  
+
+---
+
+## 🧠 Summary  
+Anomalies were detected in default behavior:  
+Low-risk segments showed higher default rates than high-risk segments in **8 score bins**.
+
+---
+
+## ⚡ Triggered Action  
+
+- **Policy Flag Activated:** `True`  
+- **Trigger Logic:** `low-risk default rate > high-risk` in ≥ 3 bins  
+- **Impacted Bins:** 0.0, 1.0, 2.0, 3.0, 4.0, 7.0, 8.0, 9.0  
+
+---
+
+## 🛠️ Simulated Override  
+
+The following score bins had their **risk segment reclassified to High-Risk**:
+
+| score_bin | override_high_risk | reason                                              |
+|-----------|--------------------|------------------------------------------------------|
+| 0         | True               | Low-risk default rate exceeded high-risk segment     |
+| 1         | True               | Low-risk default rate exceeded high-risk segment     |
+| 2         | True               | Low-risk default rate exceeded high-risk segment     |
+| 3         | True               | Low-risk default rate exceeded high-risk segment     |
+| 4         | True               | Low-risk default rate exceeded high-risk segment     |
+| 7         | True               | Low-risk default rate exceeded high-risk segment     |
+| 8         | True               | Low-risk default rate exceeded high-risk segment     |
+| 9         | True               | Low-risk default rate exceeded high-risk segment     |
+
+---
+
+## 🧩 Rationale  
+
+> “Low-risk default rate exceeded high-risk segment.”  
+This override supports proactive protection of the portfolio by adapting to behavioral drift.
+
+---
+
+## ✅ Recommendations  
+
+- 🟢 **Continue tracking drift patterns quarterly**  
+- 🔁 **Retrain score model if anomaly pattern persists**  
+- 🧪 **Test alternate segmentation criteria if overrides repeat**  
+- 📦 **Store override table as part of policy traceability**
 
 ---
 
 _This report was generated by the intelligent policy system to support risk governance decisions._
-"""
+
+
+
+---
+
+## 📊 Dashboard and Visuals (Streamlit)
+
+File: `streamlit_dashboard.py` (deployed via Render)
+
+- Upload interface for `segment_score_summary.csv` and `override_df.csv`
+- Key sections:
+  1. Default Rate by Score Bin
+  2. Policy Trigger
+  3. Anomaly Table
+  4. Override Table
+  5. Score Trends Over Time
+  6. Override Volumes
+  7. Approval Rates
+  8. Risk Alerts
+
+```python
+# Sample line plot code
+sns.lineplot(data=segment_df, x="score_bin", y="default_rate", hue="risk_segment")
+```
+
+---
+
+## 🚀 Deployment
+
+- GitHub repo updated with new visuals and override logic.
+- Render deployment: [Live App](https://bnpl-risk-dashboard.onrender.com/)
+- Auto-redeploys on each push to `main`.
+
+---
+
+## 🧪 Local Testing Instructions
+
+1. Clone the GitHub repo:
+```bash
+git clone https://github.com/your_username/BNPL-Risk-Dashboard.git
+cd BNPL-Risk-Dashboard
+```
+
+2. Create a virtual environment (optional but recommended):
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Run the dashboard:
+```bash
+streamlit run streamlit_dashboard.py
+```
+
+5. Upload the sample files:
+   - `segment_score_summary.csv`
+   - `override_df.csv`
+
+---
+
+## 🧾 Included Files
+
+- `streamlit_dashboard.py` – Full app logic with intelligent override visuals
+- `requirements.txt` – All required packages for deployment
+- `render.yaml` – Render app configuration
+- `segment_score_summary.csv` – Sample input for segment analysis
+- `override_df.csv` – Sample override simulation output
+
+---
+
+## 📌 Final Thoughts
+
+This dashboard is more than a visualization tool.
+
+It mimics intelligent, data-responsive policy decisions. It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.
+
+
+
+
 
 # Display in notebook
 display(Markdown(policy_brief))
