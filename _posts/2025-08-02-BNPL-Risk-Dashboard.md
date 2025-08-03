@@ -128,7 +128,7 @@ print(response[0]['generated_text'])
 predictor.delete_endpoint()
 ```
 
-![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl1.png?raw=true) 
 
 
 ```python
@@ -176,7 +176,7 @@ else:
     print("✅ LLM output validated: All numerical references match the input table.")
 ```
 
-![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl2.png?raw=true) 
 
 ```python
 # ✅ Intelligent Check: Flag score bins where low-risk default rate exceeds high-risk
@@ -213,7 +213,7 @@ segment_score_summary = segment_score_summary.merge(
 )
 ```
 
-![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl3.png?raw=true) 
 
 ```python
 # ✅ Intelligent trigger: if anomalies exceed threshold, take action
@@ -232,7 +232,7 @@ else:
 # Optionally add to master monitoring summary
 segment_score_summary["policy_trigger"] = policy_flag
 ```
-![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl4.png?raw=true) 
 
 ```python
 # ✅ Identify score_bins where low-risk default rate > high-risk
@@ -248,7 +248,7 @@ override_df = pd.DataFrame({
 # ✅ Display the override simulation table
 override_df
 ```
-![arima](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/arima.png?raw=true) 
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl5.png?raw=true) 
 
 ```python
 # Merge override simulation with original default rates
@@ -313,6 +313,9 @@ This override supports proactive protection of the portfolio by adapting to beha
 - 🔄 Retrain score model if anomaly pattern persists
 - 🧪 Test alternate segmentation criteria if overrides repeat
 - 🗂️ Store override table as part of policy traceability
+
+# Display in notebook
+display(Markdown(policy_brief))
 ```
 
 # 🧾 Strategy Policy Brief – Adaptive Risk Policy Trigger  
@@ -405,22 +408,14 @@ sns.lineplot(data=segment_df, x="score_bin", y="default_rate", hue="risk_segment
 
 ## 🧪 Local Testing Instructions
 
-1. Clone the GitHub repo:
-```bash
-git clone https://github.com/your_username/BNPL-Risk-Dashboard.git
-cd BNPL-Risk-Dashboard
-```
+1. Clone the GitHub repo.
 
-2. Create a virtual environment (optional but recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
 
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+2. Create a virtual environment.
+
+
+3. Install dependencies.
+
 
 4. Run the dashboard:
 ```bash
@@ -450,9 +445,3 @@ This dashboard is more than a visualization tool.
 It mimics intelligent, data-responsive policy decisions. It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.
 
 
-
-
-
-# Display in notebook
-display(Markdown(policy_brief))
-```
