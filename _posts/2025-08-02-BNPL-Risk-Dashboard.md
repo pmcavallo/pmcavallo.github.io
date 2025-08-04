@@ -121,6 +121,7 @@ coef_df = coef_df[coef_df['Coefficient'] != 0].sort_values(by='Coefficient', key
 display(coef_df)
 ```
 
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl7.png?raw=true) 
 
 ```python
 from xgboost import XGBClassifier
@@ -174,6 +175,8 @@ plt.tight_layout()
 plt.show()
 ```
 
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl8.png?raw=true) 
+
 ```python
 import warnings
 from xgboost import XGBClassifier
@@ -223,6 +226,7 @@ final_auc = roc_auc_score(y_test, y_proba)
 print("🧪 Final AUC on Test Set:", final_auc)
 ```
 
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl9.png?raw=true) 
 
 ## 🧠 Intelligent Override Steps and Interpretations
 
