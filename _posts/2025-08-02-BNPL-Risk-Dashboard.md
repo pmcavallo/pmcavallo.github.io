@@ -10,7 +10,9 @@ This project builds a real-time BNPL risk monitoring dashboard with intelligent 
 
 ## 🧠 Intelligent Component: The Soul of the Project
 
-Below is a screenshot of the dashboard deployed in Render. You can find the [Live App](https://bnpl-risk-dashboard.onrender.com/) here.
+Below is a screenshot of the final product (dashboard) deployed via Render. You can find the [Live App](https://bnpl-risk-dashboard.onrender.com/) here.
+
+![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl6.png?raw=true) 
 
 ### Adaptive Policy Override Logic
 - Detects anomalous default behavior in low-risk segments.
@@ -54,6 +56,173 @@ override_df = pd.DataFrame({
 - VIF analysis used to assess multicollinearity — all retained for model richness.
 
 ---
+
+## 🛠️ Modeling
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import roc_auc_score, classification_report, confusion_matrix, roc_curve
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Target
+y = df_missing['defaulted']
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X_cleaned, y, test_size=0.3, stratify=y, random_state=42)
+
+# Pipeline: Scaling + L1-penalized logistic regression
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('logit', LogisticRegression(
+        penalty='l1',
+        solver='saga',
+        max_iter=10000,
+        class_weight='balanced',
+        random_state=42
+    ))
+])
+
+# Fit model
+pipeline.fit(X_train, y_train)
+
+# Predict
+y_pred = pipeline.predict(X_test)
+y_proba = pipeline.predict_proba(X_test)[:, 1]
+
+# Evaluate
+auc = roc_auc_score(y_test, y_proba)
+fpr, tpr, _ = roc_curve(y_test, y_proba)
+ks = max(tpr - fpr)
+
+print(f"AUC: {auc:.4f}")
+print(f"KS: {ks:.4f}")
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+# ROC Curve
+plt.figure(figsize=(6, 5))
+plt.plot(fpr, tpr, label=f'ROC (AUC = {auc:.2f})')
+plt.plot([0, 1], [0, 1], 'k--')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve - L1 Logistic Regression (Cleaned Features)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Coefficients
+coef = pipeline.named_steps['logit'].coef_[0]
+coef_df = pd.DataFrame({'Feature': X_cleaned.columns, 'Coefficient': coef})
+coef_df = coef_df[coef_df['Coefficient'] != 0].sort_values(by='Coefficient', key=abs, ascending=False)
+display(coef_df)
+```
+
+
+```python
+from xgboost import XGBClassifier
+from sklearn.metrics import roc_auc_score, roc_curve, confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Rebuild the model with fixed trees
+xgb_model = XGBClassifier(
+    objective='binary:logistic',
+    eval_metric='auc',
+    use_label_encoder=False,
+    learning_rate=0.05,
+    max_depth=4,
+    n_estimators=300,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    scale_pos_weight=3,  # Adjusted for 6:1 imbalance
+    random_state=42
+)
+
+# Fit the model
+xgb_model.fit(X_train, y_train)
+
+# Predict
+y_pred = xgb_model.predict(X_test)
+y_proba = xgb_model.predict_proba(X_test)[:, 1]
+
+# Evaluation Metrics
+auc = roc_auc_score(y_test, y_proba)
+fpr, tpr, _ = roc_curve(y_test, y_proba)
+ks = max(tpr - fpr)
+
+print(f"AUC: {auc:.4f}")
+print(f"KS Statistic: {ks:.4f}")
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+# Plot ROC Curve
+plt.figure(figsize=(6, 5))
+plt.plot(fpr, tpr, label=f'ROC Curve (AUC = {auc:.2f})')
+plt.plot([0, 1], [0, 1], 'k--')
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("ROC Curve - XGBoost (Fixed Trees)")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+```
+
+```python
+import warnings
+from xgboost import XGBClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import roc_auc_score
+
+# ⛔ Suppress XGBoost 'use_label_encoder' warning
+warnings.filterwarnings("ignore", message=r".*use_label_encoder.*")
+
+# ✅ Define XGBoost model
+xgb_model = XGBClassifier(
+    objective='binary:logistic',
+    eval_metric='auc',
+    use_label_encoder=False,
+    random_state=42
+)
+
+# ✅ Define tuning grid
+param_grid = {
+    'n_estimators': [100],
+    'max_depth': [3],
+    'learning_rate': [0.01],
+    'subsample': [0.8],
+    'colsample_bytree': [0.8],
+    'scale_pos_weight': [1]
+}
+
+# ✅ Grid search with safe AUC scoring
+grid_search = GridSearchCV(
+    estimator=xgb_model,
+    param_grid=param_grid,
+    scoring='roc_auc',
+    cv=3,
+    verbose=1,
+    n_jobs=-1,
+    error_score='raise'
+)
+
+# ✅ Fit and evaluate
+grid_search.fit(X_train, y_train)
+
+print("✅ Best Parameters:", grid_search.best_params_)
+print("📈 Best AUC Score (CV):", grid_search.best_score_)
+
+y_proba = grid_search.best_estimator_.predict_proba(X_test)[:, 1]
+final_auc = roc_auc_score(y_test, y_proba)
+print("🧪 Final AUC on Test Set:", final_auc)
+```
+
 
 ## 🧠 Intelligent Override Steps and Interpretations
 
@@ -589,8 +758,11 @@ streamlit run streamlit_dashboard.py
 ---
 
 ## 📌 Final Thoughts
+In our simulated BNPL credit risk environment, the intelligent engine scanned default patterns by segment and score bin. It identified 8 bins where low-risk customers defaulted more than high-risk ones — a red flag for model miscalibration or data drift.
 
-This dashboard is more than a visualization tool.
+The system then autonomously triggered a policy flag, simulating a real-world action like retraining, override, or escalation. This forms a self-monitoring, adaptive feedback loop embedded into the pipeline.
+
+The final dashboard is more than a visualization tool.
 
 It mimics intelligent, data-responsive policy decisions. It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.
 
