@@ -59,6 +59,12 @@ override_df = pd.DataFrame({
 
 ## 🛠️ Modeling
 
+## Baseline Logistic Regression
+
+This step utilizes the scikit-learn library to create and assess a predictive model for a target variable named 'defaulted'. It first splits the data into training and testing sets, ensuring a balanced representation of the target class in each.
+A machine learning Pipeline is then constructed, which standardizes the features using StandardScaler before applying an L1-penalized LogisticRegression classifier designed to handle imbalanced data.
+After training the model on the training set, it makes predictions on the test set and performs a comprehensive evaluation by calculating and printing key metrics such as the AUC score, KS statistic, confusion matrix, and a detailed classification report. Finally, the script visualizes the model's performance by plotting its Receiver Operating Characteristic (ROC) curve.
+ 
 ```python
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -123,6 +129,22 @@ display(coef_df)
 
 ![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl7.png?raw=true) 
 
+Overall, the model has fair but limited predictive power:
+- ROC Curve & AUC: The Area Under the Curve (AUC) is 0.69. A score of 0.5 represents a random guess, and 1.0 is a perfect model. At 0.69, the model has some ability to distinguish between the two classes, but its performance is not strong.
+
+Classification Report:
+- The model is very good at identifying the negative class (class 0), with high precision (0.91) and decent recall (0.79).
+- However, it struggles significantly with the positive class (class 1). The precision is very low at 0.31, meaning that when the model predicts class 1, it's only correct 31% of the time (many false alarms). The recall is modest at 0.55, indicating it successfully identifies only 55% of all actual positive cases, missing the other 45%.
+
+In summary: While the overall accuracy (76%) might seem acceptable, the model is not reliable for predicting the positive class (class 1). Its poor precision for this class means its positive predictions cannot be trusted, and its moderate recall means it still misses a large portion of the cases it's designed to find.
+
+## XGBoost Model
+
+This step introduces a more advanced classification model, XGBClassifier from the popular xgboost library, to tackle the same prediction task. 
+It initializes the model with a specific set of hyperparameters designed to optimize performance, such as a controlled learning rate, tree depth, and column/row sampling to prevent overfitting. 
+Crucially, it sets the scale_pos_weight parameter to 3 to explicitly handle the class imbalance noted in the data, giving more importance to the minority class. 
+Following the model's configuration, the script trains it on the training data, generates predictions on the test set, and then performs a thorough evaluation by calculating and printing key metrics like AUC, KS-statistic, a confusion matrix, and a classification report, before finally plotting the ROC curve to visually assess its performance.
+
 ```python
 from xgboost import XGBClassifier
 from sklearn.metrics import roc_auc_score, roc_curve, confusion_matrix, classification_report
@@ -177,6 +199,17 @@ plt.show()
 
 ![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl8.png?raw=true) 
 
+While both models have nearly identical overall performance (AUC of ~0.68), they exhibit a classic precision/recall trade-off for the minority class (class 1):
+- Logistic Regression: Was better at finding positive cases. It had a much higher recall (0.55), meaning it correctly identified 336 actual defaulters. However, it did so by making many more mistakes (752 false positives).
+- XGBoost Model: Was more cautious or "precise" with its predictions. It had slightly higher precision (0.32 vs 0.31) and made fewer false alarms (490 false positives). The major downside is that its recall was much worse (0.39), causing it to miss more actual defaulters (it only found 235).
+
+Conclusion: Neither model is a strong performer. The choice between them depends on the business cost of errors. If the priority is to catch as many defaulters as possible (even at the cost of flagging good customers), the previous Logistic Regression model is superior due to its higher recall. If the goal is to minimize false alarms, the XGBoost model is marginally better.
+
+## 🧪 Hyperparameter Tuning
+This step focuses on optimizing the XGBClassifier model by performing automated hyperparameter tuning using GridSearchCV from scikit-learn. 
+It first defines a base XGBoost model and a param_grid containing different values for key hyperparameters like the number of trees (n_estimators), tree depth (max_depth), and learning_rate. The GridSearchCV object is then configured to systematically test combinations of these parameters using 3-fold cross-validation, aiming to find the set that maximizes the roc_auc score. 
+After running the search on the training data, the script prints the best-performing parameter combination and its cross-validation score, and finally evaluates this optimized model's performance on the separate, unseen test set to get a final, unbiased measure of its effectiveness.
+
 ```python
 import warnings
 from xgboost import XGBClassifier
@@ -227,6 +260,15 @@ print("🧪 Final AUC on Test Set:", final_auc)
 ```
 
 ![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl9.png?raw=true) 
+
+This output shows the results of the hyperparameter tuning process:
+- Best Parameters: These are the hyperparameter values that achieved the highest score during cross-validation. In this case, since the grid only contained one combination, it simply confirms the parameters that were tested. Notably, scale_pos_weight is 1, meaning no special weight was applied to the positive class in this run.
+- Best AUC Score (CV): 0.695: This is the average AUC score the model achieved across all folds of the cross-validation on the training data. It's a robust measure of the model's performance on that specific parameter set.
+- Final AUC on Test Set: 0.686: This is the true performance metric. It's the AUC score of the best model when evaluated on the completely unseen test data. The fact that this score is very close to the cross-validation score is a good sign, indicating the model is stable and not overfit.
+
+Overall Conclusion:
+
+Despite trying two different model types and a hyperparameter tuning step, the model's predictive power has hit a ceiling with an AUC consistently around 0.69. No single model proved definitively superior. The choice between the first two models remains a business decision based on the trade-off between finding more positive cases (higher recall) and reducing false alarms (higher precision). The tuning process demonstrated that simply adjusting standard hyperparameters is insufficient to improve performance; future efforts should focus on more advanced feature engineering or different class imbalance strategies (like SMOTE) to break past the current performance plateau.
 
 ## 🧠 Intelligent Override Steps and Interpretations
 
