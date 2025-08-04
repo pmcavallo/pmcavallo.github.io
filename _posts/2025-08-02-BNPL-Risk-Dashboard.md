@@ -10,6 +10,8 @@ This project builds a real-time BNPL risk monitoring dashboard with intelligent 
 
 ## 🧠 Intelligent Component: The Soul of the Project
 
+Below is a screenshot of the dashboard deployed in Render. You can find the [Live App](https://bnpl-risk-dashboard.onrender.com/) here.
+
 ### Adaptive Policy Override Logic
 - Detects anomalous default behavior in low-risk segments.
 - Triggers an override policy when anomalies surpass a threshold.
