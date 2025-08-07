@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 🤖 Agentic AI Prototype – Natural Language Email & Calendar Assistant (Streamlit + ChatGPT + Google API)
-date: 2025-01-22
+date: 2025-07-12
 ---
 
 This project demonstrates the implementation of an AI-augmented assistant built with Streamlit that connects to Gmail and Google Calendar via OAuth, interprets natural language commands, and executes intelligent actions.
@@ -19,7 +19,7 @@ This system mimics the behavior of an **agentic AI**, combining user input parsi
 
 ## 🔐 Step 1: OAuth 2.0 Setup
 
-We created a Google Cloud project and enabled the **Gmail API** and **Google Calendar API**.  
+I created a Google Cloud project and enabled the **Gmail API** and **Google Calendar API**.  
 The generated `credentials.json` was placed in the working directory and included client secrets necessary for OAuth.
 
 To enable OAuth securely:
@@ -29,7 +29,7 @@ To enable OAuth securely:
 rm token.json
 ```
 
-This triggers a fresh consent screen allowing new scopes (permissions). Without this step, your app may silently reuse outdated tokens.
+This triggers a fresh consent screen allowing new scopes (permissions). Without this step, the app may silently reuse outdated tokens.
 
 ---
 
@@ -58,57 +58,167 @@ Once the `token.json` was deleted, the app prompted OAuth consent again. This sc
 - Read calendar events
 - Send emails via Gmail
 
-![OAuth Screen](attachment)
-
 Once granted, the app created a new `token.json` — allowing authenticated access.
 
 ---
 
-## 🧠 Step 4: Command Parsing
+## 🚀 Step 4: Running the App
+
+```text
+streamlit run streamlit_agentic_ai.py
+```
+
+🔍 What This Command Does:
+This command launches the Streamlit application defined in the file streamlit_agentic_ai.py.
+
+Here’s what happens under the hood:
+- Starts a local development server on localhost.
+- Executes the Python script (streamlit_agentic_ai.py) and builds a web interface defined in it.
+- Renders interactive UI components (text inputs, buttons, outputs) in the default browser.
+- Listens for user input, passes it to the backend logic (intent recognition + tool execution), and displays the results on the same page.
+
+Below is a portion of the streamlit_agentic_ai.py code:
+
+```python
+
+# -------------------------------
+# Setup environment variables
+# -------------------------------
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GOOGLE_TOKEN_PATH = "token.json"
+SCOPES = [
+    "https://www.googleapis.com/auth/gmail.send",          # Send emails
+    "https://www.googleapis.com/auth/calendar.readonly"    # Read calendar events
+]
+
+# -------------------------------
+# Authenticate with Google
+# -------------------------------
+# -------------------------------
+# Define LangChain Tool
+# -------------------------------
+# -------------------------------
+# Agent Setup
+# -------------------------------
+# -------------------------------
+# Streamlit UI
+# -------------------------------
+st.title("🤖 Agentic AI Prototype")
+user_input = st.text_area("📬 What would you like the agent to do?")
+
+def parse_natural_language_input(text):
+    try:
+        to = re.search(r"email to (\S+)", text).group(1)
+        subject = re.search(r"subject ['\"](.+?)['\"]", text).group(1)
+        body = re.search(r"say: ['\"](.+?)['\"]", text).group(1)
+        
+        return {
+            "to": to,
+            "subject": subject,
+            "body": body
+        }
+    except Exception as e:
+        raise ValueError(f"Could not parse input. Please use the format:\n"
+                         "Send an email to [recipient] with the subject '[subject]' and say: '[message]'\n\n"
+                         f"Error: {e}")
+
+if st.button("Submit"):
+    try:
+        # Try structured email first
+        parsed_input = None
+        try:
+            parsed_input = json.loads(user_input)
+        except:
+            pass
+
+        if parsed_input and all(k in parsed_input for k in ["to", "subject", "body"]):
+            st.write(f"Sending email to: {parsed_input['to']}")
+            st.write(f"Subject: {parsed_input['subject']}")
+            st.write(f"Body: {parsed_input['body']}")
+            
+            send_email(
+                to=parsed_input["to"],
+                subject=parsed_input["subject"],
+                body=parsed_input["body"]
+            )
+            st.success("Email sent successfully!")
+
+        else:
+            # Run full natural language request through the agent
+            with st.spinner("Thinking..."):
+                response = agent.run(user_input)
+            st.write(response)
+
+    except Exception as e:
+        st.error(f"Failed to process input or send command:\n{e}")
+
+
+```
+
+
+---
+
+## 🧠 Step 5: Command Parsing
 
 The Streamlit UI accepts **natural language instructions**, which are parsed into structured JSON-like intents.  
-Initial limitations required JSON-formatted input. We extended parsing to support plain English, such as:
+Initial limitations required JSON-formatted input. I extended parsing to support plain English, such as:
 
 ```text
 Show me my next 3 calendar events
 ```
-
 Upon submission, the backend:
 1. Matches intent using regex patterns
 2. Extracts arguments (e.g., number of events)
 3. Calls the appropriate calendar function
 
-Example success output:
+OR
 
-```
-Your next 3 calendar events are:
-1. 2025-08-06 — Energy Bill Payment
-2. 2025-08-11 — Chase CC Payment
-3. 2025-08-13 — RTG Payment $121
+```text
+Send an email to your_email@gmail.com with the subject "Follow-up from today’s session" and say: "Hi Paulo, just confirming everything’s working great!"
 ```
 
+Upon submission, the backend:
+1. Matches email-related intent using regex patterns (e.g., detects the “Send an email to...” phrase).
+2. Extracts structured arguments such as:
+    - to: recipient's email address
+    - subject: email subject
+    - body: message content
+
+These are parsed from natural language and converted into a valid JSON payload.
+
+3. Calls the email-sending function, which authenticates with Gmail API and sends the message via the user’s account.
+
 ---
-
-## 🧪 Step 5: Debugging + Fixes
-
-Several iterations were needed:
-- ❌ SyntaxError from incomplete `try...except` block
-- ❌ App ran without prompting auth (due to leftover tokens)
-- ❌ `credentials.json` file not found
-- ✅ All resolved with strategic file resets and logic repairs
-
----
-
 ## ✅ Current Functionality
 
-You can now issue voice or text commands such as:
+The functionality with the 2 currently present scopes are:
+
+```pythom
+SCOPES = [
+    "https://www.googleapis.com/auth/gmail.send",          # Send emails
+    "https://www.googleapis.com/auth/calendar.readonly"    # Read calendar events
+]
+```
+
+📧 Send Emails via Gmail
+- **Send an email on my behalf through the Gmail API**
+- **Email content is parsed and formatted as a JSON payload**
+- **The message is sent through the authenticated Gmail account**
+
+📅 Retrieve Calendar Events from Google Calendar
+- **Fetch upcoming calendar events from your primary Google calendar**
+- **Results include event date, title, and are listed in chronological order**
+
+## ✅ Upcoming Functionality
+
+Next goals are to issue voice or text commands such as:
 
 - **"Send an email to John about tomorrow’s meeting"**
 - **"Check if I’m free on August 10th"**
 - **"Cancel my 2 PM meeting"**
 - **"Show me my next 3 calendar events"**
 
-Each is parsed and routed to the correct function.
+Each will be parsed and routed to the correct function.
 
 ---
 
@@ -121,16 +231,6 @@ Each is parsed and routed to the correct function.
 
 ---
 
-## 📸 Screenshots
-
-Below are some images captured during this session (manually attach if uploading to GitHub):
-
-- ✅ Calendar Output
-- ⚠️ OAuth Consent Prompt
-- ❌ Script Execution Errors
-- ✅ Successful Launch
-
----
 
 ## 🧠 Final Thoughts
 
