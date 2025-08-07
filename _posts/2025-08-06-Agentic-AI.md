@@ -1,7 +1,8 @@
-
-# 🤖 Agentic AI Prototype – Natural Language Email & Calendar Assistant (Streamlit + ChatGPT + Google API)
-
-
+---
+layout: post
+title: 🤖 Agentic AI Prototype – Natural Language Email & Calendar Assistant (Streamlit + ChatGPT + Google API)
+date: 2025-01-22
+---
 
 This project demonstrates the implementation of an AI-augmented assistant built with Streamlit that connects to Gmail and Google Calendar via OAuth, interprets natural language commands, and executes intelligent actions.
 
