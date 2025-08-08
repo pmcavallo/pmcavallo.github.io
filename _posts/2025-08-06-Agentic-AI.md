@@ -13,7 +13,9 @@ The user can:
 
 This system mimics the behavior of an **agentic AI**, combining user input parsing, secure API authentication, and real-time interaction with Google services.
 
-**Tools:** Streamlit, Google Calendar API, Gmail API, OAuth 2.0, Python
+**Tools:** LangChain, Streamlit, Google Calendar API, Gmail API, OAuth 2.0, Python
+
+![ai](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ai1.png?raw=true) 
 
 ---
 
