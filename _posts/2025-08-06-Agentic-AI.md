@@ -1,10 +1,10 @@
 ---
 layout: post
-title: 🤖 Agentic AI Prototype – Natural Language Email & Calendar Assistant (Streamlit + ChatGPT + Google API)
+title: 🤖 Agentic AI – Natural Language Email & Calendar Assistant (LangChain + Streamlit + ChatGPT + Google API)
 date: 2025-07-12
 ---
 
-This project demonstrates the implementation of an AI-augmented assistant built with Streamlit that connects to Gmail and Google Calendar via OAuth, interprets natural language commands, and executes intelligent actions.
+This project demonstrates the implementation of an AI-augmented assistant built with Streamlit and powered by LangChain. It connects to Gmail and Google Calendar via OAuth, interprets natural language commands using an LLM agent, and executes intelligent actions such as sending emails or retrieving upcoming events.
 
 The user can:
 - Send emails
@@ -68,8 +68,7 @@ Once granted, the app created a new `token.json` — allowing authenticated acce
 streamlit run streamlit_agentic_ai.py
 ```
 
-🔍 What This Command Does:
-This command launches the Streamlit application defined in the file streamlit_agentic_ai.py.
+🔍 This command launches the Streamlit application defined in the file streamlit_agentic_ai.py.
 
 Here’s what happens under the hood:
 - Starts a local development server on localhost.
@@ -187,6 +186,43 @@ Upon submission, the backend:
 These are parsed from natural language and converted into a valid JSON payload.
 
 3. Calls the email-sending function, which authenticates with Gmail API and sends the message via the user’s account.
+
+##  LangChain-Powered Natural Language Intelligence
+
+This Agentic AI prototype uses **LangChain** to translate the natural language instructions into action.
+
+- If we provide a structured JSON payload like:
+  ```json
+  {"to": "friend@example.com", "subject": "Hello!", "body": "It was great chatting with you."}
+
+The LangChain agent interprets your intent and chooses the appropriate tool:
+- send_email – sends emails via Gmail (expects JSON with to, subject, body)
+- list_calendar_events – retrieves the next five Google Calendar events
+
+How it works (simplified code flow)
+
+```python
+from langchain.agents import initialize_agent, Tool
+from langchain_openai import ChatOpenAI
+
+# Prepare the tools:
+email_tool = Tool("send_email", safe_send_email, "Send email with JSON payload")
+calendar_tool = Tool("list_calendar_events", lambda _: list_upcoming_events(), "List upcoming calendar events")
+
+# Initialize the LangChain agent:
+llm = ChatOpenAI(model="gpt-4", temperature=0)
+agent = initialize_agent([email_tool, calendar_tool], llm, agent="zero-shot-react-description")
+
+# In the app:
+if is_valid_email_json(user_input):
+    send_email(**json.loads(user_input))
+else:
+    response = agent.run(user_input)
+    st.write(response)
+
+```
+
+This setup lets me send emails or fetch my calendar just by typing what I want — no rigid form needed.
 
 ---
 ## ✅ Current Functionality
