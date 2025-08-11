@@ -41,6 +41,11 @@ mon = pd.read_csv("engagement_mon_sample.csv")
 
 target = 'engagement_ratio'
 features = [col for col in dev.columns if col != target]
+
+# Sanity-check: development vs monitoring engagement distribution
+print("Dev engagement stats:\n", dev['engagement_ratio'].describe().round(2))
+print("Mon engagement stats:\n", mon['engagement_ratio'].describe().round(2))
+
 ```
 
 ---
@@ -321,8 +326,12 @@ print(summary)
 #### ✅ Interpretation:
 
 - **RMSE** and **MAE** are virtually unchanged between development and monitoring. This indicates that the model's accuracy and error distribution have remained stable over time. There is no evidence of deteriorating prediction quality.
-
 - **PSI** is calculated at **0.0874**, which is **below the 0.10 stability threshold** commonly used in production models. This suggests that the distribution of predicted engagement scores has not shifted significantly between samples, and the underlying customer population remains stable.
+
+**Considered Alternatives:**  
+- Including calibration drift in the composite score—deemed redundant with RMSE stability.  
+- PSI across individual features—insightful but complicated monitoring.  
+- Manual monitoring frameworks—less scalable than an automated scorecard.
 
 ---
 
