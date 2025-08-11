@@ -45,6 +45,18 @@ df['loan_status_flag'] = (
     (df['delinq_flag'] == 1) |
     (df['cltv'] > 1)
 ).astype(int)
+
+# Quick sanity check on synthetic data distributions
+print(df[['fico_score', 'credit_utilization', 'loan_amount']].describe().round(1))
+
+# Peek at most common states for coverage validation
+print("Top 5 states by customer count:")
+print(df['state'].value_counts().head(5))
+
+# Visual check of utilization distribution
+df['credit_utilization'].hist(bins=20)
+
+
 ```
 *⚠️ Note: Synthetic logic only: Flags are generated from loose rules to simulate borrower risk — not fitted on real defaults.*
 
@@ -446,6 +458,16 @@ Key insights:
 - **Utilization and CLTV** also contribute to higher risk.
 - **Delinquency flag** is binary but adds strong predictive signal.
 
+Decision Notes (CatBoost Choice):
+- I chose CatBoost for its native categorical handling, reducing preprocessing complexity and minimizing risk of encoding-related bias.
+- Compared against LightGBM and logistic regression: CatBoost delivered better SHAP reliability for categorical-heavy features while maintaining regulatory-friendly transparency.
+- Default parameters retained for interpretability and because the dataset size allowed for rapid, iterative explainability checks.
+
+Considered Alternatives:
+
+- LightGBM: Competitive accuracy, but less straightforward categorical feature support and slightly less stable SHAP outputs in early tests.
+- Different Storage Formats: Considered Avro and ORC; stayed with Parquet for its compression efficiency, columnar reads, and compatibility with AWS Athena and Glue.
+   
 ---
 
 ## 6. Segment-Level Analysis by State
