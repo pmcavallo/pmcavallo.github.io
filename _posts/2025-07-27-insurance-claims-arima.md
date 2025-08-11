@@ -38,6 +38,9 @@ monthly_claims = np.round(monthly_claims, 2)
 df = pd.DataFrame({ 'Date': dates, 'Monthly_Claim_Payout': monthly_claims })
 df.set_index('Date', inplace=True)
 
+# Sanity check: average monthly claim payout
+print("Average simulated claim payout:", df['Monthly_Claim_Payout'].mean().round(2))
+
 # Plot
 plt.figure(figsize=(12, 4))
 plt.plot(df.index, df['Monthly_Claim_Payout'], label="Monthly Claims ($)")
@@ -156,7 +159,7 @@ After differencing, stationarity improves. ACF suggests MA(1), PACF suggests AR(
 
 ## 🧠 Step 4: Fit SARIMA Model and Diagnose
 
-We fit a SARIMA(1,1,1)(1,1,1,12) model and apply stabilization using `measurement_error=True` to avoid numerical issues such as exploding confidence intervals. This reflects best practices when working with synthetic or highly predictable series.
+I fit a SARIMA(1,1,1)(1,1,1,12) model and apply stabilization using `measurement_error=True` to avoid numerical issues such as exploding confidence intervals. This reflects best practices when working with synthetic or highly predictable series.
 
 ```python
 import statsmodels.api as sm
@@ -196,6 +199,9 @@ These values indicate the overall fit of the model, with lower being better. Whi
 
 
 ✅ Conclusion: The model residuals show no significant autocorrelation, are likely homoskedastic, and pass the normality test. This suggests the SARIMA model provides a reasonably good fit to the simulated data.
+
+**Decision Note:** Selected SARIMA(1,1,1)(1,1,1,12) to capture both trend and seasonality. The use of `measurement_error=True` mitigated unstable confidence intervals—a diagnostic safeguard often overlooked but crucial in time series modeling.
+
 
 📉 Custom Residual Diagnostics
 I replace the default SARIMAX diagnostics with a custom 2x2 panel:
@@ -403,6 +409,11 @@ Evaluation Results:
 - ✅ These are strong performance metrics given the claim scale (~$120–145k/month), confirming the model generalizes well even on synthetic holdout data. These errors represent ~6% of average monthly payouts, indicating strong forecast accuracy.
 
 *Note: Both MAE and RMSE are expressed in dollars, consistent with the unit of the dependent variable (Monthly Claim Payout). While not true observed data, this ‘controlled truth’ provides a fair basis for evaluating forecast skill, since it mirrors the structure the model was trained on.*
+
+**Considered Alternatives:**  
+- ARIMA without seasonal terms—didn’t capture cyclical trends.  
+- ETS models (e.g., Holt-Winters)—more ops-friendly but lacked flexibility.  
+- Holiday-adjusted models—useful, but out of scope for this structured simulation exercise.
 
 ## ✅ Final Conclusions
 
