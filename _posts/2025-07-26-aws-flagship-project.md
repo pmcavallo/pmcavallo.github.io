@@ -137,13 +137,9 @@ print("✅ ETL completed.")
 - Output stored in Parquet format for downstream consumption
 
 🔁 Logistic Regression with PySpark MLlib
-This step validates the ability to train and evaluate a logistic regression model in a distributed Spark environment — with class weights, regularization, and KS evaluation logic.
+This step validates the ability to train and evaluate a logistic regression model in a distributed Spark environment — with class weights, regularization, and KS evaluation logic. Below is a secti
 
 ```python
-"""
-Logistic Regression with Class Weights, Regularization, and KS Evaluation
-For Credit Risk Modeling using PySpark
-"""
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, col
