@@ -34,6 +34,18 @@ df = pd.read_excel("Telco-Customer-Churn.xlsx")
 # Create RiskExposure = Monthly Charges / Tenure
 df['Tenure Months'].replace(0, 1, inplace=True)
 df['RiskExposure'] = df['Monthly Charges'] / df['Tenure Months']
+
+# Quick sanity check before modeling
+print(df[['CLTV', 'RiskExposure', 'churn']].describe().round(1))
+
+# Check class balance
+print("Churn rate:", df['churn'].mean().round(3))
+
+# Peek at top contracts by churn rate
+contract_churn = df.groupby('Contract')['churn'].mean().sort_values(ascending=False)
+print(contract_churn)
+
+
 ```
 
 ---
@@ -333,6 +345,11 @@ Interpretation:
 - This view is better for interpreting the model holistically and understanding breadth of use.
 
 Reccomendation: For executive stakeholders, the weight version is more intuitive and supports actionable decisioning across features like CLTV, contract types, and service usage.
+
+Decision Notes:
+- Tested Logistic Regression and Random Forest as baselines; both offered lower recall for high-value customers at risk.
+- Chose XGBoost for its ability to capture non-linear interactions and segment-specific churn patterns without heavy preprocessing.
+- Tuned depth and learning rate to balance predictive lift with interpretability for business stakeholders.
 
 ---
 
@@ -648,6 +665,11 @@ risk_summary
 - High Risk customers have a churn probability over 67% and relatively low CLTV, indicating urgent but cost-sensitive intervention.
 - Low Risk customers have minimal churn probability and the highest CLTV, representing the most profitable and stable base.
 - Moderate Risk customers occupy the middle ground, suggesting they could swing either way with targeted outreach.
+
+Considered Alternatives:
+- Alternate Segmentation Logic: Explored purely behavioral segmentation (usage patterns), but combining CLTV and churn risk yielded more actionable groups.
+- Different Score Scaling: Considered percentile-based scoring, but retained a 0–100 scale for ease of business adoption.
+- Automated Offer Triggers: Evaluated real-time offers at prediction time; deferred to batch strategy for operational feasibility.
 
 ---
 
