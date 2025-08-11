@@ -82,6 +82,10 @@ df = pd.DataFrame({
 })
 
 df.to_csv('data/telco_churn.csv', index=False)
+
+# Quick sanity check on churn distribution
+print("Churn distribution:", df['Churn'].value_counts(normalize=True).round(2))
+
 ```
 
 ---
@@ -159,9 +163,10 @@ if __name__ == "__main__":
 
 ---
 
-## 🧾 Notes
+## 🧾 Decision Notes
 
-- I use `ColumnTransformer` to preprocess numerical and categorical features.
+- I chose a **RandomForestClassifier** for its interpretability and robustness on synthetic churn data. **Streamlit** was selected for its speed in building prototypes, and **Render** for seamless, cost-effective cloud deployment without complex infrastructure.
+ 
 
 ## 4: Streamlit App for Render 
 
@@ -285,6 +290,12 @@ services:
 ```
 
 ---
+
+**Considered Alternatives:**  
+- **Logistic Regression**: simpler but sacrificed predictive accuracy.  
+- **Flask/Dash**: more boilerplate; Streamlit offered quicker iteration.  
+- **AWS/Heroku**: suitable but rendered deployment heavier; Render provided instant streaming of updates.
+
 
 ## 🤖 Tech Stack
 
