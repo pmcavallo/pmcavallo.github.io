@@ -43,6 +43,10 @@ df['is_delayed'] = (df['departure_delay'] > 15).astype(int)
 
 print(df.head())
 print(df.describe(include='all'))
+
+# Sanity check: average simulated departure delay
+print("Mean departure delay (simulated):", df['departure_delay'].mean().round(2))
+
 ```
 
 ---
@@ -260,6 +264,13 @@ print(classification_report(y_test, y_pred))
 - 🔼 **F1-score for delays increased to 30.4%** (from 21.1%)
 - 🔽 Slight decrease in overall accuracy
 - ✅ This is a good tradeoff when the goal is **catching more delays** (even with more false positives)
+
+**Decision Note:** A simulated dataset was used to develop a clean, reproducible pipeline. Selected features reflect real-world airline operations. Chose XGBoost/logistic regression to balance predictive performance with interpretability for stakeholders.
+
+**Considered Alternatives:**  
+- Using real operational flight datasets—but required heavier data cleaning and lacked reproducibility.  
+- Adding complex time-series context features—but prioritized transparency for this project.  
+- Logistic regression alone—for explainability, although tree-based models showed better performance early on.
 
 ---
 
