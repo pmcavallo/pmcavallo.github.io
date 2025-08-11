@@ -306,6 +306,9 @@ Interpretation:
 - The ROC curve again confirms a strong classifier. Both XGBoost and Logistic Regression deliver similar separation power between churners and retained customers.
 - The model is appropriate for ranking churn risk, though additional tuning might improve recall.
 
+**Decision Note:** I included **logistic regression** as a transparent benchmark. **XGBoost** was added to capture complex, non-linear churn interactions, and SHAP analysis helped balance predictive power with interpretability.
+
+
 4. Feature Importance Gain vs Weight – XGBoost
 
 I compare feature importances using two different methods from the same trained XGBoost model:
