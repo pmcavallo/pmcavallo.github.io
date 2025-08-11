@@ -42,6 +42,9 @@ X, y = make_classification(n_samples=10000, n_features=20, n_informative=10,
 df = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
 df["is_fraud"] = y
 
+# Sanity check: fraud frequency
+print("Fraud rate:", df['is_fraud'].mean().round(3))
+
 sns.countplot(x="is_fraud", data=df)
 plt.title("Class Distribution: Fraud vs Non-Fraud")
 plt.show()
@@ -125,11 +128,13 @@ xgb_best.fit(X_train_res, y_train_res)
 y_proba = xgb_best.predict_proba(X_test_scaled)[:, 1]
 ```
 
+**Decision Note:** I chose **SMOTE** to synthesize minority class examples and improve sensitivity to fraud. Threshold tuning below allowed a precise balance between recall and precision to align with operational goals.
+
 ---
 
 ## 🎯 6. Optimize the Classification Threshold
 
-Instead of using 0.5 by default, we try to find the best threshold for F1 score.
+Instead of using 0.5 by default, I try to find the best threshold for F1 score.
 
 ```python
 def evaluate_thresholds(y_true, y_proba):
@@ -164,6 +169,7 @@ print(f"Best threshold based on F1 Score: {best_thresh:.2f}")
 ![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud2.png?raw=true) 
 
 The Threshold Optimization plot visualizes how the model’s **Precision**, **Recall**, and **F1 Score** vary as we adjust the classification threshold.
+
 
 ### 🔍 What We See
 
@@ -437,6 +443,7 @@ Logistic Regression can be a strong **baseline**. If XGBoost meaningfully improv
 | F1 Score      | -                   | **0.76**         |
 | ROC-AUC       | -                   | ~**0.91–0.92**   |
 
+
 ### ✅ Final Takeaways
 
 - **Logistic Regression**:
@@ -448,6 +455,12 @@ Logistic Regression can be a strong **baseline**. If XGBoost meaningfully improv
   - Strength: **Much higher precision and F1 score**
   - Weakness: Slightly lower recall
   - Best for **balanced detection and cost-effective fraud review**
+ 
+**Considered Alternatives:**  
+- Random undersampling—risked information loss.  
+- Cost-sensitive learning—explored but favored SMOTE for clarity.  
+- Fixed threshold (0.5)—replaced with optimized threshold for performance alignment.
+
 
 ### 🧠 Recommendation
 
