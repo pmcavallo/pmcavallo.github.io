@@ -33,6 +33,11 @@ rm token.json
 
 This triggers a fresh consent screen allowing new scopes (permissions). Without this step, the app may silently reuse outdated tokens.
 
+```python
+# Quick sanity check: is there an existing OAuth token?
+print("token.json exists?", os.path.exists("token.json"))
+```
+
 ---
 
 ## 📁 Step 2: Project Structure
@@ -226,6 +231,9 @@ else:
 
 This setup lets me send emails or fetch my calendar just by typing what I want — no rigid form needed.
 
+**Decision Note:** Opted for **LangChain with ChatOpenAI (GPT-4)** to orchestrate agents and tools because its structured workflow and prompt chaining provide robustness and easier scaling compared to manual regex handling or raw LLM prompts.
+
+
 ---
 ## ✅ Current Functionality
 
@@ -257,6 +265,10 @@ Next goals are to issue voice or text commands such as:
 - **"Show me my next 3 calendar events"**
 
 Each will be parsed and routed to the correct function.
+
+**Considered Alternatives:**  
+- Rule-based or regex-only parsing—too fragile and hard to expand.  
+- Direct OpenAI API calls without LangChain—lacked tool abstraction and manageability.
 
 ---
 
