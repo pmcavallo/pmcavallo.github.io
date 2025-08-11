@@ -61,9 +61,7 @@ override_df = pd.DataFrame({
 
 ## Baseline Logistic Regression
 
-This step utilizes the scikit-learn library to create and assess a predictive model for a target variable named 'defaulted'. It first splits the data into training and testing sets, ensuring a balanced representation of the target class in each.
-A machine learning Pipeline is then constructed, which standardizes the features using StandardScaler before applying an L1-penalized LogisticRegression classifier designed to handle imbalanced data.
-After training the model on the training set, it makes predictions on the test set and performs a comprehensive evaluation by calculating and printing key metrics such as the AUC score, KS statistic, confusion matrix, and a detailed classification report. Finally, the script visualizes the model's performance by plotting its Receiver Operating Characteristic (ROC) curve.
+In this step, I use the scikit-learn library to create and assess a predictive model for a target variable named 'defaulted'. A machine learning Pipeline is then constructed, which standardizes the features using StandardScaler before applying an L1-penalized LogisticRegression classifier designed to handle imbalanced data.
  
 ```python
 from sklearn.linear_model import LogisticRegression
@@ -103,8 +101,8 @@ auc = roc_auc_score(y_test, y_proba)
 fpr, tpr, _ = roc_curve(y_test, y_proba)
 ks = max(tpr - fpr)
 
-print(f"AUC: {auc:.4f}")
-print(f"KS: {ks:.4f}")
+print(f"AUC:{auc:.4f}")
+print(f"KS:{ks:.4f}")
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
@@ -136,14 +134,15 @@ Classification Report:
 - The model is very good at identifying the negative class (class 0), with high precision (0.91) and decent recall (0.79).
 - However, it struggles significantly with the positive class (class 1). The precision is very low at 0.31, meaning that when the model predicts class 1, it's only correct 31% of the time (many false alarms). The recall is modest at 0.55, indicating it successfully identifies only 55% of all actual positive cases, missing the other 45%.
 
+Decision notes: Started with L1-penalized logit for a transparent baseline and to induce sparsity. Class weights addressed imbalance while preserving calibration. Despite AUC ≈ 0.69, recall on defaulters was meaningfully higher than XGB, aligning with a “catch-risk-first” policy posture.
+
 In summary: While the overall accuracy (76%) might seem acceptable, the model is not reliable for predicting the positive class (class 1). Its poor precision for this class means its positive predictions cannot be trusted, and its moderate recall means it still misses a large portion of the cases it's designed to find.
 
 ## XGBoost Model
 
-This step introduces a more advanced classification model, XGBClassifier from the popular xgboost library, to tackle the same prediction task. 
+In this step, I introduce a more advanced classification model, XGBClassifier from the popular xgboost library, to tackle the same prediction task. 
 It initializes the model with a specific set of hyperparameters designed to optimize performance, such as a controlled learning rate, tree depth, and column/row sampling to prevent overfitting. 
 Crucially, it sets the scale_pos_weight parameter to 3 to explicitly handle the class imbalance noted in the data, giving more importance to the minority class. 
-Following the model's configuration, the script trains it on the training data, generates predictions on the test set, and then performs a thorough evaluation by calculating and printing key metrics like AUC, KS-statistic, a confusion matrix, and a classification report, before finally plotting the ROC curve to visually assess its performance.
 
 ```python
 from xgboost import XGBClassifier
@@ -203,12 +202,13 @@ While both models have nearly identical overall performance (AUC of ~0.68), they
 - Logistic Regression: Was better at finding positive cases. It had a much higher recall (0.55), meaning it correctly identified 336 actual defaulters. However, it did so by making many more mistakes (752 false positives).
 - XGBoost Model: Was more cautious or "precise" with its predictions. It had slightly higher precision (0.32 vs 0.31) and made fewer false alarms (490 false positives). The major downside is that its recall was much worse (0.39), causing it to miss more actual defaulters (it only found 235).
 
+Decision notes: Next, I tested XGBoost to capture nonlinearities and interactions the logit can’t. With max_depth=4 and scale_pos_weight=3 to reflect the class ratio, AUC stayed ≈ 0.68–0.69, improving precision but hurting recall. The trade-off informs threshold selection based on cost of false negatives vs false positives.
+
 Conclusion: Neither model is a strong performer. The choice between them depends on the business cost of errors. If the priority is to catch as many defaulters as possible (even at the cost of flagging good customers), the previous Logistic Regression model is superior due to its higher recall. If the goal is to minimize false alarms, the XGBoost model is marginally better.
 
 ## 🧪 Hyperparameter Tuning
 This step focuses on optimizing the XGBClassifier model by performing automated hyperparameter tuning using GridSearchCV from scikit-learn. 
 It first defines a base XGBoost model and a param_grid containing different values for key hyperparameters like the number of trees (n_estimators), tree depth (max_depth), and learning_rate. The GridSearchCV object is then configured to systematically test combinations of these parameters using 3-fold cross-validation, aiming to find the set that maximizes the roc_auc score. 
-After running the search on the training data, the script prints the best-performing parameter combination and its cross-validation score, and finally evaluates this optimized model's performance on the separate, unseen test set to get a final, unbiased measure of its effectiveness.
 
 ```python
 import warnings
@@ -683,11 +683,6 @@ This override supports proactive protection of the portfolio by adapting to beha
 display(Markdown(policy_brief))
 ```
 
-# 🧾 Strategy Policy Brief – Adaptive Risk Policy Trigger  
-**Date:** August 02, 2025  
-
----
-
 ## 🧠 Summary  
 Anomalies were detected in default behavior:  
 Low-risk segments showed higher default rates than high-risk segments in **8 score bins**.
@@ -702,27 +697,27 @@ Low-risk segments showed higher default rates than high-risk segments in **8 sco
 
 ---
 
-## 🛠️ Simulated Override  
+## Adaptive Override Module & Governance
+After evaluating baseline model performance (AUC, KS, precision/recall), I implemented an Adaptive Override Module to catch localized risk patterns that global thresholds might miss.
+This logic dynamically adjusts risk flags for specific customer segments or behavioral clusters showing an anomalous rise in default likelihood.
 
-The following score bins had their **risk segment reclassified to High-Risk**:
+The override is designed to work with the model—not against it—by applying targeted policy changes where precision and recall trade-offs are most favorable for the business.
 
-| score_bin | override_high_risk | reason                                              |
-|-----------|--------------------|------------------------------------------------------|
-| 0         | True               | Low-risk default rate exceeded high-risk segment     |
-| 1         | True               | Low-risk default rate exceeded high-risk segment     |
-| 2         | True               | Low-risk default rate exceeded high-risk segment     |
-| 3         | True               | Low-risk default rate exceeded high-risk segment     |
-| 4         | True               | Low-risk default rate exceeded high-risk segment     |
-| 7         | True               | Low-risk default rate exceeded high-risk segment     |
-| 8         | True               | Low-risk default rate exceeded high-risk segment     |
-| 9         | True               | Low-risk default rate exceeded high-risk segment     |
+## Cost of Errors & Thresholding
+I define an expected-cost function and choose thresholds accordingly. Example (simulated): FP costs $A in friction/brand impact; FN costs $B in expected loss.
+Given B ≫ A, I prefer a higher-recall operating point (logit) and apply the override module for localized anomalies. This aligns the dashboard with business economics, not just statistical AUC.
 
----
+## Override Governance
+To avoid policy whipsaw, overrides require:
+- Minimum support — at least N observations in the segment.
+- Persistence — the pattern must hold across K consecutive monitoring windows.
+- Analyst review — final human approval before activation.
+- The dashboard logs each trigger, rationale, and resulting KPI deltas for auditability.
 
-## 🧩 Rationale  
-
-> “Low-risk default rate exceeded high-risk segment.”  
-This override supports proactive protection of the portfolio by adapting to behavioral drift.
+## SageMaker LLM Controls
+LLM summaries run on a right-sized instance with a bounded token budget; prompts exclude PII and include a structured table-only context.
+Outputs are tagged with a disclaimer and stored alongside inputs for audit.
+The SageMaker endpoint is torn down post-run to control cost.
 
 ---
 
@@ -735,11 +730,6 @@ This override supports proactive protection of the portfolio by adapting to beha
 
 ---
 
-_This report was generated by the intelligent policy system to support risk governance decisions._
-
-
-
----
 
 ## 📊 Dashboard and Visuals (Streamlit)
 
@@ -774,15 +764,10 @@ sns.lineplot(data=segment_df, x="score_bin", y="default_rate", hue="risk_segment
 ## 🧪 Local Testing Instructions
 
 1. Clone the GitHub repo.
-
-
 2. Create a virtual environment.
-
-
 3. Install dependencies.
-
-
 4. Run the dashboard:
+
 ```bash
 streamlit run streamlit_dashboard.py
 ```
