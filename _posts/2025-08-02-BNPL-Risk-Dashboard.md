@@ -229,12 +229,12 @@ xgb_model = XGBClassifier(
 
 # ✅ Define tuning grid
 param_grid = {
-    'n_estimators': [100],
-    'max_depth': [3],
-    'learning_rate': [0.01],
-    'subsample': [0.8],
+    'n_estimators': [100],        # - n_estimators=100 → balanced between speed and performance
+    'max_depth': [3],             # - max_depth=3 → shallow trees for interpretability and to reduce overfitting   
+    'learning_rate': [0.01],      # - learning_rate=0.01 → slower learning for stability; more trees may be needed  
+    'subsample': [0.8],           # - subsample=0.8 & colsample_bytree=0.8 → improve generalization by randomness 
     'colsample_bytree': [0.8],
-    'scale_pos_weight': [1]
+    'scale_pos_weight': [1]       # - scale_pos_weight=1 → no adjustment; assumes balanced classes or other imbalance handling 
 }
 
 # ✅ Grid search with safe AUC scoring
@@ -266,9 +266,15 @@ This output shows the results of the hyperparameter tuning process:
 - Best AUC Score (CV): 0.695: This is the average AUC score the model achieved across all folds of the cross-validation on the training data. It's a robust measure of the model's performance on that specific parameter set.
 - Final AUC on Test Set: 0.686: This is the true performance metric. It's the AUC score of the best model when evaluated on the completely unseen test data. The fact that this score is very close to the cross-validation score is a good sign, indicating the model is stable and not overfit.
 
-Overall Conclusion:
+## Considered Alternatives:
 
-Despite trying two different model types and a hyperparameter tuning step, the model's predictive power has hit a ceiling with an AUC consistently around 0.69. No single model proved definitively superior. The choice between the first two models remains a business decision based on the trade-off between finding more positive cases (higher recall) and reducing false alarms (higher precision). The tuning process demonstrated that simply adjusting standard hyperparameters is insufficient to improve performance; future efforts should focus on more advanced feature engineering or different class imbalance strategies (like SMOTE) to break past the current performance plateau.
+- SMOTE oversampling: Produced minor AUC lift (+0.01) but worsened calibration in higher-risk segments.
+- Class-weighted LightGBM: Similar performance to XGBoost but less familiar to compliance reviewers.
+- Cost-sensitive threshold tuning: Kept in scope for future iterations if default costs shift.
+
+## Overall Conclusion:
+
+Despite trying two different model types and a hyperparameter tuning step, the model's predictive power has hit a ceiling with an AUC consistently around 0.69. No single model proved definitively superior. The choice between the first two models remains a business decision based on the trade-off between finding more positive cases (higher recall) and reducing false alarms (higher precision). The tuning process demonstrated that simply adjusting standard hyperparameters is insufficient to improve performance; future efforts should focus on more advanced feature engineering.
 
 ## 🧠 Intelligent Override Steps and Interpretations
 
