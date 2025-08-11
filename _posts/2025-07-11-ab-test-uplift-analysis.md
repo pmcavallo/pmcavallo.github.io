@@ -31,6 +31,11 @@ data["base_rate"] = 0.1 + data["city"].map({
 data["treatment_lift"] = np.where(data["group"] == "treatment", 0.05, 0.00)
 data["conversion_prob"] = data["base_rate"] + data["treatment_lift"]
 data["converted"] = np.random.binomial(1, data["conversion_prob"])
+
+# Sanity check: group sizes and conversion probabilities
+print("Group Sizes:\n", data['group'].value_counts())
+print("Conversion Probabilities:\n", data.groupby('group')['conversion_prob'].describe().round(2))
+
 ```
 ### 📊 Group-Level Summary Statistics
 
@@ -280,11 +285,18 @@ plt.show()
 | Seattle  | 0.00120  | 0.0057  | 1980  | 0.00013 |
 
 
+**Decision Note:** Uplift modeling enables detection of **heterogeneous treatment effects** that A/B averaging masks. I chose `ClassTransformation` from `sklift` for its clarity and conversion to standard classifiers, enabling easy interpretability and transparency.
+
 ## 5. Key Insights
 - The A/B test revealed a **49.81% increase in conversion** due to pricing changes.
 - **Uplift modeling** identified heterogeneous treatment effects by city.
 - **Miami** and **Seattle** show the highest average uplift, suggesting they may be more responsive to price changes.
 - This approach can inform targeted marketing and localized pricing strategies.
+
+**Considered Alternatives:**  
+- Traditional average treatment effect modeling—less informative for city-level targeting.  
+- Two-Model or Target Transformation uplift methods—explored, but preferred ClassTransformation for simplicity.  
+- Bayesian causal models like CausalForest—for future versions needing robust uncertainty estimates.
 
 ## Conclusion
 This project illustrates a practical application of A/B testing and uplift modeling in a marketplace scenario. It highlights the importance of evaluating causal effects at a granular level to support data-driven decision-making.
