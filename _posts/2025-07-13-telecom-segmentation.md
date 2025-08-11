@@ -58,6 +58,11 @@ df = pd.DataFrame({
     'payment_method': payment_method,
     'churn': churn
 })
+
+# Sanity check: first few rows and class distribution
+print(df.head(3))
+print("Churn rate:", df['churn'].mean().round(3))
+
 ```
 
 ---
@@ -173,6 +178,8 @@ plt.show()
 ```
 ![elbow method](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg2.png?raw=true) 
 Explanation: The elbow method shows diminishing gains after k=4, while silhouette scores drop sharply after 2. We choose **k=4**.
+
+**Decision Note:** K-Means with *k = 4* was selected based on elbow and silhouette results to balance interpretability and segment differentiation; hierarchical clustering was considered but deemed less operationally intuitive.
 
 ---
 
@@ -401,6 +408,12 @@ plt.show()
 
 
 ---
+
+**Considered Alternatives:**  
+- **DBSCAN:** Good for outlier segmentation, but uneven cluster sizes made interpretation difficult.  
+- **Hierarchical clustering:** Offers nested structure, but operational simplicity favored K-Means for execution in business workflows.
+
+----
 
 ## ✅ Conclusion
 
