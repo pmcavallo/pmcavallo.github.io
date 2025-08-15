@@ -126,9 +126,8 @@ PY
 - Shows how to wire AWS services safely (no secrets committed) and express release governance as code.
 - Demonstrates traceability: metrics → policy thresholds → pass/fail + stored evidence.
 
-**Reproduce locally (Windows one-liner)**  
-*(Use your role/bucket; the command writes a metrics JSON to S3 and runs the gate)*  
-```
+**Reproduce locally (Windows one-liner)**   
+```powershell
 python -c "import json,os; os.makedirs(r'outputs\metrics',exist_ok=True); json.dump({'auc':0.66,'ks':0.25,'psi':0.20}, open(r'outputs\metrics\evaluation.json','w'))" && aws s3 cp "%CD%\outputs\metrics\evaluation.json" "s3://aws-flagship-project/outputs/metrics/evaluation.json" && python CB_Sandbox\pipelines\sagemaker\pipeline_gate.py --role <YOUR_ROLE_ARN> --bucket s3://aws-flagship-project --prefix cbsandbox --metrics_s3 s3://aws-flagship-project/outputs/metrics/evaluation.json > CB_Sandbox\evidence\gate_failed.txt 2>&1
 ```
 
