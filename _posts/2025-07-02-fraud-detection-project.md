@@ -1,13 +1,13 @@
 ---
 layout: post
-title: 🛡️Fraud Detection with XGBoost and scikit-learn
+title:Fraud Detection with XGBoost and scikit-learn
 date: 2025-04-18
 ---
 This project demonstrates a full machine learning workflow for detecting fraudulent transactions using **simulated data**, with **XGBoost**, **SMOTE** for class imbalance, **RandomizedSearchCV** for hyperparameter tuning, and **threshold optimization** to improve performance.
 
 ---
 
-## 📦 1. Import Libraries
+## 1. Import Libraries
 
 ```python
 import numpy as np
@@ -30,7 +30,7 @@ np.random.seed(42)
 
 ---
 
-## 🧪 2. Simulate a Fraud Dataset
+## 2. Simulate a Fraud Dataset
 
 I'm going to generate a dataset with 10,000 records, 20 features, and 5% fraud cases to mimic the typical class imbalance in fraud detection.
 
@@ -52,7 +52,7 @@ plt.show()
 ![distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/fraud1.png?raw=true) 
 ---
 
-## 🧹 3. Preprocessing
+## 3. Preprocessing
 
 Split the data into training and testing sets and apply standard scaling.
 
@@ -69,7 +69,7 @@ X_test_scaled = scaler.transform(X_test)
 
 ---
 
-## 🔍 4. Hyperparameter Tuning with RandomizedSearchCV
+## 4. Hyperparameter Tuning with RandomizedSearchCV
 
 Hyperparameters are model configuration settings set before training (e.g., max_depth, learning_rate, n_estimators in XGBoost). Tuning them properly can significantly improve model performance. 
 So, for instance:
@@ -115,7 +115,7 @@ xgb_best = random_search.best_estimator_
 For each of the 20 combinations, a different model is trained using cross-validation, then scored on the validation sets using ROC AUC, and the best combination is chosen and returned as ".best_estimator_". Random sampling efficiently explore large spaces, provides robust evaluation (avoids overfitting) and chooses the best hyperparameters for a specific goal.
 
 
-## ⚖️ 5. Handle Class Imbalance with SMOTE
+## 5. Handle Class Imbalance with SMOTE
 
 I'm going to apply SMOTE to generate synthetic minority (fraud) class samples. In the "Airline Delay" project I dicuss SMOTE in more detail.
 
@@ -132,7 +132,7 @@ y_proba = xgb_best.predict_proba(X_test_scaled)[:, 1]
 
 ---
 
-## 🎯 6. Optimize the Classification Threshold
+## 6. Optimize the Classification Threshold
 
 Instead of using 0.5 by default, I try to find the best threshold for F1 score.
 
@@ -171,7 +171,7 @@ print(f"Best threshold based on F1 Score: {best_thresh:.2f}")
 The Threshold Optimization plot visualizes how the model’s **Precision**, **Recall**, and **F1 Score** vary as we adjust the classification threshold.
 
 
-### 🔍 What We See
+### What We See
 
 - **Recall (🟠 Orange Line)**:
   - Starts high at low thresholds because most transactions are predicted as fraud.
@@ -224,14 +224,14 @@ The confusion matrix below shows how the model performs after applying the optim
 | **Actual Non-Fraud (0)** | 1880 (✅ True Negative)       | 12 (⚠️ False Positive)      |
 | **Actual Fraud (1)**     | 34 (⚠️ False Negative)        | 74 (✅ True Positive)       |
 
-### 🧠 Explanation
+### Explanation
 
 - **True Negatives (1880)**: Non-fraudulent transactions correctly identified.
 - **False Positives (12)**: Legitimate transactions incorrectly flagged as fraud.
 - **False Negatives (34)**: Fraud cases the model missed.
 - **True Positives (74)**: Fraud cases correctly detected.
 
-### 📊 Key Performance Metrics
+### Key Performance Metrics
 
 - **Precision** = 74 / (74 + 12) ≈ 0.86  
   → Very few false fraud alarms.
@@ -251,18 +251,18 @@ This is an effective and practical configuration for real-world fraud detection 
 
 ---
 
-## 📝 Overall Summary
+## Overall Summary
 
 - **Simulated a highly imbalanced fraud dataset**
 - **Used XGBoost** with **hyperparameter tuning**
 - **Handled imbalance** with **SMOTE**
 - **Improved recall and F1** through **threshold optimization**
 
-## 🧠 8. SHAP Interpretability
+## 8. SHAP Interpretability
 
 SHAP (SHapley Additive exPlanations) helps explain individual predictions by assigning each feature an importance value for a given prediction.
 
-### 🔍 Step 1: Install and Import SHAP
+### Step 1: Install and Import SHAP
 
 ```python
 # Install SHAP if you haven't
@@ -271,7 +271,7 @@ SHAP (SHapley Additive exPlanations) helps explain individual predictions by ass
 import shap
 ```
 
-### 📊 Step 2: Initialize SHAP Explainer
+### Step 2: Initialize SHAP Explainer
 
 ```python
 # Create an explainer for the trained XGBoost model
@@ -281,7 +281,7 @@ explainer = shap.Explainer(xgb_best, X_test_scaled)
 shap_values = explainer(X_test_scaled)
 ```
 
-### 🖼️ Step 3: Visualize Global Feature Importance
+### Step 3: Visualize Global Feature Importance
 
 ```python
 # Summary plot: global feature importance
@@ -304,7 +304,7 @@ The SHAP summary plot visualizes the **global importance and effect** of each fe
 
 Each point represents one transaction.
 
-### 🧠 Insights from This Plot
+### Insights from This Plot
 
 - `feature_12`, `feature_6`, and `feature_2` are the most influential in the model.
 - High values of `feature_0` and `feature_17` often **increase fraud risk**.
@@ -317,7 +317,7 @@ This plot helps:
 - Identify key risk indicators
 - Support transparency and fairness in model usage
 
-### 💧 Step 4: Visualize Individual Prediction
+### Step 4: Visualize Individual Prediction
 
 ```python
 # Waterfall plot: explains a single prediction
@@ -327,7 +327,7 @@ shap.plots.waterfall(shap_values[0], max_display=10)
 
 The SHAP force plot explains how the model arrived at a specific prediction for a single transaction.
 
-### 🧭 What This Plot Shows
+### What This Plot Shows
 
 - **E[f(X)] = −5.256**: This is the model's **base value** — the average predicted output across all samples.
 - **f(X) = 0.26**: This is the **final prediction** for this individual case — a **low probability of fraud**.
@@ -342,7 +342,7 @@ The SHAP force plot explains how the model arrived at a specific prediction for 
 - `Feature 11` had a large negative SHAP value (−1.62), **pulling the prediction away from fraud**.
 - `Feature 6` also contributed to lowering the fraud score.
 
-### 🧠 Interpretation
+### Interpretation
 
 - Red features collectively added to the fraud score.
 - Blue features mitigated it.
@@ -355,7 +355,7 @@ This plot makes it clear **which features** drove the model’s decision and **h
 - Presenting evidence to stakeholders
 - Ensuring accountability and fairness in model deployment
 
-## 🤔 13. Model Discussion: XGBoost in Fraud Detection
+## 13. Model Discussion: XGBoost in Fraud Detection
 
 ### ✅ Advantages of Using XGBoost
 
@@ -374,7 +374,7 @@ This plot makes it clear **which features** drove the model’s decision and **h
 
 ---
 
-### 🔄 Alternative Models to Consider
+### Alternative Models to Consider
 
 | Model                  | When to Use                                                                 |
 |------------------------|------------------------------------------------------------------------------|
@@ -385,15 +385,15 @@ This plot makes it clear **which features** drove the model’s decision and **h
 
 ---
 
-### 📝 Summary
+### Summary
 
 XGBoost is a great choice for fraud detection due to its predictive power and flexibility. However, it's important to validate its complexity against business needs. In many regulated environments, simpler models with clear explanations (like logistic regression) may be preferred — or combined with XGBoost in a champion-challenger setup.
 
-## ⚖️ 13. Comparison: XGBoost vs Logistic Regression
+## 13. Comparison: XGBoost vs Logistic Regression
 
 To determine whether the complexity of XGBoost is justified, I'm going to compare its performance to a simpler baseline: **Logistic Regression**.
 
-### 📦 Train Logistic Regression
+### Train Logistic Regression
 
 ```python
 from sklearn.linear_model import LogisticRegression
@@ -415,7 +415,7 @@ auc_logreg = roc_auc_score(y_test, y_proba_logreg)
 print(f"ROC-AUC (Logistic Regression): {auc_logreg:.4f}")
 ```
 
-### 🧪 What Metrics to Compare?
+### What Metrics to Compare?
 
 - If **XGBoost shows significantly better recall or F1**, it's leveraging non-linear interactions to detect fraud.
 - If **Logistic Regression performs similarly**, it may be a better choice for:
@@ -462,7 +462,7 @@ Logistic Regression can be a strong **baseline**. If XGBoost meaningfully improv
 - Fixed threshold (0.5)—replaced with optimized threshold for performance alignment.
 
 
-### 🧠 Recommendation
+### Recommendation
 
 Use:
 - **Logistic Regression** when you want to catch almost every fraud (recall is critical)
