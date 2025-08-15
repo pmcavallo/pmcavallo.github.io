@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 📘 AI-Augmented BNPL Risk Dashboard with Intelligent Override System
+title: AI-Augmented BNPL Risk Dashboard with Intelligent Override System
 --- 
 
 
@@ -39,7 +39,7 @@ override_df = pd.DataFrame({
 
 ---
 
-## 🧼 Data Preprocessing Summary
+## Data Preprocessing Summary
 
 - Simulated missing values: income, late_payment_count, risk_segment.
 - Applied MCAR assumption for simplicity.
@@ -49,7 +49,7 @@ override_df = pd.DataFrame({
 
 ---
 
-## 🧪 Feature Engineering
+## Feature Engineering
 
 - Target: `flag_ever_90plus` derived from delinquency logic.
 - Key features: `late_payment_count`, `late_payment_ratio`, `has_prior_delinquency`.
@@ -57,7 +57,7 @@ override_df = pd.DataFrame({
 
 ---
 
-## 🛠️ Modeling
+## Modeling
 
 ## Baseline Logistic Regression
 
@@ -206,7 +206,7 @@ Decision notes: Next, I tested XGBoost to capture nonlinearities and interaction
 
 Conclusion: Neither model is a strong performer. The choice between them depends on the business cost of errors. If the priority is to catch as many defaulters as possible (even at the cost of flagging good customers), the previous Logistic Regression model is superior due to its higher recall. If the goal is to minimize false alarms, the XGBoost model is marginally better.
 
-## 🧪 Hyperparameter Tuning
+## Hyperparameter Tuning
 This step focuses on optimizing the XGBClassifier model by performing automated hyperparameter tuning using GridSearchCV from scikit-learn. 
 It first defines a base XGBoost model and a param_grid containing different values for key hyperparameters like the number of trees (n_estimators), tree depth (max_depth), and learning_rate. The GridSearchCV object is then configured to systematically test combinations of these parameters using 3-fold cross-validation, aiming to find the set that maximizes the roc_auc score. 
 
@@ -489,7 +489,7 @@ segment_score_summary = segment_score_summary.merge(
 
 ![bnpl](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/bnpl3.png?raw=true) 
 
-📊 Interpretation of the Output
+## Interpretation of the Output
 
 This table means that in 8 score bins, customers labeled as “low risk” are actually defaulting more than those labeled “high risk.”
 
@@ -498,7 +498,7 @@ Such behavior:
 - Triggers an adaptive policy flag.
 - Becomes the basis for temporary reclassification or model override.
 
-💡 In practical terms, this step simulates how a modern credit monitoring system might self-correct or alert human analysts about score misalignments — improving fairness, safety, and compliance.
+In practical terms, this step simulates how a modern credit monitoring system might self-correct or alert human analysts about score misalignments — improving fairness, safety, and compliance.
 
 ## Adaptive Policy Trigger Logic
 
@@ -582,7 +582,7 @@ override_df
 
 This confirms that all 8 anomalous bins were marked for risk elevation with a clear justification.
 
-🧠 Governance Implication:
+## Governance Implication:
 This table is a direct output of the intelligent override engine and can be stored as part of:
 - Risk policy traceability
 - Adaptive monitoring logs
@@ -590,7 +590,7 @@ This table is a direct output of the intelligent override engine and can be stor
 
 It demonstrates a closed-loop risk system: detect ➝ trigger ➝ override ➝ report — all in a way that’s reproducible and transparent.
 
-## 📉 Step: Override Policy Impact Estimation
+## Override Policy Impact Estimation
 
 ✅ This final module closes the loop of the intelligent override system by quantifying the effect of applying simulated policy overrides.
 
@@ -606,7 +606,7 @@ This step is essential for:
 - Justifying overrides with quantitative impact
 - Supporting risk-adjusted policy decisions
 
-## 📄 Strategy Policy Brief Generation
+## Strategy Policy Brief Generation
 ✅ This final module takes the results of the intelligent override system and transforms them into a strategic narrative — a report-style brief that communicates:
 - What happened (summary of anomalies)
 - Why action was taken (trigger logic and threshold)
@@ -619,7 +619,7 @@ This is done programmatically using Python’s datetime and IPython.display.Mark
 - Human-readable
 - Suitable for notebook outputs, dashboards, or PDF rendering
 
-🧠 This step bridges data science and stakeholder communication, automating the creation of business-facing memos that would otherwise require manual interpretation.
+This step bridges data science and stakeholder communication, automating the creation of business-facing memos that would otherwise require manual interpretation.
 
 ```python
 # Merge override simulation with original default rates
@@ -759,7 +759,7 @@ sns.lineplot(data=segment_df, x="score_bin", y="default_rate", hue="risk_segment
 
 ---
 
-## 🚀 Deployment
+## Deployment
 
 - GitHub repo updated with new visuals and override logic.
 - Render deployment: [Live App](https://bnpl-risk-dashboard.onrender.com/)
@@ -767,7 +767,7 @@ sns.lineplot(data=segment_df, x="score_bin", y="default_rate", hue="risk_segment
 
 ---
 
-## 🧪 Local Testing Instructions
+## Local Testing Instructions
 
 1. Clone the GitHub repo.
 2. Create a virtual environment.
@@ -784,7 +784,7 @@ streamlit run streamlit_dashboard.py
 
 ---
 
-## 🧾 Included Files
+## Included Files
 
 - `streamlit_dashboard.py` – Full app logic with intelligent override visuals
 - `requirements.txt` – All required packages for deployment
