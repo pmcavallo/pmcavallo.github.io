@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Credit Bureau Sandbox — Governance Gate & Dashboard Hook (AWS + Tableau)
+title: Credit Bureau Sandbox; Governance Gate & Dashboard Hook (AWS + Tableau)
 date: 2025-04-18
 ---
 
