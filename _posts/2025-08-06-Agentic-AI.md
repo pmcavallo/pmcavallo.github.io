@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 🤖 Agentic AI – Natural Language Email & Calendar Assistant (LangChain + Streamlit + ChatGPT + Google API)
+title: Agentic AI: Natural Language Email & Calendar Assistant (LangChain + Streamlit + ChatGPT + Google API)
 date: 2025-07-12
 ---
 
@@ -19,7 +19,7 @@ This system mimics the behavior of an **agentic AI**, combining user input parsi
 
 ---
 
-## 🔐 Step 1: OAuth 2.0 Setup
+## Step 1: OAuth 2.0 Setup
 
 I created a Google Cloud project and enabled the **Gmail API** and **Google Calendar API**.  
 The generated `credentials.json` was placed in the working directory and included client secrets necessary for OAuth.
@@ -40,7 +40,7 @@ print("token.json exists?", os.path.exists("token.json"))
 
 ---
 
-## 📁 Step 2: Project Structure
+## Step 2: Project Structure
 
 Here’s the directory:
 
@@ -59,7 +59,7 @@ agentic-ai/
 
 ---
 
-## 📥 Step 3: Google Authentication Flow
+## Step 3: Google Authentication Flow
 
 Once the `token.json` was deleted, the app prompted OAuth consent again. This screen ensures Agentic AI has permissions to:
 - Read calendar events
@@ -69,7 +69,7 @@ Once granted, the app created a new `token.json` — allowing authenticated acce
 
 ---
 
-## 🚀 Step 4: Running the App
+## Step 4: Running the App
 
 ```text
 streamlit run streamlit_agentic_ai.py
@@ -164,7 +164,7 @@ if st.button("Submit"):
 
 ---
 
-## 🧠 Step 5: Command Parsing
+## Step 5: Command Parsing
 
 The Streamlit UI accepts **natural language instructions**, which are parsed into structured JSON-like intents.  
 Initial limitations required JSON-formatted input. I extended parsing to support plain English, such as:
@@ -282,7 +282,7 @@ Each will be parsed and routed to the correct function.
 ---
 
 
-## 🧠 Final Thoughts
+## Final Thoughts
 
 This project reflects a working **agentic architecture** — one where the AI can interpret, reason, and act across multiple tools in a secure environment.
 
