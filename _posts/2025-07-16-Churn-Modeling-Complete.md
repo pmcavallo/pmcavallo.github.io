@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 📡 Telecom Churn Modeling & Retention Strategy
+title: Telecom Churn Modeling & Retention Strategy
 ---
 
 
@@ -313,7 +313,7 @@ Interpretation:
 
 I compare feature importances using two different methods from the same trained XGBoost model:
 
-📊 Plot 1: Feature Importance by gain
+Plot 1: Feature Importance by gain
 ```python
 xgb.plot_importance(xgb_model, importance_type='gain', title="XGBoost Feature Importance")
 plt.show()
@@ -326,7 +326,7 @@ Interpretation:
 - This indicates ContractRisk has the most impact on model decisions.
 - However, this view can be misleading if overused, as it may exaggerate the dominance of certain features.
 
-📊 Plot 2: Feature Importance by weight
+Plot 2: Feature Importance by weight
 ```python
 import matplotlib.pyplot as plt
 importances = xgb.get_booster().get_score(importance_type='weight')
@@ -357,7 +357,7 @@ Decision Notes:
 
 ---
 
-### ✅ SHAP Analysis
+### SHAP Analysis
 
 - Global SHAP: ContractRisk and RiskExposure increase churn
 - Local SHAP: TotalCharges and AutoPay reduce churn
@@ -387,7 +387,7 @@ Interpretation:
 
 SHAP was used to interpret the XGBoost model, helping identify that ContractRisk and RiskExposure were the top drivers of churn. High-risk contracts and larger exposures increased churn likelihood, while features like Tenure Months and AutoPay reduced churn. SHAP provided both global feature importance and customer-level interpretability, improving trust in the model and guiding actionable retention strategies.
 
-🔍 SHAP Force Plot – Individual Customer
+## SHAP Force Plot – Individual Customer
 
 A force plot shows how each feature “pushes” the model’s prediction away from the baseline (average model output) and toward a final prediction.
 
@@ -412,7 +412,7 @@ This SHAP force plot shows a customer-level explanation of churn prediction. The
   
 ---
 
-### ✅ Score Binning + CLTV Simulation
+### Score Binning + CLTV Simulation
 In this step, I simulated a simple scoring strategy using the model’s predicted churn probabilities and customer CLTV values. This allows us to explore how churn risk and customer value interact to guide retention strategy.
 
 🔢 Step 7.1: Binning Churn Scores
@@ -453,7 +453,7 @@ plt.show()
 - CLTV increases with higher score bins — showing that high-value customers are also at higher risk.
 - This insight is crucial for prioritizing retention strategies by targeting “high CLTV + high risk” customers first.
 
-📉 Step 7.3: Estimate Total CLTV at Risk
+## Step 7.3: Estimate Total CLTV at Risk
 I flagged the top 3 riskiest bins as high churn risk and estimated the total Customer Lifetime Value (CLTV) at risk if these customers churned.
 ```python
 df_score['Retention_Flag'] = df_score['Score_Bin'].apply(lambda x: 1 if x <= 2 else 0)
@@ -461,7 +461,7 @@ total_risk_cltv = df_score[df_score['Retention_Flag'] == 1]['CLTV'].sum()
 ```
 > ✅ $2,009,410 in total CLTV at risk (top 3 bins)
 
-🧠 Insight:
+## Insight:
 - This simulation demonstrates how a model score can be operationalized into a simple retention strategy:
 - Score Binning offers clear thresholds for prioritizing customer outreach.
 - By combining model output with CLTV, the business can identify high-impact segments for retention interventions.
@@ -471,10 +471,10 @@ total_risk_cltv = df_score[df_score['Retention_Flag'] == 1]['CLTV'].sum()
 ### ✅ Monitoring & Drift Detection (PSI Simulation)
 In this step, I simulate slight distributional changes in key features to evaluate model stability and potential drift using PSI (Population Stability Index) analysis.
 
-🔍 Objective:
+## Objective:
 Ensure the model remains reliable over time as customer behaviors shift.
 
-🧬 Simulate Future Data
+## Simulate Future Data
 ```python
 # Copy test set
 df_future = df_score.copy()
@@ -489,7 +489,7 @@ df_future['CLTV'] *= np.random.normal(0.99, 0.02, size=len(df_future))
 df_future['Churn_Prob'] = xgb_model.predict_proba(df_future[X_test.columns])[:,1]
 ```
 
-📊 Visualize Score & Feature Drift
+## Visualize Score & Feature Drift
 ```python
 fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
@@ -515,7 +515,7 @@ Interpretation:
 - Slight shifts in Monthly Charges and Tenure Months were injected to mimic natural changes in usage or billing trends.
 - Despite the shifts, the model maintained consistent predictions — verified using the PSI metric.
 
-📏 PSI Example Output:
+## PSI Example Output:
 ```python
 def calculate_psi(expected, actual, bins=10):
     expected_percents, _ = np.histogram(expected, bins=bins, range=(0, 1), density=True)
@@ -536,10 +536,10 @@ This result suggests no material drift; model monitoring can proceed with confid
 
 ---
 
-### 🧩 Segmentation & Profiling
+### Segmentation & Profiling
 To support strategic decision-making, I created a churn-risk and value-based segmentation by classifying customers into four groups. This helps target retention efforts where they matter most.
 
-🧮 Code: Risk-Value Segmentation
+Code: Risk-Value Segmentation
 ```python
 # Churn threshold: top 30% as high risk
 risk_threshold = df_score['Churn_Prob'].quantile(0.70)
@@ -578,7 +578,7 @@ segment_summary
 - Low Churn - High Value (555 customers): Loyal and valuable — ensure ongoing satisfaction to prevent future churn.
 - Low Churn - Low Value (430 customers): Stable but lower value. No immediate action required.
 
-📊 Customer Count by Segment (Bar Chart)
+## Customer Count by Segment (Bar Chart)
 ```python
 import seaborn as sns
 plt.figure(figsize=(8, 5))
@@ -599,13 +599,13 @@ plt.show()
 
 ---
 
-### 🔢 Step 10: Credit-Like Score Transformation
+### Step 10: Credit-Like Score Transformation
 
 To make the model output more interpretable and aligned with traditional risk scoring systems, I transformed the churn probability into a credit-style score:
 - Higher scores = lower risk (i.e., lower predicted churn probability)
 - I scale from 300 to 900, resembling credit bureau formats
 
-🧪 Code
+# Code
 ```python
 # Score transformation: invert churn prob (higher = lower risk)
 df_score['score'] = (1 - df_score['Churn_Prob']) * 600 + 300
@@ -626,7 +626,7 @@ plt.show()
 - A smaller but significant portion of customers falls below 600, indicating moderate to high churn risk.
 - This transformation allows business teams to use familiar score ranges to segment customers, communicate risk to non-technical stakeholders, and set thresholds for retention interventions.
 
-🧮 Score Binning & Risk Band Segmentation
+## Score Binning & Risk Band Segmentation
 To support targeted retention strategies and align model output with business action, I translated model scores into risk bands:
 - Low Risk: score ≥ 750
 - Moderate Risk: 600 ≤ score < 750
@@ -634,7 +634,7 @@ To support targeted retention strategies and align model output with business ac
 
 This allows for strategic customer segmentation for resource allocation and communication.
 
-🧪 Code
+# Code
 ```python
 # Assign risk bands from credit-style score
 def assign_risk_band(score):
@@ -678,23 +678,23 @@ Considered Alternatives:
 ---
 
 
-## 🧠 Business Impact
+## Business Impact
 
 This project demonstrates how data-driven churn risk modeling can directly support critical strategic initiatives in the telecom sector:
 
-📌 Targeted Retention
+# Targeted Retention
 - By quantifying churn probability and customer lifetime value (CLTV), the model allows organizations to:
 - Proactively flag high-risk customers before they leave
 - Prioritize "High Churn – High Value" customers for retention incentives
 - Design tiered retention strategies based on both risk and profitability
 
-📊 Revenue Risk Assessment
+# Revenue Risk Assessment
 Using the expected loss framework, the model enables:
 - Estimation of financial exposure tied to potential churn
 - Quantification of total CLTV at risk (e.g., $2,009,410)
 - Scenario planning to simulate the impact of shifts in behavior or policy
 
-🎯 Strategic Prioritization
+# Strategic Prioritization
 The credit-style scoring and segmentation support:
 - Clear communication of risk across business units
 - Customer scoring on a 300–900 scale for internal decisioning
