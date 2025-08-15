@@ -1,13 +1,13 @@
 ---
 layout: post
-title: 📶 Telecom Engagement Monitoring using Fractional Logistic Regression
+title: Telecom Engagement Monitoring using Fractional Logistic Regression
 ---
 
 This project implements a fractional logistic regression monitoring pipeline for tracking customer engagement in a telecom environment. It simulates realistic development and monitoring datasets to evaluate how well the model generalizes over time using key metrics such as RMSE, MAE, PSI, and calibration curves.
 
 ---
 
-## 🎯 Objective
+## Objective
 
 To monitor model stability and performance over time using:
 - ✅ RMSE & MAE
@@ -30,7 +30,7 @@ Two datasets:
 
 ---
 
-## 🧪 Step 1: Load and Prepare Data
+## Step 1: Load and Prepare Data
 
 ```python
 import pandas as pd
@@ -50,7 +50,7 @@ print("Mon engagement stats:\n", mon['engagement_ratio'].describe().round(2))
 
 ---
 
-## 🧮 Step 2: Fit Fractional Logistic Regression
+## Step 2: Fit Fractional Logistic Regression
 
 We apply a **fractional logit transformation** to ensure predicted values remain in the (0, 1) interval:
 
@@ -81,7 +81,7 @@ dev["engagement_pred"] = result.predict(X_dev_const)
 
 ---
 
-## 📈 Step 3: Predict on Monitoring Sample
+## Step 3: Predict on Monitoring Sample
 
 ```python
 X_mon_const = sm.add_constant(mon[features])
@@ -114,7 +114,7 @@ mae_mon = mean_absolute_error(mon[target], mon["engagement_pred"])
 
 ---
 
-## 📉 Step 5: PSI (Population Stability Index)
+## Step 5: PSI (Population Stability Index)
 
 The **Population Stability Index (PSI)** is used to measure how much the distribution of model scores or inputs has shifted over time between the development and monitoring datasets.
 
@@ -125,7 +125,7 @@ The **Population Stability Index (PSI)** is used to measure how much the distrib
 
 This step ensures that the population on which the model is applied remains representative of the original training sample.
 
-#### 📐 PSI Formula
+#### PSI Formula
 
 For each bin *i*, compare the share of records in development vs. monitoring:
 
@@ -163,13 +163,13 @@ fig2.savefig("psi_distribution.png", bbox_inches='tight')
 ```
 ![PSI Distribution](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/psi_distribution.png?raw=true) 
 
-### 📘 Interpretation: PSI Chart
+### Interpretation: PSI Chart
 
 - The distribution of predicted scores in both samples is fairly consistent.
 - Minor deviations exist in some buckets, but the PSI value (e.g., ~0.087) remains below the typical threshold of 0.1.
 - ✅ No significant input drift detected. Model score distributions remain stable.
 
-### 📊 PSI by Variable
+### PSI by Variable
 
 We evaluate **population stability** for key model inputs and outputs between the development (2023Q4) and monitoring (2025Q2) datasets.
 
@@ -177,7 +177,7 @@ This helps detect **data drift** or **segment shift** that may impact model vali
 
 ---
 
-#### 📋 PSI Table
+#### PSI Table
 
 | Variable            |   PSI   | Status          |
 |---------------------|--------:|------------------|
@@ -190,7 +190,7 @@ This helps detect **data drift** or **segment shift** that may impact model vali
 
 ---
 
-#### 🧠 Interpretation
+#### Interpretation
 
 - ✅ **Stable (< 0.10)**: No significant shift in distribution  
 - ⚠️ **Moderate Shift (0.10–0.25)**: Monitor carefully  
@@ -229,7 +229,7 @@ for var in variables:
 ```
 ---
 
-## 🧮 Step 6: Calibration Curves
+## Step 6: Calibration Curves
 
 Calibration curves compare **predicted engagement probabilities** to **actual observed outcomes** across deciles.
 
@@ -261,7 +261,7 @@ fig1.savefig("calibration_curve.png", bbox_inches='tight')
 
 ![Calibration Curve](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/calibration_curve.png?raw=true) 
 
-### 📘 Interpretation: Calibration Curve
+### Interpretation: Calibration Curve
 
 - The development and monitoring curves both closely track the 45° reference line.
 - This indicates that predicted engagement probabilities are well-aligned with observed values.
@@ -300,7 +300,7 @@ The table below compares average **actual** and **predicted** engagement across 
 ---
 
 
-## 🧾 Results Summary
+## Results Summary
 
 ```python
 summary = pd.DataFrame({
@@ -378,7 +378,7 @@ def compute_monitoring_score(rmse_dev, rmse_mon, mae_dev, mae_mon, psi_score,
 )
 ```
 
-### 🧮 Final Monitoring Score: How It Works
+### Final Monitoring Score: How It Works
 
 To summarize the model’s health into a single, interpretable metric, we calculate a **Final Monitoring Score** using a weighted combination of key evaluation metrics:
 
@@ -404,7 +404,7 @@ score = (
 
 **📊 Final Score: `0.175`**
 
-### 👉 Recommendation:
+### Recommendation:
 **✅ Model is stable — no action needed**
 
 ### 🟢 What the Final Monitoring Score Means
@@ -415,7 +415,7 @@ score = (
 | **0.31 – 0.60**        | Moderate drift                   | ⚠️ Monitor closely          |
 | **0.61 – 1.00**        | Significant performance change   | 🔁 Consider redevelopment   |
 
-### 🧠 Rationale Behind the Final Score Thresholds
+### Rationale Behind the Final Score Thresholds
 
 The final monitoring score aggregates multiple sources of model degradation (e.g., error drift and population shift) into a single value between 0 and 1. The thresholds for interpreting this score are based on common practices in model monitoring, sensitivity to drift, and real-world operational risk.
 
