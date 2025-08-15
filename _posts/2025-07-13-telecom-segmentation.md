@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 📊 Customer Segmentation Using Statistical Clustering
+title: Customer Segmentation Using Statistical Clustering
 ---
 This project applies **statistical segmentation techniques** to a simulated postpaid telecom customer base in order to uncover distinct user personas. This segmentation model can be used to support personalized retention strategies, plan design, and marketing optimization.
 
@@ -67,7 +67,7 @@ print("Churn rate:", df['churn'].mean().round(3))
 
 ---
 
-## 🔧 Preprocessing
+## Preprocessing
 
 I used the following steps:
 1. **One-hot encoding** for categorical features
@@ -140,7 +140,7 @@ PCA retained ~37% of total variance in PC1 and PC2 combined.
 
 ---
 
-## 🔍 K-Means Clustering & Elbow Method
+## K-Means Clustering & Elbow Method
 
 I evaluated `k` from 2 to 10 using:
 - **Elbow Method**: Plots inertia (how tight the clusters are). Diminishing returns suggest the optimal `k`
@@ -183,7 +183,7 @@ Explanation: The elbow method shows diminishing gains after k=4, while silhouett
 
 ---
 
-## 🧭 Final Clustering and PCA Visualization
+## Final Clustering and PCA Visualization
 
 ```python
 # Final KMeans model with k=4
@@ -207,7 +207,7 @@ Explanation: This scatterplot shows how clusters are distributed in PCA space. E
 
 ---
 
-## 📊 Segment Profiling
+## Segment Profiling
 
 I compute average values and distributions for each segment:
 
@@ -246,9 +246,9 @@ Explanation: Cluster 1 has the highest data and streaming. Cluster 3 has the lon
   
 ---
 
-## 📈 Visual Analysis
+## Visual Analysis
 
-### 📦 Monthly Charge by Cluster
+### Monthly Charge by Cluster
 
 ```python
 sns.boxplot(data=df, x='cluster', y='monthly_charge', palette='Set2')
@@ -260,7 +260,7 @@ plt.show()
 ```
 ![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg5.png?raw=true) 
 
-### 📶 Data Usage
+### Data Usage
 
 ```python
 sns.boxplot(data=df, x='cluster', y='data_usage_gb', palette='Set2')
@@ -272,7 +272,7 @@ plt.show()
 ```
 ![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg7.png?raw=true) 
 
-### 📺 Streaming Usage
+### Streaming Usage
 
 ```python
 sns.boxplot(data=df, x='cluster', y='streaming_usage', palette='Set2')
@@ -284,7 +284,7 @@ plt.show()
 ```
 ![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg8.png?raw=true) 
 
-### ☎️ Support Calls
+### Support Calls
 
 ```python
 sns.boxplot(data=df, x='cluster', y='support_calls', palette='Set2')
@@ -296,7 +296,7 @@ plt.show()
 ```
 ![PCA](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/seg6.png?raw=true) 
 
-### ⚠️ Churn Rate by Cluster
+### Churn Rate by Cluster
 
 ```python
 sns.barplot(data=df, x='cluster', y='churn', palette='Set2')
@@ -316,7 +316,7 @@ Boxplots and bar charts revealed:
 - **Churn Rate** is lowest for Cluster 3 and highest for Cluster 1
 - **Contract Type** is fairly balanced, but long-term contracts correlate with tenure
 
-### 🔍 Overall Boxplot Analysis
+### Overall Boxplot Analysis
 From the visual comparisons across segments:
 - Cluster 1 shows the **highest median data and streaming usage**, confirming it's the heavy-usage group.
 - Cluster 3 consistently shows **lowest churn and highest tenure**, despite lower usage, suggesting brand loyalty.
@@ -324,7 +324,7 @@ From the visual comparisons across segments:
 - Support calls do **not differ meaningfully** by segment, suggesting support volume isn’t a key segmentation factor here.
 ---
 
-## 📊 Contract & Payment Breakdown
+## Contract & Payment Breakdown
 
 ### Contract Type
 
@@ -359,7 +359,7 @@ plt.show()
 
 ---
 
-### 🔍 Overall Interpretation of Plan & Payment Behavior
+### Overall Interpretation of Plan & Payment Behavior
 - The dominance of **month-to-month contracts** across all clusters indicates that commitment is generally low in this customer base.
 - However, the correlation between **long tenure and 2-year contracts in Cluster 3** supports the idea of targeting loyalty rewards or retention plans there.
 - **Auto-pay adoption** is high in all clusters, offering billing consistency and possibly a lever for upselling (e.g., discounts for bundled services).
