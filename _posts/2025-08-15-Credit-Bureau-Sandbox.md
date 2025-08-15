@@ -11,7 +11,9 @@ The repo demonstrates them in a **lightweight, auditable** way—*without* commi
 
 ## What’s included (at a glance)
 - **Data contract & ETL scaffold:** Bureau-shaped schema and feature derivations for a sandbox context.
+![sandbox](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/sandbox2.png?raw=true) 
 - **Governance gate (SageMaker, no-compute):** Enforces thresholds from a metrics JSON in S3 (AUC ≥ 0.65, KS ≥ 0.20, PSI < 0.10).
+![sandbox](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/sandbox1.png?raw=true) 
 - **Audit evidence:** A captured failing run (PSI=0.20) checked into the repo under `CB_Sandbox/evidence/`.
 - **Dashboard hook:** README-wired PNG plus a small CSV you can open in Tableau and export a real PNG within minutes.
 - **One-liners:** Windows-friendly commands to reproduce the gate and evidence.
@@ -53,8 +55,6 @@ python -c "import json,os; os.makedirs(r'outputs\metrics',exist_ok=True); json.d
 # In Tableau: open assets\dashboard_sample.csv, build a couple of views (Delinquency Trend, Segment Mix, Score vs Default), export PNG to assets\bureau_dashboard.png, then:
 git add assets/bureau_dashboard.png && git commit -m "Dashboard: Tableau export" && git push
 ```
-
-
 ---
 
 ## Deep dive: 
@@ -87,7 +87,6 @@ A *bureau sandbox* is a safe, non-production environment that mimics credit-bure
 - A reproducible schema (`data_contracts/bureau_schema.yaml`) that mirrors bureau-style fields (IDs, tradeline aggregates, delinquency/charge-off flags, thin-file markers).
 - An ETL/feature scaffold (`pyspark_etl_modeling/`) demonstrating safe, sandboxed transformations.
 - Drift & stability checks are part of the model evaluation story (PSI, KS, AUC thresholds).
-
 
 **Quick Verify (no secrets)**
 ```
