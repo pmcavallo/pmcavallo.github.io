@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  📉 Customer Churn Prediction App (Deployed on Render)
+title:  Customer Churn Prediction App (Deployed on Render)
 ---
 
 This project is an end-to-end machine learning web app for predicting customer churn using a trained classification model.
@@ -9,13 +9,13 @@ This project is an end-to-end machine learning web app for predicting customer c
 
 ---
 
-## 📸 App Preview
+## App Preview
 
 ![Churn Prediction App Screenshot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/streamlit_ui.png?raw=true)
 
 ---
 
-## 🛠 Project Overview
+## Project Overview
 
 This app:
 - Trains a `RandomForestClassifier` to predict churn
@@ -29,18 +29,18 @@ This app:
 
 I'll simulate a telecom dataset with realistic churn behavior.
 
-### 📌 Highlights:
+### Highlights:
 - 1000 samples with features like tenure, charges, contract type
 - Binary churn outcome (`Yes` / `No`)
 - Noise-injected churn probabilities
 - CSV output: `data/telco_churn.csv`
 
-### 🧠 Concepts:
+### Concepts:
 - Simulated structured data with dependencies
 - Controlled randomness
 - Binary classification labels
 
-### 💻 Code
+### Code
 ```python
 import pandas as pd
 import numpy as np
@@ -90,15 +90,15 @@ print("Churn distribution:", df['Churn'].value_counts(normalize=True).round(2))
 
 ---
 
-## 🧪 Model Training and Preprocessing (Python)
+## Model Training and Preprocessing (Python)
 
 ### 1. Load and Preprocess Data
 
-### 🧠 Concepts:
+### Concepts:
 - Feature pipelines using scikit-learn
 - Avoiding data leakage by fitting only on training data
 
-### 💻 Code
+### Code
 ```python
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -132,7 +132,7 @@ def preprocess_and_split(df):
 
 I'll train a `RandomForestClassifier` on the transformed data and save it.
 
-### 💻 Code
+### Code
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
@@ -170,7 +170,7 @@ if __name__ == "__main__":
 
 ## 4: Streamlit App for Render 
 
-### 💻 Code
+### Code
 ```python
 import streamlit as st
 import pandas as pd
@@ -297,7 +297,7 @@ services:
 - **AWS/Heroku**: suitable but rendered deployment heavier; Render provided instant streaming of updates.
 
 
-## 🤖 Tech Stack
+## Tech Stack
 
 | Purpose         | Tool            |
 |-----------------|-----------------|
@@ -310,7 +310,7 @@ services:
 
 ---
 
-## 📬 Author
+## Author
 
 **Paulo Cavallo**  
 🔗 [LinkedIn](https://www.linkedin.com/in/paulo-cavallo/)  
