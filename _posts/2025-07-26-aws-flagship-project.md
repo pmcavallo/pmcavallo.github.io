@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 💳 Credit Risk Model Deployment & Monitoring (AWS + PySpark + CatBoost)
+title: Credit Risk Model Deployment & Monitoring (AWS + PySpark + CatBoost)
 --- 
 
 This project demonstrates the end-to-end implementation of a credit risk modeling pipeline using:
@@ -136,7 +136,7 @@ print("✅ ETL completed.")
 - Designed for high scalability (Spark)
 - Output stored in Parquet format for downstream consumption
 
-🔁 Logistic Regression with PySpark MLlib
+## Logistic Regression with PySpark MLlib
 This step validates the ability to train and evaluate a logistic regression model in a distributed Spark environment — with class weights, regularization, and KS evaluation logic. Below is a secti
 
 ```python
@@ -273,7 +273,7 @@ print("✅ Spark session stopped.")
 ```
 ![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark3.png?raw=true) 
 
-📊 Model Performance Summary
+ ## Model Performance Summary
 The logistic regression model trained using Spark produced the following metrics:
 ✅ AUC (Area Under the ROC Curve): 0.4931.
 ✅ KS (Kolmogorov-Smirnov) Statistic: 0.0342.
@@ -502,7 +502,7 @@ plt.show()
 ```
 ![Spark](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/spark8.png?raw=true) 
 
-🔍 Interpretation of the Segment Plot
+## Interpretation of the Segment Plot
 
 This bar chart compares the average predicted default probability (blue) with the actual observed rate (orange) by state:
 - Overprediction: In states like FL, the model consistently overestimates risk.
