@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Agentic AI: Natural Language Email & Calendar Assistant (LangChain + Streamlit + ChatGPT + Google API)
+title: Agentic AI, Natural Language Email & Calendar Assistant (LangChain + Streamlit + ChatGPT + Google API)
 date: 2025-07-12
 ---
 
