@@ -1,9 +1,10 @@
-# Credit Bureau Sandbox — Governance Gate & Dashboard Hook (AWS + Tableau)
-
+---
+layout: post
+title: Credit Bureau Sandbox — Governance Gate & Dashboard Hook (AWS + Tableau)
+date: 2025-04-18
 ---
 
 This project demonstrates hands-on work with bureau-style sandbox data, a credit reporting dashboard hook, and an AWS-based governance gate for model productionization. 
-
 The repo demonstrates them in a **lightweight, auditable** way—*without* committing secrets or spinning heavy compute. It gives concrete artifacts, one-liners to reproduce behavior, and clear pointers to files.
 
 ---
