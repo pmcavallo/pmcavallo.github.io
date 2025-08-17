@@ -4,7 +4,7 @@ title: Projects
 permalink: /projects/
 ---
 
-A selection of hands-on projects demonstrating real-world data science, modeling, and cloud deployment — designed and built using Python, scikit-learn, and modern tools like Streamlit and Render.
+A selection of hands-on projects demonstrating real-world data science, modeling, and cloud deployment; built with Python, scikit-learn, **PySpark**, **XGBoost/CatBoost**, **SHAP**, and shipped via **Streamlit/Render** and **AWS** (S3, SageMaker, Lambda, MWAA/Airflow), with visuals in **Tableau**.
 
 ---
 **BNPL Credit Risk Insights Dashboard (Python + Streamlit)**
