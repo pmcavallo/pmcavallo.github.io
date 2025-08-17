@@ -1,14 +1,29 @@
 ---
 layout: default
-title: 🚀 Projects
+title: Projects
 permalink: /projects/
 ---
 
 A selection of hands-on projects demonstrating real-world data science, modeling, and cloud deployment — designed and built using Python, scikit-learn, and modern tools like Streamlit and Render.
 
 ---
+**BNPL Credit Risk Insights Dashboard (Python + Streamlit)**
 
-💳 **Credit Risk Model Deployment & Monitoring (AWS + PySpark + CatBoost)**
+A hands-on, end-to-end BNPL risk project that turns raw lending/repayment data into an interactive decision dashboard. It demonstrates modern risk workflows—from feature engineering and modeling to monitoring and “what-if” policy simulation—built for clarity, speed, and explainability.
+
+**Highlights**
+- **Data & Features:** Synthetic BNPL portfolio with engineered signals (loan-to-income, usage rate, delinquency streaks, tenure, interactions).
+- **Modeling & Explainability:** Regularized logistic/CatBoost scoring with calibration, AUC/KS, and SHAP to validate driver logic.
+- **Monitoring:** Drift/stability checks (e.g., PSI), score distribution tracking, and cohort comparisons across risk segments.
+- **Policy Sandbox:** Threshold sliders to simulate approval/charge-off trade-offs, segment impacts, and recalibration scenarios.
+
+📌 **Business Impact:** Helps risk teams test policies before rollout, quantify approval vs. losses, and document governance-ready decisions.
+
+🔗 [View Full Project](https://pmcavallo.github.io/BNPL-Risk-Dashboard/)
+
+---
+
+**Credit Risk Model Deployment & Monitoring (AWS + PySpark + CatBoost)**
 
 This flagship project showcases an end-to-end credit risk modeling pipeline — from scalable data processing to cloud deployment — aligned with best practices in financial services. Built using PySpark, CatBoost, SHAP, and AWS (S3, CLI), it simulates how modern risk pipelines are deployed and monitored at scale.
 
@@ -28,7 +43,7 @@ The full solution includes:
 
 ---
 
-### 📡 Telecom Churn Modeling & Retention Strategy
+### Telecom Churn Modeling & Retention Strategy
 
 This project demonstrates how predictive modeling and customer segmentation can be used to drive retention strategy in a telecom context. Using a publicly available customer dataset, I developed a full churn risk pipeline.
 
@@ -48,7 +63,7 @@ The final solution integrates:
 
 ---
 
-### 📊 Telecom Customer Segmentation with Python
+### Telecom Customer Segmentation with Python
 
 **Objective:**  
 Developed a customer segmentation model using unsupervised learning on simulated postpaid telecom data to identify actionable behavioral clusters for marketing, retention, and product strategy.
@@ -103,7 +118,7 @@ Developed a customer segmentation model using unsupervised learning on simulated
 👉 [View Full Project](https://pmcavallo.github.io/telecom-segmentation/)  
 
 ---
-## 📊 Customer Churn Predictor
+## Customer Churn Predictor
 
 **Goal**: Predict whether a telecom customer is likely to churn using an end-to-end machine learning pipeline.
 
@@ -169,14 +184,14 @@ This project builds a full monitoring pipeline to track **postpaid customer enga
 
 This project demonstrates how to proactively monitor engagement models using interpretable statistics and custom stability metrics, with outputs ready for integration into model governance workflows.
 
-### 🕵️‍♂️ Fraud Detection with XGBoost & SHAP
+### Fraud Detection with XGBoost & SHAP
 
 A simulated end-to-end machine learning pipeline that predicts fraudulent transactions using XGBoost and interprets the model with SHAP values.
 
-#### 🔍 Objective
+#### Objective
 Detect fraudulent transactions using synthetic data with engineered features such as transaction type, amount, time, and customer behavior patterns.
 
-#### 🧠 Key Steps
+#### Key Steps
 
 - **Data Simulation**: Created a synthetic dataset mimicking real-world credit card transactions with class imbalance.
 - **Preprocessing**: Handled class imbalance with SMOTE and balanced class weights.
@@ -207,14 +222,14 @@ Detect fraudulent transactions using synthetic data with engineered features suc
 
 ---
 
-### ✈️ Airline Flight Delay Prediction with Python
+### Airline Flight Delay Prediction with Python
 
 A full machine learning pipeline that predicts flight delays using simulated airline data enriched with real U.S. airport codes and weather features. The project explores exploratory analysis, model training, and practical recommendations for airport operations.
 
-#### 🔍 Objective
+#### Objective
 Predict whether a flight will be delayed based on features like carrier, origin, departure time, distance, and simulated weather patterns.
 
-#### 🧠 Key Steps
+#### Key Steps
 
 - **Data Simulation**: Generated a large synthetic dataset including delay labels and airport metadata.
 - **EDA**: Visualized delay patterns by airport, hour of day, and weather impact.
@@ -247,7 +262,7 @@ Building an interactive Tableau dashboard to visualize public health and economi
 
 ---
 
-## 🧵 What’s Next
+## What’s Next
 - Migrating model workflows into modular Python scripts
 - Adding CI/CD and containerization (e.g., Docker)
 - Exploring model monitoring frameworks
