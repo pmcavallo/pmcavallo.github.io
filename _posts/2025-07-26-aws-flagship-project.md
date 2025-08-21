@@ -2,8 +2,10 @@
 layout: post
 title: Credit Risk Model Deployment & Monitoring (AWS + PySpark + CatBoost)
 --- 
+In a world where credit decisions must stay reliable, explainable, and scalable, this project addresses the challenge of deploying a credit risk model in a cloud-native, data-intensive environment. It builds a synthetic telecom-inspired credit dataset, then uses PySpark for scalable preprocessing, CatBoost for powerful categorical modeling, Amazon S3 for seamless cloud storage, and SHAP for insight into feature impact. The result is a scalable, explainable pipeline that supports segment-level business insights and aligns with real-world credit risk workflows—giving teams confidence in automation and clarity in decision-making for postpaid lending.
 
 This project demonstrates the end-to-end implementation of a credit risk modeling pipeline using:
+
 - **PySpark** for scalable data preprocessing and transformation  
 - **Amazon S3** for cloud storage and integration  
 - **CatBoost** for tree-based modeling with categorical support  
