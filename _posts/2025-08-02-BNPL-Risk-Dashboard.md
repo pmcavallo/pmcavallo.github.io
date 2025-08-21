@@ -1,10 +1,9 @@
 ---
 layout: post
-title: AI-Augmented BNPL Risk Dashboard with Intelligent Override System
+title: AI-Augmented BNPL Risk Dashboard with Intelligent Override System (Scikit-learn/XGBoost, Streamlit, Render)
 --- 
 
-
-This project builds a real-time BNPL risk monitoring dashboard with intelligent override logic, powered by anomaly detection, adaptive policy simulation, and auto-deployment via Render. The dashboard mimics intelligent, data-responsive policy decisions. It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.
+In the fast-growing Buy Now Pay Later market, consumers face hidden risks from fragmented credit visibility and rapid lending decisions that can spiral into unmanageable debt. This project tackles the problem by providing a Streamlit-based dashboard with real-time monitoring, anomaly detection, policy simulations, and an intelligent override system that allows immediate intervention when risk thresholds are breached. The result is a tool that balances speed with safety, giving risk teams clear insights, actionable controls, and the confidence to manage BNPL risk responsibly in a space where regulation has not yet caught up.
 
 ---
 
@@ -795,12 +794,11 @@ streamlit run streamlit_dashboard.py
 ---
 
 ## 📌 Final Thoughts
-In our simulated BNPL credit risk environment, the intelligent engine scanned default patterns by segment and score bin. It identified 8 bins where low-risk customers defaulted more than high-risk ones — a red flag for model miscalibration or data drift.
+In the simulated BNPL credit risk environment, the intelligent engine scanned default patterns by segment and score bin. It identified 8 bins where low-risk customers defaulted more than high-risk ones — a red flag for model miscalibration or data drift.
 
 The system then autonomously triggered a policy flag, simulating a real-world action like retraining, override, or escalation. This forms a self-monitoring, adaptive feedback loop embedded into the pipeline.
 
-The final dashboard is more than a visualization tool.
+The final dashboard is more than a visualization tool. It mimics intelligent, data-responsive policy decisions. It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.  It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.
 
-It mimics intelligent, data-responsive policy decisions. It serves as a template for modern credit risk monitoring pipelines with explainable AI and modular automation.
 
 
