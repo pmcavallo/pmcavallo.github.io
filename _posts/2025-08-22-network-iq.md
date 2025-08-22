@@ -45,7 +45,9 @@ NetworkIQ ingests standard radio access network KPIs tracked by telcos:
 - **Throughput (Mbps):** Data delivery performance.  
 - **Latency (ms):** Network responsiveness.  
 - **Packet Loss (%):** Connection stability.  
-- **Dropped Session Rate:** Customer experience proxy.  
+- **Dropped Session Rate:** Customer experience proxy.
+
+![NetworkIQ](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/iq1.png?raw=true)
 
 **EDA Example (PySpark Snippet):**  
 
@@ -87,6 +89,8 @@ preds = xgb.predict_proba(X_test)[:,1]
 auc = roc_auc_score(y_test, preds)
 print("AUC:", auc)
 ```  
+
+![NetworkIQ](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/iq2.png?raw=true)
 
 ---
 
