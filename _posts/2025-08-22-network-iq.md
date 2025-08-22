@@ -105,6 +105,11 @@ In production, this feature would run automatically as filters change, but in ou
 
 ![NetworkIQ](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/iq3.png?raw=true)
 
+**How it works:**  
+I integrated the Gemini API into the Streamlit app through a lightweight wrapper. When a user clicks *Generate AI Briefing*, the app sends a structured prompt containing the filtered network metrics (latency, throughput, drop rate, predicted risk) for the selected cells. Gemini then returns a natural-language summary, which I format into an executive briefing, action recommendations, or per-cell explanations depending on the user’s choice.  
+
+To keep the demo efficient and cost-aware, the feature is set to manual execution rather than auto-refresh. In a production system, this workflow would run automatically as filters change, ensuring stakeholders always have up-to-date AI-generated insights.
+
 ---
 
 ## 🔹 Interactive Risk Map  
