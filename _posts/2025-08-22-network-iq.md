@@ -66,13 +66,13 @@ df.show(5)
 
 ## 🔹 Model Development  
 
-### Model Performance  
+## Model Performance  
 
-| Model                | AUC   | KS   | Notes                                  |
-|-----------------------|-------|------|----------------------------------------|
-| Logistic Regression   | 0.74  | 0.28 | Interpretable but weaker baseline       |
-| Random Forest         | 0.81  | 0.36 | Higher complexity, moderate gains       |
-| **XGBoost**           | **0.86** | **0.42** | Best performance, robust & scalable    |  
+| Model               | AUC  | KS   | Notes                                |
+|---------------------|------|------|--------------------------------------|
+| Logistic Regression | 0.74 | 0.28 | Interpretable but weaker baseline    |
+| Random Forest       | 0.81 | 0.36 | Higher complexity, moderate gains    |
+| **XGBoost**         | 0.86 | 0.42 | Best performance, robust & scalable  |
 
 👉 **XGBoost outperformed alternatives**, identifying up to **20% more high-risk accounts** at the same approval rate.  
 
