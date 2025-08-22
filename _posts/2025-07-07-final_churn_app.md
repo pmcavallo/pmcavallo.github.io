@@ -3,7 +3,7 @@ layout: post
 title:  Customer Churn Prediction App (Deployed on Render)
 ---
 
-This project is an end-to-end machine learning web app for predicting customer churn using a trained classification model.
+A customer churn risk can quietly erode business value, so this project builds a real-time prediction engine designed to surface risk before it materializes. It constructs and preprocesses realistic telecom-style churn data using ColumnTransformer, trains a RandomForestClassifier, and packages both the model and preprocessing steps using joblib. The user interacts via an intuitive Streamlit interface that signals churn likelihood in real time. Hosted serverlessly on Render, the app bridges data science with operational readiness.
 
 🔗 **Live App:** [https://churn-prediction-app-dxft.onrender.com](https://churn-prediction-app-dxft.onrender.com)
 
