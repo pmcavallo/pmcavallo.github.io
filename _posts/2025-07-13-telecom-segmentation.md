@@ -2,7 +2,7 @@
 layout: post
 title: Customer Segmentation Using Statistical Clustering
 ---
-This project applies **statistical segmentation techniques** to a simulated postpaid telecom customer base in order to uncover distinct user personas. This segmentation model can be used to support personalized retention strategies, plan design, and marketing optimization.
+Telecom companies must understand who their customers are to tailor marketing and retention strategies effectively. This project simulates a diverse base of 5,000 postpaid customers, then applies preprocessing and K-Means clustering to reveal four distinct personas. Visualization through PCA aids interpretation, while segment profiling—by usage patterns, tenure, churn risk, and payment behavior—drives targeted strategic actions. The result is an operationally intuitive segmentation model that supports personalization, retention, and plan design using a realistic, scalable methodology.
 
 ---
 
