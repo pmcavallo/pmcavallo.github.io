@@ -94,6 +94,31 @@ print("AUC:", auc)
 
 ---
 
+## 🔹 AI Interpretation (Executive Briefings)  
+NetworkIQ includes an **AI Interpretation module** powered by LLMs (Gemini API). With a single click, it generates:  
+- **Executive Summaries** — highlights network-wide issues and trends.  
+- **Actionable Recommendations** — suggests where intervention should be prioritized.  
+- **Per-Cell Explanations** — natural language explanations for why each site is at risk.  
+
+This ensures both technical and non-technical stakeholders can **understand the model outputs without digging into raw metrics**.  
+In production, this feature would run automatically as filters change, but in our demo we keep it manual to manage token usage.  
+
+![NetworkIQ](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/iq3.png?raw=true)
+
+---
+
+## 🔹 Interactive Risk Map  
+The **Predicted Risk Map** overlays model outputs onto cell-site locations:  
+- **Circle size = risk magnitude** (larger means higher predicted probability).  
+- **Color = risk level** (amber → red as risk increases).  
+- **Hover tooltips** display cell ID and predicted probability.  
+
+This visualization makes it easy to spot **geographic clusters of risk** and prioritize field resources.  
+
+![NetworkIQ](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/iq4.png?raw=true)
+
+---
+
 ## 🔹 Deployment & Validation  
 
 ✅ **Multi-Cloud Deployment**: Live dashboards on [GCP](https://networkiq-49161466777.us-central1.run.app/) and [Render](https://network-iq.onrender.com/)  
