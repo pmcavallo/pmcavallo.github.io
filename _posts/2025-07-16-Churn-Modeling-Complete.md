@@ -3,9 +3,8 @@ layout: post
 title: Telecom Churn Modeling & Retention Strategy
 ---
 
+Customer churn erodes revenue and undermines growth in competitive telecom markets, and preventing it requires early and reliable signals. This project delivers a complete churn modeling pipeline that combines Python, Pandas, scikit-learn, and XGBoost to predict at-risk customers, SHAP for clear interpretability, and CLTV simulations to quantify revenue exposure. It also incorporates model monitoring through Population Stability Index and customer segmentation to guide retention strategies. The outcome is a system that not only predicts churn but also explains it, monitors its stability, and translates insights into actionable business decisions.
 
-End-to-end machine learning project using Python (pandas, scikit-learn, XGBoost, SHAP) to model customer churn, estimate revenue risk (CLTV at risk), and design actionable retention strategies.
-Includes full modeling pipeline, interpretability with SHAP, drift monitoring, and customer segmentation for targeted offers.
 
 ---
 
