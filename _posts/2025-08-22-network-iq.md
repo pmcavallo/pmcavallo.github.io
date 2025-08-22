@@ -1,6 +1,6 @@
 ---
 layout: project
-title: "NetworkIQ: Incident Risk Monitor"
+title: "NetworkIQ: Incident Risk Monitor (Render, Google Cloud, AWS)"
 date: 2025-08-22
 ---
 
