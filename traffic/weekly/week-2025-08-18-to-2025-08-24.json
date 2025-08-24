@@ -1,0 +1,73 @@
+{
+  "repo": "pmcavallo.github.io",
+  "week_start": "2025-08-18",
+  "week_end": "2025-08-24",
+  "generated_at_utc": "2025-08-24T13:36:17Z",
+  "views_count": 94,
+  "views_uniques": 4,
+  "clones_count": 104,
+  "clones_uniques": 16,
+  "top_paths": [
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-07-26-aws-flagship-project.md",
+      "title": "pmcavallo.github.io/_posts/2025-07-26-aws-flagship-project.md at master \u00b7 pmc...",
+      "count": 6,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-08-02-BNPL-Risk-Dashboard.md",
+      "title": "pmcavallo.github.io/_posts/2025-08-02-BNPL-Risk-Dashboard.md at master \u00b7 pmca...",
+      "count": 6,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-07-16-Churn-Modeling-Complete.md",
+      "title": "pmcavallo.github.io/_posts/2025-07-16-Churn-Modeling-Complete.md at master \u00b7 ...",
+      "count": 5,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-07-11-ab-test-uplift-analysis.md",
+      "title": "pmcavallo.github.io/_posts/2025-07-11-ab-test-uplift-analysis.md at master \u00b7 ...",
+      "count": 4,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-07-09-engagement-monitoring.md",
+      "title": "pmcavallo.github.io/_posts/2025-07-09-engagement-monitoring.md at master \u00b7 pm...",
+      "count": 3,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-07-13-telecom-segmentation.md",
+      "title": "pmcavallo.github.io/_posts/2025-07-13-telecom-segmentation.md at master \u00b7 pmc...",
+      "count": 3,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-07-27-insurance-claims-arima.md",
+      "title": "pmcavallo.github.io/_posts/2025-07-27-insurance-claims-arima.md at master \u00b7 p...",
+      "count": 3,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/edit/master/_posts/2025-07-16-Churn-Modeling-Complete.md",
+      "title": "Editing pmcavallo.github.io/_posts/2025-07-16-Churn-Modeling-Complete.md at m...",
+      "count": 3,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-06-30-full-airline-delay-project.md",
+      "title": "pmcavallo.github.io/_posts/2025-06-30-full-airline-delay-project.md at master...",
+      "count": 2,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-07-02-fraud-detection-project.md",
+      "title": "pmcavallo.github.io/_posts/2025-07-02-fraud-detection-project.md at master \u00b7 ...",
+      "count": 2,
+      "uniques": 1
+    }
+  ],
+  "top_referrers": []
+}
