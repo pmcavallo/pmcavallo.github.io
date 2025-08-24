@@ -2,13 +2,10 @@ name: GitHub Traffic — Daily Snapshots + Friday Weekly Aggregate
 
 on:
   schedule:
-    # Daily at ~07:05 Central (12:05 UTC)
-    - cron: "5 12 * * *"
-    # Fridays at ~07:10 Central (12:10 UTC)
-    - cron: "10 12 * * 5"
+    - cron: "5 12 * * *"     # daily ~07:05 Central (12:05 UTC)
+    - cron: "10 12 * * 5"    # Fridays ~07:10 Central (12:10 UTC)
   workflow_dispatch:
 
-# Prevent overlapping runs from different triggers
 concurrency:
   group: traffic-data
   cancel-in-progress: false
@@ -55,7 +52,7 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '10 12 * * 5' }}
         run: |
           python - <<'PY'
-          import json, datetime, urllib.request, os
+          import json, datetime, urllib.request, os, csv, math
           owner = os.environ["OWNER"]; repo = os.environ["REPO"]; token = os.environ["GH_TOKEN"]
           hdrs = {"Authorization": f"token {token}", "Accept": "application/vnd.github+json", "User-Agent":"gh-traffic-aggregator"}
           def gh(path):
@@ -85,12 +82,52 @@ jobs:
           os.makedirs("traffic/weekly", exist_ok=True)
           with open("traffic/weekly/latest.json","w") as f: json.dump(out,f,indent=2)
           with open(f"traffic/weekly/week-{start.isoformat()}-to-{today.isoformat()}.json","w") as f: json.dump(out,f,indent=2)
+
+          # ---- Wrap artifacts ----
+          days = (today - start).days + 1
+          avV = round(out["views_count"]/days, 2) if days else 0.0
+          avC = round(out["clones_count"]/days, 2) if days else 0.0
+
+          # Markdown summary
+          md = []
+          md.append(f"### GitHub Weekly Traffic ({out['week_start']} to {out['week_end']})")
+          md.append(f"- Views: **{out['views_count']}** (avg **{avV}/day**)  |  Uniques (sum of daily): **{out['views_uniques']}**")
+          md.append(f"- Clones: **{out['clones_count']}** (avg **{avC}/day**)  |  Uniques (sum of daily): **{out['clones_uniques']}**")
+          def top_lines(items, key):
+              rows = []
+              for x in items[:5]:
+                  if key == "path":
+                      rows.append(f"  - `{x['path']}` — {x['count']} (uniq {x['uniques']})")
+                  else:
+                      rows.append(f"  - {x['referrer']} — {x['count']} (uniq {x['uniques']})")
+              return rows or ["  - (no data)"]
+          md.append("**Top referrers**:")
+          md.extend(top_lines(out["top_referrers"], "referrer"))
+          md.append("**Top paths**:")
+          md.extend(top_lines(out["top_paths"], "path"))
+          with open("traffic/weekly/latest.md","w",encoding="utf-8") as f: f.write("\n".join(md)+"\n")
+
+          # One-line summary text
+          one = f"Week {out['week_start']}–{out['week_end']}: Views {out['views_count']} (avg {avV}/day), Uniques {out['views_uniques']}; Clones {out['clones_count']} (avg {avC}/day), Uniques {out['clones_uniques']}"
+          with open("traffic/weekly/summary.txt","w",encoding="utf-8") as f: f.write(one+"\n")
+
+          # CSVs
+          with open("traffic/weekly/latest.csv","w",newline="",encoding="utf-8") as f:
+              w = csv.writer(f)
+              w.writerow(["repo","week_start","week_end","views_count","views_uniques","clones_count","clones_uniques","avg_views_per_day","avg_clones_per_day"])
+              w.writerow([out["repo"], out["week_start"], out["week_end"], out["views_count"], out["views_uniques"], out["clones_count"], out["clones_uniques"], avV, avC])
+          with open("traffic/weekly/top_paths.csv","w",newline="",encoding="utf-8") as f:
+              w = csv.writer(f); w.writerow(["path","count","uniques"])
+              for x in out["top_paths"][:10]: w.writerow([x["path"], x["count"], x["uniques"]])
+          with open("traffic/weekly/top_referrers.csv","w",newline="",encoding="utf-8") as f:
+              w = csv.writer(f); w.writerow(["referrer","count","uniques"])
+              for x in out["top_referrers"][:10]: w.writerow([x["referrer"], x["count"], x["uniques"]])
           PY
 
-      - name: Commit weekly aggregate
+      - name: Commit weekly aggregate and wrap artifacts
         if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '10 12 * * 5' }}
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "traffic: weekly aggregate"
+          commit_message: "traffic: weekly aggregate + wrap artifacts"
           file_pattern: traffic/weekly/**
           pull_strategy: "REBASE"
