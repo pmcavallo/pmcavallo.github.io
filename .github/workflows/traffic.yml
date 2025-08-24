@@ -7,6 +7,21 @@ on:
     # Fridays at ~07:10 Central (12:10 UTC)
     - cron: "10 12 * * 5"
   workflow_dispatch:
+    inputs:
+      run:
+        description: "Which jobs to run when manually dispatched?"
+        type: choice
+        required: false
+        default: both
+        options:
+          - both
+          - daily-only
+          - weekly-only
+
+# Prevent overlapping runs from different triggers
+concurrency:
+  group: traffic-data
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -18,33 +33,39 @@ env:
 
 jobs:
   daily:
-    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '5 12 * * *'
+    # Always start this job so 'weekly' can depend on it.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      # Run only for the daily schedule OR manual daily/both
       - name: Fetch traffic JSON snapshots
+        if: ${{ (github.event_name == 'schedule' && github.event.schedule == '5 12 * * *') || (github.event_name == 'workflow_dispatch' && (inputs.run == 'both' || inputs.run == 'daily-only')) }}
         run: |
           d=$(date -u +%Y-%m-%d)
           mkdir -p traffic/daily/$d
           curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/views" > "traffic/daily/$d/views.json"
           curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/clones" > "traffic/daily/$d/clones.json"
           curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/paths" > "traffic/daily/$d/popular_paths.json"
-          curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/referrers" > "traffic/daily/$d/popular_referrers.json"
+          curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: "application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/referrers" > "traffic/daily/$d/popular_referrers.json"
 
       - name: Commit daily snapshots
+        if: ${{ (github.event_name == 'schedule' && github.event.schedule == '5 12 * * *') || (github.event_name == 'workflow_dispatch' && (inputs.run == 'both' || inputs.run == 'daily-only')) }}
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "traffic: daily snapshot"
           file_pattern: traffic/daily/**
 
   weekly:
-    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '10 12 * * 5'
+    # Ensure weekly runs after the 'daily' job to avoid push races
+    needs: daily
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      # Build the aggregate only for the Friday schedule OR manual weekly/both
       - name: Build weekly aggregate (last 7 days)
+        if: ${{ (github.event_name == 'schedule' && github.event.schedule == '10 12 * * 5') || (github.event_name == 'workflow_dispatch' && (inputs.run == 'both' || inputs.run == 'weekly-only')) }}
         run: |
           python - <<'PY'
           import json, datetime, urllib.request, os
@@ -71,16 +92,23 @@ jobs:
               "views_uniques": int(sum(v_uniqs)),
               "clones_count": int(sum(c_counts)),
               "clones_uniques": int(sum(c_uniqs)),
-              "top_paths": paths,          # includes path + count + uniques
-              "top_referrers": refs        # includes referrer + count + uniques
+              "top_paths": paths,
+              "top_referrers": refs
           }
           os.makedirs("traffic/weekly", exist_ok=True)
           with open("traffic/weekly/latest.json","w") as f: json.dump(out,f,indent=2)
           with open(f"traffic/weekly/week-{start.isoformat()}-to-{today.isoformat()}.json","w") as f: json.dump(out,f,indent=2)
           PY
 
+      # Optional hardening: pull with rebase so our push never conflicts
+      - name: Pull latest (rebase) before push
+        if: ${{ (github.event_name == 'schedule' && github.event.schedule == '10 12 * * 5') || (github.event_name == 'workflow_dispatch' && (inputs.run == 'both' || inputs.run == 'weekly-only')) }}
+        run: git pull --rebase origin "${{ github.ref_name }}"
+
       - name: Commit weekly aggregate
+        if: ${{ (github.event_name == 'schedule' && github.event.schedule == '10 12 * * 5') || (github.event_name == 'workflow_dispatch' && (inputs.run == 'both' || inputs.run == 'weekly-only')) }}
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "traffic: weekly aggregate"
           file_pattern: traffic/weekly/**
+          pull_strategy: "REBASE"
