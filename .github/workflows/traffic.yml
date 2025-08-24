@@ -1,0 +1,86 @@
+name: GitHub Traffic — Daily Snapshots + Friday Weekly Aggregate
+
+on:
+  schedule:
+    # Daily at ~07:05 Central (12:05 UTC)
+    - cron: "5 12 * * *"
+    # Fridays at ~07:10 Central (12:10 UTC)
+    - cron: "10 12 * * 5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  OWNER: pmcavallo
+  REPO: pmcavallo.github.io
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+jobs:
+  daily:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '5 12 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch traffic JSON snapshots
+        run: |
+          d=$(date -u +%Y-%m-%d)
+          mkdir -p traffic/daily/$d
+          curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/views" > "traffic/daily/$d/views.json"
+          curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/clones" > "traffic/daily/$d/clones.json"
+          curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/paths" > "traffic/daily/$d/popular_paths.json"
+          curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/referrers" > "traffic/daily/$d/popular_referrers.json"
+
+      - name: Commit daily snapshots
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "traffic: daily snapshot"
+          file_pattern: traffic/daily/**
+
+  weekly:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '10 12 * * 5'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build weekly aggregate (last 7 days)
+        run: |
+          python - <<'PY'
+          import json, datetime, urllib.request, os
+          owner = os.environ["OWNER"]; repo = os.environ["REPO"]; token = os.environ["GH_TOKEN"]
+          hdrs = {"Authorization": f"token {token}", "Accept": "application/vnd.github+json", "User-Agent":"gh-traffic-aggregator"}
+          def gh(path):
+              req = urllib.request.Request(f"https://api.github.com/repos/{owner}/{repo}/traffic/{path}", headers=hdrs)
+              with urllib.request.urlopen(req) as r: return json.load(r)
+          views = gh("views"); clones = gh("clones"); paths = gh("popular/paths"); refs = gh("popular/referrers")
+          today = datetime.datetime.utcnow().date(); start = today - datetime.timedelta(days=6)
+          def in_range(ts):
+              d = datetime.datetime.fromisoformat(ts.replace('Z','+00:00')).date()
+              return start <= d <= today
+          v_counts = [x["count"] for x in views.get("views",[]) if in_range(x["timestamp"])]
+          v_uniqs  = [x["uniques"] for x in views.get("views",[]) if in_range(x["timestamp"])]
+          c_counts = [x["count"] for x in clones.get("clones",[]) if in_range(x["timestamp"])]
+          c_uniqs  = [x["uniques"] for x in clones.get("clones",[]) if in_range(x["timestamp"])]
+          out = {
+              "repo": repo,
+              "week_start": start.isoformat(),
+              "week_end": today.isoformat(),
+              "generated_at_utc": datetime.datetime.utcnow().isoformat(timespec="seconds")+"Z",
+              "views_count": int(sum(v_counts)),
+              "views_uniques": int(sum(v_uniqs)),
+              "clones_count": int(sum(c_counts)),
+              "clones_uniques": int(sum(c_uniqs)),
+              "top_paths": paths,          # includes path + count + uniques
+              "top_referrers": refs        # includes referrer + count + uniques
+          }
+          os.makedirs("traffic/weekly", exist_ok=True)
+          with open("traffic/weekly/latest.json","w") as f: json.dump(out,f,indent=2)
+          with open(f"traffic/weekly/week-{start.isoformat()}-to-{today.isoformat()}.json","w") as f: json.dump(out,f,indent=2)
+          PY
+
+      - name: Commit weekly aggregate
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "traffic: weekly aggregate"
+          file_pattern: traffic/weekly/**
