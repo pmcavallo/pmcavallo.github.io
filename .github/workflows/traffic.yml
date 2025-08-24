@@ -8,7 +8,6 @@ on:
     - cron: "10 12 * * 5"
   workflow_dispatch:
 
-# Prevent overlapping runs
 concurrency:
   group: traffic-data
   cancel-in-progress: false
@@ -36,10 +35,6 @@ jobs:
           curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/clones" > "traffic/daily/$d/clones.json"
           curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/paths" > "traffic/daily/$d/popular_paths.json"
           curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/referrers" > "traffic/daily/$d/popular_referrers.json"
-
-      - name: Pull latest (rebase) before daily commit
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '5 12 * * *' }}
-        run: git pull --rebase origin "${{ github.ref_name }}"
 
       - name: Commit daily snapshots
         if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '5 12 * * *' }}
@@ -112,24 +107,23 @@ jobs:
           with open("traffic/weekly/summary.txt","w",encoding="utf-8") as f: f.write(one+"\n")
 
           with open("traffic/weekly/latest.csv","w",newline="",encoding="utf-8") as f:
-              import csv; w = csv.writer(f)
+              w = csv.writer(f)
               w.writerow(["repo","week_start","week_end","views_count","views_uniques","clones_count","clones_uniques","avg_views_per_day","avg_clones_per_day"])
               w.writerow([out["repo"], out["week_start"], out["week_end"], out["views_count"], out["views_uniques"], out["clones_count"], out["clones_uniques"], avV, avC])
           with open("traffic/weekly/top_paths.csv","w",newline="",encoding="utf-8") as f:
-              import csv; w = csv.writer(f); w.writerow(["path","count","uniques"])
+              w = csv.writer(f); w.writerow(["path","count","uniques"])
               for x in out["top_paths"][:10]: w.writerow([x["path"], x["count"], x["uniques"]])
           with open("traffic/weekly/top_referrers.csv","w",newline="",encoding="utf-8") as f:
-              import csv; w = csv.writer(f); w.writerow(["referrer","count","uniques"])
+              w = csv.writer(f); w.writerow(["referrer","count","uniques"])
               for x in out["top_referrers"][:10]: w.writerow([x["referrer"], x["count"], x["uniques"]])
           PY
 
-      - name: Pull latest (rebase) before weekly commit
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '10 12 * * 5' }}
-        run: git pull --rebase origin "${{ github.ref_name }}"
-
       - name: Commit weekly aggregate and wrap artifacts
         if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '10 12 * * 5' }}
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "traffic: weekly aggregate + wrap artifacts"
-          file_pattern: traffic/weekly/**
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic/weekly/**
+          git commit -m "traffic: weekly aggregate + wrap artifacts" || echo "No changes to commit"
+          git pull --rebase --autostash origin "${{ github.ref_name }}"
+          git push origin HEAD:"${{ github.ref_name }}"
