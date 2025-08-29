@@ -3,7 +3,7 @@ layout: page
 title: 👋 About Me
 permalink: /about/
 ---
-I’m **Paulo Cavallo**, a data scientist with a Ph.D. in Political Economy and over five years of experience in predictive modeling, risk analytics and regulatory forecasting across large financial datasets. I focus on applying advanced analytics to real-world challenges, while continuously expanding my skill set in scalable and cloud-based machine learning.
+I am developing expertise at the intersection of AI, governance, and decision systems—focusing on how intelligent models can not only perform technically, but also stand up in the real world where decisions must be transparent, auditable, and strategically aligned. Building on a PhD in Political Economy and experience in credit risk modeling, I am bridging quantitative rigor, cloud-scale orchestration, and human-centered governance. My aim is to create intelligent systems that interpret, generate, and decide with data in high-stakes, regulated environments.
 
 ## 💼 Professional Focus
 
