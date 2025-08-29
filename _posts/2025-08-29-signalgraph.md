@@ -24,12 +24,12 @@ date: 2025-08-29
 **SignalGraph Analyst UI — Anomaly Monitoring**  
 *Shows filtered Silver data with anomaly flags and region/date controls.*
 
-![UI Screenshot Placeholder](./assets/signalgraph-ui-1.png)
+![signalgraph](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/signalgraph1.png?raw=true)
 
 **SignalGraph Alerts & Model Risk Scores**  
 *Highlights top cells by anomaly rate and risk scores, with placeholder logic for alert explanations.*
 
-![Alerts Screenshot Placeholder](./assets/signalgraph-ui-2.png)
+![signalgraph](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/signalgraph2.png?raw=true)
 
 ---
 
