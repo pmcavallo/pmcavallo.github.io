@@ -13,7 +13,7 @@ date: 2025-08-29
 - **Data pipeline:** Spark jobs implementing **Bronze → Silver → Gold** partitions (Parquet, hive-style).
 - **Anomaly detection:** Initial rule-based seed (`latency_ms > 60 OR prb_util_pct > 85`), extending to supervised models (XGBoost, Prophet).
 - **Storage & Lakehouse:** Hive partitions for scale-out processing; DuckDB/Postgres mirrors for BI/ops integration.
-- **UI:** Streamlit analyst view with partition filters, anomaly tables, and alerts. 
+- **UI:** Streamlit analyst view with partition filters, anomaly tables, and alerts. It will also be deployed on Render, making it accessible without setup.
 - **Forecasting:** Prophet-based forecasts on latency and PRB utilization.
 - **Planned extensions:** Graph analytics with Neo4j (cell neighbors, centrality), warehouse DDL for Teradata/Postgres, SHAP/feature attribution.
 
@@ -30,6 +30,33 @@ date: 2025-08-29
 *Highlights top cells by anomaly rate and risk scores, with placeholder logic for alert explanations.*
 
 ![signalgraph](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/signalgraph2.png?raw=true)
+
+**Forecast Graph — PRB Utilization**  
+*Prophet-based logistic growth model applied to hourly PRB utilization (bounded 0–100). Forecast includes mean (orange) and 80% interval (blue band).*
+
+**What is PRB Utilization?**
+
+In 4G/5G networks, **Physical Resource Blocks (PRBs)** are the smallest unit of spectrum allocation that the base station scheduler can assign to users. Think of PRBs as the “lanes” on a highway:
+
+- **Low PRB utilization** = free lanes → smooth traffic, high throughput, low latency.  
+- **High PRB utilization (≥80–85%)** = congestion → packets queue up, throughput drops, latency and jitter spike, and call drops may increase.  
+
+PRB utilization is therefore a direct **capacity and congestion indicator**, bridging RF (radio access) conditions with IP-level user experience.
+
+![signalgraph](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/forecast_prb_dfw_CELL-012.png?raw=true)
+
+**Forecast Graph: PRB Utilization**
+
+The forecast graph shows **PRB utilization over time** at the cell level.  
+
+- **Blue line (Observed):** historical hourly PRB usage, smoothed for noise.  
+- **Orange line (Forecast):** Prophet’s logistic growth model prediction, bounded between 0–100% to reflect real physical limits.  
+- **Shaded band:** 80% confidence interval, widening further out in time to capture growing uncertainty.  
+
+**Interpretation:**  
+- Sustained upward trends approaching 80–90% signal **impending congestion**, guiding proactive actions (e.g., cell splitting, carrier aggregation, or load balancing).  
+- Downward stabilization near 50–60% suggests **healthy utilization**, with enough headroom for bursts.  
+- The widening confidence band reflects realistic modeling: while we cannot predict exact usage, we can bound the risk of overload.
 
 ---
 
@@ -115,10 +142,15 @@ ax.fill_between(fc["ds"], fc["yhat_lower"], fc["yhat_upper"], alpha=0.2)
 
 ## Next Steps
 
+- Deploy the Streamlit UI as a live web app on **Render** so reviewers can interact with SignalGraph directly.  
 - Add **baseline XGBoost classifier** for anomaly prediction (using Gold labels).  
 - Implement **SHAP feature attribution** for explainability in alerts.  
 - Integrate **Neo4j** for neighbor/centrality analysis.  
 - Mirror DuckDB marts into **Postgres/Teradata** with clean DDL.  
+- Prototype a lightweight **agent layer**:
+  - Monitoring Agent to track ETL freshness and anomalies in real time.  
+  - Forecasting Agent to run Prophet in parallel and compare with observed KPIs.  
+  - Orchestrator Agent to combine monitoring + forecasting into a single dashboard summary.  
 
 ---
 
