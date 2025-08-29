@@ -1,15 +1,16 @@
 ---
 layout: page
-title: 👋 About Me
+title: About Me
 permalink: /about/
 ---
 I am developing expertise at the intersection of AI, governance, and decision systems—focusing on how intelligent models can not only perform technically, but also stand up in the real world where decisions must be transparent, auditable, and strategically aligned. Building on a PhD in Political Economy and experience in credit risk modeling, I am bridging quantitative rigor, cloud-scale orchestration, and human-centered governance. My aim is to create intelligent systems that interpret, generate, and decide with data in high-stakes, regulated environments.
 
-## 💼 Professional Focus
+## 💼 Focus Areas
 
 - **Model Development**: Forecasting, scenario analysis, and credit risk modeling using Python, SAS, and SQL in production-level environments.
-- **Machine Learning & Cloud Analytics**: Exploring end-to-end pipelines with Python, XGBoost, SHAP, and cloud tools such as AWS, Streamlit, and Snowflake.
-- **Scalable Data Workflows**: Developing modular, reproducible analytics using PySpark and serverless architecture for deployment and monitoring.
+- **Machine Learning & Cloud Analytics**: Building end-to-end ML pipelines with Python, XGBoost, SHAP, and cloud tools such as AWS, GCP, Streamlit, and Snowflake.
+- **Scalable Data Workflows**: Developing modular, reproducible analytics using PySpark, partitioned data lakes, and serverless/cloud-native deployment for monitoring and performance.
+- **Telecom & Network Analytics**: Applied projects in anomaly detection, forecasting, and drift monitoring of 4G/5G KPIs (PRB utilization, latency, SINR, throughput) with interactive dashboards and multi-cloud deployment.
 - **Behavioral Analytics**: Simulating segmentation, churn, and engagement modeling use cases across diverse industries.
 - **Cross-Functional Collaboration**: Bridging technical and business teams to drive insight-driven decision-making at scale.
 
@@ -31,5 +32,18 @@ Fluent in English, Spanish, and Portuguese; advanced in French and Italian. I en
 ---
 
 ### 🛠️ Core Tools & Skills  
-Python • scikit-learn • SQL • Streamlit • Render • Tableau • SAS • R • Stata • GIS (Certified)
+**Languages & ML:**  
+Python • scikit-learn • SQL • PySpark • XGBoost • Prophet • SHAP • R • Stata • SAS  
+
+**Cloud & Deployment:**  
+AWS (S3, SageMaker, Lambda) • GCP (Cloud Run, BigQuery) • Render • Docker • GitHub Actions (CI/CD)  
+
+**Data & Workflow:**  
+Parquet • DuckDB • Neo4j • Pipeline design (Bronze → Silver → Gold)  
+
+**Visualization & Apps:**  
+Streamlit • Tableau • Plotly • Matplotlib  
+
+**Other:**  
+GIS (Certified)  
 
