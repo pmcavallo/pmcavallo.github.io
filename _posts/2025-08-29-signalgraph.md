@@ -1,13 +1,10 @@
 ---
-title: "SignalGraph 5G: Anomaly Detection & Forecasts"
+layout: post
+title: SignalGraph 5G; Anomaly Detection & Forecasts
 date: 2025-08-29
-categories: [Projects, AI, Networks]
-tags: [Spark, PySpark, Streamlit, Verizon, Anomaly Detection, Forecasting, Graph Analytics]
 ---
 
-## Overview
-
-**SignalGraph 5G** is a Verizon-aligned demo system that ingests synthetic 4G/5G KPI data, processes it through a Spark-based lakehouse pipeline, and exposes an analyst-friendly UI in Streamlit. The project was designed to **demonstrate the exact skills listed in Verizon’s Senior Data Scientist role**: anomaly detection, large-scale data engineering, data warehouse/lakehouse integration, and applied ML/forecasting in the network domain.
+**SignalGraph 5G** is a demo system that ingests synthetic 4G/5G KPI data, processes it through a Spark-based lakehouse pipeline, and exposes an analyst-friendly UI in Streamlit. The project was designed for anomaly detection, large-scale data engineering, data warehouse/lakehouse integration, and applied ML/forecasting in the network domain.
 
 ---
 
@@ -16,7 +13,7 @@ tags: [Spark, PySpark, Streamlit, Verizon, Anomaly Detection, Forecasting, Graph
 - **Data pipeline:** Spark jobs implementing **Bronze → Silver → Gold** partitions (Parquet, hive-style).
 - **Anomaly detection:** Initial rule-based seed (`latency_ms > 60 OR prb_util_pct > 85`), extending to supervised models (XGBoost, Prophet).
 - **Storage & Lakehouse:** Hive partitions for scale-out processing; DuckDB/Postgres mirrors for BI/ops integration.
-- **UI:** Streamlit analyst view with partition filters, anomaly tables, and alerts.
+- **UI:** Streamlit analyst view with partition filters, anomaly tables, and alerts. 
 - **Forecasting:** Prophet-based forecasts on latency and PRB utilization.
 - **Planned extensions:** Graph analytics with Neo4j (cell neighbors, centrality), warehouse DDL for Teradata/Postgres, SHAP/feature attribution.
 
@@ -39,7 +36,7 @@ tags: [Spark, PySpark, Streamlit, Verizon, Anomaly Detection, Forecasting, Graph
 ## Key Features
 
 ### 1. Spark Bronze → Silver ETL
-We start with synthetic KPI data (`cell_kpi_minute.parquet`) and run a Spark job to enforce schema, add partitions, and flag anomalies:
+I start with synthetic KPI data (`cell_kpi_minute.parquet`) and run a Spark job to enforce schema, add partitions, and flag anomalies:
 
 ```python
 df2 = (df
@@ -110,7 +107,7 @@ ax.fill_between(fc["ds"], fc["yhat_lower"], fc["yhat_upper"], alpha=0.2)
 
 ## Why This Matters
 
-- **Direct tie to Verizon’s job requirements**: anomaly detection, forecasting, large data sets, Spark/Hadoop-style pipelines, Teradata/warehouse mirroring, and 4G/5G KPI expertise.  
+- **Telecom Utility**: anomaly detection, forecasting, large data sets, Spark/Hadoop-style pipelines, Teradata/warehouse mirroring, and 4G/5G KPI expertise.  
 - **Production discipline**: schema contracts, timestamp precision guardrails, partitioning strategies, and model monitoring artifacts.  
 - **Scalable & extensible**: Designed to drop into **Dataproc/EMR** clusters and extend into graph/network analysis.  
 
@@ -132,8 +129,3 @@ ax.fill_between(fc["ds"], fc["yhat_lower"], fc["yhat_upper"], alpha=0.2)
 - **Data Stores:** Hive-partitioned Parquet, DuckDB, Postgres/Teradata schema.  
 - **Domain:** 4G/5G KPIs (RSRP, RSRQ, SINR, PRB utilization, latency, jitter, packet loss).  
 
----
-
-## Repository
-
-👉 [View SignalGraph on GitHub](https://github.com/pmcavallo/signalgraph)
