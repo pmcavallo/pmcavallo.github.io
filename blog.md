@@ -1,6 +1,6 @@
 ---
-layout: page
-title: Blog           # change to "Blogs" if you prefer
+layout: default
+title: Blog          
 permalink: /blog/
 ---
 
