@@ -46,10 +46,5 @@ I choose GCP when I want managed services that get me moving fast, especially fo
 
 The most important lesson from NetworkIQ is that portability is a mindset. If I treat the cloud as the place I run the project rather than the project itself, I retain the freedom to move. That freedom is strategic. It lets me optimize for speed when I am validating an idea and for robustness when I am scaling it. It also keeps the conversation with stakeholders focused on outcomes, not tools.
 
-## Why this matters for my roadmaps
 
-This project advances both of my roadmaps. As an AI expert in the making, I am building systems that interpret data, generate insight, and support decisions, not just isolated models. As an orchestrator, I am proving that I can bridge modeling, cloud, deployment, and governance, and that I can choose the right platform for the moment without locking the project to one vendor.
-
-NetworkIQ is still evolving. I plan to add stronger monitoring, a clearer model card, and a small feedback loop that helps the system adjust thresholds over time. The core will remain the same. The value is in the design that moves with me.
-
-If you want to see the project narrative and visuals, the project page is here: https://pmcavallo.github.io/network-iq/
+If you want to see the project narrative and visuals, the project page is here: 🔗 [View Full Project](https://pmcavallo.github.io/network-iq/) 
