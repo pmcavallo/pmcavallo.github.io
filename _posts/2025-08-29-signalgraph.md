@@ -181,7 +181,7 @@ ax.fill_between(fc["ds"], fc["yhat_lower"], fc["yhat_upper"], alpha=0.2)
 
 ## Why This Matters
 
-- **Telecom Utility**: anomaly detection, forecasting, large data sets, Spark/Hadoop-style pipelines, Teradata/warehouse mirroring, **SLO tracking**, SHAP explainability, and 4G/5G KPI expertise.  
+- **App Utility**: anomaly detection, forecasting, large data sets, Spark/Hadoop-style pipelines, Teradata/warehouse mirroring, **SLO tracking**, SHAP explainability, and 4G/5G KPI expertise.  
 - **Production discipline**: schema contracts, timestamp precision guardrails, partitioning strategies, **model triage thresholds**, and monitoring artifacts.  
 - **Scalable & extensible**: Designed to drop into **Dataproc/EMR** clusters and extend into graph/network analysis with Neo4j centrality and influence metrics.    
 
