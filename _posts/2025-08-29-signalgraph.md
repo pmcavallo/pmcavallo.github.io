@@ -58,6 +58,53 @@ The forecast graph shows **PRB utilization over time** at the cell level.
 - Downward stabilization near 50–60% suggests **healthy utilization**, with enough headroom for bursts.  
 - The widening confidence band reflects realistic modeling: while we cannot predict exact usage, we can bound the risk of overload.
 
+## Feature Update — Explanations, Interpretations & Polishing
+
+Features I added to the app:
+
+### Alerts & Thresholds
+- **Interactive Threshold Slider**: Users can override the model’s default operating threshold (0.09) to surface more or fewer alerts.  
+  - Lowering the threshold increases recall (more cells flagged) but also raises false positives.  
+  - Default comes from `metrics.json` and is tuned for F1 balance.  
+
+### Cell Drill-In — Neighbors & Centrality
+- **Metrics**:  
+  - **Neighbor degree** counts direct peers (higher → bigger local blast-radius).  
+  - **PageRank** weights peers by their influence (higher → wider impact).  
+  - **Betweenness** shows if a cell is a bridge on shortest paths (higher → issues can fragment clusters).  
+
+- **Interpretation Block**: Centrality explains **network influence**. These metrics help triage whether an issue is isolated or may propagate via topology.  
+
+### Model Metrics
+- **AUC-ROC (0.745)**: Model separates risky vs. normal cells fairly well (75% chance a risky cell scores higher than a normal one).  
+- **AUC-PR (0.241)**: Performance above random baseline in imbalanced data.  
+- **Operating Threshold (0.09)**: Balances recall and precision; configurable in-app.  
+- **F1@thr (0.437)**: Trade-off between catching risks vs. tolerating false alarms.  
+
+### PRB Utilization Forecast
+- **How to Read**:  
+  - Blue line = median forecast.  
+  - Shaded band = uncertainty.  
+  - Threshold (85%) = capacity pressure.  
+
+- **Per-Cell Interpretation**: Each forecast panel automatically reports the chance of breaching the 85% PRB threshold within the next 12 hours.  
+
+### Network SLO Summary
+- **Capacity SLO (99.6%)**: Network is comfortably under PRB pressure.  
+- **Latency SLO (93.7%)**: Most traffic meets the 60ms p95 target, though some cells drift.  
+- **Reliability SLO (28.2%)**: Packet drops are frequent — weakest dimension.  
+
+- **Note**: In full deployment, SLOs recompute dynamically per region and date window, so numbers change with the user’s filters.  
+
+### Warehouse View (Postgres)
+- **Purpose**: Exposes the raw `last_hour_risk` table mirrored from Postgres.  
+- **Why**: Lets ops verify the same records that models and dashboards consume — ensuring transparency and auditability.  
+- **User Action**: Can filter, sort, or export rows for validation.  
+
+---
+
+✅ These additions make the app not just a **scoreboard**, but an **interpretable triage tool** — linking model predictions, forecasts, graph centrality, and warehouse verification into one workflow.
+
 ---
 
 ## Key Features
@@ -134,30 +181,29 @@ ax.fill_between(fc["ds"], fc["yhat_lower"], fc["yhat_upper"], alpha=0.2)
 
 ## Why This Matters
 
-- **Telecom Utility**: anomaly detection, forecasting, large data sets, Spark/Hadoop-style pipelines, Teradata/warehouse mirroring, and 4G/5G KPI expertise.  
-- **Production discipline**: schema contracts, timestamp precision guardrails, partitioning strategies, and model monitoring artifacts.  
-- **Scalable & extensible**: Designed to drop into **Dataproc/EMR** clusters and extend into graph/network analysis.  
+- **Telecom Utility**: anomaly detection, forecasting, large data sets, Spark/Hadoop-style pipelines, Teradata/warehouse mirroring, **SLO tracking**, SHAP explainability, and 4G/5G KPI expertise.  
+- **Production discipline**: schema contracts, timestamp precision guardrails, partitioning strategies, **model triage thresholds**, and monitoring artifacts.  
+- **Scalable & extensible**: Designed to drop into **Dataproc/EMR** clusters and extend into graph/network analysis with Neo4j centrality and influence metrics.    
 
 ---
 
 ## Next Steps
 
 - Deploy the Streamlit UI as a live web app on **Render** so reviewers can interact with SignalGraph directly.  
-- Add **baseline XGBoost classifier** for anomaly prediction (using Gold labels).  
-- Implement **SHAP feature attribution** for explainability in alerts.  
-- Integrate **Neo4j** for neighbor/centrality analysis.  
 - Mirror DuckDB marts into **Postgres/Teradata** with clean DDL.  
-- Prototype a lightweight **agent layer**:
-  - Monitoring Agent to track ETL freshness and anomalies in real time.  
-  - Forecasting Agent to run Prophet in parallel and compare with observed KPIs.  
-  - Orchestrator Agent to combine monitoring + forecasting into a single dashboard summary.  
+- Prototype a lightweight **agent layer**:  
+  - Monitoring Agent: track ETL freshness and anomalies in real time.  
+  - Forecasting Agent: run Prophet in parallel and compare with observed KPIs.  
+  - Orchestrator Agent: combine monitoring + forecasting into a single dashboard summary.
 
 ---
 
 ## Tech Stack
 
-- **Languages & Libraries:** Python 3.10, PySpark 3.5.1, pandas, scikit-learn, XGBoost, Prophet, matplotlib, DuckDB.  
+- **Languages & Libraries:** Python 3.10, PySpark 3.5.1, pandas, scikit-learn, XGBoost, Prophet, matplotlib, DuckDB, SHAP, Altair.  
 - **Frameworks:** Streamlit UI, Spark ETL, PyArrow.  
-- **Data Stores:** Hive-partitioned Parquet, DuckDB, Postgres/Teradata schema.  
+- **Data Stores:** Hive-partitioned Parquet, DuckDB, Postgres/Teradata schema (warehouse view).
+- **Graph & Network Analysis:** Neo4j integration, centrality metrics (degree, PageRank, betweenness), neighbor drill-in.
+- **Explainability & Monitoring:** SHAP local/global feature attribution, threshold tuning with triage slider, SLO summaries (capacity, latency, reliability).  
 - **Domain:** 4G/5G KPIs (RSRP, RSRQ, SINR, PRB utilization, latency, jitter, packet loss).  
 
