@@ -2,10 +2,7 @@ name: GitHub Traffic — Daily Snapshots + Friday Weekly Aggregate
 
 on:
   schedule:
-    # Daily at ~07:05 Central (12:05 UTC)
-    - cron: "5 12 * * *"
-    # Fridays at ~07:10 Central (12:10 UTC)
-    - cron: "10 12 * * 5"
+    - cron: "5 12 * * *"   # daily @ 12:05 UTC (~07:05 CT)
   workflow_dispatch:
 
 concurrency:
@@ -21,13 +18,13 @@ env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  daily:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      # ---------- DAILY (always) ----------
       - name: Fetch traffic JSON snapshots
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '5 12 * * *' }}
         run: |
           d=$(date -u +%Y-%m-%d)
           mkdir -p "traffic/daily/$d"
@@ -36,21 +33,20 @@ jobs:
           curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/paths" > "traffic/daily/$d/popular_paths.json"
           curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$OWNER/$REPO/traffic/popular/referrers" > "traffic/daily/$d/popular_referrers.json"
 
-      - name: Commit daily snapshots
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '5 12 * * *' }}
+      - name: Commit daily snapshots (no Pages rebuild)
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "traffic: daily snapshot"
+          # [skip ci] prevents *new* workflows (incl. Pages) from running on this commit
+          commit_message: "traffic: daily snapshot [skip ci]"
           file_pattern: traffic/daily/**
 
-  weekly:
-    needs: daily
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+      # ---------- WEEKLY (Fridays only or manual) ----------
+      - name: Is Friday?
+        id: dow
+        run: echo "fri=$([ $(date -u +%u) -eq 5 ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
       - name: Build weekly aggregate (last 7 days)
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '10 12 * * 5' }}
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.dow.outputs.fri == 'true' }}
         run: |
           python - <<'PY'
           import json, datetime, urllib.request, os, csv
@@ -84,7 +80,6 @@ jobs:
           with open("traffic/weekly/latest.json","w") as f: json.dump(out,f,indent=2)
           with open(f"traffic/weekly/week-{start.isoformat()}-to-{today.isoformat()}.json","w") as f: json.dump(out,f,indent=2)
 
-          # ---- Wrap artifacts ----
           days = (today - start).days + 1
           avV = round(out["views_count"]/days, 2) if days else 0.0
           avC = round(out["clones_count"]/days, 2) if days else 0.0
@@ -119,11 +114,10 @@ jobs:
           PY
 
       - name: Commit weekly aggregate and wrap artifacts
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '10 12 * * 5' }}
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.dow.outputs.fri == 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add traffic/weekly/**
           git commit -m "traffic: weekly aggregate + wrap artifacts" || echo "No changes to commit"
-          git pull --rebase --autostash origin "${{ github.ref_name }}"
-          git push origin HEAD:"${{ github.ref_name }}"
+          git push
