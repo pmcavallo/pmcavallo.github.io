@@ -65,13 +65,17 @@ Features I added to the app:
 ### Alerts & Thresholds
 - **Interactive Threshold Slider**: Users can override the model’s default operating threshold (0.09) to surface more or fewer alerts.  
   - Lowering the threshold increases recall (more cells flagged) but also raises false positives.  
-  - Default comes from `metrics.json` and is tuned for F1 balance.  
+  - Default comes from `metrics.json` and is tuned for F1 balance.
+ 
+![signalgraph](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/signalgraph3.png?raw=true)
 
 ### Cell Drill-In — Neighbors & Centrality
 - **Metrics**:  
   - **Neighbor degree** counts direct peers (higher → bigger local blast-radius).  
   - **PageRank** weights peers by their influence (higher → wider impact).  
-  - **Betweenness** shows if a cell is a bridge on shortest paths (higher → issues can fragment clusters).  
+  - **Betweenness** shows if a cell is a bridge on shortest paths (higher → issues can fragment clusters).
+  - 
+![signalgraph](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/signalgraph4.png?raw=true)
 
 - **Interpretation Block**: Centrality explains **network influence**. These metrics help triage whether an issue is isolated or may propagate via topology.  
 
@@ -86,6 +90,8 @@ Features I added to the app:
   - Blue line = median forecast.  
   - Shaded band = uncertainty.  
   - Threshold (85%) = capacity pressure.  
+
+![signalgraph](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/signalgraph5.png?raw=true)
 
 - **Per-Cell Interpretation**: Each forecast panel automatically reports the chance of breaching the 85% PRB threshold within the next 12 hours.  
 
