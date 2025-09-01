@@ -195,7 +195,7 @@ ax.fill_between(fc["ds"], fc["yhat_lower"], fc["yhat_upper"], alpha=0.2)
 
 ## Next Steps
 
-- Deploy the Streamlit UI as a live web app on **Render** so reviewers can interact with SignalGraph directly.  
+- Deploy the Streamlit UI as a live web app on **Render** so users can interact with SignalGraph directly.  
 - Mirror DuckDB marts into **Postgres/Teradata** with clean DDL.  
 - Prototype a lightweight **agent layer**:  
   - Monitoring Agent: track ETL freshness and anomalies in real time.  
