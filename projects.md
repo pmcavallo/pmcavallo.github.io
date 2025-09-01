@@ -7,6 +7,61 @@ permalink: /projects/
 A selection of hands-on projects demonstrating real-world data science, modeling, and cloud deployment; built with Python, scikit-learn, **PySpark**, **XGBoost/CatBoost**, **SHAP**, and shipped via **Streamlit/Render** and **AWS** (S3, SageMaker, Lambda, MWAA/Airflow), with visuals in **Tableau**.
 
 ---
+
+**SignalGraph (PySpark + Postgres/Teradata + Prophet)**
+
+SignalGraph is a telecom-focused anomaly detection and forecasting project that processes large-scale 4G/5G performance data (latency, jitter, PRB utilization, packet loss) through a Spark ETL pipeline and delivers real-time network insights. It demonstrates modern data workflows—from feature engineering and anomaly flagging to forecasting and graph analytics; built for scale, transparency, and decision-making in telecom environments.
+
+**Highlights**
+- **Data & Features:** Hive-partitioned Parquet with engineered features (capacity utilization, latency thresholds, PRB saturation flags, KPI interactions).
+- **Modeling & Forecasting:** Time-series forecasting with Prophet to capture latency trends and test network reliability scenarios.
+- **Monitoring & Anomaly Detection:** PySpark anomaly flags for performance degradation (e.g., high PRB or latency spikes), drift tracking, and cell-level stability summaries.
+- **Graph & Network Analysis:** Neo4j integration with centrality metrics (degree, PageRank, betweenness) and neighbor drill-down to trace performance impacts across connected cells.
+- **Policy Sandbox:** Scenario sliders to simulate SLO trade-offs (capacity, latency, reliability), threshold tuning with triage sliders, and recalibration scenarios.
+
+📌 *Business Impact:* Helps telecom teams detect anomalies early, forecast degradation risk, and evaluate trade-offs in policy thresholds—improving service reliability and decision-making at network scale.
+
+**Tech Stack**
+- **Languages & Libraries:** Python 3.10, PySpark 3.5.1, pandas, scikit-learn, XGBoost, Prophet, matplotlib, DuckDB, SHAP, Altair, PyArrow.  
+- **Frameworks:** Streamlit UI, Spark ETL.  
+- **Data Stores:** Hive-partitioned Parquet, DuckDB, Postgres/Teradata schema (warehouse view).  
+- **Graph & Network Analysis:** Neo4j integration, centrality metrics (degree, PageRank, betweenness), neighbor drill-in.  
+- **Explainability & Monitoring:** SHAP local/global feature attribution, threshold tuning with triage slider, SLO summaries (capacity, latency, reliability).  
+- **Domain:** 4G/5G KPIs (RSRP, RSRQ, SINR, PRB utilization, latency, jitter, packet loss).  
+
+📁 [View Full Project](https://pmcavallo.github.io/signalgraph/)
+
+---
+
+**NetworkIQ — Incident Risk Monitor (“One Project, Three Platforms”)**
+
+NetworkIQ is a telecom-grade incident risk system that predicts network congestion and visualizes cell-site risk across three deployment platforms (Render, GCP Cloud Run, AWS on the roadmap). It showcases how AI-first system design can be made platform-agnostic, scalable, and portable; aligning with orchestration and enterprise deployment strategies.
+
+**Highlights**
+- **Data & Features:** Ingests network telemetry (throughput, latency, packet loss, dropped session rate) via CSV into PySpark ETL, then stores in Parquet. 
+- **Modeling & Prediction:** Trains multiple classifiers—including logistic regression, random forest, and XGBoost (best performer: AUC 0.86, KS 0.42)—to detect high-risk cells. 
+- **Monitoring & Explainability:** Integrates SHAP for feature attribution and PSI for drift detection; includes a model card skeleton for transparency. 
+- **Multi-Cloud Orchestration:** Deploys a unified Streamlit dashboard across Render and GCP Cloud Run, with AWS App Runner deployment in progress—demonstrating full “One Project, Three Clouds” orchestration.
+- **Visualization & Executive Access:** Features an interactive risk map (circle size by risk magnitude, color-coded by risk level) and integrates Gemini API to generate executive summaries, recommendations, and per-cell natural-language explanations. 
+- **CI/CD & Secure Ops:** Uses GitHub Actions to deploy to GCP Cloud Run and secures secrets via Google Secret Manager.
+
+📌 *Business Impact:* NetworkIQ accelerates incident detection (reducing MTTD), supports better customer experience proxies (NPS), and lowers cost per GB—while enabling consistent, explainable AI across multiple clouds.
+
+**Tech Stack**
+- **Languages & Libraries:** Python, PySpark, XGBoost, scikit-learn, SHAP  
+- **Data Pipeline & Storage:** CSV ingestion → PySpark ETL → Parquet storage  
+- **Modeling:** Logistic Regression, Random Forest, XGBoost  
+- **Visualization & UI:** Streamlit with interactive risk maps overlayed on cell-site visuals  
+- **Cloud Platforms:** Render deployment, GCP Cloud Run (live), AWS App Runner (roadmap)  
+- **CI/CD & Security:** GitHub Actions deployment workflows, Google Secret Manager  
+- **Explainability & Monitoring:** SHAP for feature insights, PSI for drift, model card for transparency  
+- **AI Interpretation:** Gemini API-powered executive briefings and per-cell explanations  
+- **Domain Context:** Telecom congestion KPIs—throughput, latency, loss, session drop rates  
+
+👉 [View Full Project](https://pmcavallo.github.io/network-iq/)
+
+---
+
 **BNPL Credit Risk Insights Dashboard (Python + Streamlit)**
 
 A hands-on, end-to-end BNPL risk project that turns raw lending/repayment data into an interactive decision dashboard. It demonstrates modern risk workflows—from feature engineering and modeling to monitoring and “what-if” policy simulation—built for clarity, speed, and explainability.
