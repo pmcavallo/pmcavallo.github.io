@@ -74,7 +74,7 @@ Features I added to the app:
   - **Neighbor degree** counts direct peers (higher → bigger local blast-radius).  
   - **PageRank** weights peers by their influence (higher → wider impact).  
   - **Betweenness** shows if a cell is a bridge on shortest paths (higher → issues can fragment clusters).
-  - 
+
 ![signalgraph](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/signalgraph4.png?raw=true)
 
 - **Interpretation Block**: Centrality explains **network influence**. These metrics help triage whether an issue is isolated or may propagate via topology.  
