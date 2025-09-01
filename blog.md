@@ -9,7 +9,6 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 ---
 
 # SignalGraph: Telecom Data Pipelines Reimagined (08/30/2025)
----
 
 When I launched **SignalGraph**, the idea was simple: treat telecom network data with the same care and structure that financial institutions give to credit risk data. In practice, that meant building a pipeline that could transform raw, messy network logs into a structured system where anomalies, trends, and performance could be analyzed at scale.
 
