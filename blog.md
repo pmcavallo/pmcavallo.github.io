@@ -27,8 +27,6 @@ The name *SignalGraph* reflects this dual ambition: it’s not only about signal
 
 Why does this matter? Because in telecom, as in finance, anomalies aren’t just noise. They’re signals—warnings of where risk is building or where performance is degrading. SignalGraph shows how an end-to-end AI/ML system can surface those signals, structure them for decision-making, and keep them flowing into live dashboards and predictive models.
 
----
-
 **Explore the project:** [SignalGraph on GitHub](https://pmcavallo.github.io/signalgraph/)
 
 ---
