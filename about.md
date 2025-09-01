@@ -3,7 +3,7 @@ layout: page
 title: About Me
 permalink: /about/
 ---
-I am developing expertise at the intersection of AI, governance, and decision systems—focusing on how intelligent models can not only perform technically, but also stand up in the real world where decisions must be transparent, auditable, and strategically aligned. Building on a PhD in Political Economy and experience in credit risk modeling, I am bridging quantitative rigor, cloud-scale orchestration, and human-centered governance. My aim is to create intelligent systems that interpret, generate, and decide with data in high-stakes, regulated environments.
+I am developing expertise at the intersection of AI, governance, and decision systems, focusing on how intelligent models can not only perform technically, but also stand up in the real world where decisions must be transparent, auditable, and strategically aligned. Building on a PhD in Political Economy and experience in credit risk modeling, I am bridging quantitative rigor, cloud-scale orchestration, and human-centered governance. My aim is to create intelligent systems that interpret, generate, and decide with data in high-stakes, regulated environments.
 
 ## 💼 Focus Areas
 
