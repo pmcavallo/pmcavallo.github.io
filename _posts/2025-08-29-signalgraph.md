@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SignalGraph 5G; Anomaly Detection & Forecasts
+title: SignalGraph 5G - Anomaly Detection & Forecasts (PySpark + Postgres/Teradata + Prophet)
 date: 2025-08-29
 ---
 
