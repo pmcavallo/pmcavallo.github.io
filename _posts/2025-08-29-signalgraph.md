@@ -19,6 +19,19 @@ date: 2025-08-29
 
 ---
 
+## Key Factors in the Data
+
+The dataset used in SignalGraph is synthetic and was generated to reflect realistic 4G/5G KPIs. The synthetic generation used in the project was meant to create plausible correlations (e.g., high PRB utilization leading to higher latency and packet loss).
+
+- **latency_ms** – average user-plane latency; higher values mean slower responsiveness.
+- **prb_util_pct** – PRB utilization percentage; proxy for network load and congestion.
+- **thrpt_mbps** – downlink throughput; what the end user experiences as speed.
+- **sinr_db** – signal-to-interference-plus-noise ratio; higher values mean clearer signal.
+- **rsrp_dbm** – reference signal received power; less negative is stronger signal.
+- **pkt_loss_pct / drop_rate_pct** – packet or call drop percentage; reliability indicator.
+
+---
+
 ## App Screenshots
 
 **SignalGraph Analyst UI — Anomaly Monitoring**  
