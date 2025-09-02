@@ -12,7 +12,7 @@ When telecom reliability defines customer trust, NetworkIQ shows how one project
 
 ## 🔹 Project Overview  
 NetworkIQ is a telecom-aligned MVP that transforms network telemetry into **faster incident detection (MTTD↓)**, **better customer experience (NPS proxy↑)**, and **leaner cost per GB**.  
-It demonstrates how **AI-first system design** can turn raw performance data into actionable insights for network operators.  
+It demonstrates how **AI-first system design** can turn raw performance data into actionable insights for network operators. The dataset used in NetworkIQ is synthetic and was generated to mimic realistic telecom KPIs such as signal strength (RSRP, RSRQ, SINR), throughput, latency, jitter, and drop rates. Values were modeled on publicly available ranges from industry specifications and research datasets, with synthetic generation used to create plausible correlations (e.g., poor SINR leading to lower throughput and higher drop rates). 
 
 ---
 
