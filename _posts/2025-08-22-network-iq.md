@@ -6,7 +6,7 @@ date: 2025-08-22
 
 When telecom reliability defines customer trust, NetworkIQ shows how one project can live across multiple clouds. Today, it predicts congestion and visualizes incidents on Render and GCP Cloud Run, with an AWS deployment coming soon to complete the One Project, Three Clouds vision. Built with PySpark preprocessing, XGBoost prediction, and Streamlit dashboards, NetworkIQ demonstrates that portability, scalability, and explainability can be baked into a single AI-first system, no matter the platform.
 
-**Live App:** [GCP Deployment](https://networkiq-49161466777.us-central1.run.app/) | [Render Deployment](https://network-iq.onrender.com/)  | [AWS Deployment](http://ec2-34-239-42-13.compute-1.amazonaws.com/) 
+**Live App:** [GCP Deployment](https://networkiq-49161466777.us-central1.run.app/) -- [Render Deployment](https://network-iq.onrender.com/)  -- [AWS Deployment](http://ec2-34-239-42-13.compute-1.amazonaws.com/) 
 
 ---
 
