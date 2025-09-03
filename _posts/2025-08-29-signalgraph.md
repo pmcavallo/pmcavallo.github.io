@@ -6,6 +6,8 @@ date: 2025-08-29
 
 **SignalGraph 5G** is a demo system that ingests synthetic 4G/5G KPI data, processes it through a Spark-based lakehouse pipeline, and exposes an analyst-friendly UI in Streamlit. The project was designed for anomaly detection, large-scale data engineering, data warehouse/lakehouse integration, and applied ML/forecasting in the network domain.
 
+**Live App:** [Render Deployment](https://signalgraph.onrender.com/) 
+
 ---
 
 ## Architecture at a Glance
