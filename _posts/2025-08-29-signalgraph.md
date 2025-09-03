@@ -8,6 +8,7 @@ date: 2025-08-29
 
 **Live App:** [Render Deployment](https://signalgraph.onrender.com/) 
 
+This demo uses a minimal Silver slice committed to the repo and a Neon Postgres view (`sg5g.v_last_hour_risk`) to mirror the warehouse mart. Expect a short cold start on the Free plan.
 ---
 
 ## Architecture at a Glance
