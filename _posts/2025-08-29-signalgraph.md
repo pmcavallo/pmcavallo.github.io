@@ -17,7 +17,8 @@ This demo uses a minimal Silver slice committed to the repo and a Neon Postgres 
 - **Data pipeline:** Spark jobs implementing **Bronze → Silver → Gold** partitions (Parquet, hive-style).
 - **Anomaly detection:** Initial rule-based seed (`latency_ms > 60 OR prb_util_pct > 85`), extending to supervised models (XGBoost, Prophet).
 - **Storage & Lakehouse:** Hive partitions for scale-out processing; DuckDB/Postgres mirrors for BI/ops integration.
-- **UI:** Streamlit analyst view with partition filters, anomaly tables, and alerts. It will also be deployed on Render, making it accessible without setup.
+- **UI:** Streamlit analyst view with partition filters, anomaly tables, and alerts.
+- **Deployment:** Render Web Service (Free).
 - **Forecasting:** Prophet-based forecasts on latency and PRB utilization.
 - **Planned extensions:** Graph analytics with Neo4j (cell neighbors, centrality), warehouse DDL for Teradata/Postgres, SHAP/feature attribution.
 
