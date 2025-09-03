@@ -6,7 +6,7 @@ date: 2025-08-22
 
 When telecom reliability defines customer trust, NetworkIQ shows how one project can live across multiple clouds. Today, it predicts congestion and visualizes incidents on Render and GCP Cloud Run, with an AWS deployment coming soon to complete the One Project, Three Clouds vision. Built with PySpark preprocessing, XGBoost prediction, and Streamlit dashboards, NetworkIQ demonstrates that portability, scalability, and explainability can be baked into a single AI-first system, no matter the platform.
 
-**Live App:** [GCP Deployment](https://networkiq-49161466777.us-central1.run.app/) | [Render Deployment](https://network-iq.onrender.com/)  
+**Live App:** [GCP Deployment](https://networkiq-49161466777.us-central1.run.app/) | [Render Deployment](https://network-iq.onrender.com/)  | [AWS Deployment](http://ec2-34-239-42-13.compute-1.amazonaws.com/) 
 
 ---
 
@@ -179,6 +179,28 @@ jobs:
 - **Secrets Management:** Ensured API keys were never exposed in code or logs.  
 
 ---
+
+## How I Deployed NetworkIQ on AWS (Free Tier)
+
+**Goal:** make the app easy to reach on the public internet while keeping cost ≈ $0 on a new AWS account.
+
+### What I deployed
+- The Streamlit app is packaged in a Docker image (see `Dockerfile`).
+- I launched **one** free-tier EC2 instance (Amazon Linux 2023, t2.micro).
+- I ran the container so the site is reachable on port **80** (HTTP).
+
+### Simple architecture
+1. **EC2 (t3.micro)** — tiny virtual machine in AWS.
+2. **Docker** — runs the app the same way everywhere.
+3. **Streamlit** — serves the UI.
+4. **Security group** — allows web traffic in.
+
+## Live Demo (AWS)
+
+**AWS (EC2)** | **[Live Demo](http://ec2-34-239-42-13.compute-1.amazonaws.com/)** 
+
+The EC2 instance serves the Dockerized Streamlit app on HTTP 80 (host 80 → container 8080).  
+Note: The demo may be offline outside demo hours and will be retired at the end of my AWS Free Tier window.
 
 ## 🔹 License  
 MIT © 2025 Paulo Cavallo.  
