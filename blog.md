@@ -8,8 +8,7 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
-# Cross-Cloud AutoML Shootout: Lessons from the Trenches  
-(09/10/2025)
+# Cross-Cloud AutoML Shootout: Lessons from the Trenches. (09/10/2025)
 
 When I launched the **Cross-Cloud AutoML Shootout**, the idea was straightforward: pit AWS SageMaker Autopilot against Google Cloud’s AutoML, feed them the same dataset, and see who comes out on top in terms of accuracy, speed, and cost. What happened instead turned into a lesson about quotas, governance, and adaptability in cloud AI.
 
@@ -64,7 +63,7 @@ But the project wasn’t just about ETL. It was about bringing together a full e
 - **Graph Analytics:** Using Neo4j, the project explores neighbor effects and centrality—critical for understanding how one weak node can ripple through a telecom network.
 - **Governance and Transparency:** Just like my regulatory work at Comerica, every stage of SignalGraph is documented and auditable. The design emphasizes trust, reproducibility, and clarity.
 
-The name *SignalGraph* reflects this dual ambition: it’s not only about signals in the network, but also about connecting the nodes—people, tools, models, and governance—into a coherent graph.
+The name *SignalGraph* reflects this dual ambition: it’s not only about signals in the network, but also about connecting the nodes, people, tools, models, and governance into a coherent graph.
 
 Why does this matter? Because in telecom, as in finance, anomalies aren’t just noise. They’re signals—warnings of where risk is building or where performance is degrading. SignalGraph shows how an end-to-end AI/ML system can surface those signals, structure them for decision-making, and keep them flowing into live dashboards and predictive models.
 
