@@ -8,6 +8,48 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# Cross-Cloud AutoML Shootout: Lessons from the Trenches  
+(09/10/2025)
+
+When I launched the **Cross-Cloud AutoML Shootout**, the idea was straightforward: pit AWS SageMaker Autopilot against Google Cloud’s AutoML, feed them the same dataset, and see who comes out on top in terms of accuracy, speed, and cost. What happened instead turned into a lesson about quotas, governance, and adaptability in cloud AI.
+
+Just like in my credit risk modeling work, where the challenge often isn’t the math itself but the infrastructure and constraints, this shootout was as much about system design as it was about algorithms. AWS and GCP offered very different paths, and those differences reshaped the entire project.
+
+But the project wasn’t just about comparing two black-box services. It was about uncovering how each cloud handles scale, transparency, and control:
+
+- **AWS Autopilot: Fast Start, Pay-as-You-Go**  
+  Autopilot trained 10 candidate models in 30 minutes, surfacing a solid performer with ~65% accuracy and ~0.78 ROC AUC. Cost: about $10. The tradeoff: limited visibility into feature importance—good performance, but little interpretability.
+
+- **GCP Vertex AI AutoML: Quota Walls Everywhere**  
+  On paper, Vertex AI AutoML should have been the competitor. In practice, hidden quotas derailed every attempt. Even after raising CPU quotas twice, the pipeline kept failing with opaque errors. Without a paid support plan, there was no path forward.
+
+- **Pivot to BigQuery ML: Control Through SQL**  
+  Instead of abandoning the project, I pivoted. With BigQuery ML, I wrote SQL directly to train models, engineer features, and evaluate results. The boosted tree model came in slightly weaker (~56% accuracy, ~0.74 ROC AUC), but I gained full transparency, feature importance, and—critically—predictable cost. Under 1 TiB/month, it was effectively free.
+
+## Side-by-Side Outcomes
+
+| Metric        | AWS Autopilot | GCP BigQuery ML |
+|---------------|---------------|-----------------|
+| Accuracy      | ~0.65         | ~0.56 |
+| F1 Score      | ~0.64         | ~0.56 |
+| ROC AUC       | ~0.78         | ~0.74 |
+| Training Time | ~30 min       | ~7 min (slot time 3 hr) |
+| Cost          | ~$10          | ~$0 (free tier) |
+| Transparency  | Limited       | Full SQL control + feature importance |
+
+## Lessons Learned
+
+- **Cloud Governance Matters**: GCP AutoML’s hidden quotas were a reminder that cloud experiments aren’t just technical, they’re operational.  
+- **Transparency vs. Accuracy**: AWS won on performance, but BigQuery ML gave us the interpretability that regulated industries demand.  
+- **Cost Awareness**: The shootout underscored how pricing models (per-second vs. node-hour vs. query bytes) drive design decisions.  
+- **Adaptability as a Skill**: The pivot itself was a success. Knowing when to change course is part of building resilient AI systems.
+
+The name “Shootout” now reflects more than just a head-to-head test. It captures the reality of working across clouds: the contest isn’t just between models, but between philosophies of control, cost, and transparency.  
+
+Why does this matter? Because in AI, as in finance, **constraints shape outcomes**. The ability to pivot—from black-box automat
+
+---
+
 # SignalGraph: Telecom Data Pipelines Reimagined (08/30/2025)
 
 When I launched **SignalGraph**, the idea was simple: treat telecom network data with the same care and structure that financial institutions give to credit risk data. In practice, that meant building a pipeline that could transform raw, messy network logs into a structured system where anomalies, trends, and performance could be analyzed at scale.
