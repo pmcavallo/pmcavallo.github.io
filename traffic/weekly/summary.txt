@@ -1,1 +1,1 @@
-Week 2025-08-30–2025-09-05: Views 218 (avg 31.14/day), Uniques 5; Clones 218 (avg 31.14/day), Uniques 58
+Week 2025-09-06–2025-09-12: Views 27 (avg 3.86/day), Uniques 2; Clones 39 (avg 5.57/day), Uniques 28
