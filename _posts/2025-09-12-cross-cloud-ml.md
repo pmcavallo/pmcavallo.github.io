@@ -1,15 +1,7 @@
 ---
 layout: post
-title: SignalGraph 5G - Anomaly Detection & Forecasts (PySpark + Postgres/Teradata + Prophet)
-date: 2025-08-29
----
-
-**SignalGraph 5G** is a demo system that ingests synthetic 4G/5G KPI data, processes it through a Spark-based lakehouse pipeline, and exposes an analyst-friendly UI in Streamlit. The project was designed for anomaly detection, large-scale data engineering, data warehouse/lakehouse integration, and applied ML/forecasting in the network domain. It is deployed as a live Streamlit web app on **Render**, connected to a Neon Postgres warehouse.
-
-**Live App:** [Render Deployment](https://signalgraph.onrender.com/) 
-
-This demo uses a minimal Silver slice committed to the repo and a Neon Postgres view to mirror the warehouse mart. Expect a short cold start on the Free plan.
-
+title: Cross-Cloud AutoML Shootout - Lessons from AWS, GCP, and BigQuery
+date: 2025-08-07
 ---
 
 When I kicked off the **Cross-Cloud AutoML Shootout**, the idea was simple: put AWS and GCP side by side, train on the same dataset, and see which delivered the better model with less friction. What started as a straightforward benchmark quickly turned into something bigger, a case study in how different cloud philosophies shape the experience of doing machine learning. Just like in banking, where model development often collides with regulatory guardrails, this project revealed how *quotas, hidden constraints, and pricing structures* can be as important as the algorithms themselves. 
