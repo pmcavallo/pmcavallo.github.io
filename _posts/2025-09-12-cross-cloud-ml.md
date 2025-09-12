@@ -5,7 +5,6 @@ date: 2025-09-07
 ---
 
 When I kicked off the **Cross-Cloud AutoML Shootout**, the idea was simple: put AWS and GCP side by side, train on the same dataset, and see which delivered the better model with less friction. What started as a straightforward benchmark quickly turned into something bigger, a case study in how different cloud philosophies shape the experience of doing machine learning.  
-
 Just like in banking, where model development often collides with regulatory guardrails, this project revealed how *quotas, hidden constraints, and pricing structures* can be as important as the algorithms themselves. 
 
 ---
@@ -161,5 +160,6 @@ However, this shootout wasn’t just about models. It surfaced the *realities of
 
 ## Why This Matters  
 In AI and data science, it’s not just accuracy metrics that matter, it’s whether you can get to those metrics at all. The Shootout shows how **infrastructure choices can shape experimentation itself**.  
+
 
 Cross-cloud isn’t just a buzzword. It’s a survival skill.
