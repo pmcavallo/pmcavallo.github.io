@@ -161,18 +161,4 @@ However, this shootout wasn’t just about models. It surfaced the *realities of
 ## Why This Matters  
 In AI and data science, it’s not just accuracy metrics that matter, it’s whether you can get to those metrics at all. The Shootout shows how **infrastructure choices can shape experimentation itself**.  
 
-Cross-cloud isn’t just a buzzword. It’s a survival skill.  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Cross-cloud isn’t just a buzzword. It’s a survival skill.
