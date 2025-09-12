@@ -12,7 +12,6 @@ I could explain the data, but why not let Gemini do it from within GCP? My simul
 
 ![Description](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/var_description.png?raw=true)
 
----
 
 ## AWS SageMaker Autopilot: Transparent, Predictable, Done in 30 Minutes  
 AWS set the tone early. With Autopilot, training was smooth:  
@@ -55,7 +54,6 @@ The model has learned some signal from the data but struggles with clear separat
   
 The message from AWS was clear: *simple, transparent, predictable*.  
 
----
 
 ## GCP Vertex AI AutoML: Quotas, Quotas, and More Quotas  
 GCP was a different experience. Instead of cost being the first challenge, it was **quotas**.  
@@ -68,7 +66,6 @@ Even after approvals (400 N1 CPUs, 150 custom CPUs), another roadblock appeared:
 
 This exposed a design philosophy: GCP protects against runaway costs with strict guardrails, but for independent projects, those guardrails can block you entirely.  
 
----
 
 ## The Pivot: BigQuery ML to the Rescue  
 Instead of giving up on GCP, I pivoted to **BigQuery ML**. Unlike Vertex AI, BigQuery ML uses straightforward data-scanning quotas, not node hours.  
@@ -143,9 +140,8 @@ Interpretation:
 
 With BigQuery ML, we finally had a working GCP comparison point, and a reminder that sometimes the “backup option” is the smarter long-term play.  
 
----
 
-## Lessons Learned  
+## Lessons Learned from the Shootout 
 
 The final shootout was not actually Apples-to-Apples. It’s worth calling out that this shootout wasn’t perfectly level. AWS AutoML delivered a true “one-click” automated model pipeline. In GCP, the pivot from Vertex AI (blocked by quota limits) to BigQuery ML meant I had to explicitly choose and configure a Boosted Tree classifier. BigQuery ML is powerful and flexible, but it’s closer to guided modeling than pure AutoML. Vertex AI would have been a more direct apples-to-apples comparison with AWS, but the quota roadblock forced me into a less automated path.
 
@@ -155,11 +151,10 @@ However, this shootout wasn’t just about models. It surfaced the *realities of
 - **GCP Vertex AI:** Hidden quota gates make it risky for small teams.  
 - **BigQuery ML:** A pragmatic middle ground — clear quotas, flexible billing, and enough power for real experiments.  
 
----
 
 ## Why This Matters  
 In AI and data science, it’s not just accuracy metrics that matter, it’s whether you can get to those metrics at all. The Shootout shows how **infrastructure choices can shape experimentation itself**.  
 
-
 Cross-cloud isn’t just a buzzword. It’s a survival skill.
+
 
