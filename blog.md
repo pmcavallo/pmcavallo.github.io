@@ -25,17 +25,6 @@ But the project wasn’t just about comparing two black-box services. It was abo
 - **Pivot to BigQuery ML: Control Through SQL**  
   Instead of abandoning the project, I pivoted. With BigQuery ML, I wrote SQL directly to train models, engineer features, and evaluate results. The boosted tree model came in slightly weaker (~56% accuracy, ~0.74 ROC AUC), but I gained full transparency, feature importance, and—critically—predictable cost. Under 1 TiB/month, it was effectively free.
 
-## Side-by-Side Outcomes
-
-| Metric        | AWS Autopilot | GCP BigQuery ML |
-|---------------|---------------|-----------------|
-| Accuracy      | ~0.65         | ~0.56 |
-| F1 Score      | ~0.64         | ~0.56 |
-| ROC AUC       | ~0.78         | ~0.74 |
-| Training Time | ~30 min       | ~7 min (slot time 3 hr) |
-| Cost          | ~$10          | ~$0 (free tier) |
-| Transparency  | Limited       | Full SQL control + feature importance |
-
 ## Lessons Learned
 
 - **Cloud Governance Matters**: GCP AutoML’s hidden quotas were a reminder that cloud experiments aren’t just technical, they’re operational.  
