@@ -36,6 +36,8 @@ The name “Shootout” now reflects more than just a head-to-head test. It capt
 
 Why does this matter? Because in AI, as in finance, **constraints shape outcomes**. The ability to pivot—from black-box automat
 
+🔗 [View Full Project](https://pmcavallo.github.io/cross-cloud-ml/)
+
 ---
 
 # SignalGraph: Telecom Data Pipelines Reimagined (08/30/2025)
