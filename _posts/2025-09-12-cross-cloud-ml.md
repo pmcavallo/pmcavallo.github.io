@@ -13,6 +13,7 @@ Just like in banking, where model development often collides with regulatory gua
 I could explain the data, but why not let Gemini do it from within GCP? My simulated data had no descriptions to the variables, however, Gemini is able to read the data and and create the description itself:
 
 ![Description](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/var_description.png?raw=true)
+
 ---
 
 ## AWS SageMaker Autopilot: Transparent, Predictable, Done in 30 Minutes  
