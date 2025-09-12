@@ -2,10 +2,7 @@
 layout: post
 title: Cross-Cloud AutoML Shootout - Lessons from AWS, GCP, and BigQuery
 date: 2025-08-07
----
-
 excerpt: "When I kicked off the **Cross-Cloud AutoML Shootout**, the idea was simple: put AWS and GCP side by side, train on the same dataset, and see which delivered the better model with less friction. What started as a straightforward benchmark quickly turned into something bigger, a case study in how different cloud philosophies shape the experience of doing machine learning. Just like in banking, where model development often collides with regulatory guardrails, this project revealed how *quotas, hidden constraints, and pricing structures* can be as important as the algorithms themselves."
-
 ---
 
 I could explain the data, but why not let Gemini do it from within GCP? My simulated data had no descriptions to the variables, however, Gemini is able to read the data and and create the description itself:
@@ -157,3 +154,4 @@ In AI and data science, it’s not just accuracy metrics that matter, it’s whe
 
 
 Cross-cloud isn’t just a buzzword. It’s a survival skill.
+
