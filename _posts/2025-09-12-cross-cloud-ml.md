@@ -9,7 +9,7 @@ Just like in banking, where model development often collides with regulatory gua
 
 ---
 
-I could explain the data, but why not let Gemini do it from within GCP? My simulated data had no descritions to the variables, however, Gemini is able to read the data and and create the description itself:
+I could explain the data, but why not let Gemini do it from within GCP? My simulated data had no descriptions to the variables, however, Gemini is able to read the data and and create the description itself:
 
 ![Description](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/var_description.png?raw=true)
 ---
@@ -163,6 +163,7 @@ In AI and data science, it’s not just accuracy metrics that matter, it’s whe
 Cross-cloud isn’t just a buzzword. It’s a survival skill.  
 
 ---
+
 
 
 
