@@ -76,11 +76,44 @@ Instead of giving up on GCP, I pivoted to **BigQuery ML**. Unlike Vertex AI, Big
 
 Screenshots captured the turnaround:  
 
-![Metrics](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/metrics.png?raw=true)
+![Metrics](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/results.png?raw=true)
 
+This is BigQuery ML’s evaluation output for the boosted tree model trained on default_12m as the dependent variable:
+- Aggregate Metrics (top left):
+    - Accuracy (0.5292) → The model is correct ~53% of the time. This is only slightly better than random guessing, which tells us the problem is hard or the features may not be strong enough yet.
+    - Precision (0.4829) → Of the loans the model predicts as defaults, about 48% actually default.
+    - Recall (0.5298) → The model captures ~53% of the true defaults.
+    - F1 Score (0.5052) → Harmonic mean of precision and recall, balancing false positives and false negatives.
+    - ROC AUC (0.5310) → A measure of the model’s ability to rank-order defaults vs non-defaults. A random model scores 0.5, so this is only marginally better.
+    - Log Loss (0.6914) → Penalizes false confidence. Lower is better; here it’s still high, consistent with a weak model.
+- Score Threshold (top right):
+    - By default, the threshold is 0.5, meaning if the predicted probability ≥ 0.5, the model calls it a default.
+    - You can move this slider: lowering it favors recall (catching more defaults, at the cost of more false alarms), while raising it favors precision (fewer false alarms, but more missed defaults).
+    - This flexibility is powerful — instead of one static metric, you can tune the model to business needs:
+- Precision-Recall by Threshold (bottom left):
+    - Shows how precision and recall change as you move the threshold slider.
+    - Typically, recall is high when precision is low, and vice versa — the tradeoff is clear here.
+- Precision-Recall Curve (bottom middle):
+    - This plots precision vs recall for all thresholds. The area under the curve (0.497) quantifies tradeoffs; here, again, it’s close to random.
+- ROC Curve (bottom right):
+    - Plots the true positive rate against the false positive rate across thresholds.
+    - With an AUC of 0.531, this is only slightly above random (0.5), but it confirms the model has at least some discriminative signal.
+
+Why This Matters:
+- The positive class threshold is the most practical control here. It transforms the model from being "good" or "bad" into being configurable for strategy:
+- If your goal is regulatory conservatism, you crank recall up and accept more false positives.
+- If your goal is profitability and customer experience, you might prioritize precision.
+- This threshold tuning is what lets the same base model serve different business goals. I'll show an example below.
+- 
 ![Matrix](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/matrix.png?raw=true)
 
-![feature](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/metrics.png?raw=true)
+The model is only slightly better than random guessing (≈50/50). It captures defaults about half the time but also misclassifies many non-defaults as defaults. This aligns with the low ROC AUC (~0.53) we saw earlier. It’s a weak signal model, but balanced in the sense that errors occur in both directions.
+
+![feature](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/feature.png?raw=true)
+
+This is a feature importance ranking from the boosted tree model in BigQuery ML. The model is leaning most heavily on core credit risk variables (income, DTI, LTV, utilization), exactly what we’d expect in a credit default setting.
+
+**The bonus:**
 
 This “positive class threshold” slider is a great feature in BigQuery. What it is:
 - By default, classification models output a probability between 0 and 1 for the positive class (here: default_12m = 1).
@@ -92,9 +125,9 @@ I then use SQL to find the F1-maximizing threshold, then set the slider to (abou
 
 ![f1](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/F1-maximizing.png?raw=true)
 
-The new results are:
+At threshold = 0.49, the model balances precision and recall in a way that maximizes F1. Compared to the default 0.50 threshold, the optimized one slightly boosts recall (the model catches more positives) while keeping precision at an acceptable level. This results in a much stronger F1 score (0.739 vs ~0.50 at default). The new results are:
 
-![Metrics](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/metrics2.png?raw=true)
+![Metrics](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/results2.png?raw=true)
 
 ![Matrix](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/matrix2.png?raw=true)
 
@@ -110,7 +143,10 @@ With BigQuery ML, we finally had a working GCP comparison point, and a reminder 
 ---
 
 ## Lessons Learned  
-This shootout wasn’t just about models. It surfaced the *realities of working across clouds*:  
+
+The final shootout was not actually Apples-to-Apples. It’s worth calling out that this shootout wasn’t perfectly level. AWS AutoML delivered a true “one-click” automated model pipeline. In GCP, the pivot from Vertex AI (blocked by quota limits) to BigQuery ML meant I had to explicitly choose and configure a Boosted Tree classifier. BigQuery ML is powerful and flexible, but it’s closer to guided modeling than pure AutoML. Vertex AI would have been a more direct apples-to-apples comparison with AWS, but the quota roadblock forced me into a less automated path.
+
+However, this shootout wasn’t just about models. It surfaced the *realities of working across clouds*:  
 
 - **AWS:** Transparent billing, fast results, predictable.  
 - **GCP Vertex AI:** Hidden quota gates make it risky for small teams.  
@@ -124,5 +160,6 @@ In AI and data science, it’s not just accuracy metrics that matter, it’s whe
 Cross-cloud isn’t just a buzzword. It’s a survival skill.  
 
 ---
+
 
 
