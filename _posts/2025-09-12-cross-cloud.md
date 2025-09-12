@@ -2,7 +2,7 @@
 layout: post
 title: Cross-Cloud AutoML Shootout - Lessons from AWS, GCP, and BigQuery
 date: 2025-09-07
-excerpt: "When I kicked off the **Cross-Cloud AutoML Shootout**, the idea was simple: put AWS and GCP side by side, train on the same dataset, and see which delivered the better model with less friction. What started as a straightforward benchmark quickly turned into something bigger, a case study in how different cloud philosophies shape the experience of doing machine learning. Just like in banking, where model development often collides with regulatory guardrails, this project revealed how *quotas, hidden constraints, and pricing structures* can be as important as the algorithms themselves."
+excerpt: "When I kicked off the Cross-Cloud AutoML Shootout, the idea was simple: put AWS and GCP side by side, train on the same dataset, and see which delivered the better model with less friction. What started as a straightforward benchmark quickly turned into something bigger, a case study in how different cloud philosophies shape the experience of doing machine learning. Just like in banking, where model development often collides with regulatory guardrails, this project revealed how quotas, hidden constraints, and pricing structures can be as important as the algorithms themselves."
 ---
 
 When I kicked off the **Cross-Cloud AutoML Shootout**, the idea was simple: put AWS and GCP side by side, train on the same dataset, and see which delivered the better model with less friction. What started as a straightforward benchmark quickly turned into something bigger, a case study in how different cloud philosophies shape the experience of doing machine learning. Just like in banking, where model development often collides with regulatory guardrails, this project revealed how *quotas, hidden constraints, and pricing structures* can be as important as the algorithms themselves.
@@ -158,6 +158,7 @@ In AI and data science, it’s not just accuracy metrics that matter, it’s whe
 
 
 Cross-cloud isn’t just a buzzword. It’s a survival skill.
+
 
 
 
