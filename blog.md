@@ -25,6 +25,7 @@ By the end of the shootout, the pattern was clear. NotebookLM is at its best whe
 The lesson of this project is that LLMs are not yet full orchestrators of cloud strategy. But in tandem, they can support both ends of the spectrum: strategic frameworks and day-to-day execution. In that sense, this AI shootout reflects the broader reality of cloud computing itself — no single provider, tool, or perspective is enough. The power lies in integration, in building systems where strengths complement each other.
 
 🔗 [View Full Project](https://pmcavallo.github.io/ai-in-the-cloud/)
+
 ---
 
 # LLM Quiz App: Lessons from Building Across ChatGPT, Gemini, and Claude (09/14/2025)
