@@ -1,4 +1,8 @@
-# AI-in-the-Cloud Knowledge Shootout
+---
+layout: post
+title: AI-in-the-Cloud Knowledge Shootout
+date: 2025-09-14
+---
 Perplexity vs NotebookLM, as a continuation of the Cross-Cloud Shootout series.
 
 ## Purpose
