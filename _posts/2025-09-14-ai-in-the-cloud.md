@@ -3,7 +3,8 @@ layout: post
 title: AI-in-the-Cloud Knowledge Shootout
 date: 2025-09-14
 ---
-Perplexity vs NotebookLM, as a continuation of the Cross-Cloud Shootout series. The project's goal is to evaluate whether Perplexity and NotebookLM can operate as cloud knowledge orchestrators, producing reliable, grounded guidance on cloud architecture, cost optimization, and governance.
+Perplexity vs NotebookLM, as a continuation of the Cross-Cloud Shootout series. This project set out to test whether AI copilots could act as cloud knowledge orchestrators, producing reliable guidance on architecture, cost, and governance. Instead of benchmarking AWS and GCP directly, the experiment compared how each tool answered the same six cloud prompts. NotebookLM was tied to a curated corpus of AWS/GCP docs and my Cross-Cloud behaviour. Perplexity searched the open web in real time. The shootout revealed two complementary roles: NotebookLM excels at structured, policy-level synthesis, while Perplexity delivers concise, actionable answers. 
+
 
 ## Controlled Prompts
 Keep wording identical across tools.
