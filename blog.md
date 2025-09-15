@@ -8,6 +8,25 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# AI-in-the-Cloud Knowledge Shootout: Perplexity vs NotebookLM (09/14/2025)
+
+This project set out to answer a simple but important question: can AI tools themselves act as orchestrators of cloud knowledge? After building the [Cross-Cloud Shootout](https://pmcavallo.github.io/cross-cloud/) to compare AWS and GCP directly, I wanted to pit two AI copilots — **Perplexity Pro** and **Google NotebookLM** — against each other. The goal was to see how each tool handled real cloud prompts across cost optimization, architecture design, and governance, and whether their answers could be relied on for strategic or operational decision-making.
+
+From the beginning, the experiment was uneven by design. NotebookLM requires a curated corpus, so for each prompt I loaded it with AWS and GCP documentation, pricing pages, and my own Cross-Cloud blog. This meant it behaved like a research assistant: highly aligned to those inputs, precise in tone, but limited to what I gave it. Perplexity, by contrast, could not be given a preloaded corpus. It searched the open web in real time, citing blogs, docs, and technical guides it found along the way. It acted more like a field guide: fast, broad, and pragmatic, but not tied to the framing I wanted. The difference between the two approaches became the story of the shootout.
+
+The test design consisted of six prompts, two in each category. For cost optimization, the tools were asked first to design a budget-constrained ML pipeline (COST_01), and later to compare the economics of training versus inference for a mid-size team (COST_02). For architecture fit, they first explored how to deliver telecom-grade low-latency inference (ARCH_01), then tackled the harder problem of a hybrid control plane spanning AWS and GCP (ARCH_02). Finally, for governance, they compared compliance frameworks and enforcement mechanisms (GOV_01), and closed with the design of a model governance baseline for credit risk PD estimation models (GOV_02).
+
+Across these six steps, the contrast between the tools was striking. NotebookLM consistently produced long, detailed answers that read like policy documents or whitepapers. When asked about cost optimization, it leaned heavily on governance levers, structured playbooks, and predictable billing frameworks, often echoing ideas from my Cross-Cloud shootout. Its answers were grounded and complete, rarely skipping a piece of the prompt. Perplexity, on the other hand, delivered tables, checklists, and concrete numbers. It listed hourly rates for SageMaker and Vertex AI instances, mapped services to categories, and described system architectures with edge placement and failover scenarios. Where NotebookLM was deep, Perplexity was clear; where NotebookLM was structured, Perplexity was practical.
+
+The governance prompts highlighted this divergence most clearly. NotebookLM built out a governance baseline that would not be out of place in a regulatory framework: documentation requirements, approval workflows, lineage and reproducibility, all mapped carefully to AWS and GCP services. Perplexity gave a checklist: start with model cards, enable audit logs, use metadata tracking, monitor for bias and drift. Both were correct, but each spoke to a different audience, the compliance officer on one hand, the practitioner on the other.
+
+By the end of the shootout, the pattern was clear. NotebookLM is at its best when you want controlled, source-aligned synthesis. It “thinks like a policy author.” Perplexity is strongest when you need concise, actionable answers quickly. It “thinks like a practitioner writing a runbook.” Neither tool is a winner on its own; the real value comes from combining them. NotebookLM sets the strategy, while Perplexity supplies the tactics.
+
+The lesson of this project is that LLMs are not yet full orchestrators of cloud strategy. But in tandem, they can support both ends of the spectrum: strategic frameworks and day-to-day execution. In that sense, this AI shootout reflects the broader reality of cloud computing itself — no single provider, tool, or perspective is enough. The power lies in integration, in building systems where strengths complement each other.
+
+🔗 [View Full Project](https://pmcavallo.github.io/ai-in-the-cloud/)
+---
+
 # LLM Quiz App: Lessons from Building Across ChatGPT, Gemini, and Claude (09/14/2025)
 
 This project started with a simple idea: I wanted a quiz tracker app. ChatGPT was struggling to incorporate a quiz with a memory component in its daily tasks, so the workaround was to build a small local “agent.” The plan was straightforward: ask questions, grade answers, and persist results in a local database using RAG to recall past attempts. It sounded ambitious, but at its core, it was supposed to be just that, an app that tracks quizzes.  
