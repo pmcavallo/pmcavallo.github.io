@@ -8,6 +8,51 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# LLM Quiz App: Lessons from Building Across ChatGPT, Gemini, and Claude (09/14/2025)
+
+This project started with a simple idea: I wanted a quiz tracker app. ChatGPT was struggling to incorporate a quiz with a memory component in its daily tasks, so the workaround was to build a small local “agent.” The plan was straightforward: ask questions, grade answers, and persist results in a local database using RAG to recall past attempts. It sounded ambitious, but at its core, it was supposed to be just that, an app that tracks quizzes.  
+
+ChatGPT initially pitched a small web app with an API that I could run locally with a browser UI. Over time, it kept suggesting new features it could not actually implement. After a few days of false starts, we finally had something: an MVP. It worked well enough, with logging, summaries, a session-aware Bottom-3, randomized and non-repeating question selection, and a large question bank. It was not the adaptive LLM-powered engine that was first envisioned, but it did the job.  
+
+Frustrated but still curious, I tried Gemini next. It promised a real-time coding experience in Canvas, with prompts on one side and a live editor on the other. The interface looked sleek, with buttons, a tracker title, and a “fix error” button that popped up after every crash. Gemini would identify bugs, explain them, and claim to fix them, only for the same black screen and “fix error” button to reappear. After two days, I still did not have an app that could run outside of Gemini.  
+
+Gemini also assumed I wanted a multi-user app, so it pushed Firebase for memory and Netlify for hosting. That was not my goal, I only needed local persistence so the tracker would not reset each session. The Firebase and Netlify approach quickly became fragile without a proper build process, running into race conditions and security issues that a production pipeline would normally solve.  
+
+At this point, I pivoted to Claude. Right away, it suggested starting with a self-contained app, a simple HTML file with persistence across browser sessions. That worked immediately on Netlify, no Firebase required. I was impressed with Claude’s stability and its ability to preserve file integrity while implementing fixes. Unlike ChatGPT or Gemini, it did not regress or produce broken versions with each change. But then I hit its hard usage limits. Even on Pro, I was locked out for five hours after hitting the quota. That made iterative work, the style I rely on, impossible. With Claude, you must be strategic, efficient, and very clear in prompts. There is no space for the back-and-forth experimentation I enjoy with ChatGPT.  
+
+Armed with the lessons from Claude, I went back to Gemini and asked for a self-contained app with only session persistence, no API or cloud services. This time it delivered a clean, minimal app with a fun icon-based interface. I gave the same instructions to ChatGPT and it did produce a self-contained app with even more complex graphs than Gemini, albeit a less clean and visually appealing interface. I just had to do the same thing with Claude now. But I was still waiting for my Claude lockout to end.  
+
+---
+
+### Best Practices I Learned for Claude
+
+**Maximize each message**  
+- Provide full context and requirements upfront  
+- Be comprehensive rather than incremental  
+- Bundle related requests together  
+
+**Use strategic prompting**  
+- Specify format, length, and expectations  
+- Give examples of what you want  
+- Use structured prompts with sections  
+
+**Plan sessions carefully**  
+- Group related work  
+- Prioritize complex tasks first  
+- Offload simple tasks to other tools  
+
+---
+
+One of Claude’s limitations is file size. It struggles with large outputs and large inputs, and once its 200k-token context window fills, you need to start a new chat. Unlike ChatGPT, it cannot access artifacts from previous sessions. Every new chat means re-uploading context and files.  
+
+Even with these issues, I liked Claude. It is fast, practical, and makes smart suggestions unprompted. But it cannot stand alone, you would need at least one other LLM alongside it. ChatGPT remains the most versatile for general use, while Gemini offers extra value through Google’s ecosystem and services.  
+
+For this app project, each LLM had strengths and weaknesses. All of them produced usable quiz apps, though none fully achieved the original vision: a self-contained app that also tapped its LLM creator for infinite questions, explanations, and personalized study plans. That dream turned out to be too ambitious.  
+
+Still, I ended up with something real: a working quiz tracker, lessons in cross-LLM development, and a deeper appreciation of how these tools differ not just in features but in workflow philosophy.  
+
+---
+
 # Cross-Cloud AutoML Shootout: Lessons from the Trenches. (09/10/2025)
 
 With the **Cross-Cloud AutoML Shootout** project the idea was straightforward: pit AWS SageMaker Autopilot against Google Cloud’s AutoML, feed them the same dataset, and see who comes out on top in terms of accuracy, speed, and cost. What happened instead turned into a lesson about quotas, governance, and adaptability in cloud AI.
