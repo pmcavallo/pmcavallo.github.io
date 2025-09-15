@@ -3,10 +3,7 @@ layout: post
 title: AI-in-the-Cloud Knowledge Shootout
 date: 2025-09-14
 ---
-Perplexity vs NotebookLM, as a continuation of the Cross-Cloud Shootout series.
-
-## Purpose
-Evaluate whether Perplexity and NotebookLM can operate as cloud knowledge orchestrators, producing reliable, grounded guidance on cloud architecture, cost optimization, and governance.
+Perplexity vs NotebookLM, as a continuation of the Cross-Cloud Shootout series. The project's goal is to evaluate whether Perplexity and NotebookLM can operate as cloud knowledge orchestrators, producing reliable, grounded guidance on cloud architecture, cost optimization, and governance.
 
 ## Controlled Prompts
 Keep wording identical across tools.
