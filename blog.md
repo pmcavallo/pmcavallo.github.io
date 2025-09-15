@@ -79,7 +79,7 @@ But the project wasn’t just about comparing two black-box services. It was abo
 
 The name “Shootout” now reflects more than just a head-to-head test. It captures the reality of working across clouds: the contest isn’t just between models, but between philosophies of control, cost, and transparency.  
 
-Why does this matter? Because in AI, as in finance, **constraints shape outcomes**. The ability to pivot—from black-box automat
+Why does this matter? Because in AI, as in finance, **constraints shape outcomes**. 
 
 🔗 [View Full Project](https://pmcavallo.github.io/cross-cloud-ml/)
 
