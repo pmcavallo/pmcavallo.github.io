@@ -34,9 +34,9 @@ Perplexity, by contrast, does not let us preload a corpus. It always searches th
 ### What We’re Seeing
 - **NotebookLM**  
   - Very detailed, structured response (general principles → AWS pipeline → GCP pipeline → comparison).  
-  - Grounded heavily in your Cross-Cloud Shootout blog and official framework docs.  
+  - Grounded heavily in my Cross-Cloud Shootout project and official framework docs.  
   - Rich with cost ranges, risks, trade-offs, and even AutoML details.  
-  - Reads like a *mini whitepaper* and feels influenced by your prior work.  
+  - Reads like a *mini whitepaper* and feels influenced by my prior work.  
 
 - **Perplexity**  
   - Much shorter, in bullet-point style.  
@@ -61,11 +61,11 @@ For **COST_01**, NotebookLM is “better” if you need detailed architecture an
   - Detailed, structured description of architectures for both AWS and GCP.  
   - For AWS: emphasized Local Zones, Wavelength Zones, CloudFront, SageMaker endpoints, CloudFront/ElastiCache caching, multi-AZ/region failover, and observability via CloudWatch.  
   - For GCP: emphasized region distribution, global private network, Cloud Load Balancing, Vertex AI Endpoints, Cloud CDN/Memorystore, multi-zone failover, and Cloud Monitoring/Trace/Logging.  
-  - Reads like a comprehensive *solution design document* — step-by-step through each architectural layer.  
+  - Reads like a comprehensive *solution design document*, step-by-step through each architectural layer.  
 
 
 - **Perplexity**  
-  - Shorter and more *bullet-style* again:contentReference[oaicite:1]{index=1}.  
+  - Shorter and more *bullet-style* again.  
   - For AWS: highlighted Wavelength Zones, edge-first deployment, SageMaker/EKS at edge and core, ElastiCache, multi-AZ and Route 53 for failover, CloudWatch for observability.  
   - For GCP: focused on global load balancer, Direct Interconnect, Vertex AI endpoints, Memorystore/CDN caching, multi-zone clusters, Cloud Operations stack for observability.  
   - Included a neat *component comparison table* mapping AWS vs GCP across networking, placement, serving, caching, failover, and observability.  
@@ -102,14 +102,14 @@ For **COST_01**, NotebookLM is “better” if you need detailed architecture an
   - Provides a structured walkthrough of cost design for ML training and inference across AWS and GCP.  
   - For **AWS**, emphasizes SageMaker Autopilot, Spot Instances, right-sizing endpoints, lifecycle policies, and pay-per-second billing as core tactics. Gives concrete ranges (e.g., Autopilot ~$10 per 30 min run) and highlights transparent billing.  
   - For **GCP**, centers on Vertex AI and BigQuery ML, showing cost trade-offs and risks: strong unified platform, but with “hidden quota gates” and potential budget friction. BigQuery ML flagged as a pragmatic, cost-controlled middle ground.  
-  - Ends with a clear comparison table contrasting AWS vs GCP in philosophy, AutoML experience, training, in-database ML, predictability, and cost-control levers:contentReference[oaicite:0]{index=0}.
+  - Ends with a clear comparison table contrasting AWS vs GCP in philosophy, AutoML experience, training, in-database ML, predictability, and cost-control levers.
 
 
 - **Perplexity**  
   - Summarizes AWS vs GCP pricing in a quick, tabular style with concrete hourly examples (e.g., SageMaker ml.m5.xlarge $0.23/hr, Vertex AI n1-standard-4 $0.15/hr).  
   - Covers both training and inference, with assumptions for a mid-size team (5–7 data scientists, CPU-heavy workloads with some GPU).  
   - Lists optimization levers: AWS (Savings Plans, Spot, rightsizing, idle shutdowns, S3 lifecycle) vs GCP (Spot VMs, Committed Use Discounts, endpoint co-hosting, tagging/monitoring).  
-  - Provides a side-by-side cost structure table for CPU/GPU training, inference, and storage:contentReference[oaicite:1]{index=1}.
+  - Provides a side-by-side cost structure table for CPU/GPU training, inference, and storage.
 
 
 ### Interpretation
@@ -134,7 +134,7 @@ For **COST_01**, NotebookLM is “better” if you need detailed architecture an
   - AWS side: Wavelength Zones, Outposts, EKS/SageMaker for edge + regional inference, ElastiCache for caching, Route 53 for failover, CloudWatch/X-Ray for observability.  
   - GCP side: Global Load Balancer, Interconnect, Vertex AI endpoints, Memorystore/CDN for caching, multi-regional VMs with autoscaling, Stackdriver for observability.  
   - Provides a **component comparison table** (Networking, Placement, Model Serving, Caching, Failover, Observability).  
-  - Emphasizes risks like vendor lock-in, data egress fees, and budget spikes if not controlled:contentReference.
+  - Emphasizes risks like vendor lock-in, data egress fees, and budget spikes if not controlled.
 
 
 ### Interpretation
