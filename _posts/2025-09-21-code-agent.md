@@ -373,6 +373,21 @@ To ensure fairness and isolate tool performance in Sprints 4+, I will **unify al
 
 ![riskbench](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/riskbench1.png?raw=true)
 
+This screenshot shows the Swagger UI for the /predict endpoint of the RiskBench serving API.
+
+Endpoint:
+- POST /predict is the API route that takes in a feature set (a single applicant’s data) and returns a risk score.
+- It can optionally return SHAP explanations, which are feature-level contributions explaining why the model gave that score.
+
+Parameters:
+- The parameter explain is a boolean query flag.
+- If set to true, the response will include reason codes: the top features, their values, and SHAP contributions (positive pushes score up, negative pushes score down).
+- If set to false (or omitted), you just get the raw risk probability.
+
+Request Body:
+
+- You feed the endpoint a JSON object with all required features.
+
 ![riskbench](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/riskbench.png?raw=true)
 
 - **Score = 0.254** → with the default threshold **0.5**, this is a **negative class** decision.
