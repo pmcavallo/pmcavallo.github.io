@@ -371,27 +371,9 @@ To ensure fairness and isolate tool performance in Sprints 4+, I will **unify al
 
 ## Interpretation of your test result
 
-```json
-{"model":"xgboost","version":"S3_tuned","features":["credit_score","annual_income","debt_to_income","credit_utilization","credit_history_length","recent_inquiries","open_accounts","age","employment_status","housing_status","loan_purpose","state","education_level","credit_grade"],"threshold":0.5,"base_value":null}
-```
+![riskbench](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/riskbench1.png?raw=true)
 
 ![riskbench](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/riskbench.png?raw=true)
-
-
-```json
-{
-  "score": 0.2540644705295563,
-  "model": "xgboost",
-  "version": "S3_tuned",
-  "reasons": [
-    {"feature":"credit_grade","value":"A","shap_value": 2.368015766143799},
-    {"feature":"credit_utilization","value":0,"shap_value":-0.69468092918396},
-    {"feature":"credit_history_length","value":0,"shap_value": 0.6206353902816772},
-    {"feature":"credit_score","value":700,"shap_value":-0.5636231899261475},
-    {"feature":"recent_inquiries","value":0,"shap_value":-0.5194531083106995}
-  ]
-}
-```
 
 - **Score = 0.254** → with the default threshold **0.5**, this is a **negative class** decision.
 - **SHAP contributions** (log‑odds):
