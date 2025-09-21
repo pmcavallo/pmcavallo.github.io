@@ -16,7 +16,7 @@ This project set out to pit three leading AI coding assistants (GitHub Copilot, 
 
 ---
 
-# RiskBench Shootout — Tools
+# RiskBench Shootout Tools
 
 This shootout now includes **three tools** used on the **same repo** with the **same prompts and tests**:
 
