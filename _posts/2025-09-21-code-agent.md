@@ -372,6 +372,13 @@ To ensure fairness and isolate tool performance in Sprints 4+, I will **unify al
 ## Interpretation of your test result
 
 ```json
+{"model":"xgboost","version":"S3_tuned","features":["credit_score","annual_income","debt_to_income","credit_utilization","credit_history_length","recent_inquiries","open_accounts","age","employment_status","housing_status","loan_purpose","state","education_level","credit_grade"],"threshold":0.5,"base_value":null}
+```
+
+![riskbench](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/riskbench.png?raw=true)
+
+
+```json
 {
   "score": 0.2540644705295563,
   "model": "xgboost",
