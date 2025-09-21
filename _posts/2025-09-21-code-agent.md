@@ -49,8 +49,8 @@ This sprint serves as a baseline to evaluate:
 
 ## 2. What Worked
 - **All three tools successfully generated the `riskbench` package scaffolding** (pyproject, CLI, modules, tests).  
-- **Data generation worked across the board**: Copilot and Claude produced a `train.parquet` file with the expected structure and size.  
-- **Copilot completed both data generation and tests cleanly** with minor environment adjustments.  
+- **Data generation did not work for Cursor**: Copilot and Claude produced a `train.parquet` file with the expected structure and size.  
+
 
 ---
 
@@ -64,16 +64,21 @@ This sprint serves as a baseline to evaluate:
 ## 4. Tool Comparisons
 - **GitHub Copilot**
   - **Strengths**: Clean execution of tests, reliable pipeline once setup was fixed.  
-  - **Weaknesses**: Setup friction (manual environment work required).  
+  - **Weaknesses**: Setup friction (manual environment work required).
+  - Fewer interactions need than the other 2
+![copilot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/copilot4.png?raw=true)
 
 - **Claude Code**
   - **Strengths**: Very smooth initial structure generation, good CLI handling.  
-  - **Weaknesses**: Logical/semantic issues in test validation (e.g., rate range, aggregation errors).  
+  - **Weaknesses**: Logical/semantic issues in test validation (e.g., rate range, aggregation errors).
+  - Nore interactions/approvals needed than Copilot, on par with Cursor.
+![claude](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ccode11.png?raw=true) 
 
 - **Cursor**
   - **Strengths**: Fast initial code generation, minimal friction to produce structure.  
-  - **Weaknesses**: Data generation failed (`MonthEnd` casting bug), leaving dataset empty. Required manual dataset copy from Copilot to continue.  
-
+  - **Weaknesses**: Data generation failed (`MonthEnd` casting bug), leaving dataset empty. Required manual dataset copy from Copilot to continue.
+  - Required as much interaction/confirmations as Claude.  
+![cursor](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/cursor7.png?raw=true) 
 ---
 
 ## 5. Sprint 1 Takeaways
