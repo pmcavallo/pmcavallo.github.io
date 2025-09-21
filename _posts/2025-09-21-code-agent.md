@@ -327,7 +327,7 @@ To ensure fairness and isolate tool performance in Sprints 4+, I will **unify al
 
 ---
 
-# Sprint 4 — Serving & Explainability Report
+# Sprint 4: Serving & Explainability Report
 
 **Environment:** Windows / PowerShell (`py` launcher), FastAPI + Uvicorn
 
