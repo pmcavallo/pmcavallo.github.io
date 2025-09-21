@@ -49,7 +49,7 @@ This sprint serves as a baseline to evaluate:
 
 ## 2. What Worked
 - **All three tools successfully generated the `riskbench` package scaffolding** (pyproject, CLI, modules, tests).  
-- **Data generation did not work for Cursor**: Copilot and Claude produced a `train.parquet` file with the expected structure and size.  
+- **Data generation worked for Copilot and Claude**: they produced a `train.parquet` file with the expected structure and size.  
 
 
 ---
