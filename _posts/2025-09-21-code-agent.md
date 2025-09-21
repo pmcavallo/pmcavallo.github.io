@@ -97,6 +97,8 @@ The fixed runs highlighted divergences in performance across tools.
 
 ## Results by Tool (Fixed Implementations)
 
+![claude](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ccode4.png?raw=true)
+
 ### Claude (Control)
 - **Train AUC**: 0.9510  
 - **Test AUC**: 0.8220  
@@ -135,6 +137,8 @@ Cursor’s implementation mirrored Copilot’s:
 - KS near zero confirms **no class separation**.  
 - Accuracy inflated by **majority-class prediction**.  
 - Cursor flagged **feature engineering needs** and dataset limitations.
+
+![cursor](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/cursor5.png?raw=true)
 
 ---
 
@@ -230,6 +234,8 @@ This confirms the original divergence was due to **dataset quality**, not modeli
 ## Objective
 Diagnose why Claude produced credible models (AUC ~0.82) while Copilot and Cursor flatlined near random performance.  
 Focus: dataset quality, feature signal, class imbalance, and feature engineering opportunities.
+
+![cursor](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/cursor8.png?raw=true)
 
 ---
 
@@ -331,20 +337,6 @@ To ensure fairness and isolate tool performance in Sprints 4+, I will **unify al
 
 **Environment:** Windows / PowerShell (`py` launcher), FastAPI + Uvicorn
 
-## What I built in Sprint 4
-
-- **Production-style serving layer** using **FastAPI/Uvicorn**.
-- **Endpoints**
-  - `GET /health` – liveness check.
-  - `GET /docs` – Swagger UI.
-  - `GET /schema` – JSON schema for request payload (14 features).
-  - `GET /sample` – a valid sample request for screenshots/smoke tests.
-  - `POST /predict` – returns probability `score` in `[0,1]` with `model` and `version`.
-  - `POST /predict?explain=true` – adds SHAP top‑k `reasons` (feature contributions).
-  - `GET /meta` – model meta (name, version, feature list, threshold, SHAP base value).
-
----
-
 ## What went wrong (root causes)
 
 ### Copilot
@@ -372,6 +364,8 @@ To ensure fairness and isolate tool performance in Sprints 4+, I will **unify al
 - Validated the app via **Swagger** and curl/irm POSTs; all endpoints returned 200.
 
 **Net effect:** API consistently boots, serves predictions and SHAP explanations, and exposes stable metadata and schema endpoints for screenshots.
+
+![claude](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ccode13.png?raw=true)
 
 ---
 
