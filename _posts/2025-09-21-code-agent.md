@@ -4,7 +4,7 @@ title: RiskBench AI Coding Shootout (Claude Code, Cursor, Github Copilot)
 date: 2025-09-14
 ---
 
-This project set out to pit three leading AI coding assistants (GitHub Copilot, Claude Code, and Cursor) against each other in a controlled “shootout,” with each tool tasked to build out the same end-to-end machine learning pipeline. Across four sprints, the tools generated synthetic datasets, trained and tuned XGBoost models, explored data quality and feature engineering, and ultimately deployed a serving API with SHAP-based interpretability. By holding the repo, prompts, and acceptance tests constant, the project revealed not just raw coding differences, but how each tool shapes data quality, model credibility, and the path to a production-ready ML system
+This project set out to pit three leading AI coding assistants (GitHub Copilot, Claude Code, and Cursor) against each other in a controlled “shootout,” with each tool tasked to build out the same end-to-end machine learning pipeline. Across four sprints, the tools generated synthetic datasets, trained and tuned XGBoost models, explored data quality and feature engineering, and ultimately deployed a serving API with SHAP-based interpretability. By holding the repo, prompts, and acceptance tests constant, the project revealed not just raw coding differences, but how each tool shapes data quality, model credibility, and the path to a production-ready ML system.
 
 ---
 
@@ -65,7 +65,7 @@ This sprint serves as a baseline to evaluate:
 - **GitHub Copilot**
   - **Strengths**: Clean execution of tests, reliable pipeline once setup was fixed.  
   - **Weaknesses**: Setup friction (manual environment work required).
-  - Fewer interactions need than the other 2
+  - Fewer interactions needed compared to the other 2 tools.
 
 ![copilot](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/copilot4.png?raw=true)
 
@@ -74,7 +74,7 @@ This sprint serves as a baseline to evaluate:
 - **Claude Code**
   - **Strengths**: Very smooth initial structure generation, good CLI handling.  
   - **Weaknesses**: Logical/semantic issues in test validation (e.g., rate range, aggregation errors).
-  - Nore interactions/approvals needed than Copilot, on par with Cursor.
+  - More interactions/approvals needed than Copilot, on par with Cursor.
 
 ![claude](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ccode11.png?raw=true) 
 
