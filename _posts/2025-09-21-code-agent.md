@@ -7,7 +7,7 @@ date: 2025-09-14
 This project set out to pit three leading AI coding assistants (GitHub Copilot, Claude Code, and Cursor) against each other in a controlled “shootout,” with each tool tasked to build out the same end-to-end machine learning pipeline. Across four sprints, the tools generated synthetic datasets, trained and tuned XGBoost models, explored data quality and feature engineering, and ultimately deployed a serving API with SHAP-based interpretability. By holding the repo, prompts, and acceptance tests constant, the project revealed not just raw coding differences, but how each tool shapes data quality, model credibility, and the path to a production-ready ML system
 
 ---
-# 📌 Suggestions to Stay Comparable
+# Suggestions to Stay Comparable
 
 - Use same prompts for each tool → apples-to-apples.
 - Use full file prompts when possible → conserve requests.
