@@ -1,6 +1,6 @@
 ---
 layout: post
-title: RiskBench AI Coding Shootout - Claude Code, Cursor, Github Copilot
+title: RiskBench AI Coding Shootout (Claude Code, Cursor, Github Copilot)
 date: 2025-09-14
 ---
 
