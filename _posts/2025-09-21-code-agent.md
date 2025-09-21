@@ -7,6 +7,7 @@ date: 2025-09-14
 This project set out to pit three leading AI coding assistants (GitHub Copilot, Claude Code, and Cursor) against each other in a controlled “shootout,” with each tool tasked to build out the same end-to-end machine learning pipeline. Across four sprints, the tools generated synthetic datasets, trained and tuned XGBoost models, explored data quality and feature engineering, and ultimately deployed a serving API with SHAP-based interpretability. By holding the repo, prompts, and acceptance tests constant, the project revealed not just raw coding differences, but how each tool shapes data quality, model credibility, and the path to a production-ready ML system
 
 ---
+
 # Suggestions to Stay Comparable
 
 - Use same prompts for each tool → apples-to-apples.
@@ -85,17 +86,7 @@ This sprint serves as a baseline to evaluate:
 
 ---
 
-## 6. Sprint 1 Evidence Summary Table
-
-| Tool          | Data Generation | Test Execution | Notable Issues |
-|---------------|-----------------|----------------|----------------|
-| **Copilot**   | ✅ Success       | ✅ All tests passed | Needed manual venv + install adjustments |
-| **Claude**    | ✅ Success       | ❌ 6 tests failed | Assertion mismatch on positive rate; `mean` agg not supported on categorical dtype |
-| **Cursor**    | ❌ Failed (no dataset written) | ❌ Crashed early | Pandas `MonthEnd` objects caused `TypeError`; required copying Copilot dataset for Sprint 2 |
-
----
-
-# Sprint 2 Summary — Baseline XGBoost Training
+# Sprint 2 Summary: Baseline XGBoost Training
 
 ## Overview
 Sprint 2 focused on training a baseline XGBoost model across the three tools. 
@@ -273,21 +264,6 @@ Focus: dataset quality, feature signal, class imbalance, and feature engineering
 - **Correlations**: Extremely weak (|r| < 0.01)  
 - **Feature Engineering Suggestions**: 10 (winsorization, binning, encodings, ratios, clustering)  
 - **Narrative**: Same dataset as Cursor; weak raw signal; emphasizes engineered features to compensate.
-
----
-
-## Consolidated Comparison
-
-| Aspect | **Claude** | **Cursor** | **Copilot** |
-|--------|------------|------------|-------------|
-| Positive rate | 19.4% | 9.13% | 9.13% |
-| scale_pos_weight | 4.15 | 9.96 | 9.96 |
-| Best univariate AUROC | 0.6934 (`credit_grade`) | 0.5095 (`cat_1`) | 0.5095 (`cat_1`) |
-| KS values | Strong (>0.1) | Near-zero (0.0048 max) | Near-zero |
-| Correlations | Moderate | Very weak (<0.01) | Very weak (<0.01) |
-| Missingness | Not critical | num_3 & num_5 (33–37%) | Mentioned |
-| FE suggestions | 12, detailed, impactful | 12, survival-driven | 10, technical, broad |
-| Dataset origin | Claude-generated | Copilot dataset copy | Copilot-generated |
 
 ---
 
