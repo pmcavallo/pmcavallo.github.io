@@ -380,7 +380,7 @@ To ensure fairness and isolate tool performance in Sprints 4+, I will **unify al
 
 ---
 
-## Interpretation of your test result
+## Interpretation of test results
 
 ![riskbench](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/riskbench1.png?raw=true)
 
