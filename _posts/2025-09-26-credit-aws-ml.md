@@ -49,7 +49,7 @@ SageMaker Model Registry (SDK)
 - Separate `model-metrics/app_metrics.json` used as **ModelQuality** evidence in the registry.
 
 **Screenshot placeholder**  
-![S3 data layout](screenshots/01-s3-data.png "Show train_v_app.csv, validation_v_app.csv and model-metrics/app_metrics.json")  
+![s3](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/s3.png?raw=true)
 _Explain in caption: proves disciplined storage, clear separation of data and evaluation artifacts._
 
 ---
@@ -58,10 +58,6 @@ _Explain in caption: proves disciplined storage, clear separation of data and ev
 - We computed **univariate AUC/KS and |corr|**, removed leaky/high‑risk fields, and exported a **whitelist of 15 numeric features** available at application time.
 - This is classic governance: features are safe to use before outcomes are known.
 
-**Screenshot placeholder**  
-![Feature screening cell](screenshots/02-feature-screening.png "Notebook cell showing per-feature AUC/KS/|corr| and final whitelist")  
-_Caption: emphasizes leakage prevention and reproducibility of the whitelist._
-
 ---
 
 ### 3) Cost-aware SageMaker training on Spot
@@ -69,8 +65,7 @@ _Caption: emphasizes leakage prevention and reproducibility of the whitelist._
 - No endpoints were left running; batch inference validated locally from the `model.tar.gz`.
 
 **Screenshot placeholder**  
-![Training job Spot savings](screenshots/03-training-spot.png "SageMaker training job page showing image= sagemaker-xgboost:1.7-1 and Spot savings")  
-_Caption: demonstrates correct image usage and cost control._
+![s3](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/model.png?raw=true)
 
 ---
 
@@ -80,12 +75,8 @@ _Caption: demonstrates correct image usage and cost control._
 - UI variability/quota limits were handled gracefully: programmatic control > manual clicks.
 
 **Screenshot placeholder**  
-![Studio output with ModelPackage ARN](screenshots/04-studio-arn.png "Cell output printing ModelPackageArn and S3 metrics path")  
+![registry](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/registry.png?raw=true)
 _Caption: proves there is a registered package with metrics evidence even when the console menu is hidden._
-
-**Optional screenshot placeholder**  
-![Models page referencing package](screenshots/05-model-ref.png "A Model referencing the ModelPackage ARN")  
-_Caption: shows the cross-reference from a Model to the registry package._
 
 ---
 
@@ -103,10 +94,6 @@ _Caption: evidence that the same metrics used in the write-up are attached to th
 - **AWS Budgets** configured; stayed within a tight cap.
 - **Teardown checklist**: no endpoints, no Batch jobs, no warm pools, idle kernels shut down.
 
-**Screenshot placeholder**  
-![AWS Budgets](screenshots/07-budgets.png "Budget alert configuration to prove spend governance")  
-_Caption: shows proactive cost management._
-
 ---
 
 ## Results (Validation)
@@ -122,7 +109,7 @@ _Interpretation:_ With strong leakage controls and a small dataset, the calibrat
 
 ## Reproducibility: register the package programmatically
 
-> Works even if your console hides the “Model Registry” menu.
+> Works even if the console hides the “Model Registry” menu.
 
 ```python
 import boto3, sagemaker
@@ -183,9 +170,6 @@ print(desc.get("ModelMetrics",{}))
 - **Budgets:** alert configured; stayed inside a ~$25 envelope.  
 - **Tags:** package/group tagged for Project/Stage/Governance/Cost.  
 
-**Screenshot placeholder**  
-![Execution role policy](screenshots/08-iam-role.png "Execution role and policy summary (no broad wildcards)")  
-
 ---
 
 ## Key AWS Lessons (turning constraints into strengths)
@@ -204,39 +188,4 @@ print(desc.get("ModelMetrics",{}))
 
 ---
 
-## Roadmap Fit (for interviews & portfolio)
 
-- **AI Expert Roadmap:** Shows rigorous feature governance, calibrated evaluation, and practical deployment paths (batch/serverless).  
-- **Layer‑2 Orchestrator Roadmap:** Demonstrates cost controls, registry governance, and SDK automation that survives account constraints.
-
----
-
-## Screenshot Index (replace placeholders with your images)
-
-1. `screenshots/01-s3-data.png` — S3 layout with `data/hpo/` and `model-metrics/`.  
-2. `screenshots/02-feature-screening.png` — Notebook feature screening table + whitelist.  
-3. `screenshots/03-training-spot.png` — Training job page (image + Spot savings).  
-4. `screenshots/04-studio-arn.png` — Studio cell printing ModelPackageArn + metrics path.  
-5. `screenshots/05-model-ref.png` — Model referencing the ModelPackage ARN.  
-6. `screenshots/06-metrics-json.png` — S3 `app_metrics.json` open in the console.  
-7. `screenshots/07-budgets.png` — AWS Budgets alert configuration.  
-8. `screenshots/08-iam-role.png` — Execution role/policy summary.
-
-> Save your images under a `/screenshots/` folder in the repo and keep the filenames above for a drop‑in experience.
-
----
-
-## Teardown Checklist (cost safety)
-
-- [ ] Endpoints: **none** listed under SageMaker → Inference → Endpoints  
-- [ ] Batch transform jobs: **none running**  
-- [ ] Notebook kernels: **idle kernels shut down**  
-- [ ] Training jobs: completed; **no warm pools**  
-- [ ] Budgets: alert **enabled**  
-- [ ] S3: keep only minimal artifacts (model.tar.gz, metrics JSON, train/validation data)
-
-> Model Package/Group metadata are near‑free; keep them for governance unless you need to delete.
-
----
-
-*Prepared for portfolio/README use. Swap the screenshot placeholders with your images and you’re done.*
