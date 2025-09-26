@@ -8,6 +8,20 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# When AI Writes Code: Lessons From a Shootout (09/26/2025)
+
+This project began with a simple question: if I handed the same machine learning task to three different AI coding assistants, how differently would they approach it? I set up what I called the RiskBench AI Coding Shootout, bringing Claude Code, GitHub Copilot, and Cursor into the same arena. The goal wasn’t to crown a champion but to learn how their choices shaped data quality, model performance, and the reliability of the final system.
+
+I broke the work into four sprints, moving from scaffolding and data generation to modeling, then to serving predictions and explanations through an API. At first the tasks seemed straightforward, but almost immediately the experiment revealed something deeper: the subtle but decisive impact of dataset quality. Claude’s synthetic data turned out richer, with stronger signals, while Copilot and Cursor produced weaker versions that led to models that looked fine on the surface but collapsed under test. Once I leveled the playing field by having everyone use Claude’s dataset, Copilot’s performance jumped back up, proving that it wasn’t the modeling code that failed but the foundation it was built on.
+
+By the time I reached the serving stage, Claude managed to deliver a functioning API with SHAP explanations, while Copilot stumbled with file paths and fragile module setups, and Cursor hit usage limits. What struck me most wasn’t the technical glitches themselves but how often resilience came down to hidden layers: validating assumptions, handling edge cases, and stitching components together into something that wouldn’t break under pressure. That is where human oversight still matters most.
+
+I came into this wanting to see whether an AI agent could stand in for a human engineer. What I found instead is that these tools are accelerators, not replacements. The intelligence in their code is real, but uneven; the orchestration and judgment remain on our side of the keyboard. The project reminded me that garbage in still means garbage out, that explainability is the bridge to trust, and that the real work is less about producing a working snippet than about building systems that hold together in the real world.
+
+🔗 [View Full Project](https://pmcavallo.github.io/code-agent/)
+
+--------------------
+
 # AI-in-the-Cloud Knowledge Shootout: Perplexity vs NotebookLM (09/14/2025)
 
 This project set out to answer a simple but important question: can AI tools themselves act as orchestrators of cloud knowledge? After building the [Cross-Cloud Shootout](https://pmcavallo.github.io/cross-cloud/) to compare AWS and GCP directly, I wanted to pit two AI copilots — **Perplexity Pro** and **Google NotebookLM** — against each other. The goal was to see how each tool handled real cloud prompts across cost optimization, architecture design, and governance, and whether their answers could be relied on for strategic or operational decision-making.
