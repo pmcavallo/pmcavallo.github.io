@@ -1,7 +1,10 @@
+---
+layout: post
+title: Lending Club Credit Risk — AWS ML Showcase (Governance + Cost Control, under $25)
+date: 2025-03-26
+---
 
-# Lending Club Credit Risk — AWS ML Showcase (Governance + Cost Control, under $25)
-
-**Goal:** Prove end‑to‑end ML capability on AWS while operating under tight cost and quota constraints. We emphasize **governance, reproducibility, leakage control, and cost‑aware training** using a real credit‑risk problem.
+This project is an end‑to‑end ML capability on AWS operating under tight cost and quota constraints. I emphasize **governance, reproducibility, leakage control, and cost‑aware training** using a real credit‑risk problem.
 
 ---
 
