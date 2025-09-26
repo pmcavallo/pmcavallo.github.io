@@ -84,10 +84,6 @@ _Caption: proves there is a registered package with metrics evidence even when t
 - Reported **AUC/KS/PR-AUC/F1@Top20%** on holdout validation (n=176).
 - Calibrated probabilities; thresholds chosen for **business targeting** (Top20%).
 
-**Screenshot placeholder**  
-![Metrics JSON](screenshots/06-metrics-json.png "Open app_metrics.json in S3")  
-_Caption: evidence that the same metrics used in the write-up are attached to the package._
-
 ---
 
 ### 6) Spend governance and teardown
