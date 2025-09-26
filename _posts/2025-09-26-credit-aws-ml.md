@@ -4,13 +4,13 @@ title: Lending Club Credit Risk — AWS ML Showcase (Governance + Cost Control, 
 date: 2025-03-26
 ---
 
-This project is an end‑to‑end ML capability on AWS operating under tight cost and quota constraints. I emphasize **governance, reproducibility, leakage control, and cost‑aware training** using a real credit‑risk problem.
+This project demonstrates a **budget‑conscious, console‑first ML pipeline** on AWS: data profiling with **AWS Glue DataBrew**, feature curation and storage in **Amazon S3**, training and packaging **XGBoost** in **Amazon SageMaker** with **Managed Spot Training**, registering the model in the **SageMaker Model Registry**, and offline scoring/metrics suitable for a **batch decisioning** use case. Guardrails include **Budgets**, **Anomaly Detection**, and deletion/stop procedures to keep spend near **$0/hr** when idle.
 
 ---
 
 ## Executive Story
 
-We built a leak‑safe **application‑time** credit default model with **SageMaker XGBoost 1.7‑1** trained on **Managed Spot**. Because quotas/UI hid parts of the console, we **registered the model programmatically** (Model Registry via SDK) and attached a **metrics JSON** in S3. We validated inference from the **model.tar.gz** rather than leaving an endpoint running, keeping **idle cost at $0**.
+I built a leak‑safe **application‑time** credit default model with **SageMaker XGBoost 1.7‑1** trained on **Managed Spot**. Because quotas/UI hid parts of the console, we **registered the model programmatically** (Model Registry via SDK) and attached a **metrics JSON** in S3. We validated inference from the **model.tar.gz** rather than leaving an endpoint running, keeping **idle cost at $0**.
 
 **Validation metrics (n=176):** `AUC ≈ 0.844`, `KS ≈ 0.604`, `PR-AUC ≈ 0.617`, `F1@Top20% ≈ 0.531`  
 **Training billable time:** ~57 s (135 s total) — **~58% Spot savings**  
@@ -41,6 +41,75 @@ SageMaker Model Registry (SDK)
 **Why this design?** It shows cost‑aware training, **governance (leakage control + registry)**, and reproducibility **without** always‑on endpoints.
 
 ---
+
+## 1) Problem & Objective
+
+**Business question**  
+Predict the probability that a Lending Club loan will default (“target_bad” proxy). Outputs are used for **pricing / cutoffs** and **portfolio monitoring**.
+
+**Constraints**  
+- Console‑first (no heavy infra templates), **small budget**.  
+- **Governed**: metrics and artifacts must be traceable, **no always‑on endpoints**.  
+- **Interpretable** enough for credit stakeholders.
+
+**Outcome**  
+A lean, reproducible pipeline and a packaged model with documented metrics (AUC, PR‑AUC, KS, and an operating point like F1@Top20%).
+
+
+## 2) Architecture at a glance
+
+- **Amazon S3** — raw files, curated training/validation, batch outputs, and model metrics JSON.  
+- **AWS Glue DataBrew** — data **profiling / validation** and quick visual exploration.  
+- **Amazon SageMaker Studio** — one‑click notebooks (for training & packaging), **Managed Spot** for cost savings.  
+- **SageMaker Model Registry** — model package + metrics for governance; **no live endpoint** required.  
+- **CloudWatch Logs** — retention set to 7 days.  
+- **AWS Budgets & Cost Anomaly Detection** — alerts if spend drifts.
+
+> **Cost note**: With no endpoints/apps running, the environment sits at **$0/hr**; residual is S3/Logs pennies.
+
+---
+
+## 3) Data & EDA with AWS Glue DataBrew
+
+I used **DataBrew** to profile a 1K-row sample for fast, visual checks before training.
+**Dataset**: 1000 rows × 151 columns sample from Lending Club “accepted” dataset for demo (full workflow scales to millions).
+
+### 3.1 DataBrew grid & profiling
+
+### Grid preview (sanity check)
+![DataBrew grid – quick scan of columns](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/lend.png?raw=true)
+
+Key takeaways:
+- 151 columns with a mix of numeric and categorical features.
+- Missingness concentrated in a subset of fields (DataBrew highlights valid vs. missing cells).
+
+### Profiling summary (rows, columns, nulls, duplicates)
+![DataBrew profile summary panel](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/databrew2.png?raw=true)
+
+**Data types:** ~100 numeric, ~50 categorical. **Valid cells:** ~72% in sample; **0 duplicate rows**.
+
+### 3.2 Correlations & value distributions
+### Correlations heatmap (leakage sniff test)
+Pairs such as `loan_amnt` vs. `funded_amnt` and `installment` highlight redundancy—useful for feature pruning.
+![DataBrew correlations heatmap](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/databrew3.png?raw=true)
+
+What I used this for:
+- Identify **leakage candidates** (e.g., `funded_amnt` vs `loan_amnt`, or post‑outcome features).  
+- Sanity‑check **scale** and outliers prior to model training.
+
+### Distribution comparison across numeric fields
+Helpful to spot skew/outliers before tree-based modeling.
+![DataBrew distribution comparison boxplots](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/databrew4.png?raw=true)
+
+### 3.3 Column‑level summary
+### Column-level quality & distinctness
+![Columns summary](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/databrew5.png?raw=true)
+
+**Why DataBrew:** It speeds up first‑pass quality checks without code, and it leaves a **profile job artifact** you can save alongside the model lineage.
+
+---
+
+
 
 ## What to Showcase (and why it matters)
 
