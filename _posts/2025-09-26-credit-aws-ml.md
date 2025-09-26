@@ -109,11 +109,80 @@ Helpful to spot skew/outliers before tree-based modeling.
 
 ---
 
+## 4) Baseline model (Scikit-learn Logistic Regression)
+
+Before turning on SageMaker training, I built a quick baseline to set an honest yardstick.
+
+![Baseline logistic metrics and confusion matrix](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/logit.png?raw=true)
+
+- AUC ≈ **0.789** on the validation slice  
+- Strong precision on the majority class, expected weak recall on the minority class
+
+---
+
+## 5) SageMaker XGBoost (managed, Spot-optimized)
+
+We trained XGBoost with leakage-safe features, tracked metrics (**AUC, PR-AUC, KS, F1@Top20%**), and saved predictions for auditability.
+
+![SageMaker XGBoost metrics + code snippet](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/xgboost.png?raw=true)
+
+**Highlights**
+
+- **Spot Training** achieved ~**58–65%** cost savings for short jobs  
+- Clean train/validation splits persisted to S3 for reproducibility  
+- Post-train, we extracted `model.tar.gz`, scored the validation set offline, and wrote both **predictions** and **metrics** back to S3
+
+---
+
+## 6) Packaging & (attempted) registry entry
+
+We demonstrated programmatic packaging for a **model package** and a **package group**—useful for enterprises with a Model Registry workflow. UI access is account/region-feature-dependent, so we show **code-first registration** and expose artifacts.
+
+- Model artifact & image selection in the console 
+![SageMaker model create view](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/model.png?raw=true)
+
+- Code-first package group + package creation (SDK), ARNs captured for governance
+![Model package group/ARNs evidence](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/registry.png?raw=true)
+
+> If the account has the Model Registry UX hidden, the SDK path still records package groups and ARNs; otherwise, fall back to **Models → Create model** and **Batch transform** for deployment and scoring.
+
+---
+
+## 7) Repro: Step-by-step
+
+1. **Upload & sample** data to S3 under `data/raw/`  
+2. **DataBrew profile** the sample (export HTML if desired)  
+3. **Create train/validation** CSVs into `data/hpo/`  
+4. **Train** SageMaker XGBoost (Spot enabled), writing artifacts to `output/calibration_*`  
+5. **Score** in-notebook for this footprint; for scale, use **Batch Transform** with the saved model  
+6. **(Optional)** Register a model package programmatically; otherwise create a **Model** and attach to an **Endpoint**/**Batch Transform** job when quotas allow  
+7. **Publish** the repo with these screenshots and metrics for stakeholders
+
+---
+
+## 8) Cost controls & teardown
+
+- **Controls used:** Budgets, Spot training, no endpoints left running, notebooks stopped after use  
+- **End-of-day checklist**
+  - Terminate/stop Studio kernels and images  
+  - Ensure **Endpoints = 0**, **Training jobs = Completed**, **Processing = none running**  
+  - Leave S3 data/artifacts for the portfolio; they cost cents at this scale
+
+---
+
+## 9) Results & lessons
+
+- **Comparable AUC** to the baseline with more flexible ranking metrics (**PR-AUC, KS, F1@Top20%**)  
+- **DataBrew** accelerated validation and leakage checks without local wrangling  
+- **SageMaker** gave packaging and artifact discipline even when full registry UI wasn’t present  
+- **Governance:** Everything is S3-versioned and reproducible with code + console trails
+
+---
 
 
 ## What to Showcase (and why it matters)
 
-### 1) Data layout & governance
+### Data layout & governance
 - Curated CSVs in S3 (`data/hpo/train_v_app.csv`, `validation_v_app.csv`).
 - Separate `model-metrics/app_metrics.json` used as **ModelQuality** evidence in the registry.
 
@@ -123,39 +192,33 @@ _Explain in caption: proves disciplined storage, clear separation of data and ev
 
 ---
 
-### 2) Leakage-aware feature selection (application-time whitelist)
+### Leakage-aware feature selection (application-time whitelist)
 - We computed **univariate AUC/KS and |corr|**, removed leaky/high‑risk fields, and exported a **whitelist of 15 numeric features** available at application time.
 - This is classic governance: features are safe to use before outcomes are known.
 
 ---
 
-### 3) Cost-aware SageMaker training on Spot
+### Cost-aware SageMaker training on Spot
 - Trained with **built-in XGBoost 1.7-1** on **Managed Spot** for ~58% savings.
 - No endpoints were left running; batch inference validated locally from the `model.tar.gz`.
 
-**Screenshot placeholder**  
-![s3](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/model.png?raw=true)
-
 ---
 
-### 4) Governance via Model Registry (SDK-first)
+### Governance via Model Registry (SDK-first)
 - Created a **ModelPackageGroup** and an **Approved ModelPackage** via SDK.
-- Attached our S3 **metrics JSON** as `ModelQuality.Statistics`.
+- Attached the S3 **metrics JSON** as `ModelQuality.Statistics`.
 - UI variability/quota limits were handled gracefully: programmatic control > manual clicks.
 
-**Screenshot placeholder**  
-![registry](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/registry.png?raw=true)
-_Caption: proves there is a registered package with metrics evidence even when the console menu is hidden._
 
 ---
 
-### 5) Honest evaluation & calibration
+### Honest evaluation & calibration
 - Reported **AUC/KS/PR-AUC/F1@Top20%** on holdout validation (n=176).
 - Calibrated probabilities; thresholds chosen for **business targeting** (Top20%).
 
 ---
 
-### 6) Spend governance and teardown
+### Spend governance and teardown
 - **AWS Budgets** configured; stayed within a tight cap.
 - **Teardown checklist**: no endpoints, no Batch jobs, no warm pools, idle kernels shut down.
 
@@ -167,10 +230,6 @@ _Caption: proves there is a registered package with metrics evidence even when t
 - **KS:** 0.604  
 - **PR-AUC:** 0.617  
 - **F1@Top20%:** 0.531  
-
-_Interpretation:_ With strong leakage controls and a small dataset, the calibrated XGBoost is **trustworthy and deployable**. The governance trail (ModelPackage + metrics) makes it review‑ready.
-
----
 
 ## Reproducibility: register the package programmatically
 
