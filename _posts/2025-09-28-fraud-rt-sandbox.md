@@ -8,7 +8,7 @@ This project demonstrates a comprehensive end-to-end machine learning pipeline f
 
 ---
 
-The journey reveals a critical insight that transformed the entire approach: **when your baseline ML model fails spectacularly (ROC-AUC ≈ 0.5), that failure can become your greatest learning opportunity**. Rather than endlessly tuning hyperparameters, we pivoted to a hybrid architecture that combined weak unsupervised learning with deterministic business rules, achieving a remarkable **99.47 percentage point improvement in recall**.
+The journey reveals a critical insight that transformed the entire approach: **when your baseline ML model fails spectacularly (ROC-AUC ≈ 0.5), that failure can become your greatest learning opportunity**. Rather than endlessly tuning hyperparameters, I pivoted to a hybrid architecture that combined weak unsupervised learning with deterministic business rules, achieving a remarkable **99.47 percentage point improvement in recall**.
 
 ## The Problem: Cold Start Fraud Detection
 
@@ -103,7 +103,7 @@ Baseline IsolationForest Performance:
 
 ### Stage 4: The Hybrid Breakthrough (M4)
 
-**The Pivot**: Instead of chasing marginal baseline improvements, we implemented a hybrid architecture combining the weak ML baseline with deterministic business rules.
+**The Pivot**: Instead of chasing marginal baseline improvements, I implemented a hybrid architecture combining the weak ML baseline with deterministic business rules.
 
 **Hybrid Scoring Formula**:
 ```python
@@ -389,7 +389,7 @@ Every fraud decision includes human-readable explanations:
 
 ### Machine Learning Insights
 
-1. **Embrace Baseline Failure**: The IsolationForest's poor performance wasn't a setback - it was valuable negative evidence that guided the hybrid approach.
+1. **Embrace Baseline Failure**: The IsolationForest's poor performance wasn't a setback, it was valuable negative evidence that guided the hybrid approach.
 
 2. **Hybrid > Pure Approaches**: For fraud detection, combining weak ML with strong rules consistently outperforms either approach alone.
 
