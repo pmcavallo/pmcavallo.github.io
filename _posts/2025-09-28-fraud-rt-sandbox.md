@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Building Production-Ready Fraud Detection: A Complete ML Pipeline Journey
+title: Building Production-Ready Fraud Detection - A Complete ML Pipeline Journey
 date: 2025-09-28
 ---
 
