@@ -1,4 +1,8 @@
-# Prompt Engineering Lab: From Zero-Shot to Production-Ready Systems
+---
+layout: post
+title: Prompt Engineering Lab - From Zero-Shot to Production-Ready Systems
+date: 2025-09-28
+---
 
 This notebook documents the journey of moving from basic prompt engineering (zero-shot classification) to a production-ready system that integrates validation, schemas, and retrieval augmentation (RAG).
 
