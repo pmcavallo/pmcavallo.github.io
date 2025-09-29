@@ -4,7 +4,7 @@ title: Prompt Engineering Lab - From Zero-Shot to Production-Ready Systems
 date: 2025-09-28
 ---
 
-This notebook documents the journey of moving from basic prompt engineering (zero-shot classification) to a production-ready system that integrates validation, schemas, and retrieval augmentation (RAG).
+This project set out to move beyond “clever phrasing” and show how prompt engineering evolves into system design. Starting with zero-shot classification, I gradually layered in engineered prompts, schema enforcement, validation, tool integration, and retrieval augmentation (RAG). Along the way, I benchmarked where the baseline fell short, built confusion matrices to visualize misclassifications, and demonstrated how grounding prompts in external context unlocks accuracy and reliability. The result is not just a demonstration of model capability, but a framework for building production-ready AI systems that save cost, reduce error, and scale safely.
 
 ---
 
