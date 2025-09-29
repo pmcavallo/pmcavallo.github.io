@@ -109,7 +109,7 @@ I compared two approaches:
 - **Baseline (zero-shot):** plain natural language prompt.  
 - **Engineered prompt:** few-shot examples + structured instructions.
 
-![Baseline vs Engineered Confusion Matrix](baseline_vs_engineered.png)
+![confusion matrix](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/compare.png?raw=true)
 
 The confusion matrices above show that the baseline confused `Eligibility` with `Pricing` and sometimes mixed `Fraud` with `Collections`. The engineered prompt, by contrast, achieved higher accuracy (0.95 vs 0.90) by reducing these confusions.
 
