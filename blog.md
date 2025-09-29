@@ -8,6 +8,21 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# From Zero-Shot to Production-Ready: Lessons From a Prompt Engineering Lab (09/28/2025)
+
+This project set out to answer a simple question: how do we turn a free-form prompt into a governed system that consistently produces reliable and auditable outputs? What began as a zero-shot classification task, asking a model to categorize credit policy notes, quickly evolved into a deeper exploration of prompt engineering maturity. By layering engineered prompts, schema enforcement, validation guardrails, tool integration, and retrieval augmentation (RAG), the lab demonstrates the shift from clever phrasing to systems design.
+
+Across the journey, I built confusion matrices to spot systematic errors, validated JSON schemas to enforce structure, added guardrails to catch out-of-range values, integrated deterministic loan calculators for hybrid reasoning, and finally grounded answers in external documents with retrieval scores. Each step reduced ambiguity, improved accuracy, and made the system more trustworthy.
+
+The real lesson was not just accuracy gains (baseline 0.75 to engineered 0.95). It was the discovery that context engineering—shaping the environment around the model with templates, schemas, and retrieval—matters more than tweaking the words inside the prompt. In production, costs mount when outputs need manual fixes, efficiency drops when results drift, and trust erodes when decisions cannot be validated. Prompt engineering, done as systems design, addresses all three.
+
+I came away convinced that prompt engineering is no longer about tricking models with clever wording. It is about designing interfaces between human intent, model reasoning, and business logic. These interfaces save cost, reduce error, speed workflows, and unlock safe deployment.
+
+
+🔗 [View Full Project](https://pmcavallo.github.io/prompt-engineering/)
+
+---
+
 # When AI Writes Code: Lessons From a Shootout (09/26/2025)
 
 This project began with a simple question: if I handed the same machine learning task to three different AI coding assistants, how differently would they approach it? I set up what I called the RiskBench AI Coding Shootout, bringing Claude Code, GitHub Copilot, and Cursor into the same arena. The goal wasn’t to crown a champion but to learn how their choices shaped data quality, model performance, and the reliability of the final system.
