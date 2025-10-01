@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Lending Club Credit Risk — AWS ML Showcase (Governance + Cost Control, under $25)
+title: "Lending Club Credit Risk: AWS ML Showcase (Governance + Cost Control, under $25)"
 date: 2025-03-26
 ---
 
