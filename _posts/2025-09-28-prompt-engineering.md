@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Prompt Engineering Lab - From Zero-Shot to Production-Ready Systems
+title: "Prompt Engineering Lab: From Zero-Shot to Production-Ready Systems"
 date: 2025-09-28
 ---
 
