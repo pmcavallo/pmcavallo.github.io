@@ -8,6 +8,51 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# When RAG Tools Hallucinate: Building Trust Through Custom Architecture (10/01/2025)
+
+I needed something simple: a way for visitors, and myself, to ask questions about my 27 data science portfolio projects. Natural language queries, accurate answers, maybe a few citations. Easy, right? I reached for Flowise, a popular no-code RAG platform that promised exactly this, conversational AI without the complexity of building from scratch. Within an hour, I had something running. Within two hours, I realized it was confidently lying to me. "Tell me about Project Alpha," it would say, describing in detail a machine learning project I'd never built. Ask about Azure, and it would invent three projects using Microsoft's cloud platform—despite my portfolio containing exactly zero Azure work. The system would generate plausible-sounding descriptions, cite realistic-seeming architectures, and do it all with the unwavering confidence of an LLM that has no idea it's making things up. I could have kept tweaking prompts. Instead, I rebuilt the entire system from scratch.
+
+**Architectural Grounding Over Prompt Engineering**
+
+The core insight: hallucination prevention isn't a prompt engineering problem. It's an architecture problem. Instead of asking the LLM "what are all the project titles?", I store titles as structured metadata during document ingestion. When someone asks for a list, the system queries a SQLite database directly, no LLM involved. It's impossible to hallucinate when you're reading from a database.
+
+For semantic queries, I implemented multiple layers of grounding:
+
+**Layer 1: Metadata Extraction**
+
+Each markdown file in my portfolio has YAML frontmatter with the project title, date, and tags. The ingestion pipeline extracts this before chunking and attaches it to every chunk from that document. The LLM never has to guess what project it's reading about—it's in the metadata.
+
+**Layer 2: Strict System Prompt**
+
+The prompt is blunt: "Answer ONLY from provided context. If context doesn't contain the answer, say 'I don't have sufficient information.' DO NOT add information from your training data. DO NOT make up project names."
+Temperature is set to 0. No creativity allowed.
+
+**Layer 3: Response Validation**
+
+Before returning an answer, the system checks: Does it contain citations? Does it reference actual source files? If not, it shows raw excerpts instead of the LLM's response.
+
+**Layer 4: Honest Uncertainty**
+
+When someone asks "What's your most complex project?", the system retrieves relevant documents but refuses to answer. Why? Because "complex" is subjective. Without objective complexity metrics in the retrieved chunks, making a claim would be speculation. The system says "I don't have sufficient information to judge complexity."
+
+Better to be honest than helpful.
+
+**The Cost of Trust**
+
+Building this custom system took about two days. The ongoing cost is $0.02 per month for 100 queries. Flowise would have been "free" (not counting the Pinecone vector store). But free hallucinations aren't worth it when credibility is on the line. The technical implementation uses LangChain for orchestration, Chroma for local vector storage, OpenAI's text-embedding-3-small for embeddings ($0.0006 total), and GPT-4o-mini for generation. The entire system runs on Hugging Face Spaces' free tier, rebuilding the vector database from GitHub on first startup if needed.
+
+**What I Learned**
+
+Pre-built tools optimize for the wrong metrics. Flowise optimizes for conversational engagement. I needed accuracy. Those aren't the same thing. "I don't know" is a feature, not a bug. Honest uncertainty builds more trust than confident fabrication. The best RAG systems admit their limitations. Metadata is architectural truth. By separating factual queries (metadata lookups) from semantic queries (LLM-based), you eliminate entire classes of hallucination. The LLM never gets a chance to invent project titles because it never sees those queries. Context engineering matters more than prompt engineering. Shaping the environment around the model—templates, schemas, retrieval strategies, validation layers—matters more than clever wording inside the prompt. In production, costs mount when outputs need manual fixes, efficiency drops when results drift, and trust erodes when decisions can't be validated.
+
+I came into this thinking I could solve hallucination with better prompts. I learned instead that it requires better architecture. The intelligence of the LLM is real, but uneven. The orchestration—knowing when to use it, when to bypass it, when to validate its output—remains firmly on our side of the keyboard.
+
+The project lives at [here](https://huggingface.co/spaces/pmcavallo/portfolio-rag-agent). Ask it about Azure. It will tell you the truth: I don't use it.
+
+That honesty is worth more than all the conversational polish in the world.
+
+---
+
 # From Zero-Shot to Production-Ready: Lessons From a Prompt Engineering Lab (09/28/2025)
 
 This project set out to answer a simple question: how do we turn a free-form prompt into a governed system that consistently produces reliable and auditable outputs? What began as a zero-shot classification task, asking a model to categorize credit policy notes, quickly evolved into a deeper exploration of prompt engineering maturity. By layering engineered prompts, schema enforcement, validation guardrails, tool integration, and retrieval augmentation (RAG), the lab demonstrates the shift from clever phrasing to systems design.
