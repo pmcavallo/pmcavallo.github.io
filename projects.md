@@ -4,7 +4,7 @@ title: Projects
 permalink: /projects/
 ---
 
-A selection of hands-on projects demonstrating real-world data science, modeling, and cloud deployment; built with Python, scikit-learn, **PySpark**, **XGBoost/CatBoost**, **SHAP**, and shipped via **Streamlit/Render** and **AWS** (S3, SageMaker, Lambda, MWAA/Airflow), with visuals in **Tableau**.
+A selection of hands-on projects demonstrating real-world data science, AI system design, and cloud deployment; built with Python, SQL, PySpark, scikit-learn, XGBoost/CatBoost, SHAP, Prophet, Neo4j, and LangChain, and shipped via Streamlit, Render, Hugging Face Spaces, and multi-cloud platforms (AWS, GCP), including AWS SageMaker, Lambda, S3, MWAA/Airflow, and GCP Vertex AI/BigQuery ML. Workflows include RAG pipelines, schema validation, and drift monitoring, with visuals in Tableau and Plotly.
 
 ---
 
