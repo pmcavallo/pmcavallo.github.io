@@ -17,7 +17,7 @@ I am developing expertise at the intersection of AI, governance, and decision sy
 
 ## 📚 Academic & Research Background
 
-Educated in the U.S. and U.K., I’ve published peer-reviewed research on foreign investment and economic policy. My academic rigor informs my approach to real-world data challenges.
+Educated in the U.S. and U.K., I’ve published peer-reviewed research on foreign investment and economic policy. My academic rigor informs my approach to real-world data challenges. I believe the greatest value lies not in a perfect model, but in a model you can trust, explain, and maintain. Beyond data, I’m drawn to storytelling, visual communication, and exploring how complex ideas become intuitive.
 
 ## 🌍 Languages & Interests
 
