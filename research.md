@@ -3,7 +3,7 @@ layout: page
 title: Research
 permalink: /research/
 ---
-**Research Interests:** Foreign Direct Investment (FDI), Multinational Enterprises (MNEs), investment location, spatial econometric analyses, Bilateral Investment Treaties (BITs), multi-level/multinomial/fractional logistic regression.
+**Academic Research Interests:** Foreign Direct Investment (FDI), Multinational Enterprises (MNEs), investment location, spatial econometric analyses, Bilateral Investment Treaties (BITs), multi-level/multinomial/fractional logistic regression.
 
 ### Peer-Reviewed Publications
 
