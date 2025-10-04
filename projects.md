@@ -22,7 +22,6 @@ A sandbox environment to simulate and detect fraud in real time, combining strea
 This sandbox helps practitioners see how fraud detection systems behave under realistic pressure: how fast models decay, how rules must adapt, and how to balance responsiveness vs false alarms in live applications.
 
 **Tech Stack:**  
-- **Streaming / Ingestion:** Kafka / Spark Streaming / Flink  
 - **Modeling & Detection:** Scikit-learn / XGBoost / rule-based logic  
 - **Monitoring & Drift Detection:** Statistical tests, windowed analytics, feedback loops  
 - **Simulation Tools:** Synthetic data generators, adversarial pattern injectors  
