@@ -9,6 +9,7 @@ On this page, I am showcasing expertise at the intersection of AI, governance, a
 
 - **Model Development**: Forecasting, scenario analysis, and credit risk modeling using Python, SAS, and SQL in production-level environments.
 - **Machine Learning & Cloud Analytics**: Building end-to-end ML pipelines with Python, XGBoost, SHAP, and cloud tools such as AWS, GCP, Streamlit, and Snowflake.
+- **AI Systems & LLM Engineering**: Designing reliable AI solutions through prompt engineering, retrieval-augmented generation (RAG), schema validation, and zero-hallucination agent architectures.
 - **Scalable Data Workflows**: Developing modular, reproducible analytics using PySpark, partitioned data lakes, and serverless/cloud-native deployment for monitoring and performance.
 - **Telecom & Network Analytics**: Applied projects in anomaly detection, forecasting, and drift monitoring of 4G/5G KPIs (PRB utilization, latency, SINR, throughput) with interactive dashboards and multi-cloud deployment.
 - **Behavioral Analytics**: Simulating segmentation, churn, and engagement modeling use cases across diverse industries.
