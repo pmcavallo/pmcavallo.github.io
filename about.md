@@ -36,14 +36,17 @@ Fluent in English, Spanish, and Portuguese; advanced in French and Italian. I en
 **Languages & ML:**  
 Python • scikit-learn • SQL • PySpark • XGBoost • Prophet • SHAP • R • Stata • SAS  
 
+**AI & LLM Systems:**
+Prompt Engineering • Retrieval-Augmented Generation (RAG) • LangChain • OpenAI API (GPT family) • Claude • Embeddings & Vector Stores (Chroma, FAISS) 
+
 **Cloud & Deployment:**  
-AWS (S3, SageMaker, Lambda) • GCP (Cloud Run, BigQuery) • Render • Docker • GitHub Actions (CI/CD)  
+AWS (S3, SageMaker, Lambda) • GCP (Cloud Run, BigQuery) • Hugging Face Spaces • Render • Docker • GitHub Actions (CI/CD)  
 
 **Data & Workflow:**  
 Parquet • DuckDB • Neo4j • Pipeline design (Bronze → Silver → Gold)  
 
 **Visualization & Apps:**  
-Streamlit • Tableau • Plotly • Matplotlib  
+Streamlit • Tableau • Plotly • Matplotlib • Gradio 
 
 **Other:**  
 GIS (Certified)  
