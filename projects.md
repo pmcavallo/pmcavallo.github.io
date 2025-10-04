@@ -8,6 +8,150 @@ A selection of hands-on projects demonstrating real-world data science, modeling
 
 ---
 
+**Fraud RT Sandbox: Real-Time Fraud Simulation & Detection**  
+A sandbox environment to simulate and detect fraud in real time, combining streaming pipelines, hybrid detection logic, and dynamic responses—built to explore latency, model drift, decision rules, and system robustness under adversarial patterns.
+
+**Highlights:**  
+- **Streaming simulation:** Generates synthetic transactional data in real time to stress-test detection pipelines  
+- **Hybrid detection logic:** Blends rule-based filters and ML models to flag anomalies early  
+- **Drift & adaptation:** Monitors feature drift, threshold shifts, and automatically flags model retraining needs  
+- **Response orchestration:** Simulates downstream actions (alerts, blocking, review queues) and tracks feedback loop  
+- **Adversarial robustness experiments:** Injects attack patterns to test system resilience and false-positive trade-offs  
+
+**Business / Research Impact:**  
+This sandbox helps practitioners see how fraud detection systems behave under realistic pressure: how fast models decay, how rules must adapt, and how to balance responsiveness vs false alarms in live applications.
+
+**Tech Stack:**  
+- **Streaming / Ingestion:** Kafka / Spark Streaming / Flink  
+- **Modeling & Detection:** Scikit-learn / XGBoost / rule-based logic  
+- **Monitoring & Drift Detection:** Statistical tests, windowed analytics, feedback loops  
+- **Simulation Tools:** Synthetic data generators, adversarial pattern injectors  
+- **Orchestration & Logic:** Python pipelines, thresholding modules, alert subsystems  
+
+📁 [View Full Project](https://pmcavallo.github.io/fraud-rt-sandbox/)
+
+---
+
+
+**Zero-Hallucination RAG Agent: Custom vs Pre-Built Tools**  
+Built to answer queries about your portfolio, this project compares off-the-shelf RAG tools (like Flowise) against a custom LangChain architecture designed to **prevent hallucination at the system level**, separating metadata vs semantic paths, strict grounding, and validation.
+
+**Highlights:**  
+- **Metadata-first routing:** Project titles and metadata live outside the LLM path, eliminating hallucination in factual queries  
+- **Hybrid query paths:** Distinguish metadata queries (direct lookup) vs semantic queries (LLM + retrieval)  
+- **Strict grounding & validation:** System prompt enforces rules (answer only from context; cite sources; admit “I don’t know”)  
+- **Automatic database resilience:** Auto-rebuild logic detects vector-store mismatches and recovers on startup  
+- **0% hallucination rate in tests:** Created queries that exposed hallucination in Flowise; custom agent answered reliably with citations and refusal when out of scope  
+
+**Business / Research Impact:**  
+In contexts where credibility is essential (e.g. portfolio Q&A, knowledge systems), a system design that prevents hallucination is far more valuable than one that sounds fluent but fabricates answers.
+
+**Tech Stack:**  
+- **Framework / Libraries:** LangChain (custom pipeline), Chroma vector store  
+- **Models / APIs:** GPT-4 o-mini, text-embedding-3-small  
+- **Interface / Deployment:** Gradio (web UI) deployed via Hugging Face Spaces  
+- **Data & Retrieval:** Chunking (3000 char chunks, 500 overlap), MMR retrieval (top-k, threshold filtering)  
+- **Infrastructure Logic:** Metadata extraction (YAML frontmatter), routing logic, response validation, auto-rebuild logic  
+
+👉 [View Full Project](https://pmcavallo.github.io/rag-agent)
+
+---
+
+
+**Prompt Engineering Lab: From Zero-Shot to Production-Ready Systems**  
+A structured deep dive into prompt engineering, evolving from naive zero-shot prompts to robust, production-grade systems by layering schema enforcement, validation, and retrieval augmentation, with iterative debugging via confusion matrices.
+
+**Highlights:**  
+- **Baseline zero-shot → stabilized pipeline:** Moved from off-the-shelf prompting to a governed, structured system.  
+- **Schema enforcement & validation:** Added grammar/syntax constraints to reduce hallucination and enforce output shape.  
+- **Confusion-matrix driven debugging:** Used model error analysis to refine prompts and test cases over iterations.  
+- **Retrieval augmentation + grounding:** Injected external context to reduce drift and improve reliability.  
+- **Prompt orchestration:** Constructed multi-step prompting chains and fallback logic for edge cases.
+
+**Business / Research Impact:**  
+This lab shows how prompt engineering can mature from prototype to dependable system, critical for any AI product that needs consistency, trust, and governance.
+
+**Tech Stack:**  
+- **Models / APIs:** OpenAI GPT models (via API)  
+- **Prompting tools:** Template layers, prompt chains, fallback logic  
+- **Validation / Analysis:** Confusion matrices, test suites, error analysis  
+- **Retrieval / Grounding:** Vector embeddings, document retrieval modules (e.g., FAISS)  
+- **Orchestration & Execution:** Python pipelines, error handling, fallback prompts  
+
+📁 [View Full Project](https://pmcavallo.github.io/prompt-engineering/)
+
+---
+
+**AI-in-the-Cloud Knowledge Shootout (Perplexity vs NotebookLM)**  
+An experiment comparing two AI “knowledge copilots” — Perplexity and NotebookLM — across identical cloud architecture, cost, and governance prompts. The goal: see how each tool answers with varying levels of grounding, scope, and practical signal.
+
+**Highlights:**  
+- **Controlled prompting:** Each tool received the same 6 prompts (cost, architecture, governance) with identical wording.  
+- **Corpus loading vs open web:** NotebookLM was fed a curated corpus (AWS/GCP docs + your Cross-Cloud work); Perplexity searched the open web in real time.  
+- **Complementary strengths:** NotebookLM excelled at structured, deep synthesis tied to defined sources. Perplexity gave concise, actionable responses with broader coverage.  
+- **Trade-off lens:** The difference is the point — one behaves like a policy researcher, the other like a quick-reference field guide.  
+
+**Business / Research Impact:**  
+This shootout surfaces how knowledge tools differ in utility depending on use case — whether you want precise, source-aligned advice or agile, up-to-date pointers. For teams architecting cloud + AI systems, knowing which tool to lean on (or how to combine them) is as critical as choosing the cloud services themselves.
+
+**Tech Stack:**  
+- **Knowledge Tools:** NotebookLM, Perplexity  
+- **Prompting Framework:** Controlled, identical prompts in cost, architecture, and governance domains  
+- **Corpus & Data:** AWS & GCP official docs, Cross-Cloud project content  
+- **Evaluation Metrics:** Grounding, completeness, depth, clarity, (reproducibility pending)  
+
+👉 [View Full Project](https://pmcavallo.github.io/ai-in-the-cloud)
+
+---
+
+
+**RiskBench AI Coding Shootout (Code Agent / AI Coding Tools Comparison)**  
+A controlled “shootout” comparing three AI coding assistants — GitHub Copilot, Claude Code, and Cursor — as they each build the same end-to-end ML pipeline. Across sequential sprints, they generate synthetic data, build and tune XGBoost models, and deploy a serving API with SHAP interpretability. The project held prompts, acceptance tests, and repo structure constant, so that differences reflect tool behavior, not environment.  
+
+**Highlights:**  
+- **Fair comparison design:** Same prompts, tests, repo structure — apples-to-apples evaluation across tools  
+- **Sprint methodology:** Four structured sprints (scaffolding & data, baseline modeling, serving + interpretability, final production layer)  
+- **Tool divergence insights:** Copilot was fastest but more brittle; Claude struck a balance of scaffolding + correctness; Cursor faced limitations in data generation/quota  
+- **Model & dataset dynamics:** Differences emerged not just in model performance but in dataset quality, feature engineering, and error handling  
+- **Serving + interpretability:** Final stage delivered a stable API (FastAPI + Uvicorn) with optional SHAP explanations for predicted outputs  
+
+**Business / Research Impact:**  
+This shootout surfaces how coding agents behave *in context*, not just in toy demos. It highlights that tool choice can influence data quality, modeling decisions, and the eventual readiness of a system. For teams exploring LLM-based development, this acts as both a benchmark and a blueprint for tool-risk awareness.  
+
+**Tech Stack:**  
+- **Languages / Frameworks:** Python, FastAPI, Uvicorn, pytest  
+- **Modeling / Tools:** XGBoost, SHAP for interpretability  
+- **AI Assistants:** GitHub Copilot, Claude Code, Cursor  
+- **Data & Testing:** Synthetic dataset generation, uniform test suite / acceptance criteria
+
+📁 [View Full Project](https://pmcavallo.github.io/code-agent/)
+
+---
+
+
+**Cross-Cloud AutoML Shootout**  
+A benchmarking exploration comparing AWS AutoML, GCP Vertex AI, and BigQuery ML on the same dataset, revealing how each cloud’s constraints, quotas, and design philosophies shape real-world ML development.
+
+**Highlights:**  
+- **Cloud comparison as design insight:** Set up “apples-to-apples” training in AWS and GCP, but discovered that hidden quotas and infrastructure limits dominate the experience.  
+- **Hybrid pivot on GCP:** Vertex AI stalled under quota limits, triggering a pivot to BigQuery ML, which offered more transparent billing and fewer hidden roadblocks.  
+- **Threshold tuning & business trade-offs:** Showed how the “positive class threshold” slider can turn a weak model into a usable tool, letting business teams steer between recall and precision.  
+- **Infrastructure ≠ afterthought:** Even with similar algorithmic performance, the cloud path (ease, cost, quotas) often determines whether the experiment reaches production.  
+
+**Business Impact:**  
+Cloud choices *are* part of the model. The shootout demonstrates that designing AI systems isn’t only about algorithms and datasets — it’s about navigating constraints, quotas, and trade-offs that directly affect deployment and business value.  
+
+**Tech Stack:**  
+- **Cloud Platforms:** AWS SageMaker Autopilot, GCP Vertex AI, BigQuery ML  
+- **Languages / Tools:** Python, SQL, Jupyter Notebooks  
+- **Modeling:** AutoML classification pipelines, logistic regression, threshold tuning  
+- **Data Handling:** Cloud-native storage and query layers (S3, BigQuery tables)  
+- **Monitoring & Evaluation:** ROC/PR curves, precision-recall trade-offs, threshold sliders  
+
+👉 [View Full Project](https://pmcavallo.github.io/cross-cloud)
+
+---
+
 **SignalGraph (PySpark + Postgres/Teradata + Prophet)**
 
 SignalGraph is a telecom-focused anomaly detection and forecasting project that processes large-scale 4G/5G performance data (latency, jitter, PRB utilization, packet loss) through a Spark ETL pipeline and delivers real-time network insights. It demonstrates modern data workflows—from feature engineering and anomaly flagging to forecasting and graph analytics; built for scale, transparency, and decision-making in telecom environments.
