@@ -81,7 +81,7 @@ models vs black-box ML. Regulatory compliance vs innovation.
 You can have gradient boosting performance (0.803 AUC) with per-prediction 
 explainability (SHAP). You can engineer features using domain knowledge 
 (`income_x_score` ranking #2) while letting algorithms find non-linear 
-interactions. You can satisfy SR 11-7 validators while deploying modern ML.
+interactions. You can satisfy strict regulations (e.g. SR 11-7) while deploying modern ML.
 
 That's what I'm building my next project, CreditIQ, this way. Not because it's what I learned and it's "traditionally" used, and not because it's what's trendy in ML. Because it's what actually 
 works when you need to ship models that are both accurate and defensible.
