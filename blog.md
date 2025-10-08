@@ -70,7 +70,7 @@ So when should you use each approach?
 
 For CreditIQ with 10K synthetic samples? **Gradient boosting wins.** 
 
-For a production lending platform with 10M real applications? I'd test neural networks again - the answer might change.
+For a production lending platform with 10M real applications? I'd test neural networks again, the answer might change.
 
 That's the point. I don't pick architectures based on what's trendy or what I learned in 2020. I test, measure, and choose based on evidence.
 
