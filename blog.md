@@ -74,8 +74,6 @@ For a production lending platform with 10M real applications? I'd test neural ne
 
 That's the point. I don't pick architectures based on what's trendy or what I learned in 2020. I test, measure, and choose based on evidence.
 
----
-
 **Next: Adding AI Agents to Handle Edge Cases**
 
 Traditional models excel at standard cases. LightGBM finds non-linear patterns. But what about true edge cases that need reasoning?
