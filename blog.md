@@ -8,6 +8,63 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+## Traditional vs Modern: Which ML Approach Wins?
+
+I built three models to answer a fundamental question in ML: 
+**Does traditional statistical feature selection still matter?**
+
+### The Contestants
+
+**Model 1: Logistic Regression (Full Arsenal)**
+- All 45 features, including correlated pairs
+- Test AUC: 0.7980
+- Training time: 2.9 seconds
+- *Problem: Multicollinearity, redundant features*
+
+**Model 2: Logistic Regression (Refined)**
+- Statistical feature selection: removed correlated features, kept only significant (p<0.05)
+- 15 features (67% reduction)
+- Test AUC: 0.7958 (-0.2%)
+- Training time: 2.1 seconds
+- *Result: Same performance, simpler model*
+
+**Model 3: LightGBM (Modern ML)**
+- All 45 features, let the algorithm decide
+- Test AUC: 0.8032 (+5.2% vs logistic)
+- Training time: ~3 minutes (includes hyperparameter tuning)
+- *Winner: Best performance by handling non-linear interactions*
+
+### What This Means
+
+**For interpretable models:** Feature selection helps. The refined logistic 
+regression has identical performance with 67% fewer features, which is easier to 
+explain to stakeholders and regulators, faster to score, simpler to maintain.
+
+**For production ML:** Let the algorithm handle complexity. LightGBM 
+automatically ignores weak features and finds non-linear patterns that 
+linear models miss.
+
+**The hybrid approach:** Use both. Feature engineering (like `income_x_score`, 
+which ranked #2) combined with modern ML gives you the best of both worlds.
+
+### SHAP Explainability: The Best of Both Worlds
+
+Even though LightGBM is more complex, SHAP values provide feature 
+attributions for every prediction:
+
+[Insert SHAP waterfall plot image]
+
+For this approved application (77.9% probability):
+- ✅ No delinquencies: +0.19 (strong positive)
+- ✅ High income × credit score: +0.16
+- ✅ Good credit score (691): +0.13
+- ⚠️ High DTI × loan amount: -0.21 (risk factor)
+
+This is **exactly what regulators want** - modern performance with 
+traditional explainability.
+
+---
+
 # When RAG Tools Hallucinate: Building Trust Through Custom Architecture (10/01/2025)
 
 I needed something simple: a way for visitors, and myself, to ask questions about my 27 data science portfolio projects. Natural language queries, accurate answers, maybe a few citations. Easy, right? I reached for Flowise, a popular no-code RAG platform that promised exactly this, conversational AI without the complexity of building from scratch. Within an hour, I had something running. Within two hours, I realized it was confidently lying to me. "Tell me about Project Alpha," it would say, describing in detail a machine learning project I'd never built. Ask about Azure, and it would invent three projects using Microsoft's cloud platform—despite my portfolio containing exactly zero Azure work. The system would generate plausible-sounding descriptions, cite realistic-seeming architectures, and do it all with the unwavering confidence of an LLM that has no idea it's making things up. I could have kept tweaking prompts. Instead, I rebuilt the entire system from scratch.
