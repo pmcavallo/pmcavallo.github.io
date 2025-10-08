@@ -10,7 +10,7 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 # The Neural Network Challenge: Does Deep Learning Win? (10/05/2025)
 
-After seeing LightGBM beat traditional models, I had to ask: **What about neural networks?**
+After seeing LightGBM beat traditional models (see previous blog), I had to ask: **What about neural networks?**
 
 Tabular data is gradient boosting's home turf. Neural networks dominate images, text, and speech. But Google Research published TabNet in 2019, an attention-based architecture specifically designed for tables. If any neural network could compete, it would be TabNet.
 
