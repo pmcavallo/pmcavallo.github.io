@@ -8,7 +8,83 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
-## Traditional vs Modern: Which ML Approach Wins? (10/05/2025)
+# The Neural Network Challenge: Does Deep Learning Win? (10/05/2025)
+
+After seeing LightGBM beat traditional models, I had to ask: **What about neural networks?**
+
+Tabular data is gradient boosting's home turf. Neural networks dominate images, text, and speech. But Google Research published TabNet in 2019, an attention-based architecture specifically designed for tables. If any neural network could compete, it would be TabNet.
+
+**The Setup**
+
+I trained TabNet with the same features as LightGBM:
+- **Architecture**: 5 attention steps, 64-dimensional embeddings
+- **Training**: 200 epochs with early stopping
+- **Dataset**: Same 10K applications, same train/test split
+
+**The Results**
+
+**TabNet**: 0.7795 AUC (138 seconds)  
+**LightGBM**: 0.8032 AUC (0.27 seconds)
+
+LightGBM won by **2.4 percentage points** while training **500x faster**.
+
+**Why This Matters**
+
+This isn't a failure, it's validation. The research literature says "gradient boosting dominates tabular data," but I needed to test it myself. Here's what I learned:
+
+**1. Neural networks need more data**  
+TabNet might win on millions of samples. On 10K samples, it underfit while LightGBM captured complex patterns efficiently.
+
+**2. Attention isn't always better than trees**  
+TabNet's attention mechanism is elegant - it selects features sequentially like a human analyst. But gradient boosting's greedy splits are more effective for structured data.
+
+**3. Speed matters in production**  
+138 seconds vs 0.27 seconds isn't just about convenience. In production, faster training means:
+- Quicker experiments during development
+- More frequent model retraining
+- Lower compute costs at scale
+
+**4. Different models see different patterns**  
+TabNet's attention weights told me something interesting: it ranked `num_delinquencies_2yrs` as the #1 feature (0.128 importance), while LightGBM ranked `credit_score` first. Same data, different architecture, different learned patterns.
+
+This is why I tested multiple approaches. Not because I expected TabNet to win, but because **assuming without testing is how you miss opportunities**.
+
+**The Architecture Decision Framework**
+
+So when should you use each approach?
+
+**Use Logistic Regression when:**
+- You need maximum interpretability (regulators, stakeholders)
+- You have strong feature engineering (manual interactions work)
+- Speed is critical (sub-second scoring)
+
+**Use Gradient Boosting when:**
+- You need maximum performance on tabular data
+- You have mixed data types (categorical + numeric)
+- You want automatic feature interaction discovery
+
+**Use Neural Networks when:**
+- You have massive datasets (millions+ samples)
+- You need multi-task learning (predict multiple outcomes)
+- You're doing transfer learning (pre-trained embeddings)
+
+For CreditIQ with 10K synthetic samples? **Gradient boosting wins.** 
+
+For a production lending platform with 10M real applications? I'd test neural networks again - the answer might change.
+
+That's the point. I don't pick architectures based on what's trendy or what I learned in 2020. I test, measure, and choose based on evidence.
+
+---
+
+**Next: Adding AI Agents to Handle Edge Cases**
+
+Traditional models excel at standard cases. LightGBM finds non-linear patterns. But what about true edge cases that need reasoning?
+
+That's where AI agents come in...
+
+---
+
+# Traditional vs Modern: Which ML Approach Wins? (10/05/2025)
 
 I built three models to answer a fundamental question in ML: 
 **Does traditional statistical feature selection still matter?**
@@ -23,7 +99,7 @@ regularization handle redundancy, trust the algorithm to find patterns.
 To traditional quants, this sounds reckless. To ML engineers, feature 
 selection sounds like unnecessary busywork.
 
-### The Contestants
+**The Contestants**
 
 **Model 1: Logistic Regression (Full Arsenal)**
 - All 45 features, including correlated pairs
@@ -44,7 +120,7 @@ selection sounds like unnecessary busywork.
 - Training time: ~3 minutes (includes hyperparameter tuning)
 - *Winner: Best performance by handling non-linear interactions*
 
-### What This Means
+**What This Means**
 
 **For interpretable models:** Feature selection helps. The refined logistic 
 regression has identical performance with 67% fewer features, which is easier to 
@@ -57,7 +133,7 @@ linear models miss.
 **The hybrid approach:** Use both. Feature engineering (like `income_x_score`, 
 which ranked #2) combined with modern ML gives you the best of both worlds.
 
-### SHAP Explainability: The Best of Both Worlds
+**SHAP Explainability: The Best of Both Worlds**
 
 Even though LightGBM is more complex, SHAP values provide feature 
 attributions for every prediction:
