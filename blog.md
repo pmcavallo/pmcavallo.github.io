@@ -13,6 +13,16 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 I built three models to answer a fundamental question in ML: 
 **Does traditional statistical feature selection still matter?**
 
+In the traditional, "right way", we need to 
+check VIF scores, run stepwise selection, justify every feature 
+to stakeholders who ask "why is this variable in the model?" It's rigorous. 
+It's defensible. It's also... slow.
+
+Modern ML takes a different approach: throw in all the features, let 
+regularization handle redundancy, trust the algorithm to find patterns. 
+To traditional quants, this sounds reckless. To ML engineers, feature 
+selection sounds like unnecessary busywork.
+
 ### The Contestants
 
 **Model 1: Logistic Regression (Full Arsenal)**
@@ -60,8 +70,21 @@ For this approved application (77.9% probability):
 - ✅ Good credit score (691): +0.13
 - ⚠️ High DTI × loan amount: -0.21 (risk factor)
 
-This is **exactly what stakeholderds, and especially regulators, want**, modern performance with 
+This is **exactly what stakeholders, and especially regulators, want**, modern performance with 
 traditional explainability.
+
+For years, I've heard the debate: interpretability vs performance. Traditional 
+models vs black-box ML. Regulatory compliance vs innovation.
+
+**It's a false choice.**
+
+You can have gradient boosting performance (0.803 AUC) with per-prediction 
+explainability (SHAP). You can engineer features using domain knowledge 
+(`income_x_score` ranking #2) while letting algorithms find non-linear 
+interactions. You can satisfy SR 11-7 validators while deploying modern ML.
+
+That's what I'm building my next project, CreditIQ, this way. Not because it's what I learned and it's "traditionally" used, and not because it's what's trendy in ML. Because it's what actually 
+works when you need to ship models that are both accurate and defensible.
 
 ---
 
