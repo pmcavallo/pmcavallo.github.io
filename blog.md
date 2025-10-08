@@ -52,7 +52,7 @@ which ranked #2) combined with modern ML gives you the best of both worlds.
 Even though LightGBM is more complex, SHAP values provide feature 
 attributions for every prediction:
 
-[Insert SHAP waterfall plot image]
+![SHAP](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/shap_waterfall_approved.png?raw=true)
 
 For this approved application (77.9% probability):
 - ✅ No delinquencies: +0.19 (strong positive)
@@ -60,7 +60,7 @@ For this approved application (77.9% probability):
 - ✅ Good credit score (691): +0.13
 - ⚠️ High DTI × loan amount: -0.21 (risk factor)
 
-This is **exactly what regulators want** - modern performance with 
+This is **exactly what stakeholderds, and especially regulators, want**, modern performance with 
 traditional explainability.
 
 ---
