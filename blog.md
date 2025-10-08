@@ -201,7 +201,7 @@ Pre-built tools optimize for the wrong metrics. Flowise optimizes for conversati
 
 I came into this thinking I could solve hallucination with better prompts. I learned instead that it requires better architecture. The intelligence of the LLM is real, but uneven. The orchestration—knowing when to use it, when to bypass it, when to validate its output—remains firmly on our side of the keyboard.
 
-The project lives at [here](https://huggingface.co/spaces/pmcavallo/portfolio-rag-agent). Ask it about Azure. It will tell you the truth: I don't use it.
+The project lives [here](https://huggingface.co/spaces/pmcavallo/portfolio-rag-agent). Ask it about Azure. It will tell you the truth: I don't use it.
 
 That honesty is worth more than all the conversational polish in the world.
 
