@@ -10,7 +10,7 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 # Building Trustworthy AI: Why Guardrails Matter More Than You Think (10/10/2025)
 
-I was explaining my CreditIQ project to a friend when he asked the question that stops every AI engineer cold: "Wait, you're letting an AI agent approve loans? What if it screws up?"
+I was explaining my CreditIQ project to a friend when he asked the question that stops every AI engineer cold: "Wait, you're letting an AI agent approve loans? What if it screws up?" (Important disclaimer, the [project](https://huggingface.co/spaces/pmcavallo/CreditIQ) uses simulated data).
 
 He wasn't being difficult. He was asking the most important question in AI deployment. This isn't about whether Claude can write good poetry or summarize articles. This is about a system that could approve a predatory loan to someone who can't afford it, deny a good borrower based on spurious correlations, or discriminate against protected groups without anyone noticing until it's too late. To be very clear, this is a personal project done with synthetic data I generated specifically for this experiment.
 
@@ -83,6 +83,8 @@ The goal isn't to build AI that replaces humans. It's to build AI that augments 
 I came into this project thinking I could solve hallucination with better prompts. I learned instead that it requires better architecture. Separating factual queries from semantic reasoning. Constraining what the AI can invent. Validating outputs before you trust them. These aren't prompt engineering tricks. They're system design principles.
 
 The intelligence of the AI agent matters, but it's the orchestration that makes it trustworthy. Knowing when to use it, when to bypass it, when to validate its output, that control remains firmly on our side of the keyboard. And honestly, that's worth more than all the conversational polish in the world.
+
+Full project [here](https://huggingface.co/spaces/pmcavallo/CreditIQ)
 
 ---
 
