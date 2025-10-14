@@ -19,7 +19,7 @@ In fintech and telecom environments, edge cases aren't anomalies—they're busin
 
 IncidentIQ introduces a **hybrid ML + AI architecture** that combines the speed of traditional machine learning (0.4ms predictions) with the intelligence of multi-agent AI systems for complex scenarios. When confidence drops below 75% or edge cases are detected, the system seamlessly transitions to AI-powered investigation.
 
-**[View Live Demo →](https://incidentiq.onrender.com)**
+**[View Live Demo](https://incidentiq.onrender.com)**
 
 **Key Innovation**: Proactive edge case detection with automated escalation to specialized AI agents that provide human-level reasoning for complex incidents.
 
@@ -189,7 +189,7 @@ The system runs as a standalone Streamlit application on Render's cloud platform
 
 Continuous deployment is configured through Render's GitHub integration. Any push to the main branch automatically triggers a new deployment with zero downtime.
 
-**[View Live Demo →](https://incidentiq.onrender.com)**
+**[View Live Demo](https://incidentiq.onrender.com)**
 
 ## License
 
