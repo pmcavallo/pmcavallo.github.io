@@ -19,6 +19,8 @@ In fintech and telecom environments, edge cases aren't anomalies—they're busin
 
 IncidentIQ introduces a **hybrid ML + AI architecture** that combines the speed of traditional machine learning (0.4ms predictions) with the intelligence of multi-agent AI systems for complex scenarios. When confidence drops below 75% or edge cases are detected, the system seamlessly transitions to AI-powered investigation.
 
+**[View Live Demo →](https://incidentiq.onrender.com)**
+
 **Key Innovation**: Proactive edge case detection with automated escalation to specialized AI agents that provide human-level reasoning for complex incidents.
 
 ## Key Features
@@ -165,6 +167,29 @@ This implementation uses sophisticated synthetic data generation to demonstrate 
 
 For production deployment, the system seamlessly integrates with existing monitoring infrastructure (Prometheus, Datadog, New Relic) to process live incident data.
 
+## Deployment
+
+IncidentIQ is deployed as a production-ready web application using modern cloud infrastructure designed for ML systems.
+
+### Architecture
+
+The system runs as a standalone Streamlit application on Render's cloud platform. The architecture consolidates the ML model, AI agent system, and web interface into a single optimized service for seamless deployment and maintenance.
+
+**Technology Stack:**
+- **Streamlit**: Provides the interactive web interface with real-time visualizations, allowing users to explore edge case scenarios and watch multi-agent investigations unfold
+- **Render**: Handles cloud hosting with automatic deployments from GitHub, environment variable management for API keys, and SSL/HTTPS out of the box
+
+**Key Features:**
+- Automatic model loading on startup using cached resources
+- In-process ML predictions and agent investigations for sub-second response times
+- Environment-based configuration supporting both development and production modes
+- Graceful handling of cold starts on the free tier (typically 30 seconds on first load)
+
+### Production Deployment
+
+Continuous deployment is configured through Render's GitHub integration. Any push to the main branch automatically triggers a new deployment with zero downtime.
+
+**[View Live Demo →](https://incidentiq.onrender.com)**
 
 ## License
 
