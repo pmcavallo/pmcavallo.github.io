@@ -5,7 +5,7 @@ date: 2025-10-13
 ---
 
 
-IncidentIQ is a production-ready hybrid incident response system that combines gradient boosting with AI agents to solve the edge case problem in DevOps and IT operations. While traditional ML models excel at classifying standard incidents like database slowdowns or memory leaks, they fail catastrophically on edge cases, misleading symptoms that point to the wrong root cause, false positives during expected high-traffic events, or novel patterns from feature deployments that don't match any known signature. IncidentIQ routes 80% of incidents through a blazing-fast LightGBM classifier (0.4ms prediction) and sends the remaining 20% of ambiguous cases to a multi-agent AI system that investigates root causes, applies business context, and proposes specific remediation actions with full reasoning chains. Built with production-grade governance (hard rules, human review triggers, comprehensive audit trails), the system achieves 78% accuracy on edge cases versus 23% for traditional ML, reduces mean time to resolution by 57%, and delivers a 147x ROI by preventing unnecessary remediations, eliminating false positive alerts, and converting unknown incidents into actionable insights. This architecture demonstrates that modern ML operations require intelligent orchestration of models, agents, and human oversight—not just better algorithms. The same hybrid pattern applies to any domain where rigid automation meets complex edge cases: credit decisioning, fraud detection, claims processing, or trading anomaly detection. To be very clear, this is a personal project built with synthetic data I generated specifically to demonstrate this architectural approach while avoiding any regulatory concerns from my current employer in financial services.
+IncidentIQ is a production-ready hybrid incident response system that combines gradient boosting with AI agents to solve the edge case problem in DevOps and IT operations. While traditional ML models excel at classifying standard incidents like database slowdowns or memory leaks, they fail catastrophically on edge cases, misleading symptoms that point to the wrong root cause, false positives during expected high-traffic events, or novel patterns from feature deployments that don't match any known signature. IncidentIQ routes 80% of incidents through a blazing-fast LightGBM classifier (0.4ms prediction) and sends the remaining 20% of ambiguous cases to a multi-agent AI system that investigates root causes, applies business context, and proposes specific remediation actions with full reasoning chains. Built with production-grade governance (hard rules, human review triggers, comprehensive audit trails), the system prevents unnecessary remediations, eliminates false positive alerts, and converts unknown incidents into actionable insights. This architecture demonstrates that modern ML operations require intelligent orchestration of models, agents, and human oversight—not just better algorithms. The same hybrid pattern applies to any domain where rigid automation meets complex edge cases: credit decisioning, fraud detection, claims processing, or trading anomaly detection. To be very clear, this is a personal project built with synthetic data I generated specifically to demonstrate this architectural approach while avoiding any regulatory concerns from my current employer in financial services.
 
 ---
 
@@ -104,25 +104,6 @@ IncidentIQ introduces a **hybrid ML + AI architecture** that combines the speed 
 - **FastAPI**: High-performance async API framework
 - **Uvicorn**: ASGI server for production deployment
 - **Python 3.9+**: Modern Python with asyncio support
-
-### Development
-- **Pytest**: Comprehensive testing framework
-- **Black**: Code formatting
-- **Type hints**: Full static typing for reliability
-
-## Results Comparison
-
-| Metric | Traditional ML | IncidentIQ Hybrid | Improvement |
-|--------|---------------|-------------------|-------------|
-| **Standard Cases** | 87% accuracy | 89% accuracy | +2.3% |
-| **Edge Cases** | 23% accuracy | 78% accuracy | +239% |
-| **False Positives** | 18% rate | 4% rate | -78% |
-| **MTTR (Critical)** | 47 minutes | 20 minutes | -57% |
-| **Human Escalations** | 34% of incidents | 12% of incidents | -65% |
-| **Annual ROI** | Baseline | $1.38M saved | 147x |
-| **Prediction Speed** | 2.1ms | 0.4ms | 5.25x faster |
-
-*Based on simulation with 10,000 synthetic incidents across 6 categories*
 
 ## Use Cases Beyond DevOps
 
