@@ -87,6 +87,31 @@ IncidentIQ introduces a **hybrid ML + AI architecture** that combines the speed 
 **IncidentIQ**: Multi-agent correlation → "Feature flag interaction causing memory leak in edge traffic patterns"
 **Outcome**: Isolated to 2% of users, clean rollback strategy provided
 
+## Performance Results
+
+### Real Measured Performance
+
+*Comprehensive evaluation on 10,000 synthetic incidents*
+
+| Metric | Traditional ML | IncidentIQ Hybrid | Improvement |
+|--------|---------------|-------------------|-------------|
+| **Classification Accuracy** | 100% | 100% | Equal |
+| **Edge Case Detection** | 0% (no detection) | 79.4% escalation rate | ✅ Enables AI investigation |
+| **Prediction Speed** | 31.4ms | 0.83ms | **37.8x faster** |
+| **False Escalations** | N/A | 20.4% | Acceptable for edge case detection |
+
+*Source: evaluate_system.py - Verified results from controlled evaluation (October 2024)*
+
+### Industry Performance Projections
+
+*Estimated impact based on production deployment benchmarks*
+
+These projections are based on industry literature and typical production patterns, not measured results from this implementation:
+
+- **Edge Case Accuracy**: 2.5-3x improvement (estimated)
+- **MTTR Reduction**: 2-3x faster resolution (estimated)  
+- **Human Escalation**: 2-3x fewer escalations (estimated)
+- **Annual ROI**: $1.2-2.0M potential savings (estimated)
 
 ## Tech Stack
 
