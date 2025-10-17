@@ -25,7 +25,7 @@ How It Works:
 1. Binary classifier answers: "Is this an incident?" (Yes/No)
 2. If YES with high confidence → Standard playbook
 3. If NO with high confidence → No action
-4. If UNCERTAIN or CONTRADICTORY → Route to AI agents
+4. If UNCERTAIN (low confidence) or CONTRADICTORY → Route to AI agents
 5. Agents investigate: What's the specific root cause? Is the model right?
 
 **Key Innovation**: Proactive edge case detection with automated escalation to specialized AI agents that provide human-level reasoning for complex incidents.
