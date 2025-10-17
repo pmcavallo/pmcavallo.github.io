@@ -122,6 +122,10 @@ IncidentIQ demonstrates agent value through 5 edge cases that catch confident ML
 
 *Source: `evaluate_system.py` - Real measurements from 10,000-incident evaluation (2025-10-14)*
 
+**Note on Confidence Metrics**: ML model confidence represents gradient 
+boosting probability outputs. Agent confidence represents qualitative 
+reasoning strength based on evidence consistency, not statistical probability.
+
 ### Industry Performance Projections
 
 *Estimated impact based on production deployment benchmarks*
