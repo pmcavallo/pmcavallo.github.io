@@ -11,7 +11,7 @@ IncidentIQ is a production-ready hybrid incident response system that combines g
 
 ## The Problem
 
-Modern incident management systems fail where it matters most: **edge cases**. While traditional ML models achieve 60-70% accuracy on standard scenarios, they collapse to 20-30% on outliers, exactly when organizations need them most. These edge cases, representing 15-25% of critical incidents, often cascade into major outages, compliance violations, and significant financial impact.
+Modern incident management systems fail where it matters most: **edge cases**.Traditional binary classifiers achieve high accuracy on clear-cut cases but struggle with edge cases: false positives (95% confidence but wrong), false negatives (88% confidence but missing critical issues), and wrong root cause identification. These edge cases, estimated to be 15-25% of critical incidents, often cascade into major outages, compliance violations, and significant financial impact.
 
 In fintech and telecom environments, edge cases aren't anomalies, they're business-critical events that demand immediate, accurate resolution. A misclassified trading system anomaly or network configuration edge case can result in millions in losses and regulatory scrutiny.
 
@@ -19,14 +19,21 @@ In fintech and telecom environments, edge cases aren't anomalies, they're busine
 
 IncidentIQ introduces a **hybrid ML + AI architecture** that combines the speed of traditional machine learning with the intelligence of multi-agent AI systems for complex scenarios. When confidence drops below 75% or edge cases are detected, the system seamlessly transitions to AI-powered investigation.
 
-**[View Live Demo](https://incidentiq.onrender.com)**
+**[🔍 VIEW LIVE DEMO](https://incidentiq.onrender.com)**
+
+How It Works:
+1. Binary classifier answers: "Is this an incident?" (Yes/No)
+2. If YES with high confidence → Standard playbook
+3. If NO with high confidence → No action
+4. If UNCERTAIN or CONTRADICTORY → Route to AI agents
+5. Agents investigate: What's the specific root cause? Is the model right?
 
 **Key Innovation**: Proactive edge case detection with automated escalation to specialized AI agents that provide human-level reasoning for complex incidents.
 
 ## Key Features
 
 ### Core Capabilities
-- **Lightning-fast classification**: 6 incident types in <10ms
+- **Lightning-fast classification**: Lightning-fast binary classification: incident vs. normal in <10ms
 - **Intelligent edge case detection**: Automatic handoff when confidence drops
 - **Multi-agent investigation**: 4 specialized AI agents for complex scenarios
 - **Governance-aware**: 8 hard rules including security and compliance checks
@@ -50,7 +57,7 @@ IncidentIQ introduces a **hybrid ML + AI architecture** that combines the speed 
 │   FastAPI       │    │   LightGBM       │    │  Multi-Agent    │
 │   Orchestrator  │───▶│   Classifier     │───▶│  Investigation  │
 │                 │    │                  │    │                 │
-│ • Endpoint mgmt │    │ • 6 classes      │    │ • Diagnostic    │
+│ • Endpoint mgmt │    │ • Binary class   │    │ • Diagnostic    │
 │ • Background    │    │ • 0.4ms predict  │    │ • Context       │
 │ • Status track  │    │ • Edge detection │    │ • Recommend     │
 └─────────────────┘    └──────────────────┘    │ • Governance    │
@@ -108,7 +115,7 @@ IncidentIQ demonstrates agent value through 5 edge cases that catch confident ML
 *Comprehensive evaluation on 10,000 synthetic incidents*
 | Metric | Traditional ML | IncidentIQ Hybrid | Improvement |
 |--------|---------------|-------------------|-------------|
-| **Classification Accuracy** | 100% | 100% | Equal |
+| **Classification Accuracy** | 99.2% | 99.1% | Equal |
 | **Edge Case Detection** | 0% (no detection) | 79.4% escalation rate | ✅ Enables AI investigation |
 | **Prediction Speed** | 31.4ms | 0.83ms | **37.8x faster** |
 | **False Escalations** | N/A | 20.4% | Acceptable for edge case detection |
@@ -171,7 +178,7 @@ IncidentIQ/
 ├── src/
 │   ├── __init__.py
 │   ├── main.py              # FastAPI orchestration layer
-│   ├── model.py             # LightGBM classifier (6 classes, <10ms)
+│   ├── model.py             # LightGBM classifier
 │   ├── features.py          # Feature extraction (<5ms target)
 │   ├── agents.py            # Multi-agent system with LangGraph
 │   └── synthetic_data.py    # Training data generation
@@ -212,7 +219,7 @@ The system runs as a standalone Streamlit application on Render's cloud platform
 
 Continuous deployment is configured through Render's GitHub integration. Any push to the main branch automatically triggers a new deployment with zero downtime.
 
-**[View Live Demo](https://incidentiq.onrender.com)**
+**[🔍 View Live Demo](https://incidentiq.onrender.com)**
 
 ## License
 
