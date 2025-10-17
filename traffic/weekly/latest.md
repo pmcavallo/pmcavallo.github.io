@@ -1,6 +1,6 @@
-### GitHub Weekly Traffic (2025-10-04 to 2025-10-10)
-- Views: **96** (avg **13.71/day**)  |  Uniques (sum of daily): **3**
-- Clones: **94** (avg **13.43/day**)  |  Uniques (sum of daily): **51**
+### GitHub Weekly Traffic (2025-10-11 to 2025-10-17)
+- Views: **89** (avg **12.71/day**)  |  Uniques (sum of daily): **5**
+- Clones: **90** (avg **12.86/day**)  |  Uniques (sum of daily): **49**
 **Top referrers**:
   - (no data)
 **Top paths**:
