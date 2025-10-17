@@ -11,7 +11,7 @@ IncidentIQ is a production-ready hybrid incident response system that combines g
 
 ## The Problem
 
-Modern incident management systems fail where it matters most: **edge cases**. While traditional ML models achieve 60-70% accuracy on standard scenarios, they collapse to 20-30% on outliers—exactly when organizations need them most. These edge cases, representing 15-25% of critical incidents, often cascade into major outages, compliance violations, and significant financial impact.
+Modern incident management systems fail where it matters most: **edge cases**. While traditional ML models achieve 60-70% accuracy on standard scenarios, they collapse to 20-30% on outliers, exactly when organizations need them most. These edge cases, representing 15-25% of critical incidents, often cascade into major outages, compliance violations, and significant financial impact.
 
 In fintech and telecom environments, edge cases aren't anomalies, they're business-critical events that demand immediate, accurate resolution. A misclassified trading system anomaly or network configuration edge case can result in millions in losses and regulatory scrutiny.
 
