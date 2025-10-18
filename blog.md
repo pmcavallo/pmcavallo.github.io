@@ -16,7 +16,7 @@ I didn’t want boilerplate code or a “copilot” writing syntax. I wanted to 
 
 **The Context**
 
-The project, *Codex Orchestrator*, began with a clear mission: to bring AI-assisted governance to traditional credit risk modeling. I wanted two models; a classic logistic scorecard and a modern XGBoost challenger — running side by side in a sandbox where everything was tracked, reproducible, and observable.
+The project, *Codex Orchestrator*, began with a clear mission: to bring AI-assisted governance to traditional credit risk modeling. I wanted two models; a classic logistic scorecard and a modern XGBoost challenger; running side by side in a sandbox where everything was tracked, reproducible, and observable.
 
 Codex would be my engineering partner: implementing, debugging, and refactoring through structured prompts, while I handled reasoning, architecture, and validation.
 
