@@ -8,6 +8,67 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# Building a Governed AI System: My Experiment with Codex (10/18/2025)
+
+I decided to test a question I’d been circling for months: can an AI coding assistant like Codex not only accelerate development, but help build a governed, reproducible machine learning system from the ground up? 
+
+I didn’t want boilerplate code or a “copilot” writing syntax. I wanted to see if Codex could act as a structured collaborator; a system that writes, tests, and refines code within real governance boundaries. So I set up the experiment: to build a full orchestration framework for credit risk models, with the same discipline heavily regulated industries demand for audit-ready models.
+
+**The Context**
+
+The project, *Codex Orchestrator*, began with a clear mission: to bring AI-assisted governance to traditional credit risk modeling. I wanted two models; a classic logistic scorecard and a modern XGBoost challenger — running side by side in a sandbox where everything was tracked, reproducible, and observable.
+
+Codex would be my engineering partner: implementing, debugging, and refactoring through structured prompts, while I handled reasoning, architecture, and validation.
+
+**The Collaboration**
+
+The workflow unfolded like a true partnership. I gave Codex concrete goals (“Add calibration persistence with fallbacks”), constraints (“Preserve reproducibility”), and context about how the system was structured. It would then produce incremental diffs, which I reviewed line by line.
+
+At one point, the Streamlit “Run Monitoring Now” button broke; a relative import error that caused the dashboard to fail silently. Within a single iteration, Codex identified the root cause, converted the imports to absolute paths, implemented cached data loaders, and even added test coverage to validate refresh behavior.  
+
+When we introduced calibration, Codex automatically built Platt and Isotonic selection logic, serialized the calibrators, and updated downstream pipelines to use them transparently. The outputs were not just functional, they were contract-compliant, meaning the system now mirrored real-world regulatory workflows.
+
+**The Turning Point**
+
+Halfway through, I realized something subtle but important: Codex wasn’t just generating code, it was preserving governance logic. It never broke reproducibility. Every artifact, models, metrics, and reports, remained deterministic unless explicitly told to vary.  
+
+That led me to a second phase of the experiment: *stochastic mode*. I wanted to see whether Codex could help me introduce variability safely. I asked it to design a toggle in the dashboard that would inject random seeds, rerun monitoring, and regenerate all metrics and plots in real time, but without compromising the default deterministic mode.
+
+The result was elegant. The deterministic (OFF) mode preserved governance sign-off integrity, while the stochastic (ON) mode refreshed visuals dynamically for testing and exploration. Every test still passed. Every cache refreshed. And the system behaved exactly as intended.
+
+**What I Learned**
+
+Working with Codex felt less like outsourcing and more like orchestrating a process. It didn’t replace my expertise, it amplified it. I still needed to reason through model architecture, regulatory logic, and interpretability; Codex handled syntax, testing, and consistency with near-perfect discipline.  
+
+What impressed me most wasn’t speed, it was *stability*. Even as the codebase grew more complex, the system never lost its shape. Each component; calibration, drift monitoring, stochastic mode, and governance scaffolding, connected seamlessly, as if we were co-writing a long-form technical essay in code.
+
+I also learned that governance isn’t a bottleneck when AI is part of the loop. Codex made it faster to stay compliant. By baking governance into each step — artifact versioning, metadata tracking, test enforcement — it turned regulation into a design constraint, not a limitation.
+
+**The Evaluation**
+
+Looking back, the experiment redefined how I think about AI in engineering.  
+- Codex *understood structure*: it maintained logical boundaries and respected reproducibility.  
+- It *adapted quickly*: when I introduced calibration or monitoring complexity, it expanded the system coherently.  
+- And it *taught me discipline*: the more precise my prompts became, the more reliable its outputs were.  
+
+But the biggest insight came from what it didn’t do. Codex never tried to “be creative.” It optimized for clarity and structure, qualities human engineers often lose when rushing through build cycles. It showed that AI doesn’t need to outthink us; it needs to out-organize us.
+
+**Where It Ends (for Now)**
+
+By the end, the *Governed Risk Control Tower* became fully functional. The dashboard ran in-process monitoring, refreshed on demand, and tracked model stability across calibration and drift metrics. The only missing piece was interpretation; an AI-assisted tab that could analyze results in natural language and explain model health in plain terms.  
+
+That’s where I’ll take it next: an AI-driven interpretability layer that can narrate what the metrics mean, flag concerns, and recommend retraining actions. It’s not just about models learning from data anymore, it’s about *systems learning from themselves*.
+
+**Closing Reflection**
+
+This project wasn’t about proving that Codex can code. It was about testing whether AI can collaborate under governance, whether it can operate within the same constraints we expect from human engineers in regulated systems.  
+
+The answer is yes, but only when the human stays in the loop as the orchestrator. Codex executes; I interpret. Codex tests; I validate. Together, we built something that’s more than a project, it’s a case study in what responsible AI development might actually look like.
+
+What started as an experiment with an AI coder ended as a reflection on trust, governance, and human-machine alignment, written not just in Markdown, but in code itself.
+
+---
+
 # Building Trustworthy AI: Why Guardrails Matter More Than You Think (10/10/2025)
 
 I was explaining my CreditIQ project to a friend when he asked the question that stops every AI engineer cold: "Wait, you're letting an AI agent approve loans? What if it screws up?" (Important disclaimer, the [project](https://pmcavallo.github.io/CreditIQ/) uses simulated data).
