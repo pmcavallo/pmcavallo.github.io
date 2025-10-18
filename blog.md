@@ -42,7 +42,7 @@ Working with Codex felt less like outsourcing and more like orchestrating a proc
 
 What impressed me most wasn’t speed, it was *stability*. Even as the codebase grew more complex, the system never lost its shape. Each component; calibration, drift monitoring, stochastic mode, and governance scaffolding, connected seamlessly, as if we were co-writing a long-form technical essay in code.
 
-I also learned that governance isn’t a bottleneck when AI is part of the loop. Codex made it faster to stay compliant. By baking governance into each step — artifact versioning, metadata tracking, test enforcement — it turned regulation into a design constraint, not a limitation.
+I also learned that governance isn’t a bottleneck when AI is part of the loop. Codex made it faster to stay compliant. By baking governance into each step, artifact versioning, metadata tracking, test enforcement; it turned regulation into a design constraint, not a limitation.
 
 **The Evaluation**
 
