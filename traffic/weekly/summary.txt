@@ -1,1 +1,1 @@
-Week 2025-10-11–2025-10-17: Views 89 (avg 12.71/day), Uniques 5; Clones 90 (avg 12.86/day), Uniques 49
+Week 2025-10-18–2025-10-24: Views 16 (avg 2.29/day), Uniques 1; Clones 79 (avg 11.29/day), Uniques 43
