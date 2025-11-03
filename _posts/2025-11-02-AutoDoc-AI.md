@@ -1,6 +1,6 @@
 # AutoDoc AI: Multi-Agent RAG System for Regulatory Documentation Automation
 
-AutoDoc AI is a production-ready multi-agent orchestration system that transforms PowerPoint presentations into comprehensive, audit-ready model documentation for insurance pricing models. The system addresses a critical bottleneck in actuarial model risk management: senior analysts spending 40-60 hours per model on documentation that must comply with NAIC Model Audit Rule, multiple Actuarial Standards of Practice (ASOPs), and audit requirements. Using specialized AI agents orchestrated by LangGraph, AutoDoc AI retrieves context from past documentations through RAG (retrieval-augmented generation), validates regulatory compliance in real-time, and generates 30-50 page White Papers that meet stringent audit standards. The system demonstrates 60-75% time savings (40 hours → 10 hours per model), eliminates documentation inconsistencies through standardized templates, and prevents costly audit findings through built-in compliance checks. This architecture solves the fundamental challenge of AI in regulated industries: combining the speed and consistency of automation with the accuracy and accountability required for regulatory oversight, making it applicable beyond insurance to any domain where documentation quality directly impacts regulatory compliance, audit outcomes, and business risk.
+AutoDoc AI is a production-ready multi-agent orchestration system that transforms PowerPoint presentations into comprehensive, audit-ready model documentation for insurance pricing models. The system addresses a critical bottleneck in actuarial model risk management: senior analysts spending 40-60 hours per model on documentation that must comply with NAIC Model Audit Rule, multiple Actuarial Standards of Practice (ASOPs), and audit requirements. Using specialized AI agents with a custom orchestration (and a LangGraph version), AutoDoc AI retrieves context from past documentations through RAG (retrieval-augmented generation), validates regulatory compliance in real-time, and generates 30-50 page White Papers that meet stringent audit standards. The system demonstrates 60-75% time savings (40 hours → 10 hours per model), eliminates documentation inconsistencies through standardized templates, and prevents costly audit findings through built-in compliance checks. This architecture solves the fundamental challenge of AI in regulated industries: combining the speed and consistency of automation with the accuracy and accountability required for regulatory oversight, making it applicable beyond insurance to any domain where documentation quality directly impacts regulatory compliance, audit outcomes, and business risk.
 
 ---
 
@@ -42,7 +42,24 @@ AutoDoc AI introduces a multi-agent architecture that mirrors how expert analyst
 
 ### Core Architecture
 
-**Multi-Agent Orchestration via LangGraph:**
+**Custom Multi-Agent Orchestration:**
+
+```python
+# Simplified production workflow
+def generate_documentation(request):
+    research_results = research_agent.research(request)
+    sections = writer_agent.write(research_results, request.source_content)
+    
+    for iteration in range(max_iterations):
+        compliance = compliance_agent.check(sections)
+        editorial = editor_agent.review(sections)
+        
+        if quality_passed(compliance, editorial):
+            break
+        sections = writer_agent.revise(sections, feedback)
+    
+    return finalize(sections)
+```
 
 The system employs four specialized agents, each optimized for specific documentation subtasks:
 
@@ -75,7 +92,7 @@ The system employs four specialized agents, each optimized for specific document
    - **Format Conversion**: Markdown → PDF with proper frontmatter, table of contents, page numbers
    - **Output**: Production-ready White Paper for submission to validation/audit
 
-**LangGraph State Management:**
+**Alternative LangGraph State Management:**
 ```
 Input: PowerPoint (15-20 slides)
     ↓
@@ -97,6 +114,8 @@ Input: PowerPoint (15-20 slides)
     ↓
 Output: White Paper (30-50 pages, PDF)
 ```
+
+**Key Insight:** Both approaches solve the same problem. Custom orchestration works perfectly for AutoDoc AI's workflow complexity. The LangGraph implementation demonstrates understanding of when frameworks add value (complex routing, parallel processing, workflow visualization) versus when simpler approaches suffice.
 
 **Key Innovation: Source Grounding Pipeline**
 
@@ -579,85 +598,6 @@ While AutoDoc AI was developed for actuarial model documentation, the architectu
 
 ---
 
-## Project Structure
-
-The system follows a modular architecture with clear separation of concerns:
-
-```
-autodoc-ai/
-├── app/
-│   ├── streamlit_app.py              # Main UI entry point
-│   ├── agent_dashboard.py            # Real-time agent activity viewer
-│   ├── components/
-│   │   ├── upload.py                 # PowerPoint upload handler
-│   │   ├── progress.py               # Generation progress display
-│   │   └── results.py                # Document preview and download
-│   └── utils/
-│       ├── ppt_parser.py             # PowerPoint content extraction
-│       └── session_state.py          # Streamlit state management
-│
-├── agents/
-│   ├── graph.py                      # LangGraph orchestration
-│   ├── research_agent.py             # RAG knowledge retrieval
-│   ├── technical_writer.py           # Document generation (8 sections)
-│   ├── compliance_checker.py         # Regulatory validation
-│   ├── reviewer_editor.py            # Final QA and formatting
-│   └── base_agent.py                 # Shared agent functionality
-│
-├── rag/
-│   ├── vector_store.py               # ChromaDB initialization and management
-│   ├── embeddings.py                 # Document chunking and embedding
-│   ├── retrieval.py                  # Query strategies and filtering
-│   └── document_loader.py            # Synthetic doc ingestion
-│
-├── document_processing/
-│   ├── markdown_generator.py         # Convert agent output to markdown
-│   ├── pdf_generator.py              # Professional PDF creation
-│   └── templates/
-│       ├── whitepaper.md             # Base document template
-│       └── pptx_template.pptx        # User guide template
-│
-├── data/
-│   ├── synthetic_docs/
-│   │   ├── bodily_injury_frequency.md
-│   │   ├── collision_severity.md
-│   │   ├── territory_rating.md
-│   │   └── ... (5-7 model documentations)
-│   ├── anchor_document/
-│   │   └── data_methodology_guide.md
-│   ├── regulations/
-│   │   ├── naic_model_audit_rule.md
-│   │   ├── asop_compilation.md
-│   │   └── state_requirements.md
-│   ├── audit_findings/
-│   │   └── historical_issues.md
-│   └── examples/
-│       ├── bi_frequency_example.pptx
-│       ├── collision_severity_example.pptx
-│       └── comprehensive_coverage_example.pptx
-│
-├── tests/
-│   ├── test_agents.py                # Unit tests for each agent
-│   ├── test_rag.py                   # RAG retrieval accuracy tests
-│   ├── test_fidelity.py              # Source grounding verification
-│   └── test_integration.py           # End-to-end workflow tests
-│
-├── config/
-│   ├── agent_config.yaml             # Agent parameters and templates
-│   ├── rag_config.yaml               # Vector store and retrieval settings
-│   └── compliance_rules.yaml         # Regulatory requirements
-│
-├── notebooks/
-│   ├── rag_evaluation.ipynb          # RAG quality analysis
-│   ├── prompt_testing.ipynb          # Prompt optimization experiments
-│   └── cost_analysis.ipynb           # Token usage and cost tracking
-│
-├── requirements.txt                  # Python dependencies
-├── Dockerfile                        # Container configuration
-├── .env.example                      # Environment variables template
-└── README.md                         # This file
-```
-
 ## Deployment
 
 The system runs as a containerized Streamlit application with the following production-grade features:
@@ -729,16 +669,5 @@ Each demo takes 8-12 minutes to generate a complete 35-45 page White Paper. Watc
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
----
-
-## Contact
-
-**Paul Cavallo**
-- Email: paul.m.cavallo@gmail.com
-- LinkedIn: [linkedin.com/in/pmcavallo](https://linkedin.com/in/pmcavallo)
-- GitHub: [github.com/pmcavallo](https://github.com/pmcavallo)
-- Portfolio: [pmcavallo.github.io](https://pmcavallo.github.io)
-
----
 
 *"The difference between good and great model documentation isn't the quality of the prose—it's the accuracy of the numbers. In regulated industries, a single incorrect metric can invalidate months of work and millions in rate filings. AutoDoc AI solves this by combining the speed of AI automation with 100% source fidelity, proving that you can have both efficiency and accuracy when the architecture is right."*
