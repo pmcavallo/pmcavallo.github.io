@@ -545,7 +545,17 @@ Even with temperature 0.3, Claude will generate plausible-sounding data from tra
 
 ## Autodoc AI Demo
 
+![autodoc ai](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/autodocai.png?raw=true)
 
+The first tab is where the user upload the PowerPoint presentation. It immdeiatelly displays information about the deck, with slide count, model key words, and table count. The page also allows the user to select "extract and reference charts", "extract and format tables", and/or "include detailed validation section", with the default being all checked. The user then, at the end, hits the "start generation" button and is directed to the "agent dashboard" tab.
+
+![autodoc ai](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/autodocai2.png?raw=true)
+
+In this tab, the user is immediatelly given a count of characters and words in the PPT file. The following "agent activity" sections gives the role and capabilities of each agent. Then there is a cost tracking dashboard, total and broken down by agent, followed by a workflow log. The user then hits the "start generation" button at the end and has a prompt warning that the operation has started and is running. Once it's done, the user can grab the final document from the "results" tab. 
+
+![autodoc ai](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/autodocai3.png?raw=true)
+
+In the "results tab", the user is greeted with quality metrics like readability, compliance, and completeness. A "documents section" highlights key information contained in each section. The user then selects if they want the final document downloaded as a PDF or a Markdown. The tab ends with recommended next steps.
 
 ## Tech Stack
 
