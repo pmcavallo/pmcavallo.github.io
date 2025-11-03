@@ -576,7 +576,6 @@ In the "results tab", the user is greeted with quality metrics like readability,
 ### Web Application
 
 - **Streamlit**: Interactive web interface with real-time agent visualization
-- **Hugging Face Spaces**: Deployment platform with GPU acceleration
 - **FastAPI** (backend): RESTful API for agent orchestration
 - **Pydantic**: Data validation and type safety
 
@@ -584,7 +583,6 @@ In the "results tab", the user is greeted with quality metrics like readability,
 
 - **Python 3.10+**: Core development language
 - **pytest**: Unit and integration testing
-- **black/isort**: Code formatting and style
 - **git**: Version control with GitHub integration
 
 ---
@@ -599,7 +597,6 @@ While AutoDoc AI was developed for actuarial model documentation, the architectu
 - Document credit scoring models for regulatory submission (OCC, CFPB)
 - Ensure compliance with Fair Credit Reporting Act (FCRA) and Equal Credit Opportunity Act (ECOA)
 - Generate comprehensive model validation reports for audit
-- Time savings: 50-70 hours per model → 15-20 hours
 
 **Trading Algorithm Documentation:**
 - Document algorithmic trading strategies for SEC/FINRA compliance
@@ -612,25 +609,6 @@ While AutoDoc AI was developed for actuarial model documentation, the architectu
 - Ensure Bank Secrecy Act (BSA) and USA PATRIOT Act adherence
 - Generate Suspicious Activity Report (SAR) supporting documentation
 - RAG integration with historical SAR patterns and regulatory guidance
-
-### Healthcare & Pharmaceuticals
-
-**Clinical Trial Documentation:**
-- Generate protocol summaries and regulatory submissions (FDA, EMA)
-- Ensure compliance with ICH-GCP guidelines and 21 CFR Part 11
-- Document statistical analysis plans with methodological rigor
-- Time savings: 80-120 hours per trial → 20-30 hours
-
-**Medical Device Validation:**
-- Document device performance testing for 510(k) submissions
-- Ensure compliance with ISO 13485 and FDA guidance
-- Generate Design History Files (DHF) with traceability
-- Critical for accelerating time-to-market
-
-**Health Economics & Outcomes Research (HEOR):**
-- Document cost-effectiveness models for payer submissions
-- Generate ISPOR-compliant model validation reports
-- Support ICER and HTA body submissions with comprehensive documentation
 
 ### Energy & Utilities
 
@@ -659,7 +637,6 @@ While AutoDoc AI was developed for actuarial model documentation, the architectu
 - Document Current Expected Credit Loss models for FASB ASC 326
 - Generate comprehensive methodology and validation reports
 - Support quarterly audit requirements with consistent documentation
-- Time savings: 60-80 hours per quarter → 15-20 hours
 
 **Stress Testing Documentation:**
 - Document CCAR and DFAST stress testing models for Fed submission
