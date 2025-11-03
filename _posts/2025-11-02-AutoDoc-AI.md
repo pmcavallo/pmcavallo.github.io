@@ -1,4 +1,8 @@
-# AutoDoc AI: Multi-Agent RAG System for Regulatory Documentation Automation
+---
+layout: post
+title: "AutoDoc AI: Multi-Agent RAG System for Regulatory Documentation Automation"
+date: 2025-11-01
+---
 
 AutoDoc AI is a production-ready multi-agent orchestration system that transforms PowerPoint presentations into comprehensive, audit-ready model documentation for insurance pricing models. The system addresses a critical bottleneck in actuarial model risk management: senior analysts spending 40-60 hours per model on documentation that must comply with NAIC Model Audit Rule, multiple Actuarial Standards of Practice (ASOPs), and audit requirements. Using specialized AI agents with a custom orchestration (and a LangGraph version), AutoDoc AI retrieves context from past documentations through RAG (retrieval-augmented generation), validates regulatory compliance in real-time, and generates 30-50 page White Papers that meet stringent audit standards. The system demonstrates 60-75% time savings (40 hours → 10 hours per model), eliminates documentation inconsistencies through standardized templates, and prevents costly audit findings through built-in compliance checks. This architecture solves the fundamental challenge of AI in regulated industries: combining the speed and consistency of automation with the accuracy and accountability required for regulatory oversight, making it applicable beyond insurance to any domain where documentation quality directly impacts regulatory compliance, audit outcomes, and business risk.
 
