@@ -173,26 +173,6 @@ Output: White Paper (30-50 pages, PDF)
 
 **Key Insight:** Both approaches solve the same problem. Custom orchestration works perfectly for AutoDoc AI's workflow complexity. The LangGraph implementation demonstrates understanding of when frameworks add value (complex routing, parallel processing, workflow visualization) versus when simpler approaches suffice.
 
-**Key Innovation: Source Grounding Pipeline**
-
-The system initially suffered from a critical flaw: it generated beautiful, professional documentation with 0% accuracy, every number was plausible but fictional. Through systematic debugging:
-
-1. **Problem Diagnosis**: RAG returned 0 results due to metadata filter mismatch, causing Technical Writer to generate from LLM training knowledge instead of source content
-2. **Root Cause**: PPT content extracted but never passed through to writer agent; prompts didn't enforce using specific source data
-3. **Fix Implementation**: Three-file pipeline modification
-   - Agent Dashboard: Extract full PPT text content, pass to orchestrator via `request.additional_context`
-   - Orchestrator: Retrieve source content from request, pass to writer agent as `source_content` parameter  
-   - Writer Agent: Update all 8 section prompts with explicit instructions: "Use ONLY specific facts from SOURCE DOCUMENT. Every number must come from source."
-
-**Verification**: After fix, test with comprehensive coverage model showed **100% fidelity** (47/47 metrics from PPT appeared correctly in document):
-- Performance metrics: R² 0.58 (freq), 0.44 (sev) ✅
-- Sample sizes: 600,000 policies, 42,000 claims ✅
-- System names: ClaimsVision, PolicyMaster, NICB, NOAA ✅  
-- Key findings: 470% vehicle value impact, 3x theft risk, 80%/73% hail impact ✅
-- Implementation details: Q1 2025 deployment, 10% A/B testing, <500ms response time ✅
-
-This demonstrates the critical importance of source grounding in production AI systems—beautiful prose is worthless if quantitative accuracy is zero.
-
 ---
 
 ## Key Features
@@ -511,13 +491,6 @@ AutoDoc AI demonstrates value through three production-quality examples that sho
 | Business Metrics | 3 | 3 | 100% |
 | Technical Specs | 9 | 9 | 100% |
 | **TOTAL** | **47** | **47** | **100%** ✅ |
-
-**Examples of Perfect Preservation:**
-- R² values: 0.58 (freq), 0.44 (sev) → Appeared as "R² of 0.58" and "R² of 0.44" ✅
-- Sample: 600,000 policies, 42,000 claims → "600,000 policies" and "42,000 comprehensive claims" ✅
-- Systems: ClaimsVision, PolicyMaster, NICB, NOAA → All system names preserved exactly ✅
-- Complex finding: "3x frequency difference between very low and very high risk" → Exact preservation ✅
-- Multi-part metric: "80% frequency increase and 73% severity increase" → Both numbers correct ✅
 
 ### Lessons Learned
 
