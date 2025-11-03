@@ -9,23 +9,20 @@ AutoDoc AI is a production-ready multi-agent orchestration system that transform
 Model documentation represents a critical bottleneck in actuarial model risk management, with far-reaching business consequences:
 
 **Capacity Constraints:**
-- Senior analysts invest **40-60 hours per model** on documentation
-- **$4,000-6,000 in direct labor costs** per model
-- Delays model deployment by 2-4 weeks after development completion
+- Senior analysts invest a lot of time on documentation
+- Delays model deployment after development completion
 - Creates bottleneck limiting model innovation velocity
 
 **Quality & Consistency Issues:**
 - Documentation quality varies significantly across analysts
-- Institutional knowledge trapped in past documents and tribal memory
+- Institutional knowledge trapped in past documents 
 - Junior analysts lack templates and exemplars for complex sections
 - Inconsistent terminology and structure across model documentation portfolio
 
 **Regulatory & Audit Risk:**
-- **$10,000-20,000 per model** in potential audit remediation costs
 - NAIC Model Audit Rule requires comprehensive documentation
-- Non-compliance with Actuarial Standards of Practice (ASOPs 12, 23, 41, 56)
-- State regulators increasingly scrutinize model documentation during rate reviews
-- Inadequate documentation can delay or block multi-million dollar rate filings
+- Regulators increasingly scrutinize model documentation during rate reviews
+- Inadequate documentation can delay or block rate filings
 
 **Knowledge Management:**
 - Critical knowledge exists in:
@@ -33,15 +30,15 @@ Model documentation represents a critical bottleneck in actuarial model risk man
   - Regulatory compilations (NAIC, ASOPs, state-specific requirements)
   - Historical audit findings and remediation responses  
   - Data process and methodology anchor documents
-- No systematic way to leverage this institutional knowledge during documentation
+- Difficult to leverage this institutional knowledge during documentation
 
-At scale (10 models per quarter), this represents **400-600 hours of analyst time annually** ($80,000-120,000 in labor costs) with substantial regulatory risk exposure. The problem isn't lack of effort—it's the inherent difficulty of maintaining consistency, incorporating institutional knowledge, and ensuring regulatory compliance across complex technical documentation.
+The problem isn't lack of effort—it's the inherent difficulty of maintaining consistency, incorporating institutional knowledge, and ensuring regulatory compliance across complex technical documentation.
 
 ---
 
 ## The Solution
 
-AutoDoc AI introduces a multi-agent architecture that mirrors how expert actuaries approach documentation: specialized knowledge retrieval, systematic drafting, regulatory validation, and iterative refinement. The system doesn't replace actuarial judgment—it automates the mechanical aspects while preserving human oversight for model-specific insights.
+AutoDoc AI introduces a multi-agent architecture that mirrors how expert analysts approach documentation: specialized knowledge retrieval, systematic drafting, regulatory validation, and iterative refinement. The system doesn't replace judgment, it automates the mechanical aspects while preserving human oversight for model-specific insights.
 
 ### Core Architecture
 
@@ -103,7 +100,7 @@ Output: White Paper (30-50 pages, PDF)
 
 **Key Innovation: Source Grounding Pipeline**
 
-The system initially suffered from a critical flaw: it generated beautiful, professional documentation with 0% accuracy—every number was plausible but fictional. Through systematic debugging:
+The system initially suffered from a critical flaw: it generated beautiful, professional documentation with 0% accuracy, every number was plausible but fictional. Through systematic debugging:
 
 1. **Problem Diagnosis**: RAG returned 0 results due to metadata filter mismatch, causing Technical Writer to generate from LLM training knowledge instead of source content
 2. **Root Cause**: PPT content extracted but never passed through to writer agent; prompts didn't enforce using specific source data
@@ -424,124 +421,6 @@ AutoDoc AI demonstrates value through three production-quality examples that sho
 
 ---
 
-## The Critical Bug Fix: From 0% to 100% Accuracy
-
-### The Discovery
-
-Early testing revealed a catastrophic flaw: AutoDoc AI generated beautiful, professional documentation with **0% quantitative accuracy**. Every number was plausible but completely fictional.
-
-**Test 1: Bodily Injury Frequency Model**
-- **Source PPT**: AUC 0.72, Gini 0.44, 500,000 policies, PolicyMaster system
-- **Generated Doc**: AUC 0.724, R² 0.863, "47 territories" (source said "15 states"), generic system names
-- **Verification**: 0/9 metrics from source appeared in output
-
-**Test 2: Collision Severity Model**
-- **Source PPT**: R² 0.52, MAPE 24.3%, 450,000 policies, ClaimsVision + DriveWise
-- **Generated Doc**: Generic metrics, no mention of 450K policies, missing all system names
-- **Verification**: 0/9 metrics from source appeared in output
-
-**Pattern**: 100% reproducible across different PPT files. Beautiful prose, perfect structure, zero accuracy.
-
-### Root Cause Analysis
-
-Systematic debugging revealed a three-part failure:
-
-1. **Broken RAG Pipeline**
-   ```
-   Terminal logs showed:
-   "Retrieved 0 results (after filtering)"
-   "No results found for topic: 'Executive Summary frequency model_doc'"
-   ```
-   **Problem**: RAG used metadata filters `{'model_type': 'frequency', 'year': 2024}` but ChromaDB documents lacked these fields → all queries returned 0 results → Writer got empty context
-
-2. **Lost Source Content**
-   ```
-   PPT Upload → Extract Text → Pass Metadata Only → [RAG: 0 results] → Empty Context → Generic Prompt
-   ```
-   **Problem**: PowerPoint content was extracted but only metadata (slide count, table count) was passed to orchestrator. Full text content was discarded.
-
-3. **Generic Prompts**
-   ```python
-   # BROKEN PROMPT
-   prompt = f"Write an executive summary for a {model_type} model."
-   # Claude thinks: "I'll use my training knowledge about frequency models"
-   # Result: Plausible but fictional metrics
-   ```
-   **Problem**: Prompts didn't instruct Claude to use specific source data. Without explicit requirements, Claude defaulted to generating from training knowledge.
-
-### The Fix
-
-Three-file modification to create complete data pipeline:
-
-**File 1: Agent Dashboard (PPT Extraction)**
-```python
-# BEFORE (Broken): Only passed metadata
-metadata = {
-    'source_file': ppt_content.filename,
-    'total_slides': ppt_content.total_slides
-}
-
-# AFTER (Fixed): Extract and pass full text
-ppt_text_content = []
-for slide in ppt_content.slides:
-    slide_text = f"Slide {slide.slide_number}: {slide.title}\n"
-    slide_text += "\n".join(slide.text_content)
-    ppt_text_content.append(slide_text)
-
-full_ppt_content = "\n\n".join(ppt_text_content)
-
-request = GenerationRequest(
-    # ... other fields ...
-    additional_context=full_ppt_content  # CRITICAL FIX
-)
-```
-
-**File 2: Orchestrator (Source Content Passing)**
-```python
-# BEFORE (Broken): Only passed RAG context (which was empty)
-section = self.writer_agent.write_section(
-    section_title=section_name,
-    context=findings.context,  # Empty from RAG failure
-    template=template
-)
-
-# AFTER (Fixed): Pass both RAG context AND source content
-source_content = request.additional_context or ""
-
-section = self.writer_agent.write_section(
-    section_title=section_name,
-    context=findings.context,        # RAG context (may be empty)
-    source_content=source_content,   # CRITICAL: PPT content
-    template=template
-)
-```
-
-**File 3: Writer Agent (Prompt Enforcement)**
-```python
-# BEFORE (Broken): Generic prompt
-prompt = f"Write an executive summary for a {model_type} model."
-
-# AFTER (Fixed): Explicit source grounding requirements
-prompt = f"""Write comprehensive executive summary for {model_type} model.
-
-CRITICAL REQUIREMENTS - YOU MUST FOLLOW THESE:
-1. Use ONLY specific facts, numbers, and metrics from SOURCE DOCUMENT below
-2. Include ALL sample sizes, performance metrics, system names, dates
-3. Do NOT invent or estimate any quantitative data
-4. Every specific number MUST come from source document
-5. Preserve exact statistical measures (R², AUC, Gini, MAPE)
-
-SOURCE DOCUMENT (use these specific facts):
-{source_content}
-
-Additional Context (optional reference only):
-{context}
-
-Remember: ALL numbers must come from SOURCE DOCUMENT above.
-If "R² 0.52" appears in source, it MUST appear as "R² 0.52" in output.
-"""
-```
-
 ### Verification
 
 **Test with Comprehensive Coverage Model** (47 metrics checked):
@@ -779,32 +658,11 @@ autodoc-ai/
 └── README.md                         # This file
 ```
 
-### Key Directories Explained
-
-**`app/`** - Streamlit web interface with real-time agent visualization. Shows users exactly what each agent is doing and provides download links for generated documents.
-
-**`agents/`** - Four specialized AI agents plus LangGraph orchestration. Each agent has focused responsibility and clear input/output contracts.
-
-**`rag/`** - Complete RAG pipeline from document ingestion through semantic retrieval. Includes ChromaDB management and hybrid search strategies.
-
-**`document_processing/`** - Handles all format conversions (PPT → extracted text, markdown → PDF). Includes professional formatting templates.
-
-**`data/`** - Synthetic knowledge base of 370+ documents including past model documentations, regulatory requirements, and audit findings.
-
-**`tests/`** - Comprehensive test suite including the critical source fidelity tests that verify 100% accuracy.
-
----
-
 ## Deployment
-
-AutoDoc AI is deployed as a production-ready web application on Hugging Face Spaces, demonstrating real-world AI orchestration at scale.
-
-### Architecture
 
 The system runs as a containerized Streamlit application with the following production-grade features:
 
 **Infrastructure:**
-- **Platform**: Hugging Face Spaces (CPU-basic tier for demo, GPU-accelerated for production)
 - **Container**: Docker with Python 3.10, optimized for ML workloads
 - **Storage**: Persistent volume for ChromaDB vector store (prevents re-indexing on restart)
 - **API**: Anthropic Claude API with rate limiting and retry logic
@@ -821,39 +679,6 @@ The system runs as a containerized Streamlit application with the following prod
 - **User Isolation**: Each session gets isolated workspace, automatic cleanup after 24 hours
 - **Data Privacy**: Uploaded PowerPoints processed in-memory, never stored permanently
 - **HTTPS**: SSL/TLS encryption for all data in transit
-
-### Production Deployment
-
-**Continuous Deployment:**
-```bash
-# GitHub → Hugging Face Spaces automatic deployment
-git push origin main  # Triggers rebuild and deployment
-```
-
-**Environment Variables:**
-```bash
-ANTHROPIC_API_KEY=sk-ant-...          # Claude API access
-HF_TOKEN=hf_...                       # Hugging Face authentication
-CHROMADB_PATH=/data/chroma            # Persistent vector store
-LOG_LEVEL=INFO                        # Application logging
-MAX_TOKENS_PER_SECTION=2000           # Cost control
-```
-
-**Health Monitoring:**
-- `/health` endpoint for uptime monitoring
-- Real-time token usage dashboard
-- Error logging to HF Spaces logs
-- Automatic restart on critical failures
-
-**Scaling Considerations:**
-- Current deployment handles 50-100 documents/day on free tier
-- Production deployment (GPU-accelerated) supports 500-1000 documents/day
-- Vector store scales to 10,000+ documents without performance degradation
-- API rate limiting prevents quota exhaustion
-
-### Live Demo
-
-**Try it now:** [AutoDoc AI on Hugging Face](https://huggingface.co/spaces/pmcavallo/autodoc-ai)
 
 The demo includes three pre-loaded examples:
 1. **Bodily Injury Frequency** - Standard GLM with 12 predictors
