@@ -61,6 +61,58 @@ def generate_documentation(request):
     return finalize(sections)
 ```
 
+```
+┌─────────────────────────────────────────┐
+│  Research Phase (happens ONCE)          │
+│  - Gather RAG context                   │
+└─────────────────────────────────────────┘
+                 ↓
+┌─────────────────────────────────────────┐
+│  Writing Phase (happens ONCE)           │
+│  - Generate initial 8 sections          │
+└─────────────────────────────────────────┘
+                 ↓
+        ┌────────────────┐
+        │ ITERATION LOOP │
+        │  (max 3 times) │
+        └────────────────┘
+                 ↓
+┌─────────────────────────────────────────┐
+│  Combine sections → full document       │
+└─────────────────────────────────────────┘
+                 ↓
+┌─────────────────────────────────────────┐
+│  Compliance Check                       │
+│  - Missing sections? Critical issues?   │
+└─────────────────────────────────────────┘
+                 ↓
+┌─────────────────────────────────────────┐
+│  Editorial Review                       │
+│  - Quality problems? Clarity issues?    │
+└─────────────────────────────────────────┘
+                 ↓
+         ┌──────────────┐
+         │ Quality OK?  │
+         └──────────────┘
+          ↓           ↓
+        YES          NO
+          ↓           ↓
+      FINALIZE   More iterations?
+                      ↓
+                   YES / NO
+                      ↓
+              ┌──────────────────┐
+              │  REVISION PHASE  │ ←─┐
+              │  - Build feedback│   │
+              │  - Send to writer│   │
+              │  - Regenerate    │   │
+              └──────────────────┘   │
+                      ↓               │
+              Back to Compliance ────┘
+              (loop continues)
+```
+
+
 The system employs four specialized agents, each optimized for specific documentation subtasks:
 
 1. **Research Agent**
