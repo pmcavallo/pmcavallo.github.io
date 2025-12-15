@@ -34,7 +34,7 @@ Every document, regardless of portfolio or complexity, followed the identical pa
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              MEMORY LAYER                                    │
+│                              MEMORY LAYER                                   │
 │  ┌─────────────────┐  ┌──────────────────────┐  ┌─────────────────────────┐ │
 │  │ Session Memory  │  │ Cross-Session Memory │  │     User Memory         │ │
 │  │ (In-Memory)     │  │ (SQLite)             │  │     (JSON)              │ │
@@ -54,11 +54,11 @@ Every document, regardless of portfolio or complexity, followed the identical pa
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         LANGGRAPH ORCHESTRATOR                               │
-│                                                                              │
-│  ┌────────────────┐      ┌───────────┐      ┌──────────┐      ┌─────────┐  │
-│  │detect_portfolio│─────▶│ configure │─────▶│ research │─────▶│  write  │  │
-│  └────────────────┘      └───────────┘      └──────────┘      └────┬────┘  │
+│                         LANGGRAPH ORCHESTRATOR                              │
+│                                                                             │
+│  ┌────────────────┐      ┌───────────┐      ┌──────────┐      ┌─────────┐   │
+│  │detect_portfolio│────▶│ configure │─────▶│ research │─────▶│  write│   │
+│  └────────────────┘      └───────────┘      └──────────┘      └────┬────┘   │
 │         │                      │                                    │       │
 │         │ Detects:             │ Applies:                           │       │
 │         │ • workers_comp       │ • 10 sections                      ▼       │
@@ -80,9 +80,9 @@ Every document, regardless of portfolio or complexity, followed the identical pa
 │                                                 (passed)    (failed)   │   ││
 │                                                     │           │      │   ││
 │                                                     ▼           ▼      ▼   ││
-│                                                ┌────────┐  ┌──────────┐   ││
-│                                                │complete│  │ revision │───┘│
-│                                                └────────┘  └──────────┘    │
+│                                                ┌────────┐  ┌──────────┐   │ │
+│                                                │complete│  │ revision │───┘ │
+│                                                └────────┘  └──────────┘     │
 │                                                     │                       │
 │                                                     ▼                       │
 │                                                   [END]                     │
