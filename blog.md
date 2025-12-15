@@ -8,6 +8,85 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# AutoDoc AI v2: Teaching Agents to Remember (12/15/2025)
+
+After presenting AutoDoc AI, I got the question I'd been avoiding: "Can it do other portfolios?"
+The honest answer was no. Not well, anyway. The system was built for Personal Auto. Another portfolio would have different required sections, stricter compliance requirements, unique regulatory checkpoints around NCCI codes and fee schedules. My "multi-agent system" was really a single-purpose tool pretending to be general.
+But the deeper problem wasn't portfolio coverage. It was memory.
+Every time I ran the system, it started from zero. It had no idea that the last 12 documents all failed on the same compliance check: "Tail development factors not documented." It didn't know that Homeowners models need a CAT Model Integration section. It couldn't remember that one user prefers technical depth while another wants executive summaries.
+The agents were intelligent in isolation but amnesiac as a system. They couldn't learn.
+
+# Building Memory
+
+I spent 3 weeks building a three-tier memory system. The tiers serve different purposes, and getting that separation right was the hard part. Session memory tracks state within a single document generation. When the Executive Summary mentions "R² = 0.72," the Methodology section needs to say the same thing. Without session memory, I was seeing contradictions between sections written by the same system minutes apart. Now every agent can query: "What metrics have I already written?"
+
+Cross-session memory learns patterns across all generations. It's backed by SQLite and records every outcome: which portfolio, what quality score, how many iterations, which compliance issues were flagged. Before generating a new Workers' Comp document, the system now queries historical patterns. It knows that 73% of Workers' Comp docs fail on tail development. It warns the writer agent before generation starts. User memory stores preferences. Some analysts want 1,500-word deep dives with code snippets. Others want 400-word summaries. Some have custom compliance rules for their specific regulatory environment. User memory persists as JSON and loads automatically based on user ID.
+
+The memory manager unifies all three tiers and wires them into the orchestration. Each agent phase gets context from memory: research gets historical patterns, writing gets metrics already recorded, compliance gets portfolio-specific checkpoints plus custom rules.
+
+# Dynamic Routing
+
+With memory in place, I could finally address the portfolio problem. The system now detects what it's processing and routes accordingly. When it sees "NCCI classification codes" and "payroll exposure" and "medical cost trends," it knows it's looking at Workers' Comp. It automatically loads a configuration with 10 required sections instead of 8, a quality threshold of 7.5 instead of 7.0, strict compliance checking, and 4 revision cycles instead of 3. This isn't magic. It's pattern matching on keywords followed by configuration lookup. But the effect is that one entry point now handles four portfolios with the right settings for each. I don't maintain four separate pipelines. I maintain one system that adapts.
+
+# The Audit Trail
+
+The rebuild used LangGraph for orchestration instead of custom Python loops. I didn't switch because LangGraph is faster or because loops are bad. I switched because LangGraph gives me something I couldn't easily build myself: automatic execution history. Every state transition is recorded. When an auditor asks "What path did document X take through your system?", I can answer with one line of code. The graph shows: detected as Workers' Comp, failed compliance on iteration 1 (tail development inadequate), revised, passed compliance on iteration 2, passed editorial, completed.
+
+In regulated industries, "it worked" isn't enough. You need to prove the process was followed. The audit trail isn't a debugging feature. It's a compliance feature.
+
+# What Changed
+
+The system now handles Personal Auto, Homeowners, Workers' Comp, and Commercial Auto. Each portfolio gets appropriate sections, thresholds, and compliance checkpoints.
+More importantly, it learns. That compliance issue that failed 12 times? The system now flags it proactively. Quality scores have improved because the agents know what historically causes failures before they start writing. The memory system added about 2,000 lines of code and 88 tests. The LangGraph orchestrator added another 44 tests. Total test count went from around 50 to 132. The codebase is more complex, but the complexity is in the right places: memory, routing, and audit trails.
+
+# What I Learned
+
+Multi-agent systems without memory aren't intelligent. They're just parallel. Each run starts fresh, makes the same mistakes, ignores everything learned before. Adding memory transforms a tool into a system that improves over time. The difference between multi-agent and multi-agentic is adaptation. Multi-agent means multiple specialized components working together. Multi-agentic means those components learn from outcomes and adjust their behavior. The memory system is what makes that possible.
+
+Portfolio detection sounds simple but changes everything. Instead of building four pipelines and hoping users pick the right one, the system observes what it's processing and configures itself. That's not just convenience. It's how you scale to new portfolios without linear growth in maintenance.
+
+The audit trail is the feature I didn't know I needed. In regulated industries, every model decision needs documentation for regulatory review. Now every AI decision has the same. The graph records its own execution. 
+
+That's not debugging, that's governance.
+
+---
+
+# AutoDoc AI: When Your AI Writes Beautiful Fiction (11/01/2025)
+
+I built a multi-agent system to generate model documentation. Within hours, it was producing 30-page white papers with perfect structure, professional tone, and compelling methodology sections. I was thrilled.
+Then I checked the numbers. The source PowerPoint said "R² = 0.52." The generated document confidently stated "R² = 0.724." It described Azure integrations we don't have. It cited validation approaches we never used. The prose was beautiful. Every single metric was invented. This wasn't a bug in the usual sense. The agents were doing exactly what I asked: generate comprehensive documentation. They just filled in the gaps with plausible-sounding fiction. In a demo, nobody would notice. In a regulatory filing, it would be career-ending.
+
+# The Problem I Was Trying to Solve
+
+Model documentation is a bottleneck in actuarial work. Senior analysts spend 40-60 hours per model writing white papers that comply with NAIC Model Audit Rule, multiple Actuarial Standards of Practice, and internal audit requirements. The documents run 30-50 pages. They require consistency, regulatory awareness, and institutional memory of how past models were documented.
+I thought: this is perfect for AI. Retrieval-augmented generation could pull context from past documentation. Multiple specialized agents could handle research, writing, compliance checking, and editing. The system could learn our style and terminology.
+
+The architecture worked. Four agents, each optimized for a specific task. A RAG pipeline pulling relevant chunks from past model docs, regulatory compilations, and audit findings. An orchestration layer managing the feedback loop between compliance checking and revision.
+
+What didn't work was accuracy.
+
+# The Fix Wasn't Prompts
+
+My first instinct was prompt engineering. I added instructions: "Be accurate. Use only facts from the source document. Don't invent data." The hallucinations continued, now with better grammar.
+The problem was architectural. The source PowerPoint content was getting lost. The RAG system was providing context about how to structure a methodology section, but the actual metrics from the source document weren't making it through the pipeline intact. The LLM was pattern-matching on structure and filling in plausible numbers.
+
+I rebuilt the data flow with three layers of grounding. First, explicit extraction of the full PowerPoint text before any agent sees it. Second, direct passing of that source content to the writer agent alongside the RAG context. Third, enforcement in the prompt that makes it impossible to ignore: "Every number in your response MUST come from the SOURCE DOCUMENT below. If a value doesn't appear in the source, don't include it."
+The key insight was separating what RAG should provide from what direct source content should provide. RAG gives you structure, terminology, and style from past documents. Direct source content gives you the facts for this specific document. Mixing them up is how you get professional-looking fiction.
+
+# What Changed
+
+After the fix, I ran a comprehensive test with 47 metrics across performance statistics, sample sizes, system names, and implementation details. All 47 matched the source exactly. Not 95%. Not "pretty close." Exact matches. The system now generates documentation that I would trust in a rate filing. It preserves every R² value, every sample size, every system name from the source PowerPoint. When it doesn't have information, it leaves gaps for human review rather than inventing plausible alternatives.
+
+# What I Learned
+
+Beautiful prose is worthless without accurate data. In regulated industries, a single wrong metric can invalidate months of work. The AI didn't know it was lying because it wasn't trying to be truthful, it was trying to be helpful. Those aren't the same thing. RAG is excellent for retrieving institutional knowledge. It's not a substitute for grounding in source documents. The system now uses RAG for context and structure, and direct passing for facts and numbers. That separation is architectural, not something you can prompt your way into.
+
+The agents aren't the problem. The orchestration is. How data flows between components, what each component can see, what constraints are enforced at each step, that's where hallucination prevention lives. I came in thinking I could fix accuracy with better prompts. I learned it requires better architecture.
+
+The project took about a month to get right. The cost per document is under $0.30. Time savings are an estimated 60-75% compared to manual documentation. But the real value isn't speed, it's trust. When I ask the system about random forest, it tells me the truth: we don't use it.
+
+---
+
 # Building a Governed AI System: My Experiment with Codex (10/18/2025)
 
 I decided to test a question I’d been circling for months: can an AI coding assistant like Codex not only accelerate development, but help build a governed, reproducible machine learning system from the ground up? 
