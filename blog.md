@@ -49,7 +49,7 @@ The audit trail is the feature I didn't know I needed. In regulated industries, 
 
 That's not debugging, that's governance.
 
-Full project [here]((https://pmcavallo.github.io/AutoDoc-AI/)
+Full project [here](https://pmcavallo.github.io/AutoDoc-AI/)
 
 ---
 
@@ -88,7 +88,7 @@ The agents aren't the problem. The orchestration is. How data flows between comp
 The project took about a month to get right. The cost per document is under $0.30. Time savings are an estimated 60-75% compared to manual documentation. But the real value isn't speed, it's trust. When I ask the system about random forest, it tells me the truth: we don't use it.
 
 
-Full project [here]((https://pmcavallo.github.io/AutoDoc-ai-v2/)
+Full project [here](https://pmcavallo.github.io/AutoDoc-ai-v2/)
 
 ---
 
