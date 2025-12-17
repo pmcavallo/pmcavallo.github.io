@@ -3,17 +3,21 @@ layout: page
 title: About Me
 permalink: /about/
 ---
-On this page, I am showcasing expertise at the intersection of AI, governance, and decision systems, focusing on how intelligent models can not only perform technically, but also stand up in the real world where decisions must be transparent, auditable, and strategically aligned. Building on a PhD in Political Economy and experience in credit risk modeling, I am bridging quantitative rigor, cloud-scale orchestration, and human-centered governance. My aim is to create intelligent systems that interpret, generate, and decide with data in high-stakes, regulated environments.
+I build multi-agent AI systems for regulated industries, where "it works" isn't enough and every decision needs a paper trail.
+
+Current focus: AI orchestration, RAG architectures, and agent memory systems. Recent work includes a multi-agent documentation system achieving 100% source fidelity and a 3-tier memory architecture that learns across sessions.
+
+5+ years in quantitative modeling taught me what production-ready actually means: auditable, explainable, and built to survive scrutiny. I bring that discipline to AI systems.
 
 ## 💼 Focus Areas
 
+- **AI Orchestration & Multi-Agent Systems**: LangGraph workflows, agent memory, dynamic routing, and audit trails for production deployment.
 - **Model Development**: Forecasting, scenario analysis, and credit risk modeling using Python, SAS, and SQL in production-level environments.
-- **Machine Learning & Cloud Analytics**: Building end-to-end ML pipelines with Python, XGBoost, SHAP, and cloud tools such as AWS, GCP, Streamlit, and Snowflake.
-- **AI Systems & LLM Engineering**: Designing reliable AI solutions through prompt engineering, retrieval-augmented generation (RAG), schema validation, and zero-hallucination agent architectures.
+- **MLOps & Cloud Deployment**: End-to-end pipelines with Docker, MLflow, FastAPI, AWS, and GCP.
+- **RAG & LLM Engineering**: Zero-hallucination architectures, schema validation, retrieval pipelines, and source-grounded generation..
 - **Scalable Data Workflows**: Developing modular, reproducible analytics using PySpark, partitioned data lakes, and serverless/cloud-native deployment for monitoring and performance.
-- **Telecom & Network Analytics**: Applied projects in anomaly detection, forecasting, and drift monitoring of 4G/5G KPIs (PRB utilization, latency, SINR, throughput) with interactive dashboards and multi-cloud deployment.
+- **Telecom & Network Analytics**: Anomaly detection, churn prediction, and 4G/5G KPI monitoring with multi-cloud deployment.
 - **Behavioral Analytics**: Simulating segmentation, churn, and engagement modeling use cases across diverse industries.
-- **Cross-Functional Collaboration**: Bridging technical and business teams to drive insight-driven decision-making at scale.
 
 
 ## 📚 Academic & Research Background
@@ -37,16 +41,16 @@ Fluent in English, Spanish, and Portuguese; advanced in French and Italian. I en
 Python • scikit-learn • SQL • PySpark • XGBoost • Prophet • SHAP • R • Stata • SAS  
 
 **AI & LLM Systems:**
-Prompt Engineering • Retrieval-Augmented Generation (RAG) • LangChain • OpenAI API (GPT family) • Claude • Embeddings & Vector Stores (Chroma, FAISS) 
+LangGraph • Retrieval-Augmented Generation (RAG) • LangChain • OpenAI API (GPT family) • Claude • Embeddings & Vector Stores (Chroma, FAISS) 
 
-**Cloud & Deployment:**  
-AWS (S3, SageMaker, Lambda) • GCP (Cloud Run, BigQuery) • Hugging Face Spaces • Render • Docker • GitHub Actions (CI/CD)  
+**Cloud & MLOps:**  
+AWS (S3, SageMaker, Lambda) • GCP (Cloud Run, BigQuery) • MLflow • Render • Docker • GitHub Actions (CI/CD)  
 
 **Data & Workflow:**  
 Parquet • DuckDB • Neo4j • Pipeline design (Bronze → Silver → Gold)  
 
 **Visualization & Apps:**  
-Streamlit • Tableau • Plotly • Matplotlib • Gradio 
+Streamlit • Tableau • Plotly • Matplotlib 
 
 **Other:**  
 GIS (Certified)  
