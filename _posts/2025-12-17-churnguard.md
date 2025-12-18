@@ -14,7 +14,7 @@ ChurnGuard is a production-ready machine learning system that predicts customer 
 
 **Live Demo:** `http://54.158.47.223:8000/docs` *(EC2 instance may be stopped to save costs)*
 
-![API Documentation](Screenshots/UI.png)
+![autodoc ai](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/UI.png?raw=true)
 
 ---
 
@@ -48,13 +48,13 @@ ChurnGuard implements a full MLOps pipeline with four key components:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              MLOps Pipeline                                  │
+│                              MLOps Pipeline                                 │
 │                                                                             │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
-│  │   Training  │    │  Experiment │    │   Docker    │    │    Cloud    │  │
-│  │   Pipeline  │───►│  Tracking   │───►│  Container  │───►│  Deployment │  │
-│  │  (XGBoost)  │    │  (MLflow)   │    │  (FastAPI)  │    │  (AWS EC2)  │  │
-│  └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘  │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐   │
+│  │   Training  │    │  Experiment │    │   Docker    │    │    Cloud    │   │
+│  │   Pipeline  │───►│  Tracking   │───►│  Container  │───►│  Deployment │   │
+│  │  (XGBoost)  │    │  (MLflow)   │    │  (FastAPI)  │    │  (AWS EC2)  │   │
+│  └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘   │
 │                                                                             │
 │  Local Development ─────────────────────────────────► Production            │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -109,7 +109,7 @@ Every training run automatically logs:
 - **Artifacts**: trained model, encoders, feature names
 - **Metadata**: git commit, timestamp, run duration
 
-![MLflow Experiments](Screenshots/MLflow_exoeriment.png)
+![autodoc ai](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/MLflow_exoeriment.png?raw=true)
 
 **Key Insight from Experiments:**
 
@@ -187,8 +187,8 @@ One command (`docker-compose up`) starts everything.
 │        ▲              │  │  │  FastAPI + XGBoost      │  │  │   │
 │        │              │  │  └─────────────────────────┘  │  │   │
 │   docker push         │  └───────────────────────────────┘  │   │
-│        │              │              │                       │   │
-└────────┼──────────────┴──────────────┼───────────────────────┘   
+│        │              │              │                      │   │
+└────────┼──────────────┴──────────────┼──────────────────────────┘   
          │                             │                           
     ┌────┴─────┐                  port 8000                        
     │ Local PC │                       │                           
@@ -208,7 +208,7 @@ One command (`docker-compose up`) starts everything.
 | **IAM** | Security | Manages permissions between services |
 | **Security Groups** | Firewall | Controls which ports are accessible |
 
-![EC2 Instance](Screenshots/ec2.png)
+![MLflow Comparison](Screenshots/ec2.png)
 
 **Deployment Flow:**
 1. Build Docker image locally
@@ -266,7 +266,7 @@ The API follows REST conventions with three endpoints:
 }
 ```
 
-![Prediction Response](Screenshots/prediction.png)
+![MLflow Comparison](Screenshots/prediction.png)
 
 **Risk Level Logic:**
 - `high`: probability >= 0.7
@@ -474,16 +474,6 @@ EC2 user data runs silently. Adding logging to the startup script would have mad
 | Experiment Tracking | MLflow |
 | Cloud | AWS (ECR, EC2, IAM) |
 | Language | Python 3.11 |
-
----
-
-## Author
-
-**Paulo Cavallo, PhD**
-
-AI Orchestration | MLOps | Building Production ML Systems
-
-[LinkedIn](https://www.linkedin.com/in/pmcavallo/) | [GitHub](https://github.com/pmcavallo)
 
 ---
 
