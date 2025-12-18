@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "ChurnGuard: End-to-End MLOps Pipeline for Customer Churn Prediction"
+excerpt: "ChurnGuard is a production-ready machine learning system that predicts customer churn for telecom companies. Beyond the model itself, this project demonstrates the complete MLOps lifecycle: experiment tracking, containerization, multi-service orchestration, and cloud deployment. The architecture mirrors how ML systems are built at companies like T-Mobile, Verizon, and AT&T, where the ability to deploy and maintain models in production is as critical as model accuracy."
 date: 2025-12-18
 ---
 
