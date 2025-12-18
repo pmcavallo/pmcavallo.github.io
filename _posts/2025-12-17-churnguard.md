@@ -11,7 +11,7 @@ date: 2025-12-18
 ![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=flat&logo=mlflow&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white)
 
-ChurnGuard is a production-ready machine learning system that predicts customer churn for telecom companies. Beyond the model itself, this project demonstrates the complete MLOps lifecycle: experiment tracking, containerization, multi-service orchestration, and cloud deployment. The architecture mirrors how ML systems are built at companies like T-Mobile, Verizon, and AT&T, where the ability to deploy and maintain models in production is as critical as model accuracy.
+ChurnGuard is a production-ready machine learning system that predicts customer churn for telecom companies. Beyond the model itself, this project demonstrates the complete MLOps lifecycle: experiment tracking, containerization, multi-service orchestration, and cloud deployment. The architecture mirrors how ML systems are built at Telecom companies, where the ability to deploy and maintain models in production is as critical as model accuracy.
 
 **Live Demo:** `http://54.158.47.223:8000/docs` *(EC2 instance may be stopped to save costs)*
 
