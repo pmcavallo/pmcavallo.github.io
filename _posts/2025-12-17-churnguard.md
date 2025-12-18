@@ -208,8 +208,12 @@ One command (`docker-compose up`) starts everything.
 | **EC2** | Compute | Runs the container, scales as needed |
 | **IAM** | Security | Manages permissions between services |
 | **Security Groups** | Firewall | Controls which ports are accessible |
+---
 
-![MLflow Comparison](Screenshots/ec2.png)
+**EC2 Instance**
+
+![autodoc ai](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/ec2.png?raw=true)
+
 
 **Deployment Flow:**
 1. Build Docker image locally
@@ -266,8 +270,6 @@ The API follows REST conventions with three endpoints:
   "risk_level": "high"
 }
 ```
-
-![MLflow Comparison](Screenshots/prediction.png)
 
 **Risk Level Logic:**
 - `high`: probability >= 0.7
