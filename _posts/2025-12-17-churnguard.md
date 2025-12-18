@@ -122,7 +122,7 @@ I ran two configurations to compare:
 
 The simpler model won. More trees and deeper depth led to overfitting, not better performance. This is exactly the kind of insight that's impossible without proper experiment tracking.
 
-![MLflow Comparison](Screenshots/MLflow.png)
+![autodoc ai](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/MLflow.png?raw=true)
 
 The parallel coordinates plot visualizes how hyperparameters affect accuracy. Red line (higher accuracy) shows the simpler configuration outperforming the complex one.
 
