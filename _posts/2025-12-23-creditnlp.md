@@ -284,6 +284,22 @@ Loss dropped 89% over 3 epochs, indicating strong learning signal.
 
 ---
 
+### Live Demo
+
+The Gradio interface provides an interactive way to test the fine-tuned model on startup loan applications. Users can select from pre-loaded sample applications or paste their own narrative text for analysis.
+
+![Live Demo](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/gradio.png?raw=true)
+
+How It Works:
+
+- Input: Select a sample application from the dropdown or paste custom text into the Loan Application Narrative field
+- Analyze: Click "Analyze Risk Signals" to run inference through the fine-tuned Mistral-7B + LoRA model
+- Output: View the prediction (DEFAULT or NO_DEFAULT) along with a breakdown of detected risk signals
+
+The interface demonstrates that the model doesn't just output a binary prediction, it identifies the specific linguistic patterns that drove the decision, making the assessment explainable and auditable. This transparency is critical for credit decisions in regulated environments. It also gives the user the ability to use either the binary outcome, deafult/no_default, or the risk signal themselves. You can extract quantitative or qualitative information to augment the credit risk model. 
+
+---
+
 ## What This Demonstrates
 
 ### Fine-Tuning Fundamentals
