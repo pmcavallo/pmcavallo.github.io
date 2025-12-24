@@ -4,7 +4,7 @@ title: "CreditNLP: Fine-Tuned LLM for Startup Default Risk Prediction"
 date: 2025-12-23
 ---
 
-CreditNLP is a fine-tuned language model that identifies default risk signals in startup loan applications where traditional quantitative data is sparse. Using LoRA (Low-Rank Adaptation) on Mistral-7B, the model learns to detect implicit risk patterns in application narratives - the same linguistic signals that experienced credit underwriters recognize intuitively but cannot codify into rules. The fine-tuned model achieves **93.9% accuracy** on parseable outputs compared to 60% for few-shot prompting, demonstrating that domain expertise can be encoded directly into model weights through targeted training on labeled examples. **Important Disclaimer:** the project uses simulated data.
+CreditNLP is a fine-tuned language model that identifies default risk signals in startup loan applications where traditional quantitative data is sparse. Using LoRA (Low-Rank Adaptation) on Mistral-7B, the model learns to detect implicit risk patterns in application narratives - the same linguistic signals that experienced credit underwriters recognize intuitively but cannot codify into rules. The fine-tuned model achieves **93.9% accuracy** on parseable outputs compared to 60% for few-shot prompting, demonstrating that domain expertise can be encoded directly into model weights through targeted training on labeled examples. **Important Disclaimer:** the project uses simulated data. there is no affiliation and no personal information in the simulated data used in this project.
 
 ---
 
