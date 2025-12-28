@@ -8,6 +8,215 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# What Building a Transformer Taught Me About AI Orchestration (12/28/2025)
+
+I've built RAG systems with 100% source fidelity. But I didn't truly understand WHY certain design choices worked until I built a transformer from scratch. Here's what 133K parameters taught me about 175 billion.
+
+**Why Bother Building from Scratch?**
+
+Most AI practitioners use transformers through APIs without understanding the mechanics. We call models, tweak prompts, and hope for the best. But understanding the architecture changes everything: how you design prompts, structure RAG pipelines, and debug unexpected behavior.
+
+This isn't academic exercise. It's practical knowledge for anyone orchestrating AI systems.
+
+AI performance isn't magic. It's architecture. And once you understand how it works, you stop guessing and start engineering.
+
+**A Quick Note on PyTorch**
+
+All the code in this post uses PyTorch, the dominant framework for LLM development. If you see `import torch`, that's PyTorch. The name comes from "tensor," which is just a multi-dimensional array: vectors, matrices, and higher-dimensional structures that neural networks operate on.
+
+Why does PyTorch dominate? Hugging Face transformers are PyTorch-native. Most LLM code you'll encounter (LangChain, vLLM, etc.) uses PyTorch. For AI orchestration work, 90%+ of LLM-related code starts with `import torch`.
+
+**Attention as Similarity: The Credit Risk Connection**
+
+Here's where my banking background clicked with transformer mechanics.
+
+Attention is fundamentally about measuring similarity. When a transformer processes "The cat sat on the mat because it was tired," it needs to figure out what "it" refers to. The answer: compute similarity between "it" and every other word, then attend more to similar words.
+
+The math? Dot product for similarity, softmax to convert to probabilities.
+
+If you've worked with credit risk scorecards, this is familiar territory:
+
+| Credit Risk Scorecard | Attention Mechanism |
+|----------------------|---------------------|
+| Raw score points | Dot product similarities |
+| Logistic transform → P(default) | Softmax → attention weights |
+| Probabilities sum to 1 across outcomes | Weights sum to 1 across tokens |
+| Higher score = higher risk | Higher similarity = more attention |
+
+The mathematical machinery is nearly identical. Softmax is just the multi-class generalization of logistic regression.
+
+**Practical insight for RAG:** This is why semantically similar content gets retrieved together. The same dot-product similarity that drives attention also drives embedding-based retrieval.
+
+**The Query-Key-Value Framework**
+
+The transformer doesn't use embeddings directly for similarity. It learns three different projections:
+
+- **Query (Q):** "What am I looking for?"
+- **Key (K):** "What do I contain that others might want?"
+- **Value (V):** "What information do I actually give when attended to?"
+
+Think of it like a library: the catalog description (Key) helps you find the book (Query match), but the actual content you read (Value) is different from the catalog entry.
+
+Why three separate projections? Because what makes two tokens "related" (Q·K) might differ from what information should flow between them (V).
+
+**The Scaling Problem: Why √d_k Matters**
+
+Here's something that broke my intuition initially. Without proper scaling, attention collapses.
+
+When I computed raw attention scores and applied softmax directly:
+
+| Token | Attention Weight |
+|-------|------------------|
+| The | 0.000000 |
+| cat | 0.000000 |
+| sat | 0.999999 |
+| it | 0.000001 |
+
+Almost one-hot. 99.9999% to one token, nearly 0% to everything else. This defeats the purpose of attention. We want a soft blend, not a hard selection.
+
+**Why this happens:** Softmax exponentiates its inputs. Large differences get amplified exponentially. As embedding dimensions grow, dot products get larger (more terms summed), making this worse.
+
+**The fix:** Divide by √d_k before softmax. This keeps values in a reasonable range:
+
+| Scores | Softmax Result | Distribution |
+|--------|----------------|--------------|
+| Small [1, 2, 1.5, 1.8] | [0.132, 0.358, 0.217, 0.293] | Spread out |
+| Large [10, 20, 15, 18] | [0.876, 0.006, 0.006, 0.118] | Collapsed |
+| Scaled [3.16, 6.32, 4.74, 5.69] | [0.024, 0.562, 0.116, 0.299] | Restored |
+
+**Practical insight:** This is why transformer models can struggle with very long contexts. Attention still has to sum to 1 across all positions. Important information from early in the context gets diluted. This connects directly to why RAG chunk placement and context window management matter.
+
+**Multi-Head Attention: Parallel Specialization**
+
+Single attention computes one weighted average, capturing one type of relationship. But language has multiple simultaneous relationships.
+
+Consider: "The cat sat on the mat because it was tired."
+
+When processing "it", we might want to simultaneously track:
+- Syntactic relationship (what noun does this pronoun replace?)
+- Positional relationship (what's nearby?)
+- Semantic relationship (what's an animate object that can be "tired"?)
+
+Multi-head attention runs several attention operations in parallel. Each head gets a "slice" of the representation to work with. In my tiny model: 8 heads × 8 dimensions = 64 total dimensions. They run in parallel, then results combine.
+
+When I visualized attention patterns from different heads on the same input, they were completely different. Head 0 might attend 100% to position 1, while Head 4 attends 99% to position 2. In trained models, these heads specialize: syntax heads, coreference heads, positional heads.
+
+**Practical insight:** This explains why larger models work better. More heads = more relationship types captured simultaneously. GPT-3 has 96 attention heads across 96 layers. When you're working with these models through APIs, you're benefiting from dozens of specialized attention patterns running in parallel on every token.
+
+**Positional Encoding: Why Order Matters**
+
+Here's something that surprised me: attention is permutation invariant by default.
+
+Without positional information, the model has no idea that "cat" comes before "sat." I proved this by shuffling tokens and computing attention. The attention weights for "cat" were identical regardless of position, just reordered.
+
+For language, this is broken. "Dog bites man" vs "Man bites dog" would be indistinguishable.
+
+The solution: add positional encoding to embeddings. The original transformer uses sine and cosine functions at different frequencies, giving each position a unique "fingerprint." After adding positional encoding, the same word at different positions has different representations, and attention patterns change accordingly.
+
+**Practical insight:** This is why context window position matters in RAG. When you stuff retrieved chunks into a prompt, their position affects how the model attends to them. Chunks at the beginning and end often get more attention than middle chunks. This is the "lost in the middle" phenomenon. The positional encoding creates inherent biases based on where information appears.
+
+**Encoder vs. Decoder: Choosing the Right Architecture**
+
+The original transformer had both an encoder and decoder. Modern models often use just one:
+
+| Architecture | Bidirectional? | Generation? | Examples | Use Case |
+|--------------|----------------|-------------|----------|----------|
+| Encoder-only | Yes | Poor | BERT, RoBERTa | Classification, embeddings, search |
+| Decoder-only | No | Excellent | GPT, Claude, LLaMA | Text generation, chat, reasoning |
+| Encoder-decoder | Mixed | Good | T5, BART | Translation, summarization |
+
+**Why decoder-only dominates for LLMs:**
+
+1. Simpler training objective: just predict next token
+2. Emergent capabilities: larger models developed reasoning without architecture changes
+3. Flexibility: same model does chat, code, analysis, creative writing
+4. Scaling efficiency: one model type to optimize
+
+**The key difference in code:** One line. Decoder models add a causal mask that prevents tokens from attending to future positions:
+
+```python
+mask = torch.tril(torch.ones(seq_len, seq_len))
+scores = scores.masked_fill(mask == 0, float('-inf'))
+```
+
+This creates a lower triangular matrix where each token can only see itself and earlier tokens.
+
+**Practical insight:** When Claude processes your prompt "Explain transformers to me", the word "Explain" cannot attend to "me." Only the reverse. Each token only sees what came before. This is why prompt structure matters, and why instructions at the beginning of a prompt behave differently than instructions at the end.
+
+**When to Use BERT vs. GPT**
+
+Understanding this architecture difference helps you choose the right tool:
+
+**Use BERT-style (encoder) models for:**
+- Text classification
+- Semantic search embeddings  
+- Named entity recognition
+- Similarity scoring
+
+**Use GPT-style (decoder) models for:**
+- Text generation
+- Chat and conversation
+- Reasoning and analysis
+- Code completion
+
+**Practical example for RAG:** When you build retrieval, you often use a BERT-style model to create embeddings for semantic search, then pass retrieved chunks to Claude for generation. Different architectures for different jobs.
+
+**Cost consideration:** BERT models are open source and run locally. No API costs per token. For high-volume classification or embedding tasks, this matters.
+
+**The Scale Comparison**
+
+After building all the components, I assembled a complete tiny language model:
+
+| Model | Parameters |
+|-------|------------|
+| My model | 133K |
+| GPT-2 Small | 124M (1000x larger) |
+| GPT-3 | 175B (1.3M x larger) |
+| GPT-4 | Estimated 1.7T |
+
+Same architecture, different scale.
+
+I trained my model on 1,200 characters of "the cat sat " repeated. Before training, it generated gibberish: "theh s h tt'". After 500 training steps, it generated: "the cat sat the cat sat the cat sat".
+
+The model discovered the pattern: after "the" comes " cat", after "cat" comes " sat", after "sat" comes " the".
+
+**This is exactly what GPT/Claude do, just at scale:**
+
+| Aspect | My Model | GPT-3 |
+|--------|----------|-------|
+| Training data | 1,200 characters | 570 GB of text |
+| Vocabulary | 7 characters | 50,257 tokens |
+| Parameters | 133K | 175B |
+| Pattern learned | "the cat sat" | Language, reasoning, code, etc. |
+
+Same algorithm. Same architecture. Different scale.
+
+**What This Changes for AI Orchestrators**
+
+Building this tiny transformer took a few hours. The intuition it provided will inform every AI system I build:
+
+**Prompt design:** Understanding causal attention explains why instruction placement matters. The model processes left-to-right; early tokens can't see late tokens.
+
+**RAG architecture:** Positional encoding explains why chunk order affects output quality. The "lost in the middle" phenomenon is a direct consequence of how attention and position interact.
+
+**Model selection:** Understanding encoder vs. decoder helps choose the right tool. BERT for embeddings, GPT for generation. Different architectures for different jobs.
+
+**Debugging:** When a model behaves unexpectedly, I can now reason about what's happening mechanically. Is it an attention issue? A context length problem? A positional bias?
+
+**Cost estimation:** Understanding tokenization explains why token counts don't equal word counts. Technical jargon often tokenizes poorly, costing more than simple words.
+
+**Closing Thought**
+
+AI orchestration isn't just about calling APIs. It's about understanding the machinery well enough to design systems that work reliably.
+
+Most people think ChatGPT is just "typing answers." It's not. There's a full system working behind every response: tokenization, embedding lookup, positional encoding, layer after layer of multi-head attention and feed-forward networks, causal masking ensuring left-to-right generation, and finally a probability distribution over the entire vocabulary for the next token.
+
+Understanding this changed how I use AI. It can change how you use it too.
+
+*The complete code for this project is available as a Google Colab notebook. All components were built from scratch using PyTorch, with no high-level transformer libraries.*
+
+
+
 # AutoDoc AI v2: Teaching Agents to Remember (12/15/2025)
 
 After presenting AutoDoc AI, I got the question I'd been avoiding: "Can it do other portfolios?"
