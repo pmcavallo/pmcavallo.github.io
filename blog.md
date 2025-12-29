@@ -120,7 +120,7 @@ The solution: add positional encoding to embeddings. The original transformer us
 The original transformer had both an encoder and decoder. Modern models often use just one:
 
 | Architecture | Bidirectional? | Generation? | Examples | Use Case |
-|--------------|----------------|-------------|----------|----------|
+| --- | --- | --- | --- | --- |
 | Encoder-only | Yes | Poor | BERT, RoBERTa | Classification, embeddings, search |
 | Decoder-only | No | Excellent | GPT, Claude, LLaMA | Text generation, chat, reasoning |
 | Encoder-decoder | Mixed | Good | T5, BART | Translation, summarization |
@@ -183,7 +183,7 @@ The model discovered the pattern: after "the" comes " cat", after "cat" comes " 
 **This is exactly what GPT/Claude do, just at scale:**
 
 | Aspect | My Model | GPT-3 |
-|--------|----------|-------|
+| --- | --- | --- |
 | Training data | 1,200 characters | 570 GB of text |
 | Vocabulary | 7 characters | 50,257 tokens |
 | Parameters | 133K | 175B |
