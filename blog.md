@@ -36,12 +36,16 @@ The math? Dot product for similarity, softmax to convert to probabilities.
 
 If you've worked with credit risk scorecards, this is familiar territory:
 
-| Credit Risk Scorecard | Attention Mechanism |
-|----------------------|---------------------|
-| Raw score points | Dot product similarities |
-| Logistic transform → P(default) | Softmax → attention weights |
-| Probabilities sum to 1 across outcomes | Weights sum to 1 across tokens |
-| Higher score = higher risk | Higher similarity = more attention |
+```python
++--------------------------------+--------------------------------+
+| Credit Risk Scorecard          | Attention Mechanism            |
++--------------------------------+--------------------------------+
+| Raw score points               | Dot product similarities       |
+| Logistic transform → P(default)| Softmax → attention weights    |
+| Probabilities sum to 1         | Weights sum to 1 across tokens |
+| Higher score = higher risk     | Higher similarity = more attn  |
++--------------------------------+--------------------------------+
+```
 
 The mathematical machinery is nearly identical. Softmax is just the multi-class generalization of logistic regression.
 
@@ -65,12 +69,14 @@ Here's something that broke my intuition initially. Without proper scaling, atte
 
 When I computed raw attention scores and applied softmax directly:
 
-| Token | Attention Weight |
+```python
+ Token  | Attention Weight |
 |-------|------------------|
-| The | 0.000000 |
-| cat | 0.000000 |
-| sat | 0.999999 |
-| it | 0.000001 |
+| The   | 0.000000         |
+| cat   | 0.000000         |
+| sat   | 0.999999         |
+| it    | 0.000001         |
+```
 
 Almost one-hot. 99.9999% to one token, nearly 0% to everything else. This defeats the purpose of attention. We want a soft blend, not a hard selection.
 
@@ -78,11 +84,15 @@ Almost one-hot. 99.9999% to one token, nearly 0% to everything else. This defeat
 
 **The fix:** Divide by √d_k before softmax. This keeps values in a reasonable range:
 
-| Scores | Softmax Result | Distribution |
-|--------|----------------|--------------|
-| Small [1, 2, 1.5, 1.8] | [0.132, 0.358, 0.217, 0.293] | Spread out |
-| Large [10, 20, 15, 18] | [0.876, 0.006, 0.006, 0.118] | Collapsed |
-| Scaled [3.16, 6.32, 4.74, 5.69] | [0.024, 0.562, 0.116, 0.299] | Restored |
+```python
++---------------------------------+-----------------------------+----------------+
+| Scores                          | Softmax Result              | Distribution   |
++---------------------------------+-----------------------------+----------------+
+| Small [1, 2, 1.5, 1.8]          | [0.132, 0.358, 0.217, 0.293]| Spread out     |
+| Large [10, 20, 15, 18]          | [0.876, 0.006, 0.006, 0.118]| Collapsed      |
+| Scaled [3.16, 6.32, 4.74, 5.69] | [0.024, 0.562, 0.116, 0.299]| Restored       |
++---------------------------------+-----------------------------+----------------+
+```
 
 **Practical insight:** This is why transformer models can struggle with very long contexts. Attention still has to sum to 1 across all positions. Important information from early in the context gets diluted. This connects directly to why RAG chunk placement and context window management matter.
 
@@ -119,11 +129,15 @@ The solution: add positional encoding to embeddings. The original transformer us
 
 The original transformer had both an encoder and decoder. Modern models often use just one:
 
-| Architecture | Bidirectional? | Generation? | Examples | Use Case |
-| --- | --- | --- | --- | --- |
-| Encoder-only | Yes | Poor | BERT, RoBERTa | Classification, embeddings, search |
-| Decoder-only | No | Excellent | GPT, Claude, LLaMA | Text generation, chat, reasoning |
-| Encoder-decoder | Mixed | Good | T5, BART | Translation, summarization |
+```python
++------------------+----------------+-------------+-------------------+-------------------------------------+
+| Architecture     | Bidirectional? | Generation? | Examples          | Use Case                            |
++------------------+----------------+-------------+-------------------+-------------------------------------+
+| Encoder-only     | Yes            | Poor        | BERT, RoBERTa     | Classification, embeddings, search  |
+| Decoder-only     | No             | Excellent   | GPT, Claude, LLaMA| Text generation, chat, reasoning    |
+| Encoder-decoder  | Mixed          | Good        | T5, BART          | Translation, summarization          |
++------------------+----------------+-------------+-------------------+-------------------------------------+
+```
 
 **Why decoder-only dominates for LLMs:**
 
@@ -167,12 +181,16 @@ Understanding this architecture difference helps you choose the right tool:
 
 After building all the components, I assembled a complete tiny language model:
 
-| Model | Parameters |
-|-------|------------|
-| My model | 133K |
-| GPT-2 Small | 124M (1000x larger) |
-| GPT-3 | 175B (1.3M x larger) |
-| GPT-4 | Estimated 1.7T |
+```python
++-------------+---------------------------+
+| Model       | Parameters                |
++-------------+---------------------------+
+| My model    | 133K                      |
+| GPT-2 Small | 124M (1,000x larger)      |
+| GPT-3       | 175B (1.3M x larger)      |
+| GPT-4       | Estimated 1.7T            |
++-------------+---------------------------+
+```
 
 Same architecture, different scale.
 
@@ -182,12 +200,16 @@ The model discovered the pattern: after "the" comes " cat", after "cat" comes " 
 
 **This is exactly what GPT/Claude do, just at scale:**
 
-| Aspect | My Model | GPT-3 |
-| --- | --- | --- |
-| Training data | 1,200 characters | 570 GB of text |
-| Vocabulary | 7 characters | 50,257 tokens |
-| Parameters | 133K | 175B |
-| Pattern learned | "the cat sat" | Language, reasoning, code, etc. |
+```python
++------------------+--------------------+----------------------------------+
+| Aspect           | My Model           | GPT-3                            |
++------------------+--------------------+----------------------------------+
+| Training data    | 1,200 characters   | 570 GB of text                   |
+| Vocabulary       | 7 characters       | 50,257 tokens                    |
+| Parameters       | 133K               | 175B                             |
+| Pattern learned  | "the cat sat"      | Language, reasoning, code, etc.  |
++------------------+--------------------+----------------------------------+
+```
 
 Same algorithm. Same architecture. Different scale.
 
