@@ -8,6 +8,138 @@ A selection of hands-on projects demonstrating real-world data science, AI syste
 
 ---
 
+**EvalOps: Production-Grade LLM Evaluation and Observability Platform**  
+A systematic evaluation framework for LLM applications addressing non-deterministic outputs. Provides semantic similarity matching using BERT embeddings, statistical drift detection, A/B comparison with effect size calculation, and a full observability stack. Deployed on AWS via Docker with **285 tests passing** and a live demo at [http://44.213.248.8:8501](http://44.213.248.8:8501).
+
+**Highlights:**
+
+* **Semantic similarity:** BERT embeddings understand meaning, not just strings; "Paris" matches "The capital is Paris" correctly
+* **Statistical rigor:** A/B comparison with chi-squared tests, Cohen's h effect size, and confidence intervals; not just "A looks better"
+* **Drift detection:** Catch quality degradation before users complain with baseline comparison and statistical significance testing
+* **Full observability:** LangSmith tracing, structured logging, metrics collection for production monitoring
+* **Docker deployment:** Containerized with CPU-optimized PyTorch, published to Docker Hub, deployed to AWS EC2
+
+**Business / Research Impact:**  
+Traditional testing fails for LLMs because "correct" can be phrased a thousand ways. EvalOps provides the semantic understanding, statistical rigor, and continuous monitoring that production LLM applications require.
+
+**Tech Stack:**
+
+* **Embeddings:** sentence-transformers (all-MiniLM-L6-v2)
+* **API / CLI:** FastAPI, Typer + Rich
+* **Dashboard:** Streamlit + Plotly
+* **Database:** SQLAlchemy 2.0 (SQLite/PostgreSQL)
+* **Observability:** LangSmith, structlog
+* **Deployment:** Docker, AWS EC2, DynamoDB
+
+🔗 **Live Demo:** [http://44.213.248.8:8501](http://44.213.248.8:8501)  
+📁 [View Full Project](https://pmcavallo.github.io/evalops/)
+
+---
+
+**AutoDoc AI: Multi-Agent RAG System for Regulatory Documentation**  
+A production-grade multi-agent system that automates regulatory documentation generation for credit risk models. Four specialized AI agents (Research, Writer, Compliance, Editor) collaborate through custom Python orchestration to generate SR 11-7 compliant documentation with **100% source fidelity** and zero hallucinations. Presented to 200+ colleagues.
+
+**Highlights:**
+
+* **Four specialized agents:** Research Agent retrieves model artifacts, Writer Agent generates sections, Compliance Agent validates SR 11-7 requirements, Editor Agent ensures consistency and tone
+* **Custom orchestration:** Pure Python multi-agent coordination without framework overhead, demonstrating orchestration principles from first principles
+* **Source fidelity architecture:** Every claim traces to retrieved documents; system refuses to generate unsupported content
+* **Production validation:** Demonstrated on real Comerica model documentation workflows; validated by credit risk stakeholders
+* **Cost-benefit analysis:** Quantified time savings across documentation lifecycle with realistic adoption scenarios
+
+**Business / Research Impact:**  
+AutoDoc AI proves that regulated industries can adopt AI safely by designing for auditability first. The multi-agent architecture separates concerns (retrieval, generation, validation, editing) in ways that mirror human workflows while maintaining the traceability regulators require.
+
+**Tech Stack:**
+
+* **Framework / Orchestration:** Custom Python orchestration with explicit state management
+* **Models / APIs:** Claude API for agent reasoning
+* **Retrieval:** ChromaDB vector store with domain-specific chunking
+* **Validation:** SR 11-7 compliance checklist, source citation verification
+* **Presentation:** Internal demo to 200+ colleagues at Comerica
+
+📁 [View Full Project](https://pmcavallo.github.io/AutoDoc-AI/)
+
+---
+
+**ChurnGuard: Production MLOps for Customer Retention**  
+An end-to-end MLOps pipeline demonstrating production-grade machine learning deployment. From XGBoost model training through Docker containerization to AWS EC2 deployment, ChurnGuard showcases the full lifecycle of taking a model from notebook to production with proper experiment tracking, model registry, and API serving.
+
+**Highlights:**
+
+* **Full MLOps stack:** MLflow for experiment tracking and model registry, FastAPI for model serving, Docker for containerization
+* **Production deployment:** Live on AWS EC2 with proper IAM, security groups, and container orchestration
+* **Model performance:** XGBoost classifier with feature engineering for telecom churn prediction
+* **API-first design:** RESTful endpoints for single and batch predictions with proper error handling
+* **Reproducibility:** Docker ensures consistent environments from local development to cloud deployment
+
+**Business / Research Impact:**  
+ChurnGuard demonstrates that MLOps isn't about tools but about discipline: experiment tracking prevents "which model was that?", model registry enables rollback, containerization eliminates "works on my machine", and proper deployment means the model actually reaches users.
+
+**Tech Stack:**
+
+* **Modeling:** XGBoost, scikit-learn, pandas
+* **MLOps:** MLflow (tracking + registry), FastAPI (serving)
+* **Containerization:** Docker, Docker Hub
+* **Cloud:** AWS EC2, IAM, Security Groups
+* **Development:** Python 3.11, pytest
+
+📁 [View Full Project](https://pmcavallo.github.io/churnguard/)
+
+---
+
+**MCP Banking Workflows: Model Context Protocol Tools for Regulated Industries**  
+A comprehensive Model Context Protocol (MCP) server implementing nine specialized tools for banking model risk management workflows. Built to address authentic pain points in SR 11-7 compliance, cross-file consistency validation, and model dependency mapping. Demonstrates how MCP can bring AI capabilities to domain-specific enterprise workflows.
+
+**Highlights:**
+
+* **Nine production tools:** SAS parameter extraction, Excel dictionary parsing, cross-file consistency checking, model version comparison, Word document analysis, dependency mapping, SR 11-7 compliance checking, PowerPoint validation
+* **Real workflow coverage:** Tools address actual model validation pain points: "Does the SAS code match the data dictionary?", "What changed between v3.5 and v4.2?", "Which downstream models break if we change unemployment rate inputs?"
+* **950+ lines of production code:** Not a demo but a functional toolset with proper error handling and realistic outputs
+* **Dependency graph analysis:** Maps upstream and downstream model relationships with effort estimates for revalidation
+* **SR 11-7 compliance automation:** Checks documentation completeness against regulatory requirements
+
+**Business / Research Impact:**  
+MCP Banking Workflows shows how AI can augment (not replace) expert judgment in regulated industries. Model validators still make decisions but they spend less time on mechanical checks and more time on substantive analysis.
+
+**Tech Stack:**
+
+* **Protocol:** Model Context Protocol (MCP) with TypeScript SDK
+* **Languages:** Python (tool implementations), TypeScript (MCP server)
+* **Document Processing:** python-docx, openpyxl, python-pptx
+* **Analysis:** Regex-based SAS parsing, dependency graph traversal
+* **Domain:** Credit risk modeling, SR 11-7 compliance, model governance
+
+📁 [View Full Project](https://pmcavallo.github.io/mcp-project/)
+
+---
+
+**CreditNLP: Fine-Tuned LLM for Startup Default Risk Prediction**  
+A fine-tuned language model that identifies default risk signals in startup loan applications where traditional quantitative data is sparse. Using QLoRA on Mistral-7B, the model learns to detect implicit risk patterns in application narratives that experienced underwriters recognize intuitively but cannot codify into rules. Achieves **93.9% accuracy** on parseable outputs compared to 60% for few-shot prompting.
+
+**Highlights:**
+
+* **The right tool for the job:** Demonstrates when fine-tuning beats prompting and RAG; implicit pattern recognition cannot be described in prompts or retrieved from documents
+* **QLoRA efficiency:** Trains only 1.1% of parameters (42M of 3.8B) on free Google Colab T4 in 41 minutes
+* **Risk signal taxonomy:** Five categories (traction, financial clarity, burn rate, management, market understanding) with weighted scoring
+* **Synthetic data generation:** 500 applications with controlled risk signals and known outcomes for supervised training
+* **Honest evaluation:** Reports metrics on parseable outputs only (33%), distinguishing pattern recognition success from output formatting challenges
+
+**Business / Research Impact:**  
+CreditNLP proves that domain expertise can be encoded into model weights through labeled examples. The patterns experienced underwriters "feel" after thousands of applications can be learned by a 7B model in 41 minutes with the right training data.
+
+**Tech Stack:**
+
+* **Base Model:** Mistral-7B-Instruct-v0.3
+* **Fine-Tuning:** QLoRA (4-bit quantization + LoRA adapters)
+* **Libraries:** Transformers, PEFT, bitsandbytes, TRL
+* **Training:** Google Colab T4 (free tier)
+* **Evaluation:** Confusion matrix, precision/recall, comparison to Claude baseline
+
+📁 [View Full Project](https://pmcavallo.github.io/creditnlp/)
+
+---
+
 **Fraud RT Sandbox: Real-Time Fraud Simulation & Detection**  
 A sandbox environment to simulate and detect fraud in real time, combining streaming pipelines, hybrid detection logic, and dynamic responses—built to explore latency, model drift, decision rules, and system robustness under adversarial patterns.
 
