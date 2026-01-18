@@ -8,6 +8,108 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# Governance Theater vs Real Controls: Building AI Guardrails That Actually Execute (01/18/2026)
+
+Most AI governance is theater.
+
+"The AI should follow these guidelines." "We have guardrails in place." "Our policies ensure responsible use."
+
+Should. Have. Ensure. All suggestions the AI might ignore.
+
+After 5 years building models in a highly regulated environment, I know the difference between a control that exists on paper and a control that actually executes. A policy document sitting in SharePoint is not the same as a validation gate that stops bad code from reaching production. An email reminding analysts to check their work is not the same as an automated test that fails the build.
+
+When I started using Claude Code for my portfolio projects, I ran into this same distinction. I had a beautifully documented CLAUDE.md file with all my standards: never commit without approval, never invent metrics, always show planned changes before executing. The instructions were clear. The problem was that Claude Code could simply forget them. Or ignore them. Or interpret them creatively in ways I did not intend.
+
+The guardrails were suggestions. I needed guarantees.
+
+## The Regulatory Parallel
+
+In model risk management, we distinguish between detective controls and preventive controls. A detective control catches problems after they happen: monthly monitoring reports, quarterly back-testing, annual model reviews. A preventive control stops problems before they happen: input validation, hard-coded limits, approval workflows that physically cannot be bypassed.
+
+Both matter, but they serve different purposes. Detective controls help you learn. Preventive controls keep you safe.
+
+My CLAUDE.md file was purely detective. If Claude Code violated a guideline, I might notice during code review. I might catch it before committing. Or I might not. The control depended entirely on my vigilance, and vigilance does not scale.
+
+What I needed was a preventive control. Something that would execute automatically, regardless of whether I remembered to check. Something the AI could not decide to skip.
+
+Claude Code has a feature called hooks. They are shell commands that run automatically before or after every tool call. The AI does not decide whether to run them. They just run.
+
+This changed everything.
+
+## Building the Controls
+
+I implemented three hooks that map directly to regulatory control categories.
+
+The first is access control. Before Claude Code can edit any file, a hook checks the file path. If it contains `.env`, `secrets`, `.git/`, or `credentials`, the hook exits with code 2, which blocks the operation entirely. Claude Code cannot write to sensitive files, period. Not because I asked it nicely. Because the system prevents it.
+
+I tested this by asking Claude Code to create a `.env` file with some API keys. It tried. The hook blocked it. Claude Code received an error message explaining why. The control worked exactly as designed.
+
+The second is command validation. Before Claude Code can run any bash command, a hook checks for dangerous patterns: `rm -rf`, `git push`, writes to `/dev`. These are operations that should require human approval. The AI can suggest them. It cannot execute them.
+
+This matters because Claude Code is genuinely helpful. When I ask it to clean up a project, it wants to help. It might suggest removing files. Without this hook, an ambiguous request could lead to deleted work. With the hook, destructive commands require me to run them manually. The AI advises. I decide.
+
+The third is audit logging. After every file edit, a hook appends a timestamped entry to a log file: the date, time, and full path of the modified file. This creates an automatic audit trail of everything Claude Code touches.
+
+In regulated environments, change management is non-negotiable. When an auditor asks what modifications were made to a model, you need to answer precisely. This hook ensures I can. Not because I remembered to document my changes. Because the system documented them for me.
+
+## The Hierarchy of Controls
+
+What I built is a layered defense system, and understanding the layers matters.
+
+At the bottom is CLAUDE.md, the context file that Claude Code reads at the start of every session. It contains project information, coding standards, and behavioral guidelines. These are helpful. They shape how Claude Code approaches problems. But they are suggestions. Claude Code can drift from them, especially in long sessions.
+
+Above that are specialized agents. I created six of them: a compliance checker that validates code against regulatory documentation standards, a code reviewer for production readiness, a debugger for systematic error diagnosis, a learning coach for testing my own understanding, a career advisor for evaluating opportunities, and a planner for breaking down complex tasks. Each agent has a defined role and trigger conditions. They provide structure and consistency. But they are still recommendations. Claude Code can choose not to invoke them.
+
+Above that are guardrails in the system prompt: explicit rules like "NEVER commit without approval" and "ALWAYS show planned changes." These are stronger than suggestions. They create behavioral patterns Claude Code generally follows. But generally is not always. In edge cases, under token pressure, or with ambiguous requests, guardrails can slip.
+
+At the top are hooks. Hooks are not suggestions, recommendations, or guidelines. They are shell commands that execute unconditionally. Exit code 0 means proceed. Exit code 2 means stop. The AI has no say in the matter.
+
+This is the hierarchy: suggestions, recommendations, instructions, and guarantees. Each layer catches what the previous layer might miss. But only the top layer is truly preventive.
+
+## Why This Matters Beyond Personal Projects
+
+I built this framework for my own development workflow, but the principles apply to any AI deployment in a regulated environment.
+
+Consider a bank using AI to assist with loan underwriting. The AI might have instructions to only use approved data sources. It might have guidelines about fair lending. It might have documentation about what factors can and cannot influence decisions.
+
+But if those are all suggestions, what happens when the AI encounters an edge case? What happens when it finds a pattern in the data that correlates with a protected class? What happens when it helpfully incorporates information it should not have access to?
+
+Suggestions are not sufficient for high-stakes decisions. You need controls that execute regardless of what the AI decides is helpful.
+
+Hooks are one implementation of this principle. In a production system, you might use API gateways with hard validation rules. You might use database permissions that physically prevent access to certain tables. You might use network segmentation that blocks connections to unauthorized services.
+
+The specific technology matters less than the design principle: controls that execute automatically, that the AI cannot bypass, and that create audit trails for everything that happens.
+
+## The Real Test
+
+The framework has now supported four production-grade projects. AutoDoc AI achieved 100% source fidelity with every citation traceable to its source document. CreditNLP improved accuracy from 60% to 93.9% with reproducible training and versioned models. EvalOps reached 204 tests and 86% coverage with compliance checking on every commit. MCP Banking Workflows delivered 950+ lines across 10 production tools with security review built into the process.
+
+Each project benefited from the layered controls. The agents provided structure. The guardrails created consistency. The hooks ensured nothing slipped through.
+
+But the real test was not the metrics. It was trust. I ship faster now than I did before implementing this framework. Not because the controls slow me down less than I expected. Because the controls give me confidence. When I commit code, I know it has been reviewed. When I check the log, I know every change is recorded. When I work with sensitive files, I know the system protects them.
+
+Governance, done right, is not a tax on productivity. It is what makes productivity sustainable.
+
+## What I Learned
+
+The most important lesson is that architecture beats prompting. I tried to solve these problems with better instructions, clearer guidelines, more explicit rules. None of it was reliable. The solution was not to ask the AI more nicely. It was to build systems that enforce behavior regardless of what the AI decides.
+
+The second lesson is that SR 11-7 principles transfer directly to AI governance. Access controls, validation gates, audit trails, segregation of duties. These are not new concepts. They are the same controls we apply to models, applied now to the AI systems that help us build models.
+
+The third lesson is that governance is a design constraint, not an afterthought. If you try to add controls after the system is built, you fight the architecture. If you design with controls from the start, they become invisible. The hooks I built add milliseconds of latency. The audit log grows by a few kilobytes per session. The cost is negligible. The benefit is that I never have to wonder whether a control executed.
+
+The fourth lesson is that this is what "bridge between AI and regulated industries" actually means. Not just understanding both sides. Building systems that demonstrate how to combine them. The framework is the artifact. The hooks are the proof.
+
+## The Framework
+
+I open-sourced the entire setup: agent configurations, hook implementations, guardrails philosophy, and real examples from my projects. The repository includes everything needed to implement similar controls in your own Claude Code environment.
+
+The most important file is not the longest one. It is the three hooks in settings.json. Those twenty lines of Python are the difference between governance theater and real controls.
+
+Full project here: [Claude Code AI Governance Framework](https://github.com/pmcavallo/claude-code-ai-governance)
+
+*Built with Claude Code. Governed with hooks. Real controls, not governance theater.*
+
 # What Building a Transformer Taught Me About AI Orchestration (12/28/2025)
 
 I've built RAG systems with 100% source fidelity. But I didn't truly understand WHY certain design choices worked until I built a transformer from scratch. Here's what 133K parameters taught me about 175 billion.
