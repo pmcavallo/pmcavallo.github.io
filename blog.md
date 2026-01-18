@@ -22,7 +22,7 @@ When I started using Claude Code for my portfolio projects, I ran into this same
 
 The guardrails were suggestions. I needed guarantees.
 
-## The Regulatory Parallel
+**The Regulatory Parallel**
 
 In model risk management, we distinguish between detective controls and preventive controls. A detective control catches problems after they happen: monthly monitoring reports, quarterly back-testing, annual model reviews. A preventive control stops problems before they happen: input validation, hard-coded limits, approval workflows that physically cannot be bypassed.
 
@@ -36,7 +36,7 @@ Claude Code has a feature called hooks. They are shell commands that run automat
 
 This changed everything.
 
-## Building the Controls
+**Building the Controls**
 
 I implemented three hooks that map directly to regulatory control categories.
 
@@ -52,7 +52,7 @@ The third is audit logging. After every file edit, a hook appends a timestamped 
 
 In regulated environments, change management is non-negotiable. When an auditor asks what modifications were made to a model, you need to answer precisely. This hook ensures I can. Not because I remembered to document my changes. Because the system documented them for me.
 
-## The Hierarchy of Controls
+**The Hierarchy of Controls**
 
 What I built is a layered defense system, and understanding the layers matters.
 
@@ -66,7 +66,7 @@ At the top are hooks. Hooks are not suggestions, recommendations, or guidelines.
 
 This is the hierarchy: suggestions, recommendations, instructions, and guarantees. Each layer catches what the previous layer might miss. But only the top layer is truly preventive.
 
-## Why This Matters Beyond Personal Projects
+**Why This Matters Beyond Personal Projects**
 
 I built this framework for my own development workflow, but the principles apply to any AI deployment in a regulated environment.
 
@@ -80,7 +80,7 @@ Hooks are one implementation of this principle. In a production system, you migh
 
 The specific technology matters less than the design principle: controls that execute automatically, that the AI cannot bypass, and that create audit trails for everything that happens.
 
-## The Real Test
+**The Real Test**
 
 The framework has now supported four production-grade projects. AutoDoc AI achieved 100% source fidelity with every citation traceable to its source document. CreditNLP improved accuracy from 60% to 93.9% with reproducible training and versioned models. EvalOps reached 204 tests and 86% coverage with compliance checking on every commit. MCP Banking Workflows delivered 950+ lines across 10 production tools with security review built into the process.
 
@@ -90,7 +90,7 @@ But the real test was not the metrics. It was trust. I ship faster now than I di
 
 Governance, done right, is not a tax on productivity. It is what makes productivity sustainable.
 
-## What I Learned
+**What I Learned**
 
 The most important lesson is that architecture beats prompting. I tried to solve these problems with better instructions, clearer guidelines, more explicit rules. None of it was reliable. The solution was not to ask the AI more nicely. It was to build systems that enforce behavior regardless of what the AI decides.
 
@@ -100,7 +100,7 @@ The third lesson is that governance is a design constraint, not an afterthought.
 
 The fourth lesson is that this is what "bridge between AI and regulated industries" actually means. Not just understanding both sides. Building systems that demonstrate how to combine them. The framework is the artifact. The hooks are the proof.
 
-## The Framework
+**The Framework**
 
 I open-sourced the entire setup: agent configurations, hook implementations, guardrails philosophy, and real examples from my projects. The repository includes everything needed to implement similar controls in your own Claude Code environment.
 
@@ -109,6 +109,7 @@ The most important file is not the longest one. It is the three hooks in setting
 Full project here: [Claude Code AI Governance Framework](https://github.com/pmcavallo/claude-code-ai-governance)
 
 *Built with Claude Code. Governed with hooks. Real controls, not governance theater.*
+
 
 # What Building a Transformer Taught Me About AI Orchestration (12/28/2025)
 
