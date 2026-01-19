@@ -4,7 +4,8 @@ title: Blog
 permalink: /blog/
 ---
 
-Welcome to the blog. Here I share short, practical notes from building my portfolio projects. Expect lessons learned, trade offs I faced, and the reasoning behind architecture and tool choices. If you want the code and demos, visit the [Projects](/projects/) page. Start with the latest post below.
+Welcome to the blog. Here I share short, practical notes from building my portfolio projects. Expect lessons learned, trade offs I faced, and the reasoning behind architecture and tool choices. If you want the code and demos, visit the [Projects](/projects/) page. Start with the latest post below. Check out my [newsletter:](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7418690302250602497) as well. 
+
 
 ---
 
