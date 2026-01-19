@@ -34,6 +34,10 @@ Fluent in English, Spanish, and Portuguese; advanced in French and Italian. I en
 - [GitHub](https://github.com/pmcavallo)
 - [Tableau Portfolio](https://public.tableau.com/app/profile/paulo.cavallo/vizzes)
 
+📬 Newsletter: Exit Code 2 | AI Under Audit                                                                
+Governance that works. Guardrails that execute.
+[Subscribe](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7418690302250602497) on LinkedIn 
+
 ---
 
 ### 🛠️ Core Tools & Skills  
