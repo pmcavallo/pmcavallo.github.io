@@ -595,6 +595,122 @@ Add to `claude_desktop_config.json`:
 
 ---
 
+## Production Readiness Assessment
+
+**Status**: Functional prototype - enterprise hardening required
+
+MCP Banking Workflows validates core functionality (10 tools, SR 11-7 automation) but requires security, audit, and integration work for regulated production deployment.
+
+**Timeline to Enterprise Deployment**: 12-16 weeks | 2-3 engineers
+
+---
+
+### Critical Production Gaps
+
+**R-001: No Audit Trail** (CRITICAL)
+- Every tool invocation must be logged for regulatory evidence
+- Fix: 2 weeks (structured logging + SQLite/PostgreSQL)
+
+**R-002: Local File System Only** (CRITICAL)
+- Cannot integrate with enterprise model registry systems
+- Blocks deployment to Collibra, SharePoint, ServiceNow
+- Fix: 3-4 weeks (model registry API integration)
+
+**R-003: No Authentication** (CRITICAL)
+- Anyone with file access can run compliance tools
+- Enterprise deployment requires SSO and role-based access
+- Fix: 2 weeks (SSO integration + RBAC)
+
+**R-004: Regex-Based SAS Parser** (HIGH)
+- Fails on complex macros and nested conditional logic
+- Works for 8 tested models but brittle to coding variations
+- Fix: 4-6 weeks (robust AST parser or SAS Language Server)
+
+**R-005: Single-Threaded Architecture** (MEDIUM)
+- One validator at a time, demo-only
+- Cannot scale beyond single user
+- Fix: 2-3 weeks (async request handling)
+
+---
+
+### Key Architecture Decisions
+
+**ADR-001: Python 3.12 + FastMCP**
+- **Why**: Rapid 5-week development, native FastMCP integration
+- **Trade-off**: Single-threaded execution limits concurrent users
+- **Alternative rejected**: TypeScript/Node.js (weaker banking file libraries)
+
+**ADR-003: Local File System Storage**
+- **Why**: Zero external dependencies, no authentication complexity
+- **Trade-off**: Cannot scale beyond single workstation
+- **Production path**: Model registry API integration (Collibra, ServiceNow)
+
+**ADR-004: Custom SAS Parser**
+- **Why**: Fast development (weeks vs. months for full parser)
+- **Trade-off**: Fails on complex macros, brittle to style variations
+- **Production path**: Robust AST parser or SAS Language Server integration
+
+**ADR-006: SR 11-7 Compliance Focus**
+- **Why**: Aligns with U.S. Federal Reserve guidance and developer's 5+ years experience
+- **Trade-off**: Not directly applicable to Basel II/III or OCC frameworks
+- **Coverage**: Conceptual soundness, ongoing monitoring, validation, limitations
+
+---
+
+### Test Coverage
+
+**Current State**: ~15%
+- Basic tool functionality tested
+- No security tests
+- No integration tests
+- No load tests
+
+**Target for Production**: 85%+ unit | 70%+ integration
+- 100% OWASP Top 10 security scenarios
+- SR 11-7 requirement validation
+- 50+ concurrent user load tests
+- Audit trail completeness validation
+
+**Critical Gaps**:
+- File system security (directory traversal prevention)
+- SAS parser edge cases (macros, conditional logic)
+- Model registry integration (API error handling)
+- Multi-user concurrent access
+
+---
+
+### Production Hardening Roadmap
+
+**Phase 1: Compliance & Security** (7-8 weeks)
+- Audit logging for every tool invocation (examiner evidence)
+- SSO/RBAC authentication (role-based tool access)
+- File system security hardening (prevent directory traversal)
+- Evidence package generation (regulatory examination support)
+
+**Phase 2: Enterprise Integration** (7-8 weeks)
+- Model registry API integration (Collibra, ServiceNow, SharePoint)
+- Robust SAS parser (handle macros, includes, conditional logic)
+- Version control integration (automated git diff for model changes)
+- Document management system connectors
+
+**Phase 3: Scalability & Reliability** (5 weeks)
+- Multi-user concurrent access (50+ validators simultaneously)
+- Performance optimization (handle 500+ model portfolio)
+- Monitoring and alerting (compliance status dashboard)
+- Disaster recovery and business continuity testing
+
+---
+
+### What This Demonstrates
+
+**Production Awareness**: Building tools is step one. Understanding audit trails, access controls, and regulatory evidence requirements separates prototypes from enterprise systems. This documentation shows I know the difference between demo code and regulated deployment.
+
+**Regulatory Knowledge**: SR 11-7 compliance isn't just documentation - it's audit trails for examiners, approval workflows for material changes, and evidence packages that survive regulatory scrutiny. Five years of model risk management experience informs every design decision.
+
+**Decision Rationale**: Every architectural choice documented with trade-offs. FastMCP enables rapid iteration; local files avoid complexity; regex parser balances speed with accuracy. Production deployment requires different trade-offs - this shows I understand when to optimize for speed vs. scale.
+
+---
+
 ## License
 
 MIT License - see LICENSE file for details.
