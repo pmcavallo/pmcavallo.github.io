@@ -4,8 +4,6 @@ title: Newsletter
 permalink: /newsletter/
 ---
 
-# Exit Code 2 \| AI Under Audit
-
 ![Exit Code 2](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/logo_code2.png?raw=true) 
 
 **Governance that works. Guardrails that execute.**
