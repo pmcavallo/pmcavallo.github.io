@@ -5,6 +5,8 @@ title: Newsletter
 
 # Exit Code 2 \| AI Under Audit
 
+![Exit Code 2](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/logo_exit2.png?raw=true) 
+
 **Governance that works. Guardrails that execute.**
 
 A newsletter for practitioners building AI systems in regulated industries, where "it works" isn't enough and every decision needs a paper trail.
