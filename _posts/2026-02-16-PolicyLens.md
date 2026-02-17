@@ -1,7 +1,6 @@
 ---
 layout: page
 title: "PolicyLens: Three-Layer AI Risk Assessment Engine"
-permalink: /PolicyLens/
 ---
 
 PolicyLens operationalizes regulatory AI governance into structured, auditable assessments. Describe an AI use case, and it produces a Risk Committee-ready report organized by the NIST AI RMF's four functions (Govern, Map, Measure, Manage), with section-level regulatory citations, internal policy alignment scoring, and a gap analysis identifying exactly where institutional governance falls short of regulatory expectations.
