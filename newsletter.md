@@ -27,7 +27,7 @@ What's inside:
 - **Quick Assessment** to score your organization's AI governance maturity
 - **Controls vs. Theater** checklist for identifying gaps
 
-[Download the Field Guide (PDF)](/files/ai_under_audit_field_guide_v1.pdf)
+[Download the Field Guide (PDF)](/ai_under_audit_field_guide_v1.pdf)
 
 ---
 
