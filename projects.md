@@ -4,10 +4,38 @@ title: Projects
 permalink: /projects/
 ---
 
-A selection of hands-on projects demonstrating real-world data science, AI system design, and cloud deployment; built with Python, SQL, PySpark, scikit-learn, XGBoost/CatBoost, SHAP, Prophet, Neo4j, and LangChain, and shipped via Streamlit, Render, Hugging Face Spaces, and multi-cloud platforms (AWS, GCP), including AWS SageMaker, Lambda, S3, MWAA/Airflow, and GCP Vertex AI/BigQuery ML. Workflows include RAG pipelines, schema validation, and drift monitoring, with visuals in Tableau and Plotly.
+A selection of hands-on projects focused on building production AI systems for regulated industries, where auditability, compliance, and source fidelity are not optional. The work spans AI governance tooling, multi-agent orchestration, LLM fine-tuning and alignment, RAG architectures with hallucination prevention, and full MLOps deployment pipelines. Built with Python, Claude API, LangChain, ChromaDB, PyTorch, Streamlit, and AWS, with regulatory grounding in NIST AI RMF, SR 11-7, and FHFA AB 2022-02.
 
 ---
 
+**PolicyLens: AI Risk Assessment Engine for Financial Services**  
+An AI-powered governance tool that operationalizes four regulatory frameworks — NIST AI 100-1, NIST AI 600-1, FHFA AB 2022-02, and SR 11-7 — into structured compliance assessments. Describe an AI use case, and PolicyLens produces a Risk Committee-ready assessment organized by the NIST AI RMF's four functions (Govern, Map, Measure, Manage), with regulatory citations, internal policy alignment scoring, and a gap analysis identifying where institutional governance falls short of regulatory expectations. Sample assessment of a credit decisioning model revealed **39% average coverage** across RMF functions, with 7 Critical and 1 High severity gaps.
+
+**Highlights:**
+
+* **Three-layer compliance model:** Assesses External Regulation ("What does regulation require?"), Internal Policy ("What does our governance cover?"), and Specific Use Case ("Does this deployment comply?") — then cross-references all three layers to surface gaps
+* **Section-aware RAG:** Regulatory documents are parsed preserving hierarchical structure (not naive fixed-window chunking), so every retrieval carries its full section lineage for precise citations
+* **Dual-collection retrieval:** Queries run against both regulatory frameworks (251 chunks from 4 documents) and internal policy collections (45 chunks) simultaneously, enabling cross-reference gap analysis
+* **Structured output validation:** Every assessment is Pydantic-validated: four RMF functions present, all findings carry citations, severity enums enforced, coverage scores computed
+* **Risk Committee report export:** Generates markdown reports in the format a second-line risk team would present to a governance committee, with remediation priorities sorted by severity
+
+**Business / Research Impact:**  
+PolicyLens automates the workflow a second-line AI risk team runs manually: assess each AI deployment against external regulatory requirements, cross-reference against internal governance documentation, identify where institutional policy falls short, and produce remediation recommendations with specific citations. It turns weeks of manual policy mapping into a structured, repeatable, auditable process.
+
+**Tech Stack:**
+
+* **LLM / API:** Claude API (claude-sonnet-4-5)
+* **Vector Store:** ChromaDB (dual collections, cosine similarity)
+* **Embeddings:** sentence-transformers (all-MiniLM-L6-v2)
+* **PDF Parsing:** PyMuPDF (section-aware extraction with 6 document-specific parsers)
+* **Output Validation:** Pydantic schemas
+* **UI:** Streamlit (tabbed dashboard with coverage scores, gap analysis, SR 11-7 alignment)
+
+> **Data Disclaimer:** All internal company documentation references Meridian Financial Group, a fictitious entity. All data is synthetic. No real institution's policies or proprietary data are used.
+
+📁 [View on GitHub](https://github.com/pmcavallo/PolicyLens)
+
+---
 **EvalOps: Production-Grade LLM Evaluation and Observability Platform**  
 A systematic evaluation framework for LLM applications addressing non-deterministic outputs. Provides semantic similarity matching using BERT embeddings, statistical drift detection, A/B comparison with effect size calculation, and a full observability stack. Deployed on AWS via Docker with **285 tests passing** and a live demo at [http://44.213.248.8:8501](http://44.213.248.8:8501).
 
