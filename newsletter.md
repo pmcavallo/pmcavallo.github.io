@@ -1,7 +1,6 @@
 ---
 layout: page
 title: Newsletter
-permalink: /newsletter/
 ---
 
 # Exit Code 2 \| AI Under Audit
@@ -17,6 +16,8 @@ Each issue covers real governance patterns, regulatory frameworks (SR 11-7, EU A
 ---
 
 ## AI Under Audit Field Guide v1.0
+
+Not sure where your AI governance stands? The Field Guide is a free, practical starting point for anyone working with AI in regulated environments.
 
 Five governance principles, a controls checklist, and a regulatory map, built from production experience, not committee slides.
 
