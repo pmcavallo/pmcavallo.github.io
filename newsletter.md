@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Newsletter
+permalink: /newsletter/
 ---
 
 # Exit Code 2 \| AI Under Audit
