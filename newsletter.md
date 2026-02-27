@@ -32,6 +32,24 @@ What's inside:
 
 ---
 
+## AI Governance Metrics Playbook v1.0
+
+You have the principles. Now measure them. The Metrics Playbook turns governance frameworks into 28 trackable metrics across seven layers, so you can show auditors, regulators, and leadership exactly where you stand.
+
+Built for practitioners who need to prove governance is working, not just documented.
+
+What's inside:
+- **Seven governance layers** from inventory structure to human oversight
+- **28 measurable metrics** with calculation methods and target thresholds
+- **Gap signals** that tell you when a metric is failing before an auditor does
+- **Implementation notes** with practitioner guidance for each layer
+- **Governance Scorecard** to assess your organization's maturity (0-56 scale)
+- **Maturity radar chart** to visualize where gaps concentrate by layer
+
+[Download the Metrics Playbook (PDF)](/ai_governance_metrics_playbook_v4.pdf)
+
+---
+
 ## Recent Issues
 
 Browse all issues on [LinkedIn](https://www.linkedin.com/newsletters/exit-code-2-ai-under-audit-7418690302250602497/).
