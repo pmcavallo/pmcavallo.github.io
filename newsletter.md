@@ -46,7 +46,7 @@ What's inside:
 - **Governance Scorecard** to assess your organization's maturity (0-56 scale)
 - **Maturity radar chart** to visualize where gaps concentrate by layer
 
-[Download the Metrics Playbook (PDF)](/ai_governance_metrics_playbook_v4.pdf)
+[Download the Metrics Playbook (PDF)](/ai_governance_metrics_playbook.pdf)
 
 ---
 
