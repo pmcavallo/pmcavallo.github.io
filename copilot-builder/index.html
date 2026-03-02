@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Copilot Instructions Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a2a2a;
+            --card-bg: #0d3d3d;
+            --accent-color: #16c79a;
+            --output-bg: #0d1117;
+            --border-color: rgba(22, 199, 154, 0.3);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        .accent-text { color: var(--accent-color); }
+        .accent-bg { background-color: var(--accent-color); }
+        .accent-border { border-color: var(--accent-color); }
+
+        input, select, textarea {
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        select option {
+            background-color: #000000;
+            color: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(22, 199, 154, 0.2);
+        }
+
+        .custom-checkbox {
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 4px;
+            appearance: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .custom-checkbox:checked {
+            background-color: var(--accent-color);
+        }
+
+        .custom-checkbox:checked::after {
+            content: '\2713';
+            position: absolute;
+            color: white;
+            font-size: 0.8rem;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .custom-checkbox:disabled {
+            border-color: #444;
+            background-color: #333;
+            cursor: not-allowed;
+        }
+
+        .output-box {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--output-bg);
+            border-radius: 0.5rem;
+            white-space: pre-wrap;
+            border: 1px solid #30363d;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .hidden { display: none; }
+
+        .divider {
+            height: 1px;
+            background-color: #30363d;
+            margin: 1.5rem 0;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">GitHub Copilot Instructions Builder</h1>
+            <p class="text-gray-400 text-lg">Generate a personalized <code class="bg-black px-2 py-1 rounded">copilot-instructions.md</code></p>
+        </header>
+
+        <!-- Instructions Accordion -->
+        <section class="mb-10">
+            <details class="group bg-[#0d3d3d] border border-[rgba(22,199,154,0.2)] rounded-lg transition-all duration-300">
+                <summary class="flex items-center justify-between p-4 cursor-pointer list-none font-semibold accent-text hover:bg-[#0f4646] transition-colors rounded-lg">
+                    <span>How to use these files</span>
+                    <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </summary>
+                <div class="p-6 pt-2 text-gray-200 text-sm space-y-6 border-t border-[rgba(22,199,154,0.1)]">
+                    <p>This tool generates two things: a Copilot Instructions file and Copilot Hooks.</p>
+                    
+                    <div>
+                        <h4 class="font-bold text-white mb-2 uppercase tracking-wide text-xs">Instructions File</h4>
+                        <ol class="list-decimal list-inside space-y-1 text-gray-300">
+                            <li>In your repository, create a folder called <code class="bg-black px-1 rounded text-white">.github</code> (if it doesn't already exist)</li>
+                            <li>Inside <code class="bg-black px-1 rounded text-white">.github</code>, create a file called <code class="bg-black px-1 rounded text-white">copilot-instructions.md</code></li>
+                            <li>Paste the generated instructions into that file</li>
+                            <li>Copilot reads this file automatically on every interaction</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-white mb-2 uppercase tracking-wide text-xs">Hooks Files</h4>
+                        <ol class="list-decimal list-inside space-y-1 text-gray-300">
+                            <li>Inside <code class="bg-black px-1 rounded text-white">.github</code>, create a subfolder called <code class="bg-black px-1 rounded text-white">hooks</code></li>
+                            <li>Inside <code class="bg-black px-1 rounded text-white">hooks</code>, create a file called <code class="bg-black px-1 rounded text-white">hooks.json</code></li>
+                            <li>Paste the generated JSON into that file</li>
+                            <li>In the root of your repository (same level as <code class="bg-black px-1 rounded text-white">.github</code>), create a folder called <code class="bg-black px-1 rounded text-white">scripts</code></li>
+                            <li>Create one <code class="bg-black px-1 rounded text-white">.ps1</code> file for each script and paste the matching code</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-white mb-2 uppercase tracking-wide text-xs">Folder structure should look like this:</h4>
+                        <div class="output-box p-4 text-xs leading-relaxed text-gray-400">your-repo/
+  .github/
+    copilot-instructions.md
+    hooks/
+      hooks.json
+  scripts/
+    block-file-deletion.ps1
+    block-pii-commit.ps1
+    block-destructive-sql.ps1</div>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <div class="space-y-8">
+            <!-- SECTION 1: About You -->
+            <section class="space-y-4">
+                <h2 class="text-xl font-semibold accent-text flex items-center">
+                    <span class="mr-2">01</span> About You
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col">
+                        <label class="mb-2 text-sm font-medium">Name</label>
+                        <input type="text" id="userName" placeholder="Your full name" class="p-3">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="mb-2 text-sm font-medium">Role</label>
+                        <select id="userRole" class="p-3">
+                            <option value="Model Development Analyst">Model Development Analyst</option>
+                            <option value="Model Monitoring Analyst">Model Monitoring Analyst</option>
+                            <option value="Manager">Manager</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label class="mb-3 text-sm font-medium">Focus Area (Select all that apply)</label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" name="focusArea" value="PD Models" class="custom-checkbox">
+                            <span>PD Models</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" name="focusArea" value="LGD Models" class="custom-checkbox">
+                            <span>LGD Models</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" name="focusArea" value="EAD Models" class="custom-checkbox">
+                            <span>EAD Models</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label class="mb-2 text-sm font-medium">Time with company</label>
+                    <select id="userTenure" class="p-3 md:w-1/2">
+                        <option value="Less than 1 year">Less than 1 year</option>
+                        <option value="1-2 years">1-2 years</option>
+                        <option value="2-3 years">2-3 years</option>
+                        <option value="3-5 years">3-5 years</option>
+                        <option value="5-10 years">5-10 years</option>
+                        <option value="10+ years">10+ years</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- SECTION 2: Company Context -->
+            <section class="space-y-4">
+                <h2 class="text-xl font-semibold accent-text flex items-center">
+                    <span class="mr-2">02</span> Company Context (included automatically)
+                </h2>
+                <div id="uiCompanyContext" class="p-6 bg-[#0d3d3d] border border-[rgba(22,199,154,0.2)] rounded-lg text-gray-200 text-sm leading-relaxed">
+                    Fifth Third Bank is a top 10 US bank by assets, operating in a highly regulated financial services environment. Our team sits within Risk Rating Model Development, part of the Credit Risk &amp; Capital Management Modeling division. Our work is subject to regulatory oversight by the OCC and Federal Reserve. All AI tool usage must comply with regulatory expectations for model risk management, data security, and auditability.
+                </div>
+            </section>
+
+            <!-- SECTION 3: Technical Environment -->
+            <section class="space-y-4">
+                <h2 class="text-xl font-semibold accent-text flex items-center">
+                    <span class="mr-2">03</span> Technical Environment
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col">
+                        <label class="mb-2 text-sm font-medium">Primary Language</label>
+                        <select id="primaryLang" class="p-3">
+                            <option value="SAS">SAS</option>
+                            <option value="Python">Python</option>
+                            <option value="SQL">SQL</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="mb-3 text-sm font-medium">Secondary Languages</label>
+                        <div class="flex space-x-6">
+                            <label class="flex items-center space-x-2 cursor-pointer sec-lang-label" data-lang="SAS">
+                                <input type="checkbox" name="secondaryLang" value="SAS" class="custom-checkbox">
+                                <span>SAS</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer sec-lang-label" data-lang="Python">
+                                <input type="checkbox" name="secondaryLang" value="Python" class="custom-checkbox">
+                                <span>Python</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer sec-lang-label" data-lang="SQL">
+                                <input type="checkbox" name="secondaryLang" value="SQL" class="custom-checkbox">
+                                <span>SQL</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ACTION BUTTON -->
+            <div class="pt-6">
+                <button id="generateBtn" class="w-full py-4 accent-bg hover:bg-[#12a17d] text-white font-bold text-lg rounded-lg transition duration-200 shadow-lg">
+                    Generate Instructions File
+                </button>
+            </div>
+
+            <!-- INSTRUCTIONS OUTPUT SECTION -->
+            <div id="outputWrapper" class="hidden space-y-4">
+                <div id="output-container" class="output-box p-6 text-sm md:text-base overflow-x-auto"></div>
+                
+                <div class="flex flex-col md:flex-row gap-4">
+                    <button id="copyBtn" class="flex-1 py-3 accent-bg hover:bg-[#12a17d] text-white font-semibold rounded-lg flex items-center justify-center space-x-2 transition">
+                        <span>Copy Instructions</span>
+                    </button>
+                    <button id="downloadBtn" class="flex-1 py-3 btn-outline font-semibold rounded-lg transition">
+                        Download as .md
+                    </button>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- SECTION: Copilot Hooks -->
+            <section class="space-y-4">
+                <div class="flex flex-col">
+                    <h2 class="text-xl font-semibold accent-text">Copilot Hooks (Enforcement Layer)</h2>
+                    <p class="text-gray-400 text-sm mt-1">These hooks enforce guardrails that instructions alone cannot. Place the JSON file in <code class="text-gray-300">.github/hooks/</code> and the scripts in a <code class="text-gray-300">scripts/</code> folder in your repository.</p>
+                </div>
+                <button id="generateHooksBtn" class="w-full py-4 btn-outline font-bold text-lg rounded-lg transition duration-200">
+                    Generate Hooks Files
+                </button>
+            </section>
+
+            <!-- HOOKS OUTPUT SECTION -->
+            <div id="hooksOutputWrapper" class="hidden space-y-8">
+                <!-- Hook Box 1: JSON -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-gray-300">hooks.json</h3>
+                        <button id="copyHooksJsonBtn" class="text-xs accent-text hover:underline">Copy to Clipboard</button>
+                    </div>
+                    <div id="hooksJsonContainer" class="output-box p-6 text-sm overflow-x-auto text-blue-300"></div>
+                </div>
+
+                <!-- Hook Box 2: Scripts -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-gray-300">PowerShell Scripts</h3>
+                        <button id="copyAllScriptsBtn" class="text-xs accent-text hover:underline">Copy All Scripts</button>
+                    </div>
+                    <div id="hooksScriptsContainer" class="output-box p-6 text-sm overflow-x-auto"></div>
+                </div>
+
+                <p class="text-gray-500 text-xs text-center">
+                    Place hooks.json in .github/hooks/ and create a scripts/ folder for the PowerShell files. Hooks activate automatically on the default branch.
+                </p>
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="text-center py-8">
+                <p class="text-[#888] text-sm italic">
+                    Paste the instructions file into <code class="bg-black px-1 rounded">.github/copilot-instructions.md</code>. Copilot will read it automatically on every interaction.
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 bg-[#16c79a] text-white rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+        Copied!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateBtn = document.getElementById('generateBtn');
+            const generateHooksBtn = document.getElementById('generateHooksBtn');
+            const primaryLangSelect = document.getElementById('primaryLang');
+            const secLangCheckboxes = document.querySelectorAll('input[name="secondaryLang"]');
+            
+            const outputWrapper = document.getElementById('outputWrapper');
+            const outputContainer = document.getElementById('output-container');
+            const hooksOutputWrapper = document.getElementById('hooksOutputWrapper');
+            const hooksJsonContainer = document.getElementById('hooksJsonContainer');
+            const hooksScriptsContainer = document.getElementById('hooksScriptsContainer');
+            
+            const toast = document.getElementById('toast');
+
+            function showToast(message) {
+                toast.textContent = message || "Copied!";
+                toast.classList.remove('opacity-0');
+                toast.classList.add('opacity-100');
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100');
+                    toast.classList.add('opacity-0');
+                }, 2000);
+            }
+
+            function copyToClipboard(text) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(() => showToast()).catch(() => fallbackCopy(text));
+                } else {
+                    fallbackCopy(text);
+                }
+            }
+
+            function fallbackCopy(text) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (err) {
+                    showToast("Copy failed");
+                }
+                document.body.removeChild(textArea);
+            }
+
+            // Language filtering
+            function updateSecondaryCheckboxes() {
+                const primary = primaryLangSelect.value;
+                secLangCheckboxes.forEach(cb => {
+                    const label = cb.closest('.sec-lang-label');
+                    if (cb.value === primary) {
+                        cb.checked = false;
+                        cb.disabled = true;
+                        label.classList.add('opacity-30', 'grayscale');
+                    } else {
+                        cb.disabled = false;
+                        label.classList.remove('opacity-30', 'grayscale');
+                    }
+                });
+            }
+
+            primaryLangSelect.addEventListener('change', updateSecondaryCheckboxes);
+            updateSecondaryCheckboxes();
+
+            // === INSTRUCTIONS GENERATION ===
+            generateBtn.addEventListener('click', () => {
+                const name = document.getElementById('userName').value || "[Name]";
+                const role = document.getElementById('userRole').value;
+                const tenure = document.getElementById('userTenure').value;
+                const focusAreas = Array.from(document.querySelectorAll('input[name="focusArea"]:checked')).map(el => el.value);
+                const focusStr = focusAreas.length > 0 ? focusAreas.join(', ') : "[Focus Area]";
+                const primaryLang = primaryLangSelect.value;
+                const secondaryLangs = Array.from(document.querySelectorAll('input[name="secondaryLang"]:checked')).map(el => el.value);
+                const secondaryStr = secondaryLangs.length > 0 ? secondaryLangs.join(', ') : "None specified";
+
+                const markdown = `# GitHub Copilot Instructions
+
+## About Me
+My name is ${name}.
+I am a ${role} and have been with the company for ${tenure}.
+My focus area is ${focusStr}.
+Tailor your responses to my experience level and focus area.
+
+## Company Context
+I work at Fifth Third Bank, a top 10 US bank by assets operating in a highly regulated financial services environment. Our team sits within Risk Rating Model Development, part of the Credit Risk & Capital Management Modeling division. Our work is subject to regulatory oversight by the OCC and Federal Reserve. All AI tool usage must comply with regulatory expectations for model risk management, data security, and auditability.
+
+## Technical Environment
+Primary language: ${primaryLang}
+Secondary: ${secondaryStr}
+Environment: Windows, VS Code, GitHub Copilot
+Do not suggest languages or tools outside of our approved stack.
+Do not suggest cloud services unless explicitly asked.
+Do not suggest installing packages that require admin privileges.
+
+## Code Documentation Standards
+When writing or modifying code, always include:
+- Inline comments explaining the business logic, not just the technical operation (e.g., "Exclude accounts < 12 months on book per segmentation criteria" not just "filter where months < 12")
+- A summary comment before any data transformation explaining what the input looks like, what the output should look like, and why the transformation is necessary
+
+This code will be reviewed by independent model validation. Write every script as if a reviewer with no prior context needs to understand the full logic, assumptions, and intent without asking the developer.
+
+## Guardrails
+NEVER include or generate:
+- Real customer data, names, account numbers, or SSNs
+- Hardcoded file paths containing usernames or network drives
+- Passwords, API keys, or credentials in any file
+- References to specific regulatory examination findings
+- Content that could be interpreted as a final model approval or sign-off
+
+When generating sample data, always use obviously synthetic values:
+- Names: "Test Borrower A", "Sample Client 001"
+- SSNs: "000-00-0000"
+- Account numbers: "XXXXX0001"
+
+When asked about model performance, always include caveats about sample limitations and the need for independent review.
+
+NEVER delete, overwrite, or rename any existing file. File deletion, renaming, and overwriting are strictly manual processes. If a file should be deleted or renamed, state the file name and the recommended action, but do NOT execute it. If asked to replace a file, create the new version with a distinct name (e.g., _v2, _draft) and leave the original untouched.
+
+Never generate destructive SQL statements (DROP, TRUNCATE, DELETE FROM, UPDATE without WHERE) unless explicitly requested. When generating these statements, always include a comment warning: "-- DESTRUCTIVE OPERATION: Review carefully before executing."
+
+Never use conclusive or evaluative language in code comments or documentation. Do not write phrases like "the model performs well" or "results are acceptable." All analytical output is preliminary and subject to independent model validation review. Use language like "preliminary results suggest" or "subject to further review."
+
+Never generate code that makes external network calls (API requests, web scraping, PROC HTTP, requests.get, urllib, or similar). All code must operate on local files and databases only unless the user explicitly requests otherwise.
+
+Before any git commit, review all staged files and flag if any file contains:
+- Anything resembling a Social Security Number (XXX-XX-XXXX pattern)
+- Real customer names or account identifiers
+- Network file paths with employee usernames
+- Embedded credentials or connection strings
+If flagged, warn the user and do NOT proceed with the commit until the content is removed or replaced with synthetic values.`;
+
+                outputContainer.textContent = markdown;
+                outputWrapper.classList.remove('hidden');
+                outputWrapper.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // === HOOKS GENERATION ===
+            generateHooksBtn.addEventListener('click', () => {
+                const hooksJson = `{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-file-deletion.ps1",
+        "bash": "./scripts/block-file-deletion.sh",
+        "timeoutSec": 10
+      },
+      {
+        "type": "command",
+        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-pii-commit.ps1",
+        "bash": "./scripts/block-pii-commit.sh",
+        "timeoutSec": 15
+      },
+      {
+        "type": "command",
+        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-destructive-sql.ps1",
+        "bash": "./scripts/block-destructive-sql.sh",
+        "timeoutSec": 10
+      }
+    ]
+  }
+}`;
+
+                const s1 = `# scripts/block-file-deletion.ps1
+# Reads Copilot tool action from stdin and blocks file deletion/rename/move
+$rawInput = [Console]::In.ReadToEnd()
+$input_data = $rawInput | ConvertFrom-Json
+$toolName = $input_data.toolName
+
+if ($toolName -match '(delete|remove|rename|move)') {
+    $result = @{
+        "decision" = "deny"
+        "message" = "File deletion, renaming, and moving are not permitted through Copilot. Perform these operations manually."
+    }
+    $result | ConvertTo-Json -Compress
+    exit 0
+}
+
+@{"decision" = "allow"} | ConvertTo-Json -Compress`;
+
+                const s2 = `# scripts/block-pii-commit.ps1
+# Scans staged files for PII patterns before allowing git commits
+$rawInput = [Console]::In.ReadToEnd()
+$input_data = $rawInput | ConvertFrom-Json
+$toolName = $input_data.toolName
+
+if ($toolName -notmatch '(commit|push)') {
+    @{"decision" = "allow"} | ConvertTo-Json -Compress
+    exit 0
+}
+
+$staged = git diff --cached --diff-filter=ACM
+$violations = @()
+
+# SSN pattern
+if ($staged -match '\\d{3}-\\d{2}-\\d{4}') {
+    $violations += "Possible SSN pattern detected"
+}
+
+# Account number patterns (9+ consecutive digits)
+if ($staged -match '\\b\\d{9,}\\b') {
+    $violations += "Possible account number detected"
+}
+
+# Network paths with usernames
+if ($staged -match '\\\\\\\\[a-zA-Z]+\\\\users\\\\') {
+    $violations += "Network path with username detected"
+}
+
+if ($violations.Count -gt 0) {
+    $message = "BLOCKED: " + ($violations -join "; ") + ". Remove or replace with synthetic values before committing."
+    $result = @{
+        "decision" = "deny"
+        "message" = $message
+    }
+    $result | ConvertTo-Json -Compress
+    exit 0
+}
+
+@{"decision" = "allow"} | ConvertTo-Json -Compress`;
+
+                const s3 = `# scripts/block-destructive-sql.ps1
+# Blocks DROP, TRUNCATE, DELETE/UPDATE without WHERE clause
+$rawInput = [Console]::In.ReadToEnd()
+$input_data = $rawInput | ConvertFrom-Json
+$toolName = $input_data.toolName
+$toolArgs = $input_data.toolArgs | ConvertFrom-Json
+
+$sql = $toolArgs.command
+if (-not $sql) { $sql = $toolArgs.query }
+if (-not $sql) { $sql = $toolArgs.code }
+
+if ($sql -match '(?i)(DROP\\s+TABLE|DROP\\s+DATABASE|TRUNCATE\\s+TABLE)') {
+    $result = @{
+        "decision" = "deny"
+        "message" = "BLOCKED: Destructive SQL (DROP/TRUNCATE) is not permitted through Copilot. Execute manually after review."
+    }
+    $result | ConvertTo-Json -Compress
+    exit 0
+}
+
+if ($sql -match '(?i)DELETE\\s+FROM' -and $sql -notmatch '(?i)WHERE') {
+    $result = @{
+        "decision" = "deny"
+        "message" = "BLOCKED: DELETE without WHERE clause is not permitted. Add a WHERE condition or execute manually."
+    }
+    $result | ConvertTo-Json -Compress
+    exit 0
+}
+
+if ($sql -match '(?i)UPDATE\\s+' -and $sql -notmatch '(?i)WHERE') {
+    $result = @{
+        "decision" = "deny"
+        "message" = "BLOCKED: UPDATE without WHERE clause is not permitted. Add a WHERE condition or execute manually."
+    }
+    $result | ConvertTo-Json -Compress
+    exit 0
+}
+
+@{"decision" = "allow"} | ConvertTo-Json -Compress`;
+
+                hooksJsonContainer.textContent = hooksJson;
+                
+                hooksScriptsContainer.innerHTML = `<div class="mb-2 text-xs font-bold accent-text">scripts/block-file-deletion.ps1</div><div class="text-gray-300 mb-6">${escapeHtml(s1)}</div><div class="divider"></div><div class="mb-2 text-xs font-bold accent-text">scripts/block-pii-commit.ps1</div><div class="text-gray-300 mb-6">${escapeHtml(s2)}</div><div class="divider"></div><div class="mb-2 text-xs font-bold accent-text">scripts/block-destructive-sql.ps1</div><div class="text-gray-300">${escapeHtml(s3)}</div>`;
+
+                hooksOutputWrapper.classList.remove('hidden');
+                hooksOutputWrapper.scrollIntoView({ behavior: 'smooth' });
+
+                document.getElementById('copyHooksJsonBtn').onclick = () => copyToClipboard(hooksJson);
+                document.getElementById('copyAllScriptsBtn').onclick = () => copyToClipboard(s1 + '\n\n' + s2 + '\n\n' + s3);
+            });
+
+            function escapeHtml(str) {
+                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            // Clipboard and Download
+            document.getElementById('copyBtn').onclick = () => copyToClipboard(outputContainer.textContent);
+            
+            document.getElementById('downloadBtn').onclick = () => {
+                const content = outputContainer.textContent;
+                const blob = new Blob([content], { type: 'text/markdown' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'copilot-instructions.md';
+                a.click();
+                window.URL.revokeObjectURL(url);
+            };
+        });
+    </script>
+</body>
+</html>
