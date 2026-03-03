@@ -111,19 +111,19 @@ To show what the scanner produces end-to-end, here is a complete scan of a reali
 
 ### Input and Classification
 
-![Gradio UI showing classification result](assets/screenshot-gradio-ui.png)
+![Gradio](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/screenshot-gradio-ui.png?raw=true) 
 
 The scanner accepts the plain-English description on the left and produces the classification summary on the right. In this case: HIGH RISK, PROVIDER role, Annex III Category 4a (Employment), Article 25(1)(c) triggered, OpenAI terms violated, risk score 100/100, and 0 of 10 obligations met.
 
 ### Compliance Report
 
-![HTML compliance report with risk classification summary](assets/screenshot-report-summary.png)
+![Report](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/screenshot-report-summary.png?raw=true) 
 
 The HTML report opens with a color-coded risk banner and a grid summary. The 45% classification confidence reflects the keyword overlap score between the input description and Category 4a's keyword list. The risk score of 100/100 is driven by the combination of high-risk classification, provider role via Article 25, and zero obligations met.
 
 ### Article 25 Analysis
 
-![Article 25 deployer-to-provider role shift analysis](assets/screenshot-article-25.png)
+![Report](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/screenshot-article-25.png?raw=true) 
 
 This is the section most organizations miss. The scanner detected that a GPAI product (OpenAI's GPT-4) is being used for an Annex III high-risk purpose (employment decisions), which triggers Article 25(1)(c). The consequence is spelled out in plain English: your organization now bears full provider obligations under Articles 8-15 and Article 47. The original provider (OpenAI) must cooperate and provide necessary information under Article 25(2).
 
