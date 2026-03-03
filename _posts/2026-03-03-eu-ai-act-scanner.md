@@ -319,4 +319,3 @@ This project extends a body of work at the intersection of AI engineering and re
 
 *All scenarios use synthetic/simulated data. No real company names or proprietary information. This project is a portfolio demonstration of regulatory knowledge and AI engineering capabilities, not legal advice.*
 
-*Built by Paulo Cavallo, PhD — Senior AI Orchestrator | AI Governance in Regulated Industries*
