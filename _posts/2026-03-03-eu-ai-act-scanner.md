@@ -3,7 +3,7 @@ layout: page
 title: "EU AI Act Compliance Scanner: Three AI Agents Building a Regulatory Tool"
 ---
 
-The EU AI Act Compliance Scanner takes a plain-English description of how an organization uses AI and produces a full compliance assessment: risk classification, deployer-to-provider role analysis, GPAI provider terms check, obligation gap analysis, and prioritized next steps. It runs entirely offline with no LLM dependency — and the entire project was built by three AI agents working in parallel through Claude Code Agent Teams.
+The EU AI Act Compliance Scanner takes a plain-English description of how an organization uses AI and produces a full compliance assessment: risk classification, deployer-to-provider role analysis, GPAI provider terms check, obligation gap analysis, and prioritized next steps. It runs entirely offline with no LLM dependency, and the entire project was built by three AI agents working in parallel through Claude Code Agent Teams.
 
 This page covers the regulatory problem, how the scanner works, how Agent Teams built it, and what the experience revealed about multi-agent AI development.
 
