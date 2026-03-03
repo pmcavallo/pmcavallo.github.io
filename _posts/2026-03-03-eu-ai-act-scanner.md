@@ -305,7 +305,7 @@ This project extends a body of work at the intersection of AI engineering and re
 | [MCP Banking Workflows](https://pmcavallo.github.io/mcp-project/) | MCP server for model risk management automation. Same domain (regulated AI), different protocol (MCP vs. standalone). |
 | [EvalOps](https://pmcavallo.github.io/evalops/) | LLM evaluation framework. Tests model correctness; the scanner tests regulatory compliance. |
 | [CreditNLP](https://pmcavallo.github.io/creditnlp/) | Fine-tuned Mistral-7B for credit risk. Would be classified as high-risk under Annex III 5a by this scanner. |
-| [AI Under Audit Newsletter](https://pmcavallo.github.io) | Issue 008 ("The EU AI Act Already Applies to You") established the regulatory thesis. This tool makes it actionable. |
+| [AI Under Audit Newsletter](https://pmcavallo.github.io/newsletter/) | Issue 008 ("The EU AI Act Already Applies to You") established the regulatory thesis. This tool makes it actionable. |
 
 ---
 
