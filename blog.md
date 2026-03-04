@@ -9,6 +9,136 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# When AI Agents Build a Compliance Scanner: Lessons from Claude Code Agent Teams (March 4, 2026)
+
+---
+
+I've been saying "architecture beats prompting" for months. Turns out the same principle applies to how you *organize AI agents*, not just how you build with them.
+
+I set out to build an EU AI Act Compliance Scanner: a tool that takes a plain-English description of how an organization uses AI and tells you whether you're about to become a provider of a high-risk system without knowing it. The scanner classifies risk, identifies Article 25 role-shift triggers, checks GPAI provider terms, and generates a compliance gap report with prioritized next steps.
+
+I could have built it solo. Instead, I gave it to a team of AI agents. Not because I wanted to go faster, because I wanted to test whether *coordination architecture* matters as much for AI teams as it does for human ones.
+
+## What Agent Teams Actually Is
+
+Claude Code has had subagents for a while. You spin up a helper, it does a thing, it reports back. Think of it like calling a function. Useful, but limited.
+
+Agent Teams is different. You get independent Claude Code instances that:
+
+- Run concurrently with their own context windows
+- Message *each other* directly, not just back to the lead
+- Share a task list with dependency tracking and self-coordination
+- Operate in isolated file boundaries to prevent merge conflicts
+
+The difference matters. Subagents are function calls. Agent Teams is an organization.
+
+## The Architecture: Four Roles, Strict Boundaries
+
+I defined four roles directly in the project's CLAUDE.md, each with a clear domain:
+
+| Role | Owns | Delivers |
+|------|------|----------|
+| **Regulatory Researcher** | `/data/regulations/`, `/data/provider_terms/` | Enriched JSON reference data |
+| **Classifier Agent** | `/src/classifier/` | Rule-based classification engine |
+| **Report Writer** | `/src/reports/` | Jinja2 compliance report generator |
+| **Lead (me)** | `/src/shared/`, `app.py`, `/tests/` | Gradio UI, integration tests |
+
+The file boundaries were strict. If the Classifier needed regulatory data, it *read* the Researcher's output files. It never wrote to `/data/`. If the Report Writer needed a shared type, it imported from `/src/shared/`, which only I could modify. No agent touched another agent's directory.
+
+This isn't a technical limitation. It's a design choice. The same principle that makes microservices work — clear interfaces, owned domains, no shared mutable state.
+
+## The Dependency Chain
+
+Not all work can happen in parallel. The Classifier can't match against Annex III categories if the Researcher hasn't verified the category data yet.
+
+```
+Task 1: Researcher verifies /data/ files     → unblocked, starts immediately
+Task 2: Classifier builds /src/classifier/   → blocked on Task 1
+Task 3: Report Writer builds /src/reports/   → blocked on Task 1
+Task 4: Lead builds UI + integration tests   → blocked on Tasks 2 & 3
+```
+
+I set this up with the task dependency system. Tasks 2 and 3 were marked `blockedBy: [1]`. Task 4 was `blockedBy: [2, 3]`. The agents checked the task list, saw their dependencies, and started working as soon as they were unblocked.
+
+What surprised me: the Report Writer and Classifier didn't just wait. While blocked, they read the shared types, studied the test scenarios, and prepared their approach. When Task 1 completed, they were ready to execute immediately. I didn't tell them to do this. The coordination architecture made it the obvious thing to do.
+
+## What the Scanner Actually Does
+
+The core problem is Article 25 of the EU AI Act — specifically scenario (c). This is the one that catches organizations off guard.
+
+You take a general-purpose AI system (ChatGPT, Claude, Gemini). You use it to screen resumes. GPT-4 wasn't built for employment decisions — it's a general-purpose conversational model. But your *use* of it for hiring falls under Annex III Category 4a (Employment). Your use just made it high-risk. And under Article 25(1)(c), you just became the *provider* of a high-risk AI system.
+
+You didn't build a model. You didn't train anything. You pasted resumes into an API. And now you owe the EU a risk management system, technical documentation, conformity assessment, and registration in the EU database. Most organizations have no mechanism to detect this.
+
+The scanner detects it. Rule-based, no LLM calls, runs entirely offline:
+
+1. Detects GPAI provider from the description (regex pattern matching)
+2. Matches against Annex III categories (keyword scoring with confidence)
+3. Determines risk level (with fraud detection exclusion for 5a)
+4. Detects Article 25 triggers (rebranding, substantial modification, modified purpose)
+5. Checks if the use violates the GPAI provider's terms of use
+6. Determines provider/deployer role
+7. Generates obligation gaps and a prioritized compliance report
+
+Eight test scenarios. Eight correct classifications. 103 tests passed, 0 failed.
+
+## What Worked and What I Learned
+
+**File boundaries prevented chaos.** When three agents write code simultaneously, merge conflicts are inevitable — unless you design them away. By giving each agent exclusive ownership of a directory, there was zero coordination overhead for file access. The Researcher enriched JSON data while the Classifier wrote Python while the Report Writer built Jinja2 templates. No conflicts. No overwrites.
+
+**Task dependencies created natural coordination.** I didn't need to micromanage the sequencing. The dependency graph did the work. The Researcher finished, marked Task 1 complete, and the other two agents saw their tasks unblock and started immediately. This is how well-designed human teams operate — clear handoffs, not constant check-ins.
+
+**Shared types were the contract.** The `ClassificationResult` dataclass in `/src/shared/types.py` was the interface between the Classifier and Report Writer. Neither agent needed to know how the other worked. They just agreed on the data structure. I wrote it once as the Lead, and both agents imported it. Conway's Law in action — the code structure mirrored the team structure.
+
+**Rule-based was the right call.** The CLAUDE.md originally spec'd LLM calls for ambiguous Scenario 3 detection. I overrode that. For a compliance tool, determinism matters more than flexibility. The same input should always produce the same classification. Every keyword match is traceable. Every confidence score is explainable. An auditor can read `rules.py` and understand exactly why a system was classified as high-risk. Try explaining that with a prompt chain.
+
+## The Regulated Industry Angle
+
+This is the point most Agent Teams demos miss. They show agents writing a web app or refactoring a codebase. Fine. But the real test is whether agent coordination works when the *output has compliance implications*.
+
+In regulated industries, you need:
+
+- **Traceability** — who produced what, when, from which inputs
+- **Separation of concerns** — the entity that classifies risk shouldn't also generate the report that says "you're compliant"
+- **Deterministic behavior** — same input, same output, every time
+- **Auditable logic** — no black-box decisions
+
+Agent Teams gave me all four. The Researcher owns the regulatory data. The Classifier owns the logic. The Report Writer owns the presentation. Each has a clear input, a clear output, and a clear boundary. An auditor could trace exactly which agent produced which artifact and why.
+
+This is what I mean when I say architecture beats prompting. You don't prompt your way into auditability. You design it.
+
+## The Numbers
+
+| Metric | Value |
+|--------|-------|
+| Teammates spawned | 3 |
+| Total tasks | 4 (with dependency chain) |
+| Tests passing | 103 |
+| Tests failing | 0 |
+| Test scenarios | 8 (all correctly classified) |
+| Annex III categories covered | 8 |
+| Article 25 scenarios detected | 3 |
+| GPAI providers tracked | 6 (OpenAI, Anthropic, Google, Microsoft, Meta, Mistral) |
+| LLM calls per scan | 0 |
+
+## What I'd Do Differently
+
+The Report Writer added a D8 deployer obligation (Fundamental Rights Impact Assessment, Article 27) that the priority scorer doesn't have specific action items for. Minor gap, but it happened because the Researcher and Report Writer worked from the same data source at different points in time. In a longer-running project, I'd add a validation step — a post-delivery integration check that verifies the Report Writer's action item coverage matches the Researcher's obligation list.
+
+I'd also consider making the Classifier use the GPAI provider's `intended_purpose_statement` more aggressively. Right now it detects terms violations but doesn't explicitly reason about the *gap* between the provider's stated purpose and the deployer's actual use. That gap is the heart of Article 25(1)(c), and making it more visible in the classification output would strengthen the report.
+
+## The Takeaway
+
+Agent Teams isn't about speed. It's about *structure*. The same principles that make regulated organizations work — clear roles, strict boundaries, dependency management, shared interfaces, auditable outputs — make AI agent teams work too.
+
+If you're building AI systems for regulated industries, the question isn't "can I use agents?" It's "can I *organize* agents the way my compliance team would expect?"
+
+The answer is yes. And the architecture to do it already exists.
+
+*Built with Claude Code Agent Teams. Three teammates, zero merge conflicts, zero LLM calls per scan. The code is rule-based. The coordination was the hard part.*
+
+----
+
 # Governance Theater vs Real Controls: Building AI Guardrails That Actually Execute (01/18/2026)
 
 Most AI governance is theater.
