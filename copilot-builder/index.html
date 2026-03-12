@@ -127,8 +127,8 @@
                     </svg>
                 </summary>
                 <div class="p-6 pt-2 text-gray-200 text-sm space-y-6 border-t border-[rgba(22,199,154,0.1)]">
-                    <p>This tool generates four things: a Copilot Instructions file, Copilot Hooks, a Prompt File, and a Custom Agent.</p>
-                    
+                    <p>This tool generates five things: a Copilot Instructions file, Copilot Hooks, a Skill, a Prompt File, and a Custom Agent.</p>
+ 
                     <div>
                         <h4 class="font-bold text-white mb-2 uppercase tracking-wide text-xs">Instructions File</h4>
                         <ol class="list-decimal list-inside space-y-1 text-gray-300">
@@ -147,6 +147,16 @@
                             <li>Paste the generated JSON into that file</li>
                             <li>In the root of your repository (same level as <code class="bg-black px-1 rounded text-white">.github</code>), create a folder called <code class="bg-black px-1 rounded text-white">scripts</code></li>
                             <li>Create one <code class="bg-black px-1 rounded text-white">.ps1</code> file for each script and paste the matching code</li>
+                        </ol>
+                    </div>
+ 
+                    <div>
+                        <h4 class="font-bold text-white mb-2 uppercase tracking-wide text-xs">Skill (Section 06)</h4>
+                        <ol class="list-decimal list-inside space-y-1 text-gray-300">
+                            <li>In your repository root, create <code class="bg-black px-1 rounded text-white">.agents/skills/portfolio-onboarding/</code></li>
+                            <li>Create a file called <code class="bg-black px-1 rounded text-white">SKILL.md</code></li>
+                            <li>Paste the generated content into that file</li>
+                            <li>The skill fires automatically when Copilot detects a matching keyword — no invocation needed</li>
                         </ol>
                     </div>
  
@@ -181,6 +191,10 @@
       onboard-analyst.prompt.md
     copilot-agents/
       portfolio-onboarding.agent.md
+  .agents/
+    skills/
+      portfolio-onboarding/
+        SKILL.md
   scripts/
     block-file-deletion.ps1
     block-pii-commit.ps1
@@ -294,7 +308,6 @@
             <!-- INSTRUCTIONS OUTPUT SECTION -->
             <div id="outputWrapper" class="hidden space-y-4">
                 <div id="output-container" class="output-box p-6 text-sm md:text-base overflow-x-auto"></div>
-                
                 <div class="flex flex-col md:flex-row gap-4">
                     <button id="copyBtn" class="flex-1 py-3 accent-bg hover:bg-[#12a17d] text-white font-semibold rounded-lg flex items-center justify-center space-x-2 transition">
                         <span>Copy Instructions</span>
@@ -320,7 +333,6 @@
  
             <!-- HOOKS OUTPUT SECTION -->
             <div id="hooksOutputWrapper" class="hidden space-y-8">
-                <!-- Hook Box 1: JSON -->
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-medium text-gray-300">hooks.json</h3>
@@ -328,8 +340,6 @@
                     </div>
                     <div id="hooksJsonContainer" class="output-box p-6 text-sm overflow-x-auto text-blue-300"></div>
                 </div>
- 
-                <!-- Hook Box 2: Scripts -->
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-medium text-gray-300">PowerShell Scripts</h3>
@@ -337,7 +347,6 @@
                     </div>
                     <div id="hooksScriptsContainer" class="output-box p-6 text-sm overflow-x-auto"></div>
                 </div>
- 
                 <p class="text-gray-500 text-xs text-center">
                     Place hooks.json in .github/hooks/ and create a scripts/ folder for the PowerShell files. Hooks activate automatically on the default branch.
                 </p>
@@ -351,7 +360,6 @@
                     <span class="mr-2">04</span> Prompt File Generator
                 </h2>
                 <p class="text-gray-400 text-sm">Generates <code class="text-gray-300">.github/prompts/onboard-analyst.prompt.md</code> — invoke with <code class="text-gray-300">/onboard-analyst</code> in VS Code Chat.</p>
- 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="flex flex-col">
                         <label class="mb-2 text-sm font-medium">Portfolio Short Name</label>
@@ -362,7 +370,6 @@
                         <input type="text" id="portfolioFull" placeholder="e.g. Business Lending Center" class="p-3">
                     </div>
                 </div>
- 
                 <div class="flex flex-col">
                     <label class="mb-3 text-sm font-medium">What should the onboarding cover? (Select all that apply)</label>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -388,7 +395,6 @@
                         </label>
                     </div>
                 </div>
- 
                 <button id="generatePromptBtn" class="w-full py-4 btn-outline font-bold text-lg rounded-lg transition duration-200">
                     Generate Prompt File
                 </button>
@@ -415,7 +421,6 @@
                     <span class="mr-2">05</span> Custom Agent Generator
                 </h2>
                 <p class="text-gray-400 text-sm">Generates <code class="text-gray-300">.github/copilot-agents/portfolio-onboarding.agent.md</code> — invoke with <code class="text-gray-300">@portfolio-onboarding</code> in VS Code Chat.</p>
- 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="flex flex-col">
                         <label class="mb-2 text-sm font-medium">Portfolio Short Name</label>
@@ -426,7 +431,6 @@
                         <input type="text" id="agentFolder" placeholder="e.g. 05_Python/BLC_monitoring" class="p-3">
                     </div>
                 </div>
- 
                 <div class="flex flex-col">
                     <label class="mb-3 text-sm font-medium">Agent capabilities (Select all that apply)</label>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -452,7 +456,6 @@
                         </label>
                     </div>
                 </div>
- 
                 <button id="generateAgentBtn" class="w-full py-4 btn-outline font-bold text-lg rounded-lg transition duration-200">
                     Generate Custom Agent
                 </button>
@@ -466,6 +469,67 @@
                         Copy Agent File
                     </button>
                     <button id="downloadAgentBtn" class="flex-1 py-3 btn-outline font-semibold rounded-lg transition">
+                        Download as .md
+                    </button>
+                </div>
+            </div>
+ 
+            <div class="divider"></div>
+ 
+            <!-- SECTION 6: Skill Generator -->
+            <section class="space-y-4">
+                <h2 class="text-xl font-semibold accent-text flex items-center">
+                    <span class="mr-2">06</span> Skill Generator
+                </h2>
+                <p class="text-gray-400 text-sm">Generates <code class="text-gray-300">.agents/skills/portfolio-onboarding/SKILL.md</code> — fires automatically on keyword match. No invocation needed.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col">
+                        <label class="mb-2 text-sm font-medium">Skill Name</label>
+                        <input type="text" id="skillName" value="portfolio-onboarding" placeholder="e.g. portfolio-onboarding" class="p-3">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="mb-2 text-sm font-medium">Trigger Keywords <span class="text-gray-500 text-xs">(comma-separated)</span></label>
+                        <input type="text" id="skillKeywords" value="onboard me to, explain the portfolio, new analyst guide, portfolio overview" placeholder="e.g. onboard me to, explain the portfolio" class="p-3">
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label class="mb-3 text-sm font-medium">Output Sections (checked = included in the skill)</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="skillSec1" class="custom-checkbox" checked>
+                            <span>Portfolio Identity</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="skillSec2" class="custom-checkbox" checked>
+                            <span>Monitoring Script Map</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="skillSec3" class="custom-checkbox" checked>
+                            <span>Key Metrics and Thresholds</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="skillSec4" class="custom-checkbox" checked>
+                            <span>Start Here Recommendation</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="skillSec5" class="custom-checkbox">
+                            <span>Risk Flags</span>
+                        </label>
+                    </div>
+                </div>
+                <button id="generateSkillBtn" class="w-full py-4 btn-outline font-bold text-lg rounded-lg transition duration-200">
+                    Generate Skill
+                </button>
+            </section>
+ 
+            <!-- SKILL OUTPUT -->
+            <div id="skillOutputWrapper" class="hidden space-y-4">
+                <div id="skillOutputContainer" class="output-box p-6 text-sm overflow-x-auto"></div>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <button id="copySkillBtn" class="flex-1 py-3 accent-bg hover:bg-[#12a17d] text-white font-semibold rounded-lg transition">
+                        Copy Skill File
+                    </button>
+                    <button id="downloadSkillBtn" class="flex-1 py-3 btn-outline font-semibold rounded-lg transition">
                         Download as .md
                     </button>
                 </div>
@@ -491,13 +555,13 @@
             const generateHooksBtn = document.getElementById('generateHooksBtn');
             const primaryLangSelect = document.getElementById('primaryLang');
             const secLangCheckboxes = document.querySelectorAll('input[name="secondaryLang"]');
-            
+ 
             const outputWrapper = document.getElementById('outputWrapper');
             const outputContainer = document.getElementById('output-container');
             const hooksOutputWrapper = document.getElementById('hooksOutputWrapper');
             const hooksJsonContainer = document.getElementById('hooksJsonContainer');
             const hooksScriptsContainer = document.getElementById('hooksScriptsContainer');
-            
+ 
             const toast = document.getElementById('toast');
  
             function showToast(message) {
@@ -562,61 +626,7 @@
                 const secondaryLangs = Array.from(document.querySelectorAll('input[name="secondaryLang"]:checked')).map(el => el.value);
                 const secondaryStr = secondaryLangs.length > 0 ? secondaryLangs.join(', ') : "None specified";
  
-                const markdown = `# GitHub Copilot Instructions
- 
-## About Me
-My name is ${name}.
-I am a ${role} and have been with the company for ${tenure}.
-My focus area is ${focusStr}.
-Tailor your responses to my experience level and focus area.
- 
-## Company Context
-I work at Fifth Third Bank, a top 10 US bank by assets operating in a highly regulated financial services environment. Our team sits within Risk Rating Model Development, part of the Credit Risk & Capital Management Modeling division. Our work is subject to regulatory oversight by the OCC and Federal Reserve. All AI tool usage must comply with regulatory expectations for model risk management, data security, and auditability.
- 
-## Technical Environment
-Primary language: ${primaryLang}
-Secondary: ${secondaryStr}
-Environment: Windows, VS Code, GitHub Copilot
-Do not suggest languages or tools outside of our approved stack.
-Do not suggest cloud services unless explicitly asked.
-Do not suggest installing packages that require admin privileges.
- 
-## Code Documentation Standards
-When writing or modifying code, always include:
-- Inline comments explaining the business logic, not just the technical operation (e.g., "Exclude accounts < 12 months on book per segmentation criteria" not just "filter where months < 12")
-- A summary comment before any data transformation explaining what the input looks like, what the output should look like, and why the transformation is necessary
- 
-This code will be reviewed by independent model validation. Write every script as if a reviewer with no prior context needs to understand the full logic, assumptions, and intent without asking the developer.
- 
-## Guardrails
-NEVER include or generate:
-- Real customer data, names, account numbers, or SSNs
-- Hardcoded file paths containing usernames or network drives
-- Passwords, API keys, or credentials in any file
-- References to specific regulatory examination findings
-- Content that could be interpreted as a final model approval or sign-off
- 
-When generating sample data, always use obviously synthetic values:
-- Names: "Test Borrower A", "Sample Client 001"
-- SSNs: "000-00-0000"
-- Account numbers: "XXXXX0001"
- 
-When asked about model performance, always include caveats about sample limitations and the need for independent review.
- 
-NEVER delete, overwrite, or rename any existing file. File deletion, renaming, and overwriting are strictly manual processes. If a file should be deleted or renamed, state the file name and the recommended action, but do NOT execute it. If asked to replace a file, create the new version with a distinct name (e.g., _v2, _draft) and leave the original untouched.
- 
-Never generate destructive SQL statements (DROP, TRUNCATE, DELETE FROM, UPDATE without WHERE) unless explicitly requested. When generating these statements, always include a comment warning: "-- DESTRUCTIVE OPERATION: Review carefully before executing."
- 
-Never use conclusive or evaluative language in code comments or documentation. Do not write phrases like "the model performs well" or "results are acceptable." All analytical output is preliminary and subject to independent model validation review. Use language like "preliminary results suggest" or "subject to further review."
- 
-Never generate code that makes external network calls (API requests, web scraping, PROC HTTP, requests.get, urllib, or similar). All code must operate on local files and databases only unless the user explicitly requests otherwise.
- 
-Before any git commit, review all staged files and flag if any file contains:
-- Anything resembling a Social Security Number (XXX-XX-XXXX pattern)
-- Real customer names or account identifiers
-- Network file paths with employee usernames
-- Embedded credentials or connection strings
-If flagged, warn the user and do NOT proceed with the commit until the content is removed or replaced with synthetic values.`;
+                const markdown = `# GitHub Copilot Instructions\n\n## About Me\nMy name is ${name}.\nI am a ${role} and have been with the company for ${tenure}.\nMy focus area is ${focusStr}.\nTailor your responses to my experience level and focus area.\n\n## Company Context\nI work at Fifth Third Bank, a top 10 US bank by assets operating in a highly regulated financial services environment. Our team sits within Risk Rating Model Development, part of the Credit Risk & Capital Management Modeling division. Our work is subject to regulatory oversight by the OCC and Federal Reserve. All AI tool usage must comply with regulatory expectations for model risk management, data security, and auditability.\n\n## Technical Environment\nPrimary language: ${primaryLang}\nSecondary: ${secondaryStr}\nEnvironment: Windows, VS Code, GitHub Copilot\nDo not suggest languages or tools outside of our approved stack.\nDo not suggest cloud services unless explicitly asked.\nDo not suggest installing packages that require admin privileges.\n\n## Code Documentation Standards\nWhen writing or modifying code, always include:\n- Inline comments explaining the business logic, not just the technical operation (e.g., "Exclude accounts < 12 months on book per segmentation criteria" not just "filter where months < 12")\n- A summary comment before any data transformation explaining what the input looks like, what the output should look like, and why the transformation is necessary\n\nThis code will be reviewed by independent model validation. Write every script as if a reviewer with no prior context needs to understand the full logic, assumptions, and intent without asking the developer.\n\n## Guardrails\nNEVER include or generate:\n- Real customer data, names, account numbers, or SSNs\n- Hardcoded file paths containing usernames or network drives\n- Passwords, API keys, or credentials in any file\n- References to specific regulatory examination findings\n- Content that could be interpreted as a final model approval or sign-off\n\nWhen generating sample data, always use obviously synthetic values:\n- Names: "Test Borrower A", "Sample Client 001"\n- SSNs: "000-00-0000"\n- Account numbers: "XXXXX0001"\n\nWhen asked about model performance, always include caveats about sample limitations and the need for independent review.\n\nNEVER delete, overwrite, or rename any existing file. File deletion, renaming, and overwriting are strictly manual processes. If a file should be deleted or renamed, state the file name and the recommended action, but do NOT execute it. If asked to replace a file, create the new version with a distinct name (e.g., _v2, _draft) and leave the original untouched.\n\nNever generate destructive SQL statements (DROP, TRUNCATE, DELETE FROM, UPDATE without WHERE) unless explicitly requested. When generating these statements, always include a comment warning: "-- DESTRUCTIVE OPERATION: Review carefully before executing."\n\nNever use conclusive or evaluative language in code comments or documentation. Do not write phrases like "the model performs well" or "results are acceptable." All analytical output is preliminary and subject to independent model validation review. Use language like "preliminary results suggest" or "subject to further review."\n\nNever generate code that makes external network calls (API requests, web scraping, PROC HTTP, requests.get, urllib, or similar). All code must operate on local files and databases only unless the user explicitly requests otherwise.\n\nBefore any git commit, review all staged files and flag if any file contains:\n- Anything resembling a Social Security Number (XXX-XX-XXXX pattern)\n- Real customer names or account identifiers\n- Network file paths with employee usernames\n- Embedded credentials or connection strings\nIf flagged, warn the user and do NOT proceed with the commit until the content is removed or replaced with synthetic values.`;
  
                 outputContainer.textContent = markdown;
                 outputWrapper.classList.remove('hidden');
@@ -625,132 +635,16 @@ If flagged, warn the user and do NOT proceed with the commit until the content i
  
             // === HOOKS GENERATION ===
             generateHooksBtn.addEventListener('click', () => {
-                const hooksJson = `{
-  "version": 1,
-  "hooks": {
-    "preToolUse": [
-      {
-        "type": "command",
-        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-file-deletion.ps1",
-        "bash": "./scripts/block-file-deletion.sh",
-        "timeoutSec": 10
-      },
-      {
-        "type": "command",
-        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-pii-commit.ps1",
-        "bash": "./scripts/block-pii-commit.sh",
-        "timeoutSec": 15
-      },
-      {
-        "type": "command",
-        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-destructive-sql.ps1",
-        "bash": "./scripts/block-destructive-sql.sh",
-        "timeoutSec": 10
-      }
-    ]
-  }
-}`;
+                const hooksJson = `{\n  "version": 1,\n  "hooks": {\n    "preToolUse": [\n      {\n        "type": "command",\n        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-file-deletion.ps1",\n        "bash": "./scripts/block-file-deletion.sh",\n        "timeoutSec": 10\n      },\n      {\n        "type": "command",\n        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-pii-commit.ps1",\n        "bash": "./scripts/block-pii-commit.sh",\n        "timeoutSec": 15\n      },\n      {\n        "type": "command",\n        "powershell": "powershell -ExecutionPolicy Bypass -File ./scripts/block-destructive-sql.ps1",\n        "bash": "./scripts/block-destructive-sql.sh",\n        "timeoutSec": 10\n      }\n    ]\n  }\n}`;
  
-                const s1 = `# scripts/block-file-deletion.ps1
-# Reads Copilot tool action from stdin and blocks file deletion/rename/move
-$rawInput = [Console]::In.ReadToEnd()
-$input_data = $rawInput | ConvertFrom-Json
-$toolName = $input_data.toolName
+                const s1 = `# scripts/block-file-deletion.ps1\n# Reads Copilot tool action from stdin and blocks file deletion/rename/move\n$rawInput = [Console]::In.ReadToEnd()\n$input_data = $rawInput | ConvertFrom-Json\n$toolName = $input_data.toolName\n\nif ($toolName -match '(delete|remove|rename|move)') {\n    $result = @{\n        "decision" = "deny"\n        "message" = "File deletion, renaming, and moving are not permitted through Copilot. Perform these operations manually."\n    }\n    $result | ConvertTo-Json -Compress\n    exit 0\n}\n\n@{"decision" = "allow"} | ConvertTo-Json -Compress`;
  
-if ($toolName -match '(delete|remove|rename|move)') {
-    $result = @{
-        "decision" = "deny"
-        "message" = "File deletion, renaming, and moving are not permitted through Copilot. Perform these operations manually."
-    }
-    $result | ConvertTo-Json -Compress
-    exit 0
-}
+                const s2 = `# scripts/block-pii-commit.ps1\n# Scans staged files for PII patterns before allowing git commits\n$rawInput = [Console]::In.ReadToEnd()\n$input_data = $rawInput | ConvertFrom-Json\n$toolName = $input_data.toolName\n\nif ($toolName -notmatch '(commit|push)') {\n    @{"decision" = "allow"} | ConvertTo-Json -Compress\n    exit 0\n}\n\n$staged = git diff --cached --diff-filter=ACM\n$violations = @()\n\n# SSN pattern\nif ($staged -match '\\\\d{3}-\\\\d{2}-\\\\d{4}') {\n    $violations += "Possible SSN pattern detected"\n}\n\n# Account number patterns (9+ consecutive digits)\nif ($staged -match '\\\\b\\\\d{9,}\\\\b') {\n    $violations += "Possible account number detected"\n}\n\n# Network paths with usernames\nif ($staged -match '\\\\\\\\\\\\\\\\[a-zA-Z]+\\\\\\\\users\\\\\\\\') {\n    $violations += "Network path with username detected"\n}\n\nif ($violations.Count -gt 0) {\n    $message = "BLOCKED: " + ($violations -join "; ") + ". Remove or replace with synthetic values before committing."\n    $result = @{\n        "decision" = "deny"\n        "message" = $message\n    }\n    $result | ConvertTo-Json -Compress\n    exit 0\n}\n\n@{"decision" = "allow"} | ConvertTo-Json -Compress`;
  
-@{"decision" = "allow"} | ConvertTo-Json -Compress`;
- 
-                const s2 = `# scripts/block-pii-commit.ps1
-# Scans staged files for PII patterns before allowing git commits
-$rawInput = [Console]::In.ReadToEnd()
-$input_data = $rawInput | ConvertFrom-Json
-$toolName = $input_data.toolName
- 
-if ($toolName -notmatch '(commit|push)') {
-    @{"decision" = "allow"} | ConvertTo-Json -Compress
-    exit 0
-}
- 
-$staged = git diff --cached --diff-filter=ACM
-$violations = @()
- 
-# SSN pattern
-if ($staged -match '\\d{3}-\\d{2}-\\d{4}') {
-    $violations += "Possible SSN pattern detected"
-}
- 
-# Account number patterns (9+ consecutive digits)
-if ($staged -match '\\b\\d{9,}\\b') {
-    $violations += "Possible account number detected"
-}
- 
-# Network paths with usernames
-if ($staged -match '\\\\\\\\[a-zA-Z]+\\\\users\\\\') {
-    $violations += "Network path with username detected"
-}
- 
-if ($violations.Count -gt 0) {
-    $message = "BLOCKED: " + ($violations -join "; ") + ". Remove or replace with synthetic values before committing."
-    $result = @{
-        "decision" = "deny"
-        "message" = $message
-    }
-    $result | ConvertTo-Json -Compress
-    exit 0
-}
- 
-@{"decision" = "allow"} | ConvertTo-Json -Compress`;
- 
-                const s3 = `# scripts/block-destructive-sql.ps1
-# Blocks DROP, TRUNCATE, DELETE/UPDATE without WHERE clause
-$rawInput = [Console]::In.ReadToEnd()
-$input_data = $rawInput | ConvertFrom-Json
-$toolName = $input_data.toolName
-$toolArgs = $input_data.toolArgs | ConvertFrom-Json
- 
-$sql = $toolArgs.command
-if (-not $sql) { $sql = $toolArgs.query }
-if (-not $sql) { $sql = $toolArgs.code }
- 
-if ($sql -match '(?i)(DROP\\s+TABLE|DROP\\s+DATABASE|TRUNCATE\\s+TABLE)') {
-    $result = @{
-        "decision" = "deny"
-        "message" = "BLOCKED: Destructive SQL (DROP/TRUNCATE) is not permitted through Copilot. Execute manually after review."
-    }
-    $result | ConvertTo-Json -Compress
-    exit 0
-}
- 
-if ($sql -match '(?i)DELETE\\s+FROM' -and $sql -notmatch '(?i)WHERE') {
-    $result = @{
-        "decision" = "deny"
-        "message" = "BLOCKED: DELETE without WHERE clause is not permitted. Add a WHERE condition or execute manually."
-    }
-    $result | ConvertTo-Json -Compress
-    exit 0
-}
- 
-if ($sql -match '(?i)UPDATE\\s+' -and $sql -notmatch '(?i)WHERE') {
-    $result = @{
-        "decision" = "deny"
-        "message" = "BLOCKED: UPDATE without WHERE clause is not permitted. Add a WHERE condition or execute manually."
-    }
-    $result | ConvertTo-Json -Compress
-    exit 0
-}
- 
-@{"decision" = "allow"} | ConvertTo-Json -Compress`;
+                const s3 = `# scripts/block-destructive-sql.ps1\n# Blocks DROP, TRUNCATE, DELETE/UPDATE without WHERE clause\n$rawInput = [Console]::In.ReadToEnd()\n$input_data = $rawInput | ConvertFrom-Json\n$toolName = $input_data.toolName\n$toolArgs = $input_data.toolArgs | ConvertFrom-Json\n\n$sql = $toolArgs.command\nif (-not $sql) { $sql = $toolArgs.query }\nif (-not $sql) { $sql = $toolArgs.code }\n\nif ($sql -match '(?i)(DROP\\\\s+TABLE|DROP\\\\s+DATABASE|TRUNCATE\\\\s+TABLE)') {\n    $result = @{\n        "decision" = "deny"\n        "message" = "BLOCKED: Destructive SQL (DROP/TRUNCATE) is not permitted through Copilot. Execute manually after review."\n    }\n    $result | ConvertTo-Json -Compress\n    exit 0\n}\n\nif ($sql -match '(?i)DELETE\\\\s+FROM' -and $sql -notmatch '(?i)WHERE') {\n    $result = @{\n        "decision" = "deny"\n        "message" = "BLOCKED: DELETE without WHERE clause is not permitted. Add a WHERE condition or execute manually."\n    }\n    $result | ConvertTo-Json -Compress\n    exit 0\n}\n\nif ($sql -match '(?i)UPDATE\\\\s+' -and $sql -notmatch '(?i)WHERE') {\n    $result = @{\n        "decision" = "deny"\n        "message" = "BLOCKED: UPDATE without WHERE clause is not permitted. Add a WHERE condition or execute manually."\n    }\n    $result | ConvertTo-Json -Compress\n    exit 0\n}\n\n@{"decision" = "allow"} | ConvertTo-Json -Compress`;
  
                 hooksJsonContainer.textContent = hooksJson;
-                
+ 
                 hooksScriptsContainer.innerHTML = `<div class="mb-2 text-xs font-bold accent-text">scripts/block-file-deletion.ps1</div><div class="text-gray-300 mb-6">${escapeHtml(s1)}</div><div class="divider"></div><div class="mb-2 text-xs font-bold accent-text">scripts/block-pii-commit.ps1</div><div class="text-gray-300 mb-6">${escapeHtml(s2)}</div><div class="divider"></div><div class="mb-2 text-xs font-bold accent-text">scripts/block-destructive-sql.ps1</div><div class="text-gray-300">${escapeHtml(s3)}</div>`;
  
                 hooksOutputWrapper.classList.remove('hidden');
@@ -766,7 +660,7 @@ if ($sql -match '(?i)UPDATE\\s+' -and $sql -notmatch '(?i)WHERE') {
  
             // Clipboard and Download
             document.getElementById('copyBtn').onclick = () => copyToClipboard(outputContainer.textContent);
-            
+ 
             document.getElementById('downloadBtn').onclick = () => {
                 const content = outputContainer.textContent;
                 const blob = new Blob([content], { type: 'text/markdown' });
@@ -785,71 +679,20 @@ if ($sql -match '(?i)UPDATE\\s+' -and $sql -notmatch '(?i)WHERE') {
                 const sections  = Array.from(document.querySelectorAll('input[name="onboardSection"]:checked')).map(el => el.value);
  
                 const sectionBlocks = {
-                    script_inventory: `## Script Inventory
+                    script_inventory: `## Script Inventory\n\nList every file in the current workspace folder. For each file provide:\n- File name\n- One-sentence description of what it does\n- Whether it is a data pull, model step, output, or utility script\n- Any dependencies on other scripts or external data sources\n\nFormat as a table: File | Type | Description | Dependencies`,
  
-List every file in the current workspace folder. For each file provide:
-- File name
-- One-sentence description of what it does
-- Whether it is a data pull, model step, output, or utility script
-- Any dependencies on other scripts or external data sources
+                    key_metrics: `## Key Metrics\n\nExplain the key performance metrics for the ${fullName} portfolio:\n- What are the primary model outputs (PD, LGD, EAD) and their expected ranges?\n- What thresholds or benchmarks should a new analyst know?\n- What does a healthy vs. degraded metric look like for this portfolio?\n- Are there any known seasonal patterns or structural breaks to be aware of?`,
  
-Format as a table: File | Type | Description | Dependencies`,
+                    start_here: `## Where to Start\n\nRecommend a logical sequence for a new analyst to get oriented:\n1. Which files should they read first?\n2. What is the most important output to understand?\n3. What is the first task they should attempt independently?\n4. What questions should they ask before touching any production scripts?`,
  
-                    key_metrics: `## Key Metrics
+                    risk_flags: `## Risk Flags\n\nBased on the scripts in this folder, identify:\n- Any files that appear incomplete, commented out, or potentially outdated\n- Any hardcoded values that should be parameterized\n- Any data quality checks that are missing or commented out\n- Any scripts that have no corresponding output validation\n\nBe specific — name the files and lines where issues appear.`,
  
-Explain the key performance metrics for the ${fullName} portfolio:
-- What are the primary model outputs (PD, LGD, EAD) and their expected ranges?
-- What thresholds or benchmarks should a new analyst know?
-- What does a healthy vs. degraded metric look like for this portfolio?
-- Are there any known seasonal patterns or structural breaks to be aware of?`,
- 
-                    start_here: `## Where to Start
- 
-Recommend a logical sequence for a new analyst to get oriented:
-1. Which files should they read first?
-2. What is the most important output to understand?
-3. What is the first task they should attempt independently?
-4. What questions should they ask before touching any production scripts?`,
- 
-                    risk_flags: `## Risk Flags
- 
-Based on the scripts in this folder, identify:
-- Any files that appear incomplete, commented out, or potentially outdated
-- Any hardcoded values that should be parameterized
-- Any data quality checks that are missing or commented out
-- Any scripts that have no corresponding output validation
- 
-Be specific — name the files and lines where issues appear.`,
- 
-                    data_sources: `## Data Sources
- 
-For the ${fullName} portfolio, explain:
-- Where does the input data come from? (table names, databases, file paths)
-- What is the expected refresh cadence for each data source?
-- Are there any data pulls that require manual intervention?
-- What happens if a data source is delayed or missing?`
+                    data_sources: `## Data Sources\n\nFor the ${fullName} portfolio, explain:\n- Where does the input data come from? (table names, databases, file paths)\n- What is the expected refresh cadence for each data source?\n- Are there any data pulls that require manual intervention?\n- What happens if a data source is delayed or missing?`
                 };
  
                 const selectedBlocks = sections.map(s => sectionBlocks[s]).filter(Boolean).join('\n\n---\n\n');
  
-                const promptContent = `---
-mode: ask
-description: Onboard a new analyst to the ${fullName} (${shortName}) portfolio. Reads workspace files and generates a structured briefing.
----
- 
-# Analyst Onboarding Brief — ${fullName} (${shortName})
- 
-You are a senior credit risk analyst helping a new team member get up to speed on the **${fullName}** portfolio. Use the files in the current workspace as your primary source. Do not fabricate data, metrics, or file contents — only report what is present in the actual files.
- 
-${selectedBlocks}
- 
----
- 
-## Output Format
- 
-Produce a clean, structured briefing document. Use markdown headers. Be specific — names, numbers, file paths. Do not include generic advice that is not grounded in the actual files.
- 
-If a section cannot be completed because the relevant files are not in the workspace, say so explicitly rather than guessing.`;
+                const promptContent = `---\nmode: ask\ndescription: Onboard a new analyst to the ${fullName} (${shortName}) portfolio. Reads workspace files and generates a structured briefing.\n---\n\n# Analyst Onboarding Brief — ${fullName} (${shortName})\n\nYou are a senior credit risk analyst helping a new team member get up to speed on the **${fullName}** portfolio. Use the files in the current workspace as your primary source. Do not fabricate data, metrics, or file contents — only report what is present in the actual files.\n\n${selectedBlocks}\n\n---\n\n## Output Format\n\nProduce a clean, structured briefing document. Use markdown headers. Be specific — names, numbers, file paths. Do not include generic advice that is not grounded in the actual files.\n\nIf a section cannot be completed because the relevant files are not in the workspace, say so explicitly rather than guessing.`;
  
                 const out = document.getElementById('promptOutputContainer');
                 out.textContent = promptContent;
@@ -883,38 +726,15 @@ If a section cannot be completed because the relevant files are not in the works
                 };
  
                 const capInstructions = {
-                    read_scripts: `### Reading Scripts
-When asked to read the portfolio folder, scan every file and produce a table:
-| File | Type | Description | Key Outputs |
-Each row must be grounded in the actual file. Do not summarize files you cannot see.`,
+                    read_scripts: `### Reading Scripts\nWhen asked to read the portfolio folder, scan every file and produce a table:\n| File | Type | Description | Key Outputs |\nEach row must be grounded in the actual file. Do not summarize files you cannot see.`,
  
-                    explain_metrics: `### Explaining Metrics
-When asked about metrics, explain:
-- What the metric measures
-- The expected range for a healthy ${portfolio} portfolio
-- What a spike or drop would likely indicate
-- Whether there are known regulatory thresholds to be aware of`,
+                    explain_metrics: `### Explaining Metrics\nWhen asked about metrics, explain:\n- What the metric measures\n- The expected range for a healthy ${portfolio} portfolio\n- What a spike or drop would likely indicate\n- Whether there are known regulatory thresholds to be aware of`,
  
-                    suggest_tasks: `### Suggesting Starting Tasks
-When asked where to start, recommend:
-1. The two or three files with the broadest impact on downstream outputs
-2. The one metric a new analyst should monitor daily
-3. The first question they should answer before writing any new code`,
+                    suggest_tasks: `### Suggesting Starting Tasks\nWhen asked where to start, recommend:\n1. The two or three files with the broadest impact on downstream outputs\n2. The one metric a new analyst should monitor daily\n3. The first question they should answer before writing any new code`,
  
-                    flag_issues: `### Flagging Issues
-When reviewing scripts, flag:
-- Hardcoded values that should be parameters
-- Missing error handling or output validation
-- Files that appear stale, incomplete, or inconsistent with naming conventions
-- Any DELETE, DROP, or TRUNCATE statements without safeguards`,
+                    flag_issues: `### Flagging Issues\nWhen reviewing scripts, flag:\n- Hardcoded values that should be parameters\n- Missing error handling or output validation\n- Files that appear stale, incomplete, or inconsistent with naming conventions\n- Any DELETE, DROP, or TRUNCATE statements without safeguards`,
  
-                    draft_summary: `### Drafting Summaries
-When asked for a portfolio summary, produce a structured markdown document:
-- Portfolio name and purpose
-- Current model outputs and status
-- Open items or known risks
-- Recommended next actions
-Limit to one page. Ground every claim in the files you can see.`
+                    draft_summary: `### Drafting Summaries\nWhen asked for a portfolio summary, produce a structured markdown document:\n- Portfolio name and purpose\n- Current model outputs and status\n- Open items or known risks\n- Recommended next actions\nLimit to one page. Ground every claim in the files you can see.`
                 };
  
                 const folderLine = folder
@@ -924,39 +744,7 @@ Limit to one page. Ground every claim in the files you can see.`
                 const selectedCapLines = caps.map((c, i) => `${i + 1}. ${capLabels[c]}`).filter(Boolean).join('\n');
                 const selectedInstructions = caps.map(c => capInstructions[c]).filter(Boolean).join('\n\n');
  
-                const agentContent = `---
-name: portfolio-onboarding
-description: Onboarding assistant for the ${portfolio} portfolio. Reads the portfolio folder and helps new analysts get oriented fast.
-tools:
-  - read_file
-  - list_directory
-  - grep
----
- 
-# ${portfolio} Portfolio Onboarding Agent
- 
-You are a specialized onboarding assistant for the **${portfolio}** credit risk portfolio at Fifth Third Bank.
- 
-${folderLine}
- 
-## What You Can Do
-${selectedCapLines}
- 
-## Guardrails
- 
-- Only report what is present in actual files. Never fabricate metrics, file contents, or outputs.
-- Do not suggest changes to production scripts unless explicitly asked.
-- Do not expose file contents that contain real customer data — flag it and stop.
-- All outputs must be clearly labeled as draft or reference material, not production-ready documentation.
-- If a file is not accessible, say so rather than guessing its contents.
- 
-## Tone and Format
- 
-- Be concise. New analysts are overwhelmed — prioritize clarity over completeness.
-- Use markdown tables and headers for structured outputs.
-- Lead with the most important finding, not background context.
- 
-${selectedInstructions}`;
+                const agentContent = `---\nname: portfolio-onboarding\ndescription: Onboarding assistant for the ${portfolio} portfolio. Reads the portfolio folder and helps new analysts get oriented fast.\ntools:\n  - read_file\n  - list_directory\n  - grep\n---\n\n# ${portfolio} Portfolio Onboarding Agent\n\nYou are a specialized onboarding assistant for the **${portfolio}** credit risk portfolio at Fifth Third Bank.\n\n${folderLine}\n\n## What You Can Do\n${selectedCapLines}\n\n## Guardrails\n\n- Only report what is present in actual files. Never fabricate metrics, file contents, or outputs.\n- Do not suggest changes to production scripts unless explicitly asked.\n- Do not expose file contents that contain real customer data — flag it and stop.\n- All outputs must be clearly labeled as draft or reference material, not production-ready documentation.\n- If a file is not accessible, say so rather than guessing its contents.\n\n## Tone and Format\n\n- Be concise. New analysts are overwhelmed — prioritize clarity over completeness.\n- Use markdown tables and headers for structured outputs.\n- Lead with the most important finding, not background context.\n\n${selectedInstructions}`;
  
                 const out = document.getElementById('agentOutputContainer');
                 out.textContent = agentContent;
@@ -974,146 +762,67 @@ ${selectedInstructions}`;
                     window.URL.revokeObjectURL(url);
                 };
             });
+ 
+            // === SKILL GENERATION ===
+            document.getElementById('generateSkillBtn').addEventListener('click', () => {
+                const name = document.getElementById('skillName').value.trim() || 'portfolio-onboarding';
+                const keywords = document.getElementById('skillKeywords').value.trim() || 'onboard me to, explain the portfolio';
+                const sec1 = document.getElementById('skillSec1').checked;
+                const sec2 = document.getElementById('skillSec2').checked;
+                const sec3 = document.getElementById('skillSec3').checked;
+                const sec4 = document.getElementById('skillSec4').checked;
+                const sec5 = document.getElementById('skillSec5').checked;
+ 
+                let sectionNum = 0;
+                let sections = '';
+ 
+                if (sec1) {
+                    sectionNum++;
+                    sections += `\n## ${sectionNum}. Portfolio Identity (3-5 sentences)\nWhat type of credit product is this. Typical borrower profile. Typical deal size.\nPrimary risk drivers. How it fits in the broader portfolio book.\n`;
+                }
+ 
+                if (sec2) {
+                    sectionNum++;
+                    sections += `\n## ${sectionNum}. Monitoring Script Map\nList each SAS script in execution order. For each:\n- Filename\n- One-line purpose\n- What it produces (output dataset or report name)\n- What breaks if it is skipped\n`;
+                }
+ 
+                if (sec3) {
+                    sectionNum++;
+                    sections += `\n## ${sectionNum}. Key Metrics and Thresholds\nFor each of: PSI, E/O ratio, Somers' D\n- What it measures\n- The governance threshold (GREEN / YELLOW / RED)\n- What to do if it is in the red zone\n`;
+                }
+ 
+                if (sec4) {
+                    sectionNum++;
+                    sections += `\n## ${sectionNum}. Start Here\nOne specific file. One specific thing to read first. One question to ask the portfolio manager.\nNo more than 5 sentences.\n`;
+                }
+ 
+                if (sec5) {
+                    sectionNum++;
+                    sections += `\n## ${sectionNum}. Risk Flags\nList any known issues, open findings, or areas under regulatory scrutiny.\nFor each: what the issue is, current status, and who owns resolution.\n`;
+                }
+ 
+                const titleCase = name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                const keywordList = keywords.split(',').map(k => k.trim()).join(', ');
+ 
+                const skillContent = `---\ndescription: >\n  ${keywordList}.\n---\n\n# ${titleCase} — Output Rules\n\nWhen this skill is triggered, produce the following sections in this exact order.\nDo not summarize. Do not skip sections.\n${sections}\n## Tone and audience\nWrite for a credit analyst with 1-2 years of experience, no prior exposure to this portfolio.\nAvoid jargon unless you define it immediately. Be direct. No preamble.`;
+ 
+                const out = document.getElementById('skillOutputContainer');
+                out.textContent = skillContent;
+                document.getElementById('skillOutputWrapper').classList.remove('hidden');
+                document.getElementById('skillOutputWrapper').scrollIntoView({ behavior: 'smooth' });
+ 
+                document.getElementById('copySkillBtn').onclick = () => copyToClipboard(skillContent);
+                document.getElementById('downloadSkillBtn').onclick = () => {
+                    const blob = new Blob([skillContent], { type: 'text/markdown' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'SKILL.md';
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                };
+            });
         });
     </script>
-
-<div class="bg-[#0d3d3d] rounded-2xl p-8 shadow-lg border border-[#16c79a]/20 mt-10">
-  <h2 class="text-2xl font-bold text-white mb-2">06 Skill Generator</h2>
-  <p class="text-gray-400 text-sm mb-6">Generate a Copilot Skill that fires automatically on keyword match. No invocation needed — Copilot detects the request and applies the format rules silently.</p>
- 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-    <div>
-      <label class="block text-gray-300 text-sm mb-1">Skill Name</label>
-      <input type="text" id="skillName" value="portfolio-onboarding" placeholder="e.g. portfolio-onboarding"
-        class="w-full bg-black border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-600 focus:border-[#16c79a] focus:outline-none">
-    </div>
-    <div>
-      <label class="block text-gray-300 text-sm mb-1">Trigger Keywords <span class="text-gray-500">(comma-separated)</span></label>
-      <input type="text" id="skillKeywords" value="onboard me to, explain the portfolio, new analyst guide, portfolio overview" placeholder="e.g. onboard me to, explain the portfolio"
-        class="w-full bg-black border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-600 focus:border-[#16c79a] focus:outline-none">
-    </div>
-  </div>
- 
-  <div class="mb-6">
-    <label class="block text-gray-300 text-sm mb-3">Output Sections <span class="text-gray-500">(checked = included in the skill)</span></label>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-      <label class="flex items-center gap-2 text-gray-300 text-sm cursor-pointer">
-        <input type="checkbox" id="skillSec1" checked class="accent-[#16c79a] w-4 h-4"> Portfolio Identity
-      </label>
-      <label class="flex items-center gap-2 text-gray-300 text-sm cursor-pointer">
-        <input type="checkbox" id="skillSec2" checked class="accent-[#16c79a] w-4 h-4"> Monitoring Script Map
-      </label>
-      <label class="flex items-center gap-2 text-gray-300 text-sm cursor-pointer">
-        <input type="checkbox" id="skillSec3" checked class="accent-[#16c79a] w-4 h-4"> Key Metrics and Thresholds
-      </label>
-      <label class="flex items-center gap-2 text-gray-300 text-sm cursor-pointer">
-        <input type="checkbox" id="skillSec4" checked class="accent-[#16c79a] w-4 h-4"> Start Here Recommendation
-      </label>
-      <label class="flex items-center gap-2 text-gray-300 text-sm cursor-pointer">
-        <input type="checkbox" id="skillSec5" class="accent-[#16c79a] w-4 h-4"> Risk Flags
-      </label>
-    </div>
-  </div>
- 
-  <div class="flex gap-3 mb-6">
-    <button onclick="generateSkill()" class="bg-[#16c79a] text-black font-semibold px-6 py-2 rounded-lg hover:bg-[#13b48a] transition">Generate Skill</button>
-  </div>
- 
-  <div id="skillOutput" class="hidden">
-    <div class="flex items-center justify-between mb-2">
-      <span class="text-gray-400 text-sm">SKILL.md — place in <code class="text-[#16c79a]">.agents/skills/<span id="skillPathName">portfolio-onboarding</span>/SKILL.md</code></span>
-      <span class="text-gray-500 text-xs">Triggered by: keyword match (automatic)</span>
-    </div>
-    <pre id="skillContent" class="bg-black rounded-lg p-4 text-green-300 text-sm overflow-x-auto whitespace-pre-wrap border border-gray-800 max-h-96 overflow-y-auto"></pre>
-    <div class="flex gap-3 mt-3">
-      <button onclick="copySkill()" id="skillCopyBtn" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition text-sm">Copy to Clipboard</button>
-      <button onclick="downloadSkill()" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition text-sm">Download as .md</button>
-    </div>
-  </div>
-</div>
- 
-<script>
-function generateSkill() {
-  const name = document.getElementById('skillName').value.trim() || 'portfolio-onboarding';
-  const keywords = document.getElementById('skillKeywords').value.trim() || 'onboard me to, explain the portfolio';
-  const sec1 = document.getElementById('skillSec1').checked;
-  const sec2 = document.getElementById('skillSec2').checked;
-  const sec3 = document.getElementById('skillSec3').checked;
-  const sec4 = document.getElementById('skillSec4').checked;
-  const sec5 = document.getElementById('skillSec5').checked;
- 
-  document.getElementById('skillPathName').textContent = name;
- 
-  let sectionNum = 0;
-  let sections = '';
- 
-  if (sec1) {
-    sectionNum++;
-    sections += `\n## ${sectionNum}. Portfolio Identity (3-5 sentences)\nWhat type of credit product is this. Typical borrower profile. Typical deal size.\nPrimary risk drivers. How it fits in the broader portfolio book.\n`;
-  }
- 
-  if (sec2) {
-    sectionNum++;
-    sections += `\n## ${sectionNum}. Monitoring Script Map\nList each SAS script in execution order. For each:\n- Filename\n- One-line purpose\n- What it produces (output dataset or report name)\n- What breaks if it is skipped\n`;
-  }
- 
-  if (sec3) {
-    sectionNum++;
-    sections += `\n## ${sectionNum}. Key Metrics and Thresholds\nFor each of: PSI, E/O ratio, Somers' D\n- What it measures\n- The governance threshold (GREEN / YELLOW / RED)\n- What to do if it is in the red zone\n`;
-  }
- 
-  if (sec4) {
-    sectionNum++;
-    sections += `\n## ${sectionNum}. Start Here\nOne specific file. One specific thing to read first. One question to ask the portfolio manager.\nNo more than 5 sentences.\n`;
-  }
- 
-  if (sec5) {
-    sectionNum++;
-    sections += `\n## ${sectionNum}. Risk Flags\nList any known issues, open findings, or areas under regulatory scrutiny.\nFor each: what the issue is, current status, and who owns resolution.\n`;
-  }
- 
-  const output = `---
-description: >
-  ${keywords.split(',').map(k => k.trim()).join(', ')}.
----
- 
-# ${name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')} — Output Rules
- 
-When this skill is triggered, produce the following sections in this exact order.
-Do not summarize. Do not skip sections.
-${sections}
-## Tone and audience
-Write for a credit analyst with 1-2 years of experience, no prior exposure to this portfolio.
-Avoid jargon unless you define it immediately. Be direct. No preamble.`;
- 
-  document.getElementById('skillContent').textContent = output;
-  document.getElementById('skillOutput').classList.remove('hidden');
-}
- 
-function copySkill() {
-  const content = document.getElementById('skillContent').textContent;
-  navigator.clipboard.writeText(content).then(() => {
-    const btn = document.getElementById('skillCopyBtn');
-    btn.textContent = 'Copied!';
-    btn.classList.add('bg-[#16c79a]', 'text-black');
-    setTimeout(() => {
-      btn.textContent = 'Copy to Clipboard';
-      btn.classList.remove('bg-[#16c79a]', 'text-black');
-    }, 2000);
-  });
-}
- 
-function downloadSkill() {
-  const content = document.getElementById('skillContent').textContent;
-  const blob = new Blob([content], { type: 'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'SKILL.md';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-</script>
-    
 </body>
 </html>
