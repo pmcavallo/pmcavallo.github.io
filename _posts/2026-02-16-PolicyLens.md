@@ -116,10 +116,4 @@ PolicyLens is not a chatbot that answers questions about regulations. It is a st
 
 The gap analysis between external requirements and internal policy coverage is the feature that distinguishes this from a regulatory search tool. It answers the question that matters most during AI deployment reviews: not "what does the regulation say?" but "where does our governance framework fall short of what the regulation requires?"
 
----
 
-**Repository:** [github.com/pmcavallo/PolicyLens](https://github.com/pmcavallo/PolicyLens)
-
-**Built with:** Python, ChromaDB, Claude API, Streamlit
-
-**Author:** Paulo Cavallo, PhD
