@@ -307,15 +307,5 @@ This project extends a body of work at the intersection of AI engineering and re
 | [CreditNLP](https://pmcavallo.github.io/creditnlp/) | Fine-tuned Mistral-7B for credit risk. Would be classified as high-risk under Annex III 5a by this scanner. |
 | [AI Under Audit Newsletter](https://pmcavallo.github.io/newsletter/) | Issue 008 ("The EU AI Act Already Applies to You") established the regulatory thesis. This tool makes it actionable. |
 
----
-
-## Links
-
-- **GitHub Repository:** [github.com/pmcavallo/eu-ai-act-scanner](https://github.com/pmcavallo/eu-ai-act-scanner)
-- **Newsletter (Issue 008):** The regulatory context behind this project
-- **Claude Code Agent Teams Documentation:** [code.claude.com/docs/en/agent-teams](https://code.claude.com/docs/en/agent-teams)
-
----
-
 *All scenarios use synthetic/simulated data. No real company names or proprietary information. This project is a portfolio demonstration of regulatory knowledge and AI engineering capabilities, not legal advice.*
 
