@@ -29,7 +29,8 @@ Four metric cards show total calls, violations blocked, interactions flagged, an
 
 The governance coverage score and maturity level badge connect enforcement data to the assessment engine: not just "what happened this week" but "how governed are we overall."
 
-![AuditHive Overview Dashboard](https://raw.githubusercontent.com/pmcavallo/AuditHive/main/Images/overview.png)
+![evalops](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/evalops_dashboard.png?raw=true) 
+![AuditHive Overview Dashboard](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/overview.png?raw=true) 
 
 ### Governance Assessment
 
@@ -39,7 +40,7 @@ The customer answers four onboarding questions: what their AI does, who uses it,
 
 The assessment page shows applicable regulations with reasons ("Your customers include Colorado residents"), each required control with covered or missing status, a governance maturity score based on the Four Questions framework (Purpose, Working, Failure, Accountability), and described-vs-established gaps where policy configuration doesn't match enforcement reality.
 
-![Governance Assessment](https://raw.githubusercontent.com/pmcavallo/AuditHive/main/Images/gov_assess.png)
+![Governance Assessment](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/gov_assess.png?raw=true) 
 
 ### Audit Trail
 
@@ -49,7 +50,7 @@ Status badges color-code instantly: green for completed, red for blocked, yellow
 
 The audit trail is the artifact a compliance officer needs for examination readiness. Not a summary. Not a dashboard metric. The complete record.
 
-![Audit Trail](https://raw.githubusercontent.com/pmcavallo/AuditHive/main/Images/audit_trail.png)
+![Audit Trail](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/audit_trail.png?raw=true) 
 
 ### Regulatory Timeline
 
@@ -59,7 +60,7 @@ The regulatory timeline page doesn't just list these deadlines. It tells each cu
 
 Each timeline entry includes: what changed, why it matters for this customer, what controls are missing, the deadline, and the fix.
 
-![Regulatory Timeline](https://raw.githubusercontent.com/pmcavallo/AuditHive/main/Images/reg_timeline.png)
+![Regulatory Timeline](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/reg_timeline.png?raw=true) 
 
 ---
 
