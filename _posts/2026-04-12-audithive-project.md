@@ -29,7 +29,6 @@ Four metric cards show total calls, violations blocked, interactions flagged, an
 
 The governance coverage score and maturity level badge connect enforcement data to the assessment engine: not just "what happened this week" but "how governed are we overall."
 
-![evalops](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/evalops_dashboard.png?raw=true) 
 ![AuditHive Overview Dashboard](https://github.com/pmcavallo/pmcavallo.github.io/blob/master/images/overview.png?raw=true) 
 
 ### Governance Assessment
