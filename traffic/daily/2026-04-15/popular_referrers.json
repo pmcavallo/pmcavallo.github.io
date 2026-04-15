@@ -1,5 +1,7 @@
-{
-  "message": "Bad credentials",
-  "documentation_url": "https://docs.github.com/rest",
-  "status": "401"
-}
+[
+  {
+    "referrer": "github.com",
+    "count": 9,
+    "uniques": 2
+  }
+]

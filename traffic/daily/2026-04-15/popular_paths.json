@@ -1,5 +1,62 @@
-{
-  "message": "Bad credentials",
-  "documentation_url": "https://docs.github.com/rest",
-  "status": "401"
-}
+[
+  {
+    "path": "/pmcavallo/pmcavallo.github.io",
+    "title": "Overview",
+    "count": 6,
+    "uniques": 2
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2026-04-12-audithive-project.md",
+    "title": "/blob/master/_posts/2026-04-12-audithive-project.md",
+    "count": 6,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/tree/master/_posts",
+    "title": "/tree/master/_posts",
+    "count": 4,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2025-12-31-evalops.md",
+    "title": "/blob/master/_posts/2025-12-31-evalops.md",
+    "count": 2,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2026-01-27-ProductionProof.md",
+    "title": "/blob/master/_posts/2026-01-27-ProductionProof.md",
+    "count": 2,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/edit/master/_posts/2026-04-12-audithive-project.md",
+    "title": "/edit/master/_posts/2026-04-12-audithive-project.md",
+    "count": 2,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/upload",
+    "title": "/upload",
+    "count": 2,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/blob/master/README.md",
+    "title": "/blob/master/README.md",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2026-03-23-MROps.md",
+    "title": "/blob/master/_posts/2026-03-23-MROps.md",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/new/master/_posts",
+    "title": "/new/master/_posts",
+    "count": 1,
+    "uniques": 1
+  }
+]
