@@ -3,8 +3,6 @@ layout: default
 title: "AuditHive: AI Governance Middleware"
 ---
 
-# AuditHive: AI Governance Middleware
-
 Mid-sized companies are deploying AI faster than they can govern it. A chatbot tells a customer the wrong refund policy. An AI-drafted email recommends an unsuitable investment. A document generator leaks confidential data. In each case, the company finds out after the damage is done, from Twitter, from a regulator, or from a lawsuit.
 
 Enterprise governance platforms exist (Credo AI, IBM watsonx.governance, Arthur AI), but they require six-figure contracts, months of implementation, and dedicated compliance teams. Open-source toolkits exist (Microsoft Agent Governance Toolkit, Guardrails AI), but they require engineers to deploy and configure. Policy template PDFs exist, but they sit in binders while the AI runs unsupervised.
