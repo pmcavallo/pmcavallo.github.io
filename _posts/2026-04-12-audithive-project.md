@@ -95,7 +95,7 @@ Customer Application
 │  │ Policy Engine│    │ (regulatory-     │  │
 │  │ (PII, inject,│    │  grounded)       │  │
 │  │  content,    │    └──────────────────┘  │
-│  │  scope)      │                          │
+│  │  scope, bias)│                          │
 │  └──────┬───────┘    ┌──────────────────┐  │
 │         │            │ Assessment Engine │  │
 │         ▼            │ (regulatory map, │  │
@@ -168,7 +168,7 @@ AuditHive ships with pre-built policy templates grounded in actual regulation, n
 | Document generation | Medium | CCPA/GDPR, NIST AI 600-1, ISO 42001, SR 11-7 |
 | Email automation | Medium | CAN-SPAM Act, FTC deceptive practices, California AI Transparency Act |
 
-Each template defines pre-call checks (PII detection, prompt injection blocking, content filtering, scope enforcement) and post-call evaluation, with configurable actions (block, flag, log) and thresholds. Customers apply a template and have governance active immediately, then customize as needed.
+Each template defines pre-call checks (PII detection, prompt injection blocking, content filtering, scope enforcement, bias detection) and post-call evaluation, with configurable actions (block, flag, log) and thresholds. Customers apply a template and have governance active immediately, then customize as needed.
 
 ---
 
@@ -203,7 +203,8 @@ AuditHive was built in 9 phases with comprehensive test coverage and zero regres
 | 7 | Proactive regulatory impact assessment, timeline, auto-alert on new regulations | 18 |
 | 8 | Security: AES-256-GCM encryption, Row-Level Security, GDPR data export/delete, AI opt-in | 18 |
 | 9 | Demo mode with pre-built data, GitHub Pages deployment | 0 (frontend) |
-| **Total** | **30+ API endpoints, 10 dashboard pages, 15 regulatory mappings, 7 regulatory updates** | **162** |
+| 10 | Bias detection: protected class, proxy variable, and stereotype detection in policy engine. Regulatory grounding: NIST AI RMF Manage 4.1, EU AI Act Art 10, FHFA AB 2022-02 | 20 |
+| Total | 30+ API endpoints, 10 dashboard pages, 15 regulatory mappings, 7 regulatory updates | 182 |
 
 Detailed phase completion summaries with design decisions, test matrices, and architecture notes are available in the [repository](https://github.com/pmcavallo/AuditHive) under `docs/phases/`.
 
