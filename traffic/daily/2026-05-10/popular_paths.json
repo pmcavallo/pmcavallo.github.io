@@ -1,0 +1,38 @@
+[
+  {
+    "path": "/pmcavallo/pmcavallo.github.io",
+    "title": "Overview",
+    "count": 3,
+    "uniques": 3
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2026-04-12-audithive-project.md",
+    "title": "/blob/master/_posts/2026-04-12-audithive-project.md",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/tree/master/_posts",
+    "title": "/tree/master/_posts",
+    "count": 2,
+    "uniques": 2
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/blob/master/copilot-builder/index.html",
+    "title": "/blob/master/copilot-builder/index.html",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/edit/master/_posts/2026-04-12-audithive-project.md",
+    "title": "/edit/master/_posts/2026-04-12-audithive-project.md",
+    "count": 1,
+    "uniques": 1
+  },
+  {
+    "path": "/pmcavallo/pmcavallo.github.io/tree/master/copilot-builder",
+    "title": "/tree/master/copilot-builder",
+    "count": 1,
+    "uniques": 1
+  }
+]
