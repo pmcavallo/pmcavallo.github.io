@@ -1,7 +1,7 @@
-### GitHub Weekly Traffic (2026-06-20 to 2026-06-26)
-- Views: **0** (avg **0.0/day**)  |  Uniques (sum of daily): **0**
-- Clones: **187** (avg **26.71/day**)  |  Uniques (sum of daily): **74**
+### GitHub Weekly Traffic (2026-06-27 to 2026-07-03)
+- Views: **1** (avg **0.14/day**)  |  Uniques (sum of daily): **1**
+- Clones: **46** (avg **6.57/day**)  |  Uniques (sum of daily): **24**
 **Top referrers**:
   - (no data)
 **Top paths**:
-  - (no data)
+  - `/pmcavallo/pmcavallo.github.io/issues` — 1 (uniq 1)
