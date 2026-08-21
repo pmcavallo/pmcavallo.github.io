@@ -1,7 +1,7 @@
-### GitHub Weekly Traffic (2026-08-08 to 2026-08-14)
-- Views: **0** (avg **0.0/day**)  |  Uniques (sum of daily): **0**
-- Clones: **31** (avg **4.43/day**)  |  Uniques (sum of daily): **17**
+### GitHub Weekly Traffic (2026-08-15 to 2026-08-21)
+- Views: **1** (avg **0.14/day**)  |  Uniques (sum of daily): **1**
+- Clones: **28** (avg **4.0/day**)  |  Uniques (sum of daily): **14**
 **Top referrers**:
-  - (no data)
+  - github.com — 1 (uniq 1)
 **Top paths**:
-  - (no data)
+  - `/pmcavallo/pmcavallo.github.io` — 1 (uniq 1)
