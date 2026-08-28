@@ -1,1 +1,1 @@
-Week 2026-08-15–2026-08-21: Views 1 (avg 0.14/day), Uniques 1; Clones 28 (avg 4.0/day), Uniques 14
+Week 2026-08-22–2026-08-28: Views 4 (avg 0.57/day), Uniques 2; Clones 18 (avg 2.57/day), Uniques 11
