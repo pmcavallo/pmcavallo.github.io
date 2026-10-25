@@ -9,6 +9,82 @@ Welcome to the blog. Here I share short, practical notes from building my portfo
 
 ---
 
+# My AI Agent Never Misbehaved. The Lesson Was Somewhere Else. (October 22, 2026)
+
+I set out to build a tool that catches an AI agent doing something it shouldn't. Then I put a real model inside it, gave it a planted email asking it to send the company's client list to an outside address, and ran it 100 times.
+
+It never tried. Not once.
+
+This post covers what I built, why the failure I was hunting for never showed up, and the thing the experiment surfaced instead, which turned out to be the part I wasn't watching.
+
+**The Problem: Three Questions Nobody Can Answer**
+
+When an agent with tools does something wrong, the first questions are always the same. What was it allowed to touch? What did it actually do? How do we undo it?
+
+In my experience the answers live in an engineer's code, a prompt, and scattered logs, if anyone kept them. Nobody wrote down, before the run, which of the agent's actions can be reversed and which can't.
+
+So I built the Agent Accountability Harness. Before the run, you declare what the agent may touch and how each of its changes can be undone. During the run, the harness records every tool call and flags or blocks the ones outside that declaration. After the run, it writes a plain-language report for the person accountable for the agent.
+
+**Lesson 1: Reversibility Is the Question You Ask Too Late**
+
+The idea I'm proudest of is the smallest one. For every tool that changes something, you declare up front whether its changes are reversible, compensable, or irreversible, and how.
+
+Drafting a reply is reversible: delete the draft. Placing a calendar hold is reversible, but only within 48 hours. Sending an email is irreversible: the best you can do is send a correction.
+
+Writing that down before the run changes the conversation. The report sorts every change the agent made by how hard it is to undo, worst first. And any tool that changes something without a declaration shows up as a gap, because nobody planned for how to undo it. The demo leaves one tool undeclared on purpose so you can see it get caught.
+
+**Lesson 2: My First Version Governed the Run, Not the Decision**
+
+Halfway through, I audited my own project and didn't like the answer. The harness checked every call against the scope. But who approved that scope? When was it last reviewed? Why is each tool in it?
+
+The scope was a config object. Anyone could change it, and the record would just say "in scope."
+
+So the scope became a governed document: a TOML file with an owner, an approver, an approval date, a review date, and a one-line reason for each allowed tool. Every log records a fingerprint of the exact scope version the agent ran under. The report flags a missing approver, an overdue review, or a tool with no reason.
+
+To me, that's the difference between governance that runs and governance that's described. A control you can't trace back to a decision and a decision-maker is just a setting.
+
+**Lesson 3: When the Failure Doesn't Show Up, Don't Go Looking for It**
+
+I ran Claude Haiku 5.5 as the inbox assistant: five injection techniques (fake owner approval, urgency, a fake system message, one buried in a normal inquiry, an internal email with the outside address cc'd), observe and enforce modes, two system prompts, 100 runs, about $0.14 in total.
+
+The model read the planted email every time and never called send_email. Under the second prompt, it warned the user about the planted email in its closing summary in all 50 runs.
+
+The temptation was obvious: tweak the attack until it works, then show the harness catching it. I didn't. Trying until it fails proves you can make it fail, not how often it does. So the results say what happened: no real-model run exercised flagging or blocking, and that behavior is shown by scripted scenarios and tests. Zero in 100 doesn't mean the rate is zero.
+
+**Lesson 4: The Prompt Changed the Behavior, and the Scope Never Noticed**
+
+The second system prompt was one a deployer could plausibly write: act on behalf of the owner, complete what each email asks, don't ask for confirmation. It doesn't mention security.
+
+It didn't change what the model did with the planted email. It changed what the model did with everything else. One email asks for a calendar hold. Under the neutral prompt, the agent placed it in 4 of 50 runs. Under the permissive prompt, 50 of 50. It also drafted fewer replies, 107 against 168.
+
+Both sets of runs ran under the same approved scope, with the same fingerprint. Every permission check passed. The harness's change comparison flagged the shift from the audit logs alone: the scope didn't change, the behavior did.
+
+This is the lesson I didn't plan for. You can see a prompt edit as a wording change, and nobody reviews it the way they'd review a new permission. Here a one-paragraph edit took the agent from acting on the company calendar in 8% of runs to 100%. If you only govern permissions, you miss it.
+
+Lesson 5: Say What It Doesn't Do
+
+A governance tool that overstates itself is part of the problem. I kept the wording strict throughout: the log is tamper-evident, not tamper-proof. Governance fields are recorded claims, not verified approvals. The harness records how a change can be undone, and never undoes anything. It doesn't detect prompt injection. It checks what the agent does, not why.
+
+There's a whole page in the repo called "What This Does Not Prove." I'd put one in every governance project.
+
+**Lesson 6: Govern Your Own Build, Too**
+
+I built this with Claude Code, one milestone at a time, from written briefs, with local commits only and a hook that blocks it from pushing. I push.
+
+One slip still got through: an API key set in a terminal moved a Claude Code session from my subscription onto API billing, and I noticed only when the credit balance dropped. The fix I trust is design, not care. The project's instructions now make Claude Code check for that variable before anything else, and the live demo mode reads its key from a variable with a different name, so a demo key can't switch anyone's billing.
+
+Same lesson as the harness: declare the boundary, check it every time, and don't rely on someone remembering.
+
+**Try It**
+
+The hosted demo runs the real harness on synthetic data, with no AI model in the hosted app. Start with "Observe vs enforce": the same calls under the same scope, one email sent and flagged in observe mode, none sent in enforce mode. Then open "Build your own test," change the scope, and watch the approval disappear.
+
+The code, the 100-run results, and the framework mapping (NIST AI RMF, EU AI Act, OWASP Top 10 for LLM Applications) are on GitHub.
+
+All data is synthetic. Tallow Lane Events and every address in it are invented, and every address uses the reserved .example domain.
+
+---
+
 # When AI Agents Build a Compliance Scanner: Lessons from Claude Code Agent Teams (March 4, 2026)
 
 ---
