@@ -11,7 +11,7 @@ A newsletter for practitioners building AI systems in regulated industries, wher
 
 Each issue covers real governance patterns, regulatory frameworks (SR 11-7, EU AI Act, NIST AI RMF), and hard-won lessons from 5+ years validating models in banking. No theory without practice. No hype without receipts.
 
-[Subscribe on LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7418690302250602497)
+[Subscribe on Substack](https://paulocavallo.substack.com/subscribe) (free) or [follow on LinkedIn](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7418690302250602497).
 
 ---
 
@@ -47,6 +47,10 @@ What's inside:
 - **Maturity radar chart** to visualize where gaps concentrate by layer
 
 [Download the Metrics Playbook (PDF)](/ai_governance_metrics_playbook.pdf)
+
+## Recent Issues
+
+Browse all issues on [Substack](https://paulocavallo.substack.com/archive) or [LinkedIn](https://www.linkedin.com/newsletters/exit-code-2-ai-under-audit-7418690302250602497/).
 
 ---
 
