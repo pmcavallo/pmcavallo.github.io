@@ -1,12 +1,79 @@
 {
   "repo": "pmcavallo.github.io",
-  "week_start": "2026-10-17",
-  "week_end": "2026-10-23",
-  "generated_at_utc": "2026-10-23T16:57:55Z",
-  "views_count": 0,
-  "views_uniques": 0,
-  "clones_count": 84,
-  "clones_uniques": 48,
-  "top_paths": [],
-  "top_referrers": []
+  "week_start": "2026-10-24",
+  "week_end": "2026-10-30",
+  "generated_at_utc": "2026-10-30T17:57:23Z",
+  "views_count": 21,
+  "views_uniques": 2,
+  "clones_count": 118,
+  "clones_uniques": 66,
+  "top_paths": [
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/blog.md",
+      "title": "/blob/master/blog.md",
+      "count": 4,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io",
+      "title": "Overview",
+      "count": 2,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_config.yml",
+      "title": "/blob/master/_config.yml",
+      "count": 2,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/newsletter.md",
+      "title": "/blob/master/newsletter.md",
+      "count": 2,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/tree/master/_posts",
+      "title": "/tree/master/_posts",
+      "count": 2,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_posts/2026-10-22-accountability-harness.md",
+      "title": "/blob/master/_posts/2026-10-22-accountability-harness.md",
+      "count": 1,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/about.md",
+      "title": "/blob/master/about.md",
+      "count": 1,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/edit/master/_config.yml",
+      "title": "/edit/master/_config.yml",
+      "count": 1,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/edit/master/about.md",
+      "title": "/edit/master/about.md",
+      "count": 1,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/edit/master/blog.md",
+      "title": "/edit/master/blog.md",
+      "count": 1,
+      "uniques": 1
+    }
+  ],
+  "top_referrers": [
+    {
+      "referrer": "github.com",
+      "count": 1,
+      "uniques": 1
+    }
+  ]
 }
