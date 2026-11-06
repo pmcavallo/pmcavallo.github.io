@@ -1,12 +1,12 @@
 {
   "repo": "pmcavallo.github.io",
-  "week_start": "2026-10-24",
-  "week_end": "2026-10-30",
-  "generated_at_utc": "2026-10-30T17:57:23Z",
-  "views_count": 21,
+  "week_start": "2026-10-31",
+  "week_end": "2026-11-06",
+  "generated_at_utc": "2026-11-06T19:16:13Z",
+  "views_count": 3,
   "views_uniques": 2,
-  "clones_count": 118,
-  "clones_uniques": 66,
+  "clones_count": 74,
+  "clones_uniques": 38,
   "top_paths": [
     {
       "path": "/pmcavallo/pmcavallo.github.io/blob/master/blog.md",
@@ -17,14 +17,14 @@
     {
       "path": "/pmcavallo/pmcavallo.github.io",
       "title": "Overview",
-      "count": 2,
-      "uniques": 1
+      "count": 3,
+      "uniques": 2
     },
     {
       "path": "/pmcavallo/pmcavallo.github.io/blob/master/_config.yml",
       "title": "/blob/master/_config.yml",
-      "count": 2,
-      "uniques": 1
+      "count": 3,
+      "uniques": 2
     },
     {
       "path": "/pmcavallo/pmcavallo.github.io/blob/master/newsletter.md",
@@ -51,6 +51,12 @@
       "uniques": 1
     },
     {
+      "path": "/pmcavallo/pmcavallo.github.io/commit/a1387d6f123761d5bf0f81ba319eb4f7ec2f948e",
+      "title": "/commit/a1387d6f123761d5bf0f81ba319eb4f7ec2f948e",
+      "count": 1,
+      "uniques": 1
+    },
+    {
       "path": "/pmcavallo/pmcavallo.github.io/edit/master/_config.yml",
       "title": "/edit/master/_config.yml",
       "count": 1,
@@ -61,19 +67,13 @@
       "title": "/edit/master/about.md",
       "count": 1,
       "uniques": 1
-    },
-    {
-      "path": "/pmcavallo/pmcavallo.github.io/edit/master/blog.md",
-      "title": "/edit/master/blog.md",
-      "count": 1,
-      "uniques": 1
     }
   ],
   "top_referrers": [
     {
       "referrer": "github.com",
-      "count": 1,
-      "uniques": 1
+      "count": 2,
+      "uniques": 2
     }
   ]
 }

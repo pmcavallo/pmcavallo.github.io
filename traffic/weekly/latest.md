@@ -1,11 +1,11 @@
-### GitHub Weekly Traffic (2026-10-24 to 2026-10-30)
-- Views: **21** (avg **3.0/day**)  |  Uniques (sum of daily): **2**
-- Clones: **118** (avg **16.86/day**)  |  Uniques (sum of daily): **66**
+### GitHub Weekly Traffic (2026-10-31 to 2026-11-06)
+- Views: **3** (avg **0.43/day**)  |  Uniques (sum of daily): **2**
+- Clones: **74** (avg **10.57/day**)  |  Uniques (sum of daily): **38**
 **Top referrers**:
-  - github.com — 1 (uniq 1)
+  - github.com — 2 (uniq 2)
 **Top paths**:
   - `/pmcavallo/pmcavallo.github.io/blob/master/blog.md` — 4 (uniq 1)
-  - `/pmcavallo/pmcavallo.github.io` — 2 (uniq 1)
-  - `/pmcavallo/pmcavallo.github.io/blob/master/_config.yml` — 2 (uniq 1)
+  - `/pmcavallo/pmcavallo.github.io` — 3 (uniq 2)
+  - `/pmcavallo/pmcavallo.github.io/blob/master/_config.yml` — 3 (uniq 2)
   - `/pmcavallo/pmcavallo.github.io/blob/master/newsletter.md` — 2 (uniq 1)
   - `/pmcavallo/pmcavallo.github.io/tree/master/_posts` — 2 (uniq 1)
