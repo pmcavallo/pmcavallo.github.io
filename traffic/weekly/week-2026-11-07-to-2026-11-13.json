@@ -1,0 +1,37 @@
+{
+  "repo": "pmcavallo.github.io",
+  "week_start": "2026-11-07",
+  "week_end": "2026-11-13",
+  "generated_at_utc": "2026-11-13T19:33:01Z",
+  "views_count": 2,
+  "views_uniques": 2,
+  "clones_count": 70,
+  "clones_uniques": 42,
+  "top_paths": [
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/blob/master/_config.yml",
+      "title": "/blob/master/_config.yml",
+      "count": 3,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io",
+      "title": "Overview",
+      "count": 1,
+      "uniques": 1
+    },
+    {
+      "path": "/pmcavallo/pmcavallo.github.io/commit/a1387d6f123761d5bf0f81ba319eb4f7ec2f948e",
+      "title": "/commit/a1387d6f123761d5bf0f81ba319eb4f7ec2f948e",
+      "count": 1,
+      "uniques": 1
+    }
+  ],
+  "top_referrers": [
+    {
+      "referrer": "github.com",
+      "count": 1,
+      "uniques": 1
+    }
+  ]
+}
