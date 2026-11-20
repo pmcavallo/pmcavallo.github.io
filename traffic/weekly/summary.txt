@@ -1,1 +1,1 @@
-Week 2026-11-07–2026-11-13: Views 2 (avg 0.29/day), Uniques 2; Clones 70 (avg 10.0/day), Uniques 42
+Week 2026-11-14–2026-11-20: Views 1 (avg 0.14/day), Uniques 1; Clones 79 (avg 11.29/day), Uniques 48
