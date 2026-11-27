@@ -1,17 +1,17 @@
 {
   "repo": "pmcavallo.github.io",
-  "week_start": "2026-11-14",
-  "week_end": "2026-11-20",
-  "generated_at_utc": "2026-11-20T19:59:32Z",
+  "week_start": "2026-11-21",
+  "week_end": "2026-11-27",
+  "generated_at_utc": "2026-11-27T21:04:39Z",
   "views_count": 1,
   "views_uniques": 1,
-  "clones_count": 79,
-  "clones_uniques": 48,
+  "clones_count": 58,
+  "clones_uniques": 43,
   "top_paths": [
     {
       "path": "/pmcavallo/pmcavallo.github.io/blob/master/_config.yml",
       "title": "/blob/master/_config.yml",
-      "count": 3,
+      "count": 2,
       "uniques": 1
     }
   ],
